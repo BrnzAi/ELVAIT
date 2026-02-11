@@ -1,0 +1,231 @@
+// Clarity Before Automation Kit - Database Schema
+// Version: 1.0.0
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "sqlite"
+  url      = env("DATABASE_URL")
+}
+
+// =============================================================================
+// ENUMS (represented as strings in SQLite)
+// =============================================================================
+
+// Kit Variants: QUICK_CHECK, CORE, FULL, PROCESS_STANDALONE
+// Roles: EXEC, BUSINESS_OWNER, TECH_OWNER, USER, PROCESS_OWNER
+// Recommendations: GO, CLARIFY, NO_GO
+// Flag Severities: INFO, WARN, CRITICAL
+// Answer Types: LIKERT, SINGLE_SELECT, MULTI_SELECT, TEXT
+
+// =============================================================================
+// DECISION CASE - Core entity for each assessment
+// =============================================================================
+
+model DecisionCase {
+  id                   String   @id @default(cuid())
+  
+  // Kit variant - immutable after first response
+  variant              String   // QUICK_CHECK | CORE | FULL | PROCESS_STANDALONE
+  status               String   @default("DRAFT") // DRAFT | ACTIVE | COMPLETED
+  
+  // Decision Context Fields
+  decisionTitle        String   // max 120 chars, immutable after first_response_at
+  investmentType       String   // AI solution | Software | External consultancy
+  decisionDescription  String   // max 500 chars
+  impactedAreas        String   // JSON array of areas
+  timeHorizon          String   // Immediate | 3-6 months | >6 months
+  estimatedInvestment  String?  // Optional: <€100k | €100k-€500k | €500k-€1m | >€1m
+  
+  // Framing Questions (D-CTX-1..4) - Required before surveys unlock
+  dCtx1                String?  // What decision are we actually trying to make?
+  dCtx2                String?  // What will be different if this decision succeeds?
+  dCtx3                String?  // What happens if we do nothing?
+  dCtx4                String?  // What would make this decision a mistake in hindsight?
+  
+  // Timestamps
+  createdAt            DateTime @default(now())
+  updatedAt            DateTime @updatedAt
+  firstResponseAt      DateTime? // Set when first participant submits - locks decisionTitle
+  completedAt          DateTime?
+  
+  // Creator
+  createdBy            String?
+  
+  // Relations
+  participants         Participant[]
+  responses            SurveyResponse[]
+  summary              CaseSummary?
+  
+  @@index([status])
+  @@index([createdAt])
+}
+
+// =============================================================================
+// PARTICIPANT - Survey takers linked to a case
+// =============================================================================
+
+model Participant {
+  id          String   @id @default(cuid())
+  caseId      String
+  case        DecisionCase @relation(fields: [caseId], references: [id], onDelete: Cascade)
+  
+  // Participant info
+  role        String   // EXEC | BUSINESS_OWNER | TECH_OWNER | USER | PROCESS_OWNER
+  email       String?
+  name        String?
+  token       String   @unique // Unique survey access token
+  
+  // Status
+  status      String   @default("INVITED") // INVITED | IN_PROGRESS | COMPLETED
+  invitedAt   DateTime @default(now())
+  startedAt   DateTime?
+  completedAt DateTime?
+  
+  // Relations
+  responses   SurveyResponse[]
+  
+  @@index([caseId])
+  @@index([token])
+  @@index([role])
+}
+
+// =============================================================================
+// SURVEY RESPONSE - Individual question answers
+// =============================================================================
+
+model SurveyResponse {
+  id            String   @id @default(cuid())
+  caseId        String
+  case          DecisionCase @relation(fields: [caseId], references: [id], onDelete: Cascade)
+  participantId String
+  participant   Participant @relation(fields: [participantId], references: [id], onDelete: Cascade)
+  
+  // Question reference
+  questionId    String   // e.g., E1, B3, T6, P9
+  
+  // Answer data
+  answerType    String   // LIKERT | SINGLE_SELECT | MULTI_SELECT | TEXT
+  rawValue      String   // 1-5 for Likert, option key for selects, text for open
+  
+  // Computed (for Likert)
+  adjustedValue Int?     // After reverse scoring: 6-raw if is_reverse
+  score0100     Int?     // (adjusted-1)*25
+  
+  // Timestamps
+  createdAt     DateTime @default(now())
+  updatedAt     DateTime @updatedAt
+  
+  @@unique([participantId, questionId])
+  @@index([caseId])
+  @@index([participantId])
+  @@index([questionId])
+}
+
+// =============================================================================
+// CASE SUMMARY - Computed results (1:1 with DecisionCase)
+// =============================================================================
+
+model CaseSummary {
+  id             String   @id @default(cuid())
+  caseId         String   @unique
+  case           DecisionCase @relation(fields: [caseId], references: [id], onDelete: Cascade)
+  
+  // Investment Clarity Score
+  ics            Float?   // null for PROCESS_STANDALONE
+  
+  // Recommendation (always rule-derived, never AI)
+  recommendation String?  // GO | CLARIFY | NO_GO | null
+  
+  // Dimension Scores (JSON objects)
+  dimScores      String   // JSON: { D1: number, D2: number, ... P: number }
+  roleDimScores  String   // JSON: { EXEC: { D1: number, ... }, BUSINESS_OWNER: { ... } }
+  
+  // Flags (sorted by severity)
+  flags          String   // JSON array of Flag objects
+  
+  // Gates triggered
+  gates          String   // JSON array of Gate objects
+  
+  // Top mismatches for quick reference
+  topMismatches  String   // JSON array
+  
+  // AI-generated content (bounded, based on flags/context only)
+  aiSummary      String?  // Board-ready narrative
+  
+  // Blind spots (top 5)
+  blindSpots     String   // JSON array
+  
+  // Checklist items
+  checklistItems String   // JSON array
+  
+  // Process readiness (Full kit only)
+  processScore   Float?
+  processReadiness String? // Automate | Improve first | Clarify ownership | Defer
+  
+  // Timestamps
+  generatedAt    DateTime @default(now())
+  updatedAt      DateTime @updatedAt
+  
+  @@index([recommendation])
+}
+
+// =============================================================================
+// DECISION PATTERN RECORD - Anonymized learning data (NO PII)
+// =============================================================================
+
+model DecisionPatternRecord {
+  id                    String   @id @default(cuid())
+  
+  // Anonymized case characteristics
+  kitVariant            String   // QUICK_CHECK | CORE | FULL | PROCESS_STANDALONE
+  investmentType        String   // AI solution | Software | External consultancy
+  
+  // Score buckets (not exact values)
+  icsBucket             String   // 0-55 | 55-75 | 75-100
+  
+  // Top flags (flag IDs only, no evidence details)
+  topFlags              String   // JSON array of top 3 flag_ids
+  
+  // Role mismatch signatures (patterns, not raw data)
+  roleMismatchSignatures String  // JSON: { "EXEC>TECH": true, gap_bucket: "30+" }
+  
+  // Final outcome
+  recommendation        String   // GO | CLARIFY | NO_GO
+  
+  // Timestamp (month-level granularity for anonymity)
+  recordedMonth         String   // YYYY-MM format
+  
+  createdAt             DateTime @default(now())
+  
+  // NO PII fields - no names, emails, raw text, or case IDs
+  @@index([kitVariant])
+  @@index([recommendation])
+  @@index([recordedMonth])
+}
+
+// =============================================================================
+// OPEN TEXT CLASSIFICATION - AI-classified open text (no raw text stored)
+// =============================================================================
+
+model OpenTextClassification {
+  id            String   @id @default(cuid())
+  caseId        String
+  participantId String
+  questionId    String   // TM-8 question ID
+  
+  // Classification (one of 7 categories)
+  category      String   // Known risk | Avoided topic | Role conflict | Cultural resistance | Technical uncertainty | Process instability | Data quality
+  
+  // Confidence score from AI
+  confidence    Float?
+  
+  createdAt     DateTime @default(now())
+  
+  // Note: Raw text is NOT stored here - only the classification
+  @@unique([participantId, questionId])
+  @@index([caseId])
+  @@index([category])
+}
