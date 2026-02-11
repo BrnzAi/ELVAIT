@@ -10,7 +10,10 @@ WORKDIR /app
 COPY --from=deps /app/node_modules ./node_modules
 COPY . .
 
+RUN mkdir -p public
+
 ENV NODE_ENV=production
+ENV NEXT_TELEMETRY_DISABLED=1
 RUN npm run build
 
 FROM node:20-alpine AS prod-deps
@@ -25,12 +28,14 @@ WORKDIR /app
 ENV NODE_ENV=production
 ENV PORT=3002
 ENV NEXT_TELEMETRY_DISABLED=1
-USER node
+
 COPY --from=prod-deps /app/node_modules ./node_modules
 COPY --from=builder /app/package.json ./package.json
 COPY --from=builder /app/public ./public
 COPY --from=builder /app/.next ./.next
 
+RUN chown -R node:node /app
+
+USER node
 EXPOSE 3002
 CMD ["npm", "start"]
-
