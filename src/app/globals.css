@@ -1,0 +1,126 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+:root {
+  --background: 250 250 250;
+  --foreground: 10 10 10;
+}
+
+@media (prefers-color-scheme: dark) {
+  :root {
+    --background: 10 10 10;
+    --foreground: 250 250 250;
+  }
+}
+
+html {
+  scroll-behavior: smooth;
+}
+
+body {
+  min-height: 100vh;
+  font-family: 'Inter', system-ui, sans-serif;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+/* Custom scrollbar */
+::-webkit-scrollbar {
+  width: 8px;
+  height: 8px;
+}
+
+::-webkit-scrollbar-track {
+  background: transparent;
+}
+
+::-webkit-scrollbar-thumb {
+  background: rgba(100, 100, 100, 0.3);
+  border-radius: 4px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: rgba(100, 100, 100, 0.5);
+}
+
+/* Score gauge animations */
+@keyframes score-fill {
+  from {
+    stroke-dashoffset: 283;
+  }
+}
+
+.score-gauge {
+  animation: score-fill 1.5s ease-out forwards;
+}
+
+/* Card hover effects */
+.card-hover {
+  @apply transition-all duration-300 hover:shadow-lg hover:-translate-y-1;
+}
+
+/* Glass effect */
+.glass {
+  @apply bg-white/80 dark:bg-gray-900/80 backdrop-blur-xl;
+}
+
+/* Outcome badges */
+.badge-go {
+  @apply bg-go/10 text-go border border-go/20;
+}
+
+.badge-fix {
+  @apply bg-fixfirst/10 text-fixfirst border border-fixfirst/20;
+}
+
+.badge-nogo {
+  @apply bg-nogo/10 text-nogo border border-nogo/20;
+}
+
+/* Progress bar */
+.progress-bar {
+  @apply h-2 bg-gray-200 dark:bg-gray-700 rounded-full overflow-hidden;
+}
+
+.progress-fill {
+  @apply h-full rounded-full transition-all duration-500 ease-out;
+}
+
+/* Survey form styles */
+.survey-option {
+  @apply p-4 border-2 border-gray-200 dark:border-gray-700 rounded-lg cursor-pointer
+         transition-all duration-200 hover:border-clarity-400 hover:bg-clarity-50/50
+         dark:hover:bg-clarity-900/30;
+}
+
+.survey-option.selected {
+  @apply border-clarity-500 bg-clarity-50 dark:bg-clarity-900/50;
+}
+
+/* Scale selector */
+.scale-option {
+  @apply w-12 h-12 rounded-full border-2 border-gray-300 dark:border-gray-600
+         flex items-center justify-center cursor-pointer transition-all duration-200
+         hover:border-clarity-400 hover:bg-clarity-50/50;
+}
+
+.scale-option.selected {
+  @apply border-clarity-500 bg-clarity-500 text-white;
+}
+
+/* Animations */
+.animate-in {
+  animation: slideUp 0.5s ease-out;
+}
+
+@keyframes slideUp {
+  from {
+    opacity: 0;
+    transform: translateY(20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
