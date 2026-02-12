@@ -1,351 +1,812 @@
 'use client';
 
+import { useState } from 'react';
 import Link from 'next/link';
-import { ArrowLeft, CheckCircle, AlertTriangle, Download, Share2 } from 'lucide-react';
+import { 
+  ArrowLeft, ArrowRight, CheckCircle, AlertTriangle, XCircle, 
+  Brain, Users, BarChart3, FileText, Zap, Target, TrendingUp,
+  Shield, Briefcase, Settings, ChevronRight, Play, Eye
+} from 'lucide-react';
+import { Button } from '@/components/ui/button';
 
-// Sample demo data - showing a "FIX FIRST" result
-const demoData = {
-  assessment: {
-    name: 'Order Processing Automation',
-    description: 'Evaluation of automating the order-to-fulfillment process',
-    createdAt: '2026-02-08',
-    completedAt: '2026-02-09',
+// =============================================================================
+// DEMO SCENARIOS DATA
+// =============================================================================
+
+interface DemoScenario {
+  id: string;
+  name: string;
+  description: string;
+  variant: string;
+  recommendation: 'GO' | 'CLARIFY' | 'NO_GO' | null;
+  ics: number | null;
+  context: {
+    title: string;
+    description: string;
+    dCtx1: string;
+    dCtx2: string;
+    dCtx3: string;
+    dCtx4: string;
+  };
+  dimensions: Record<string, number>;
+  flags: { id: string; severity: 'CRITICAL' | 'WARN' | 'INFO'; description: string }[];
+  gates: { gate: string; action: string; reason: string }[];
+  blindSpots: { label: string; explanation: string; severity: string }[];
+  checklistItems: string[];
+  participants: { role: string; name: string; status: string }[];
+}
+
+const DEMO_SCENARIOS: DemoScenario[] = [
+  {
+    id: 'go-perfect',
+    name: '🟢 Perfect GO',
+    description: 'Full alignment, high clarity, ready to proceed',
+    variant: 'CORE',
+    recommendation: 'GO',
+    ics: 87,
+    context: {
+      title: 'Customer Service AI Automation',
+      description: 'Implement AI-powered chatbot for tier-1 customer support inquiries',
+      dCtx1: 'Whether to invest €200k in AI chatbot for customer service',
+      dCtx2: '40% reduction in tier-1 support tickets, faster response times',
+      dCtx3: 'Continue manual handling, increasing costs by 15% annually',
+      dCtx4: 'If customers reject AI interactions or accuracy is below 85%',
+    },
+    dimensions: { D1: 92, D2: 88, D3: 82, D4: 85, D5: 90 },
+    flags: [],
+    gates: [],
+    blindSpots: [],
+    checklistItems: [],
+    participants: [
+      { role: 'Executive', name: 'Sarah Chen (CEO)', status: 'COMPLETED' },
+      { role: 'Business Owner', name: 'Michael Park', status: 'COMPLETED' },
+      { role: 'Technical Owner', name: 'Emily Rodriguez', status: 'COMPLETED' },
+    ]
   },
-  score: 62,
-  outcome: 'fix_first',
-  dimensionScores: {
-    processClarity: 68,
-    outcomeClarity: 45,
-    stakeholderAlignment: 72,
-    dataReadiness: 55,
-    technicalFeasibility: 82,
-    changeReadiness: 65,
-  },
-  contradictions: [
-    {
-      type: 'goal_mismatch',
-      severity: 'critical',
-      title: 'Success Definition Gap',
-      executive: 'Reduce processing time by 50%',
-      user: 'Eliminate manual data entry',
-      insight: 'These may not be the same goal — time reduction vs. effort reduction',
+  {
+    id: 'clarify-midrange',
+    name: '🟡 CLARIFY - Mid-range',
+    description: 'Partial clarity, needs alignment before proceeding',
+    variant: 'CORE',
+    recommendation: 'CLARIFY',
+    ics: 68,
+    context: {
+      title: 'Marketing Automation Platform',
+      description: 'Implement marketing automation for lead nurturing and campaign management',
+      dCtx1: 'Whether to invest in HubSpot Marketing Hub Enterprise',
+      dCtx2: '30% increase in qualified leads, better attribution',
+      dCtx3: 'Manual email campaigns continue, inconsistent follow-up',
+      dCtx4: 'Low adoption by marketing team, poor CRM integration',
     },
-    {
-      type: 'process_disagreement',
-      severity: 'high',
-      title: 'Process Complexity Mismatch',
-      executive: '5 main steps',
-      user: '12 steps plus workarounds for exceptions',
-      insight: 'True process may be significantly more complex than documented',
-    },
-    {
-      type: 'timeline_conflict',
-      severity: 'medium',
-      title: 'Timeline Expectation Gap',
-      executive: 'Live by Q2',
-      user: '6-9 months minimum for integration',
-      insight: 'Alignment needed on realistic delivery timeline',
-    },
-  ],
-  risks: [
-    {
-      category: 'process',
-      likelihood: 'high',
-      impact: 'high',
-      description: 'Undocumented exceptions may cause scope creep',
-      mitigation: 'Process mapping workshop with end users before proceeding',
-    },
-    {
-      category: 'people',
-      likelihood: 'medium',
-      impact: 'high',
-      description: 'Misaligned success metrics may cause stakeholder disappointment',
-      mitigation: 'Alignment session to agree on measurable outcomes',
-    },
-  ],
-  recommendations: {
-    summary: 'Address 3 critical gaps before proceeding with automation',
-    actions: [
-      'Conduct stakeholder alignment workshop to agree on success definition',
-      'Map the actual process including all workarounds and exceptions',
-      'Reconcile timeline expectations between executive and technical teams',
-      'Define clear, measurable KPIs that all parties agree on',
+    dimensions: { D1: 72, D2: 65, D3: 58, D4: 70, D5: 75 },
+    flags: [
+      { id: 'PROOF_GAP', severity: 'WARN', description: 'Value claims lack documented evidence' }
     ],
-    automationApproach: 'Re-assess after gaps are addressed. Process complexity suggests workflow automation over simple RPA.',
+    gates: [],
+    blindSpots: [
+      { label: 'Unvalidated ROI assumptions', explanation: 'Business case relies on assumptions without pilot data', severity: 'WARN' }
+    ],
+    checklistItems: [
+      'Conduct pilot program to validate ROI assumptions',
+      'Document current lead conversion metrics as baseline',
+      'Align on success KPIs with all stakeholders'
+    ],
+    participants: [
+      { role: 'Executive', name: 'James Wilson (CMO)', status: 'COMPLETED' },
+      { role: 'Business Owner', name: 'Anna Lee', status: 'COMPLETED' },
+      { role: 'Technical Owner', name: 'David Kim', status: 'COMPLETED' },
+    ]
   },
-  participants: [
-    { role: 'Executive Sponsor', status: 'completed', completedAt: '2026-02-08 14:30' },
-    { role: 'Business Owner', status: 'completed', completedAt: '2026-02-08 15:45' },
-    { role: 'Technical Owner', status: 'completed', completedAt: '2026-02-09 09:15' },
-    { role: 'End User (x3)', status: 'completed', completedAt: '2026-02-09 10:00' },
-  ],
+  {
+    id: 'clarify-gate-g1',
+    name: '🟡 CLARIFY - Gate G1',
+    description: 'High ICS but one dimension below threshold',
+    variant: 'CORE',
+    recommendation: 'CLARIFY',
+    ics: 79,
+    context: {
+      title: 'Data Lake Implementation',
+      description: 'Build centralized data lake on AWS for enterprise analytics',
+      dCtx1: 'Whether to build a cloud data lake on AWS',
+      dCtx2: 'Single source of truth, 10x faster insights',
+      dCtx3: 'Continued data silos, slow reporting, duplicate efforts',
+      dCtx4: 'Data quality issues, security concerns, low adoption',
+    },
+    dimensions: { D1: 90, D2: 85, D3: 45, D4: 82, D5: 88 },
+    flags: [],
+    gates: [
+      { gate: 'G1', action: 'CLARIFY', reason: 'D3 (Organizational Readiness) below 50' }
+    ],
+    blindSpots: [
+      { label: 'Team capacity concerns', explanation: 'Organization may lack bandwidth to support initiative', severity: 'CRITICAL' }
+    ],
+    checklistItems: [
+      'Assess team capacity and identify resource gaps',
+      'Define change management plan',
+      'Establish data governance framework before proceeding'
+    ],
+    participants: [
+      { role: 'Executive', name: 'Robert Taylor (CDO)', status: 'COMPLETED' },
+      { role: 'Business Owner', name: 'Jennifer Brown', status: 'COMPLETED' },
+      { role: 'Technical Owner', name: 'Chris Martinez', status: 'COMPLETED' },
+    ]
+  },
+  {
+    id: 'nogo-ownership',
+    name: '🔴 NO_GO - Ownership Crisis',
+    description: 'Critical ownership diffusion - no clear accountability',
+    variant: 'CORE',
+    recommendation: 'NO_GO',
+    ics: 72,
+    context: {
+      title: 'ERP System Modernization',
+      description: 'Replace legacy SAP R/3 with S/4HANA Cloud',
+      dCtx1: 'Whether to migrate from SAP R/3 to S/4HANA Cloud',
+      dCtx2: 'Unified data model, real-time reporting, mobile access',
+      dCtx3: 'Increasing maintenance costs, end of support in 2027',
+      dCtx4: 'Data migration failures, user adoption resistance, budget overrun',
+    },
+    dimensions: { D1: 78, D2: 75, D3: 68, D4: 70, D5: 72 },
+    flags: [
+      { id: 'OWNERSHIP_DIFFUSION', severity: 'CRITICAL', description: 'Three different owners identified across roles - no clear accountability' }
+    ],
+    gates: [
+      { gate: 'G4', action: 'CLARIFY', reason: 'Ownership diffusion detected' }
+    ],
+    blindSpots: [
+      { label: 'Accountability vacuum', explanation: 'Exec says "Executive sponsor", Business says "Business unit leader", Tech says "Not clearly defined"', severity: 'CRITICAL' }
+    ],
+    checklistItems: [
+      'Establish single accountable owner with decision authority',
+      'Define RACI matrix for all key decisions',
+      'Get executive sign-off on ownership structure'
+    ],
+    participants: [
+      { role: 'Executive', name: 'Mark Johnson (CFO)', status: 'COMPLETED' },
+      { role: 'Business Owner', name: 'Lisa Wang', status: 'COMPLETED' },
+      { role: 'Technical Owner', name: 'Tom Anderson', status: 'COMPLETED' },
+    ]
+  },
+  {
+    id: 'nogo-overconfidence',
+    name: '🔴 NO_GO - Overconfidence',
+    description: 'High claims with zero evidence - narrative inflation',
+    variant: 'CORE',
+    recommendation: 'NO_GO',
+    ics: 74,
+    context: {
+      title: 'AI Sales Forecasting',
+      description: 'ML-based sales prediction system for revenue planning',
+      dCtx1: 'Whether to implement AI sales forecasting',
+      dCtx2: '20% improvement in forecast accuracy',
+      dCtx3: 'Continue with spreadsheet-based forecasts',
+      dCtx4: 'If historical data quality is poor or sales patterns unpredictable',
+    },
+    dimensions: { D1: 80, D2: 78, D3: 70, D4: 68, D5: 75 },
+    flags: [
+      { id: 'NARRATIVE_INFLATION_RISK', severity: 'CRITICAL', description: 'High confidence claim (5/5) + Assumptions only + No consequence ownership' },
+      { id: 'OVERCONFIDENCE', severity: 'CRITICAL', description: 'Confidence score 5/5 but evidence score 1/5 (no documentation)' }
+    ],
+    gates: [],
+    blindSpots: [
+      { label: 'Unsubstantiated ROI claims', explanation: 'Business Owner claims 20% accuracy improvement with no pilot data', severity: 'CRITICAL' },
+      { label: 'No failure contingency', explanation: 'If forecast fails, response is "continue anyway" with no defined fallback', severity: 'CRITICAL' }
+    ],
+    checklistItems: [
+      'Conduct pilot with measured baseline accuracy',
+      'Document evidence for ROI claims',
+      'Define clear failure criteria and contingency plan',
+      'Assign consequence owner for forecast accuracy'
+    ],
+    participants: [
+      { role: 'Executive', name: 'Patricia Davis (CRO)', status: 'COMPLETED' },
+      { role: 'Business Owner', name: 'Kevin Zhang', status: 'COMPLETED' },
+      { role: 'Technical Owner', name: 'Rachel Green', status: 'COMPLETED' },
+    ]
+  },
+  {
+    id: 'nogo-capacity',
+    name: '🔴 NO_GO - Capacity Illusion',
+    description: 'Both Business and Tech deny any trade-offs needed',
+    variant: 'CORE',
+    recommendation: 'NO_GO',
+    ics: 76,
+    context: {
+      title: 'Digital Twin Factory',
+      description: 'Implement digital twin for manufacturing optimization',
+      dCtx1: 'Whether to build digital twin of production line',
+      dCtx2: '15% increase in OEE, predictive maintenance capability',
+      dCtx3: 'Continue reactive maintenance, higher downtime',
+      dCtx4: 'If IoT data integration fails or model accuracy is low',
+    },
+    dimensions: { D1: 82, D2: 78, D3: 72, D4: 75, D5: 78 },
+    flags: [
+      { id: 'CAPACITY_ILLUSION_CONFIRMED', severity: 'CRITICAL', description: 'Both Business and Tech claim nothing will be deprioritized - unrealistic capacity assumption' }
+    ],
+    gates: [],
+    blindSpots: [
+      { label: 'Denial of trade-offs', explanation: 'Business: "Nothing will be deprioritized" + Tech: "Nothing critical will be impacted" — impossible unless both are underestimating effort', severity: 'CRITICAL' }
+    ],
+    checklistItems: [
+      'Conduct capacity assessment with realistic effort estimates',
+      'Identify what will be deprioritized or delayed',
+      'Get explicit commitment on resource allocation',
+      'Define escalation path for capacity conflicts'
+    ],
+    participants: [
+      { role: 'Executive', name: 'William Chen (COO)', status: 'COMPLETED' },
+      { role: 'Business Owner', name: 'Sandra Miller', status: 'COMPLETED' },
+      { role: 'Technical Owner', name: 'John Smith', status: 'COMPLETED' },
+    ]
+  },
+];
+
+// =============================================================================
+// COMPONENTS
+// =============================================================================
+
+const DIMENSION_CONFIG: Record<string, { label: string; icon: typeof Target }> = {
+  D1: { label: 'Strategic Intent', icon: Target },
+  D2: { label: 'Value & Economics', icon: TrendingUp },
+  D3: { label: 'Organizational Readiness', icon: Users },
+  D4: { label: 'Risk & Dependencies', icon: Shield },
+  D5: { label: 'Decision Governance', icon: Briefcase },
+  P: { label: 'Process Readiness', icon: Settings },
 };
 
-const dimensionLabels: Record<string, string> = {
-  processClarity: 'Process Clarity',
-  outcomeClarity: 'Outcome Clarity',
-  stakeholderAlignment: 'Stakeholder Alignment',
-  dataReadiness: 'Data Readiness',
-  technicalFeasibility: 'Technical Feasibility',
-  changeReadiness: 'Change Readiness',
-};
-
-function ScoreGauge({ score }: { score: number }) {
-  const circumference = 2 * Math.PI * 45;
-  const offset = circumference - (score / 100) * circumference;
-  
-  let color = 'text-go';
-  if (score < 80) color = 'text-fixfirst';
-  if (score < 40) color = 'text-nogo';
+function ICSGauge({ score }: { score: number }) {
+  const getColor = () => {
+    if (score >= 75) return 'text-green-500';
+    if (score >= 55) return 'text-amber-500';
+    return 'text-red-500';
+  };
 
   return (
-    <div className="relative w-40 h-40">
-      <svg className="w-full h-full transform -rotate-90">
+    <div className="relative w-48 h-48">
+      <svg className="w-full h-full transform -rotate-90" viewBox="0 0 100 100">
         <circle
-          cx="80"
-          cy="80"
-          r="45"
-          stroke="currentColor"
-          strokeWidth="10"
+          cx="50" cy="50" r="40"
           fill="none"
+          stroke="currentColor"
+          strokeWidth="8"
           className="text-gray-200 dark:text-gray-700"
         />
         <circle
-          cx="80"
-          cy="80"
-          r="45"
-          stroke="currentColor"
-          strokeWidth="10"
+          cx="50" cy="50" r="40"
           fill="none"
-          strokeDasharray={circumference}
-          strokeDashoffset={offset}
+          stroke="currentColor"
+          strokeWidth="8"
+          strokeDasharray={`${(score / 100) * 251.2} 251.2`}
           strokeLinecap="round"
-          className={`${color} transition-all duration-1000 ease-out`}
+          className={`${getColor()} transition-all duration-1000`}
         />
       </svg>
-      <div className="absolute inset-0 flex items-center justify-center">
-        <span className="text-4xl font-bold">{score}</span>
+      <div className="absolute inset-0 flex flex-col items-center justify-center">
+        <span className={`text-5xl font-bold ${getColor()}`}>{score}</span>
+        <span className="text-sm text-gray-500">ICS Score</span>
       </div>
     </div>
   );
 }
 
-function DimensionBar({ label, score }: { label: string; score: number }) {
-  let color = 'bg-go';
-  if (score < 80) color = 'bg-fixfirst';
-  if (score < 60) color = 'bg-amber-400';
-  if (score < 40) color = 'bg-nogo';
-
+function RecommendationBadge({ recommendation }: { recommendation: 'GO' | 'CLARIFY' | 'NO_GO' | null }) {
+  if (recommendation === 'GO') {
+    return (
+      <div className="flex items-center gap-3 p-4 bg-green-50 dark:bg-green-900/20 rounded-xl border-2 border-green-200 dark:border-green-800">
+        <div className="w-12 h-12 bg-green-500 rounded-full flex items-center justify-center">
+          <CheckCircle className="w-7 h-7 text-white" />
+        </div>
+        <div>
+          <h3 className="text-xl font-bold text-green-700 dark:text-green-400">GO</h3>
+          <p className="text-sm text-green-600">Ready to Proceed</p>
+        </div>
+      </div>
+    );
+  }
+  if (recommendation === 'CLARIFY') {
+    return (
+      <div className="flex items-center gap-3 p-4 bg-amber-50 dark:bg-amber-900/20 rounded-xl border-2 border-amber-200 dark:border-amber-800">
+        <div className="w-12 h-12 bg-amber-500 rounded-full flex items-center justify-center">
+          <AlertTriangle className="w-7 h-7 text-white" />
+        </div>
+        <div>
+          <h3 className="text-xl font-bold text-amber-700 dark:text-amber-400">CLARIFY</h3>
+          <p className="text-sm text-amber-600">Action Required</p>
+        </div>
+      </div>
+    );
+  }
   return (
-    <div className="space-y-2">
-      <div className="flex justify-between text-sm">
-        <span>{label}</span>
-        <span className="font-medium">{score}%</span>
+    <div className="flex items-center gap-3 p-4 bg-red-50 dark:bg-red-900/20 rounded-xl border-2 border-red-200 dark:border-red-800">
+      <div className="w-12 h-12 bg-red-500 rounded-full flex items-center justify-center">
+        <XCircle className="w-7 h-7 text-white" />
       </div>
-      <div className="progress-bar">
-        <div 
-          className={`progress-fill ${color}`}
-          style={{ width: `${score}%` }}
-        />
+      <div>
+        <h3 className="text-xl font-bold text-red-700 dark:text-red-400">NO-GO</h3>
+        <p className="text-sm text-red-600">Do Not Proceed</p>
       </div>
     </div>
   );
 }
+
+function StepIndicator({ currentStep, totalSteps }: { currentStep: number; totalSteps: number }) {
+  return (
+    <div className="flex items-center justify-center gap-2 mb-8">
+      {Array.from({ length: totalSteps }).map((_, i) => (
+        <div
+          key={i}
+          className={`h-2 rounded-full transition-all ${
+            i === currentStep ? 'w-8 bg-clarity-600' : 
+            i < currentStep ? 'w-2 bg-clarity-400' : 'w-2 bg-gray-300 dark:bg-gray-700'
+          }`}
+        />
+      ))}
+    </div>
+  );
+}
+
+// =============================================================================
+// MAIN COMPONENT
+// =============================================================================
 
 export default function DemoPage() {
-  return (
-    <div className="min-h-screen bg-gray-50 dark:bg-gray-950">
-      {/* Header */}
-      <header className="bg-white dark:bg-gray-900 border-b border-gray-200 dark:border-gray-800 sticky top-0 z-10">
-        <div className="max-w-7xl mx-auto px-6 py-4 flex items-center justify-between">
-          <div className="flex items-center gap-4">
-            <Link href="/mvp" className="p-2 hover:bg-gray-100 dark:hover:bg-gray-800 rounded-lg">
+  const [step, setStep] = useState(0);
+  const [selectedScenario, setSelectedScenario] = useState<DemoScenario | null>(null);
+
+  const totalSteps = 5;
+
+  // Step 0: Intro
+  if (step === 0) {
+    return (
+      <div className="min-h-screen bg-gray-50 dark:bg-gray-950">
+        <header className="bg-white dark:bg-gray-900 border-b border-gray-200 dark:border-gray-800">
+          <div className="max-w-4xl mx-auto px-6 py-4 flex items-center justify-between">
+            <Link href="/" className="flex items-center gap-2 text-gray-600 hover:text-gray-900">
               <ArrowLeft className="w-5 h-5" />
+              Back
             </Link>
-            <div>
-              <h1 className="font-bold text-lg">{demoData.assessment.name}</h1>
-              <p className="text-sm text-gray-500">Demo Results</p>
+            <div className="flex items-center gap-2">
+              <Brain className="w-6 h-6 text-clarity-600" />
+              <span className="font-semibold">Interactive Demo</span>
             </div>
+            <div />
           </div>
-          <div className="flex items-center gap-3">
-            <button className="flex items-center gap-2 px-4 py-2 text-gray-600 hover:bg-gray-100 dark:hover:bg-gray-800 rounded-lg">
-              <Share2 className="w-4 h-4" />
-              Share
-            </button>
-            <button className="flex items-center gap-2 px-4 py-2 bg-clarity-600 text-white rounded-lg hover:bg-clarity-700">
-              <Download className="w-4 h-4" />
-              Export PDF
-            </button>
-          </div>
-        </div>
-      </header>
+        </header>
 
-      <main className="max-w-7xl mx-auto px-6 py-8">
-        {/* Score Overview */}
-        <div className="bg-white dark:bg-gray-900 rounded-2xl p-8 shadow-sm border border-gray-200 dark:border-gray-800 mb-8">
-          <div className="flex flex-col md:flex-row items-center gap-8">
-            <ScoreGauge score={demoData.score} />
-            
-            <div className="flex-1 text-center md:text-left">
-              <div className="inline-flex items-center gap-2 px-4 py-2 bg-fixfirst/10 text-fixfirst rounded-full text-lg font-semibold mb-4">
-                <AlertTriangle className="w-5 h-5" />
-                🟡 FIX FIRST
-              </div>
-              <p className="text-xl text-gray-600 dark:text-gray-400">
-                {demoData.recommendations.summary}
-              </p>
+        <main className="max-w-4xl mx-auto px-6 py-16">
+          <div className="text-center mb-12">
+            <div className="inline-flex items-center gap-2 px-4 py-2 bg-clarity-100 dark:bg-clarity-900/30 rounded-full text-clarity-700 dark:text-clarity-300 mb-6">
+              <Play className="w-4 h-4" />
+              Demo Mode
             </div>
-
-            <div className="text-center md:text-right text-sm text-gray-500">
-              <p>Completed: {demoData.assessment.completedAt}</p>
-              <p>{demoData.participants.length} participants</p>
-            </div>
-          </div>
-        </div>
-
-        <div className="grid lg:grid-cols-3 gap-8">
-          {/* Left Column - Dimensions & Contradictions */}
-          <div className="lg:col-span-2 space-y-8">
-            {/* Dimension Scores */}
-            <div className="bg-white dark:bg-gray-900 rounded-2xl p-6 shadow-sm border border-gray-200 dark:border-gray-800">
-              <h2 className="text-xl font-bold mb-6">Clarity Dimensions</h2>
-              <div className="space-y-5">
-                {Object.entries(demoData.dimensionScores).map(([key, score]) => (
-                  <DimensionBar 
-                    key={key} 
-                    label={dimensionLabels[key]} 
-                    score={score} 
-                  />
-                ))}
-              </div>
-            </div>
-
-            {/* Contradictions */}
-            <div className="bg-white dark:bg-gray-900 rounded-2xl p-6 shadow-sm border border-gray-200 dark:border-gray-800">
-              <h2 className="text-xl font-bold mb-6">
-                ⚠️ {demoData.contradictions.length} Contradictions Detected
-              </h2>
-              <div className="space-y-6">
-                {demoData.contradictions.map((c, i) => (
-                  <div 
-                    key={i} 
-                    className={`p-4 rounded-xl border-2 ${
-                      c.severity === 'critical' ? 'border-nogo/30 bg-nogo/5' :
-                      c.severity === 'high' ? 'border-fixfirst/30 bg-fixfirst/5' :
-                      'border-gray-200 dark:border-gray-700 bg-gray-50 dark:bg-gray-800/50'
-                    }`}
-                  >
-                    <div className="flex items-center gap-2 mb-3">
-                      <span className={`px-2 py-0.5 rounded text-xs font-medium uppercase ${
-                        c.severity === 'critical' ? 'bg-nogo/20 text-nogo' :
-                        c.severity === 'high' ? 'bg-fixfirst/20 text-fixfirst' :
-                        'bg-gray-200 dark:bg-gray-700 text-gray-600 dark:text-gray-400'
-                      }`}>
-                        {c.severity}
-                      </span>
-                      <h3 className="font-semibold">{c.title}</h3>
-                    </div>
-                    <div className="grid md:grid-cols-2 gap-4 mb-3 text-sm">
-                      <div className="p-3 bg-white dark:bg-gray-800 rounded-lg">
-                        <span className="text-gray-500 text-xs">Executive says:</span>
-                        <p className="font-medium">"{c.executive}"</p>
-                      </div>
-                      <div className="p-3 bg-white dark:bg-gray-800 rounded-lg">
-                        <span className="text-gray-500 text-xs">Users say:</span>
-                        <p className="font-medium">"{c.user}"</p>
-                      </div>
-                    </div>
-                    <p className="text-sm text-gray-600 dark:text-gray-400">
-                      → {c.insight}
-                    </p>
-                  </div>
-                ))}
-              </div>
-            </div>
-
-            {/* Risks */}
-            <div className="bg-white dark:bg-gray-900 rounded-2xl p-6 shadow-sm border border-gray-200 dark:border-gray-800">
-              <h2 className="text-xl font-bold mb-6">Risk Register</h2>
-              <div className="space-y-4">
-                {demoData.risks.map((risk, i) => (
-                  <div key={i} className="p-4 bg-gray-50 dark:bg-gray-800 rounded-xl">
-                    <div className="flex items-center gap-3 mb-2">
-                      <span className={`px-2 py-0.5 rounded text-xs font-medium ${
-                        risk.likelihood === 'high' ? 'bg-red-100 text-red-700' :
-                        'bg-amber-100 text-amber-700'
-                      }`}>
-                        {risk.likelihood} likelihood
-                      </span>
-                      <span className={`px-2 py-0.5 rounded text-xs font-medium ${
-                        risk.impact === 'high' ? 'bg-red-100 text-red-700' :
-                        'bg-amber-100 text-amber-700'
-                      }`}>
-                        {risk.impact} impact
-                      </span>
-                    </div>
-                    <p className="font-medium mb-2">{risk.description}</p>
-                    <p className="text-sm text-gray-600 dark:text-gray-400">
-                      <strong>Mitigation:</strong> {risk.mitigation}
-                    </p>
-                  </div>
-                ))}
-              </div>
-            </div>
+            <h1 className="text-4xl font-bold mb-4">See How Clarity Kit Works</h1>
+            <p className="text-xl text-gray-600 dark:text-gray-400 max-w-2xl mx-auto">
+              Walk through the assessment process and see how different scenarios lead to GO, CLARIFY, or NO-GO recommendations.
+            </p>
           </div>
 
-          {/* Right Column - Actions & Participants */}
-          <div className="space-y-8">
-            {/* Recommended Actions */}
-            <div className="bg-white dark:bg-gray-900 rounded-2xl p-6 shadow-sm border border-gray-200 dark:border-gray-800">
-              <h2 className="text-xl font-bold mb-6">Recommended Actions</h2>
-              <div className="space-y-3">
-                {demoData.recommendations.actions.map((action, i) => (
-                  <div key={i} className="flex items-start gap-3 p-3 bg-clarity-50 dark:bg-clarity-900/30 rounded-lg">
-                    <div className="w-6 h-6 rounded-full bg-clarity-500 text-white flex items-center justify-center text-sm font-medium flex-shrink-0">
-                      {i + 1}
-                    </div>
-                    <p className="text-sm">{action}</p>
-                  </div>
-                ))}
-              </div>
-              <div className="mt-6 p-4 bg-gray-50 dark:bg-gray-800 rounded-xl">
-                <h4 className="font-medium mb-2">Automation Approach</h4>
+          <div className="bg-white dark:bg-gray-900 rounded-2xl p-8 border border-gray-200 dark:border-gray-800 mb-8">
+            <h2 className="text-xl font-semibold mb-6">How It Works</h2>
+            <div className="grid md:grid-cols-3 gap-6">
+              <div className="text-center p-4">
+                <div className="w-12 h-12 bg-blue-100 dark:bg-blue-900/30 rounded-xl flex items-center justify-center mx-auto mb-3">
+                  <Users className="w-6 h-6 text-blue-600" />
+                </div>
+                <h3 className="font-semibold mb-2">1. Collect</h3>
                 <p className="text-sm text-gray-600 dark:text-gray-400">
-                  {demoData.recommendations.automationApproach}
+                  Gather structured input from executives, business owners, and technical leads
+                </p>
+              </div>
+              <div className="text-center p-4">
+                <div className="w-12 h-12 bg-purple-100 dark:bg-purple-900/30 rounded-xl flex items-center justify-center mx-auto mb-3">
+                  <Brain className="w-6 h-6 text-purple-600" />
+                </div>
+                <h3 className="font-semibold mb-2">2. Analyze</h3>
+                <p className="text-sm text-gray-600 dark:text-gray-400">
+                  Detect contradictions, score dimensions, identify blind spots automatically
+                </p>
+              </div>
+              <div className="text-center p-4">
+                <div className="w-12 h-12 bg-green-100 dark:bg-green-900/30 rounded-xl flex items-center justify-center mx-auto mb-3">
+                  <FileText className="w-6 h-6 text-green-600" />
+                </div>
+                <h3 className="font-semibold mb-2">3. Decide</h3>
+                <p className="text-sm text-gray-600 dark:text-gray-400">
+                  Get a clear GO, CLARIFY, or NO-GO with specific action items
                 </p>
               </div>
             </div>
+          </div>
 
-            {/* Participants */}
-            <div className="bg-white dark:bg-gray-900 rounded-2xl p-6 shadow-sm border border-gray-200 dark:border-gray-800">
-              <h2 className="text-xl font-bold mb-6">Participants</h2>
-              <div className="space-y-3">
-                {demoData.participants.map((p, i) => (
-                  <div key={i} className="flex items-center justify-between p-3 bg-gray-50 dark:bg-gray-800 rounded-lg">
-                    <div className="flex items-center gap-3">
-                      <CheckCircle className="w-5 h-5 text-go" />
-                      <span className="font-medium">{p.role}</span>
+          <Button onClick={() => setStep(1)} size="lg" className="w-full">
+            Start Demo
+            <ArrowRight className="w-5 h-5 ml-2" />
+          </Button>
+        </main>
+      </div>
+    );
+  }
+
+  // Step 1: Select Scenario
+  if (step === 1) {
+    return (
+      <div className="min-h-screen bg-gray-50 dark:bg-gray-950">
+        <header className="bg-white dark:bg-gray-900 border-b border-gray-200 dark:border-gray-800">
+          <div className="max-w-5xl mx-auto px-6 py-4 flex items-center justify-between">
+            <button onClick={() => setStep(0)} className="flex items-center gap-2 text-gray-600 hover:text-gray-900">
+              <ArrowLeft className="w-5 h-5" />
+              Back
+            </button>
+            <span className="font-semibold">Choose a Scenario</span>
+            <div />
+          </div>
+        </header>
+
+        <main className="max-w-5xl mx-auto px-6 py-8">
+          <StepIndicator currentStep={0} totalSteps={totalSteps} />
+          
+          <h1 className="text-2xl font-bold text-center mb-2">Select a Demo Scenario</h1>
+          <p className="text-center text-gray-600 dark:text-gray-400 mb-8">
+            Each scenario demonstrates different outcomes based on stakeholder responses
+          </p>
+
+          <div className="grid md:grid-cols-2 gap-4">
+            {DEMO_SCENARIOS.map(scenario => (
+              <button
+                key={scenario.id}
+                onClick={() => {
+                  setSelectedScenario(scenario);
+                  setStep(2);
+                }}
+                className={`p-5 rounded-xl border-2 text-left transition-all hover:border-clarity-400 ${
+                  scenario.recommendation === 'GO' 
+                    ? 'border-green-200 dark:border-green-800 bg-green-50/50 dark:bg-green-900/10' 
+                    : scenario.recommendation === 'CLARIFY'
+                      ? 'border-amber-200 dark:border-amber-800 bg-amber-50/50 dark:bg-amber-900/10'
+                      : 'border-red-200 dark:border-red-800 bg-red-50/50 dark:bg-red-900/10'
+                }`}
+              >
+                <div className="flex items-start justify-between mb-2">
+                  <h3 className="text-lg font-semibold">{scenario.name}</h3>
+                  <span className="text-sm text-gray-500">{scenario.variant}</span>
+                </div>
+                <p className="text-sm text-gray-600 dark:text-gray-400 mb-3">{scenario.description}</p>
+                <div className="flex items-center gap-4 text-sm">
+                  <span className="text-gray-500">ICS: {scenario.ics ?? 'N/A'}</span>
+                  {scenario.flags.length > 0 && (
+                    <span className="text-red-600">{scenario.flags.length} flag(s)</span>
+                  )}
+                </div>
+                <div className="mt-3 text-sm font-medium text-clarity-600 flex items-center gap-1">
+                  View results <ChevronRight className="w-4 h-4" />
+                </div>
+              </button>
+            ))}
+          </div>
+        </main>
+      </div>
+    );
+  }
+
+  if (!selectedScenario) return null;
+
+  // Step 2: Context
+  if (step === 2) {
+    return (
+      <div className="min-h-screen bg-gray-50 dark:bg-gray-950">
+        <header className="bg-white dark:bg-gray-900 border-b border-gray-200 dark:border-gray-800">
+          <div className="max-w-4xl mx-auto px-6 py-4 flex items-center justify-between">
+            <button onClick={() => setStep(1)} className="flex items-center gap-2 text-gray-600 hover:text-gray-900">
+              <ArrowLeft className="w-5 h-5" />
+              Back
+            </button>
+            <span className="font-semibold">Decision Context</span>
+            <div />
+          </div>
+        </header>
+
+        <main className="max-w-4xl mx-auto px-6 py-8">
+          <StepIndicator currentStep={1} totalSteps={totalSteps} />
+
+          <div className="bg-white dark:bg-gray-900 rounded-xl border border-gray-200 dark:border-gray-800 p-6 mb-6">
+            <h1 className="text-2xl font-bold mb-2">{selectedScenario.context.title}</h1>
+            <p className="text-gray-600 dark:text-gray-400 mb-6">{selectedScenario.context.description}</p>
+
+            <div className="space-y-4">
+              <div className="p-4 bg-gray-50 dark:bg-gray-800 rounded-lg">
+                <p className="text-sm text-gray-500 mb-1">What decision are we making?</p>
+                <p className="font-medium">{selectedScenario.context.dCtx1}</p>
+              </div>
+              <div className="p-4 bg-gray-50 dark:bg-gray-800 rounded-lg">
+                <p className="text-sm text-gray-500 mb-1">What does success look like?</p>
+                <p className="font-medium">{selectedScenario.context.dCtx2}</p>
+              </div>
+              <div className="p-4 bg-gray-50 dark:bg-gray-800 rounded-lg">
+                <p className="text-sm text-gray-500 mb-1">What if we do nothing?</p>
+                <p className="font-medium">{selectedScenario.context.dCtx3}</p>
+              </div>
+              <div className="p-4 bg-gray-50 dark:bg-gray-800 rounded-lg">
+                <p className="text-sm text-gray-500 mb-1">What could make this a mistake?</p>
+                <p className="font-medium">{selectedScenario.context.dCtx4}</p>
+              </div>
+            </div>
+          </div>
+
+          <div className="bg-white dark:bg-gray-900 rounded-xl border border-gray-200 dark:border-gray-800 p-6 mb-6">
+            <h2 className="text-lg font-semibold mb-4">Participants</h2>
+            <div className="space-y-3">
+              {selectedScenario.participants.map((p, i) => (
+                <div key={i} className="flex items-center justify-between p-3 bg-gray-50 dark:bg-gray-800 rounded-lg">
+                  <div className="flex items-center gap-3">
+                    <CheckCircle className="w-5 h-5 text-green-500" />
+                    <div>
+                      <p className="font-medium">{p.name}</p>
+                      <p className="text-sm text-gray-500">{p.role}</p>
                     </div>
-                    <span className="text-xs text-gray-500">{p.completedAt}</span>
+                  </div>
+                  <span className="text-sm text-green-600">Completed</span>
+                </div>
+              ))}
+            </div>
+          </div>
+
+          <Button onClick={() => setStep(3)} className="w-full">
+            View Analysis
+            <ArrowRight className="w-5 h-5 ml-2" />
+          </Button>
+        </main>
+      </div>
+    );
+  }
+
+  // Step 3: Dimensions
+  if (step === 3) {
+    return (
+      <div className="min-h-screen bg-gray-50 dark:bg-gray-950">
+        <header className="bg-white dark:bg-gray-900 border-b border-gray-200 dark:border-gray-800">
+          <div className="max-w-4xl mx-auto px-6 py-4 flex items-center justify-between">
+            <button onClick={() => setStep(2)} className="flex items-center gap-2 text-gray-600 hover:text-gray-900">
+              <ArrowLeft className="w-5 h-5" />
+              Back
+            </button>
+            <span className="font-semibold">Dimension Scores</span>
+            <div />
+          </div>
+        </header>
+
+        <main className="max-w-4xl mx-auto px-6 py-8">
+          <StepIndicator currentStep={2} totalSteps={totalSteps} />
+
+          <div className="bg-white dark:bg-gray-900 rounded-xl border border-gray-200 dark:border-gray-800 p-6 mb-6">
+            <h2 className="text-xl font-bold mb-6">Clarity Dimensions</h2>
+            <div className="space-y-4">
+              {Object.entries(selectedScenario.dimensions).map(([dim, score]) => {
+                const config = DIMENSION_CONFIG[dim];
+                if (!config) return null;
+                const Icon = config.icon;
+                
+                return (
+                  <div key={dim} className="p-4 bg-gray-50 dark:bg-gray-800 rounded-lg">
+                    <div className="flex items-center justify-between mb-2">
+                      <div className="flex items-center gap-2">
+                        <Icon className="w-5 h-5 text-clarity-600" />
+                        <span className="font-medium">{config.label}</span>
+                      </div>
+                      <span className={`font-bold ${
+                        score >= 75 ? 'text-green-600' : score >= 50 ? 'text-amber-600' : 'text-red-600'
+                      }`}>
+                        {score}/100
+                      </span>
+                    </div>
+                    <div className="h-2 bg-gray-200 dark:bg-gray-700 rounded-full overflow-hidden">
+                      <div 
+                        className={`h-full rounded-full transition-all ${
+                          score >= 75 ? 'bg-green-500' : score >= 50 ? 'bg-amber-500' : 'bg-red-500'
+                        }`}
+                        style={{ width: `${score}%` }}
+                      />
+                    </div>
+                    {score < 50 && (
+                      <p className="text-sm text-red-600 mt-2">⚠️ Below threshold - triggers Gate G1</p>
+                    )}
+                  </div>
+                );
+              })}
+            </div>
+          </div>
+
+          <Button onClick={() => setStep(4)} className="w-full">
+            View Flags & Gates
+            <ArrowRight className="w-5 h-5 ml-2" />
+          </Button>
+        </main>
+      </div>
+    );
+  }
+
+  // Step 4: Flags & Gates
+  if (step === 4) {
+    return (
+      <div className="min-h-screen bg-gray-50 dark:bg-gray-950">
+        <header className="bg-white dark:bg-gray-900 border-b border-gray-200 dark:border-gray-800">
+          <div className="max-w-4xl mx-auto px-6 py-4 flex items-center justify-between">
+            <button onClick={() => setStep(3)} className="flex items-center gap-2 text-gray-600 hover:text-gray-900">
+              <ArrowLeft className="w-5 h-5" />
+              Back
+            </button>
+            <span className="font-semibold">Flags & Gates</span>
+            <div />
+          </div>
+        </header>
+
+        <main className="max-w-4xl mx-auto px-6 py-8">
+          <StepIndicator currentStep={3} totalSteps={totalSteps} />
+
+          {/* Flags */}
+          <div className="bg-white dark:bg-gray-900 rounded-xl border border-gray-200 dark:border-gray-800 p-6 mb-6">
+            <h2 className="text-xl font-bold mb-4">Detected Flags</h2>
+            {selectedScenario.flags.length === 0 ? (
+              <div className="p-4 bg-green-50 dark:bg-green-900/20 rounded-lg text-center">
+                <CheckCircle className="w-8 h-8 text-green-500 mx-auto mb-2" />
+                <p className="text-green-700 dark:text-green-400">No flags detected - clean signal!</p>
+              </div>
+            ) : (
+              <div className="space-y-3">
+                {selectedScenario.flags.map((flag, i) => (
+                  <div 
+                    key={i}
+                    className={`p-4 rounded-lg border-l-4 ${
+                      flag.severity === 'CRITICAL' 
+                        ? 'bg-red-50 dark:bg-red-900/20 border-red-500'
+                        : 'bg-amber-50 dark:bg-amber-900/20 border-amber-500'
+                    }`}
+                  >
+                    <div className="flex items-center gap-2 mb-1">
+                      <span className={`px-2 py-0.5 rounded text-xs font-medium ${
+                        flag.severity === 'CRITICAL' ? 'bg-red-100 text-red-700' : 'bg-amber-100 text-amber-700'
+                      }`}>
+                        {flag.severity}
+                      </span>
+                      <span className="font-mono text-sm">{flag.id}</span>
+                    </div>
+                    <p className="text-sm text-gray-700 dark:text-gray-300">{flag.description}</p>
+                  </div>
+                ))}
+              </div>
+            )}
+          </div>
+
+          {/* Gates */}
+          <div className="bg-white dark:bg-gray-900 rounded-xl border border-gray-200 dark:border-gray-800 p-6 mb-6">
+            <h2 className="text-xl font-bold mb-4">Gating Rules</h2>
+            {selectedScenario.gates.length === 0 ? (
+              <div className="p-4 bg-green-50 dark:bg-green-900/20 rounded-lg text-center">
+                <CheckCircle className="w-8 h-8 text-green-500 mx-auto mb-2" />
+                <p className="text-green-700 dark:text-green-400">All gates passed!</p>
+              </div>
+            ) : (
+              <div className="space-y-3">
+                {selectedScenario.gates.map((gate, i) => (
+                  <div key={i} className="p-4 bg-amber-50 dark:bg-amber-900/20 rounded-lg border-l-4 border-amber-500">
+                    <div className="flex items-center gap-2 mb-1">
+                      <span className="font-mono font-bold">{gate.gate}</span>
+                      <span className="px-2 py-0.5 bg-amber-100 text-amber-700 rounded text-xs">
+                        → {gate.action}
+                      </span>
+                    </div>
+                    <p className="text-sm text-gray-700 dark:text-gray-300">{gate.reason}</p>
+                  </div>
+                ))}
+              </div>
+            )}
+          </div>
+
+          {/* Blind Spots */}
+          {selectedScenario.blindSpots.length > 0 && (
+            <div className="bg-white dark:bg-gray-900 rounded-xl border border-gray-200 dark:border-gray-800 p-6 mb-6">
+              <h2 className="text-xl font-bold mb-4">Blind Spots</h2>
+              <div className="space-y-3">
+                {selectedScenario.blindSpots.map((spot, i) => (
+                  <div key={i} className="p-4 bg-gray-50 dark:bg-gray-800 rounded-lg">
+                    <h3 className="font-semibold mb-1">{spot.label}</h3>
+                    <p className="text-sm text-gray-600 dark:text-gray-400">{spot.explanation}</p>
                   </div>
                 ))}
               </div>
             </div>
+          )}
 
-            {/* CTA */}
-            <div className="bg-gradient-to-br from-clarity-600 to-clarity-700 rounded-2xl p-6 text-white">
-              <h3 className="font-bold text-lg mb-2">Ready to assess your process?</h3>
-              <p className="text-white/80 text-sm mb-4">
-                Start your own clarity assessment in minutes.
-              </p>
-              <Link 
-                href="/mvp/start"
-                className="block text-center py-3 bg-white text-clarity-700 rounded-lg font-semibold hover:bg-gray-100 transition"
-              >
-                Start Free Assessment
-              </Link>
+          <Button onClick={() => setStep(5)} className="w-full">
+            View Final Recommendation
+            <ArrowRight className="w-5 h-5 ml-2" />
+          </Button>
+        </main>
+      </div>
+    );
+  }
+
+  // Step 5: Final Result
+  return (
+    <div className="min-h-screen bg-gray-50 dark:bg-gray-950">
+      <header className="bg-white dark:bg-gray-900 border-b border-gray-200 dark:border-gray-800">
+        <div className="max-w-4xl mx-auto px-6 py-4 flex items-center justify-between">
+          <button onClick={() => setStep(4)} className="flex items-center gap-2 text-gray-600 hover:text-gray-900">
+            <ArrowLeft className="w-5 h-5" />
+            Back
+          </button>
+          <span className="font-semibold">Final Recommendation</span>
+          <div />
+        </div>
+      </header>
+
+      <main className="max-w-4xl mx-auto px-6 py-8">
+        <StepIndicator currentStep={4} totalSteps={totalSteps} />
+
+        {/* Result Summary */}
+        <div className="bg-white dark:bg-gray-900 rounded-xl border border-gray-200 dark:border-gray-800 p-8 mb-6">
+          <div className="flex flex-col md:flex-row items-center gap-8">
+            {selectedScenario.ics !== null && (
+              <ICSGauge score={selectedScenario.ics} />
+            )}
+            <div className="flex-1">
+              <RecommendationBadge recommendation={selectedScenario.recommendation} />
+              <div className="mt-4 p-4 bg-gray-50 dark:bg-gray-800 rounded-lg">
+                <h3 className="font-medium mb-2">Why this recommendation?</h3>
+                {selectedScenario.recommendation === 'GO' && (
+                  <p className="text-sm text-gray-600 dark:text-gray-400">
+                    ICS ≥ 75, no critical flags, all gates passed. High clarity exists across all dimensions with strong stakeholder alignment.
+                  </p>
+                )}
+                {selectedScenario.recommendation === 'CLARIFY' && (
+                  <p className="text-sm text-gray-600 dark:text-gray-400">
+                    {selectedScenario.gates.length > 0 
+                      ? `Gate ${selectedScenario.gates[0].gate} triggered: ${selectedScenario.gates[0].reason}`
+                      : 'ICS in 55-74 range - partial clarity exists but gaps need addressing before proceeding.'
+                    }
+                  </p>
+                )}
+                {selectedScenario.recommendation === 'NO_GO' && (
+                  <p className="text-sm text-gray-600 dark:text-gray-400">
+                    {selectedScenario.flags.filter(f => f.severity === 'CRITICAL').length > 0
+                      ? `Critical flag detected: ${selectedScenario.flags.find(f => f.severity === 'CRITICAL')?.id}. Must be resolved before proceeding.`
+                      : 'ICS below 55 - fundamental clarity gaps exist that would jeopardize success.'
+                    }
+                  </p>
+                )}
+              </div>
             </div>
           </div>
+        </div>
+
+        {/* Checklist */}
+        {selectedScenario.checklistItems.length > 0 && (
+          <div className="bg-white dark:bg-gray-900 rounded-xl border border-gray-200 dark:border-gray-800 p-6 mb-6">
+            <h2 className="text-xl font-bold mb-4">Action Checklist</h2>
+            <div className="space-y-3">
+              {selectedScenario.checklistItems.map((item, i) => (
+                <div key={i} className="flex items-start gap-3 p-3 bg-clarity-50 dark:bg-clarity-900/20 rounded-lg">
+                  <div className="w-6 h-6 rounded-full bg-clarity-500 text-white flex items-center justify-center text-sm font-medium flex-shrink-0">
+                    {i + 1}
+                  </div>
+                  <p className="text-sm">{item}</p>
+                </div>
+              ))}
+            </div>
+          </div>
+        )}
+
+        {/* Actions */}
+        <div className="grid md:grid-cols-2 gap-4">
+          <Button variant="outline" onClick={() => setStep(1)} className="w-full">
+            <Eye className="w-4 h-4 mr-2" />
+            Try Another Scenario
+          </Button>
+          <Link href="/create" className="w-full">
+            <Button className="w-full">
+              <Zap className="w-4 h-4 mr-2" />
+              Start Real Assessment
+            </Button>
+          </Link>
         </div>
       </main>
     </div>
