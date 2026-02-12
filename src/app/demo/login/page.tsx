@@ -198,7 +198,7 @@ export default function DemoLoginPage() {
     // Store in localStorage for demo persistence
     localStorage.setItem('demoUser', userId);
     
-    // Simulate login delay
+    // Simulate login delay and route based on role
     setTimeout(() => {
       const user = DEMO_USERS.find(u => u.id === userId);
       if (user?.role === 'ADMIN') {
