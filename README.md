@@ -1,5 +1,7 @@
 # ELVAIT
 
+[![CI/CD Pipeline](https://github.com/BrnzAi/ELVAIT/actions/workflows/ci.yml/badge.svg)](https://github.com/BrnzAi/ELVAIT/actions/workflows/ci.yml)
+
 **Clarity Before Automation** - A strategic planning tool for organizations.
 
 ## Overview
