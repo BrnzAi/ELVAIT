@@ -6,7 +6,9 @@
     "dev": "next dev -p 3002",
     "build": "prisma generate && next build",
     "start": "next start -p 3002",
-    "lint": "next lint"
+    "lint": "next lint",
+    "test": "vitest run",
+    "seed:test-cases": "npx ts-node prisma/seed-test-cases.ts"
   },
   "dependencies": {
     "@prisma/client": "^5.22.0",
