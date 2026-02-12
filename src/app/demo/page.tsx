@@ -418,10 +418,23 @@ export default function DemoPage() {
             </div>
           </div>
 
-          <Button onClick={() => setStep(1)} size="lg" className="w-full">
-            Start Demo
-            <ArrowRight className="w-5 h-5 ml-2" />
-          </Button>
+          <div className="grid md:grid-cols-2 gap-4">
+            <Button onClick={() => setStep(1)} size="lg" className="w-full">
+              <Eye className="w-5 h-5 mr-2" />
+              View Scenarios
+            </Button>
+            <Link href="/demo/login" className="w-full">
+              <Button variant="outline" size="lg" className="w-full">
+                <Users className="w-5 h-5 mr-2" />
+                Try as Different Roles
+              </Button>
+            </Link>
+          </div>
+
+          <p className="text-center text-sm text-gray-500 dark:text-gray-400 mt-4">
+            <strong>Scenarios:</strong> See pre-built results for GO, CLARIFY, and NO-GO outcomes<br />
+            <strong>Roles:</strong> Experience the survey from Executive, Business Owner, or Tech perspectives
+          </p>
         </main>
       </div>
     );
