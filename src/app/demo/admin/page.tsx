@@ -287,6 +287,69 @@ export default function AdminDashboardPage() {
             </div>
           </div>
 
+          {/* Quick Links - Admin Sections */}
+          <div className="mb-8">
+            <h2 className="text-lg font-semibold mb-4">Admin Sections</h2>
+            <div className="grid grid-cols-2 lg:grid-cols-4 gap-4">
+              <Link href="/demo/admin/users" className="bg-white/[0.02] hover:bg-white/[0.05] border border-white/[0.06] rounded-xl p-4 transition-all group">
+                <div className="w-10 h-10 rounded-lg bg-blue-500/20 flex items-center justify-center mb-3 group-hover:scale-110 transition-transform">
+                  <Users className="w-5 h-5 text-blue-400" />
+                </div>
+                <h3 className="font-medium text-white">Users</h3>
+                <p className="text-xs text-gray-500 mt-1">Manage platform users</p>
+              </Link>
+              <Link href="/demo/admin/organizations" className="bg-white/[0.02] hover:bg-white/[0.05] border border-white/[0.06] rounded-xl p-4 transition-all group">
+                <div className="w-10 h-10 rounded-lg bg-purple-500/20 flex items-center justify-center mb-3 group-hover:scale-110 transition-transform">
+                  <Building2 className="w-5 h-5 text-purple-400" />
+                </div>
+                <h3 className="font-medium text-white">Organizations</h3>
+                <p className="text-xs text-gray-500 mt-1">Company accounts</p>
+              </Link>
+              <Link href="/demo/admin/assessments" className="bg-white/[0.02] hover:bg-white/[0.05] border border-white/[0.06] rounded-xl p-4 transition-all group">
+                <div className="w-10 h-10 rounded-lg bg-teal-500/20 flex items-center justify-center mb-3 group-hover:scale-110 transition-transform">
+                  <ClipboardList className="w-5 h-5 text-teal-400" />
+                </div>
+                <h3 className="font-medium text-white">Assessments</h3>
+                <p className="text-xs text-gray-500 mt-1">All decision cases</p>
+              </Link>
+              <Link href="/demo/admin/industries" className="bg-white/[0.02] hover:bg-white/[0.05] border border-white/[0.06] rounded-xl p-4 transition-all group">
+                <div className="w-10 h-10 rounded-lg bg-amber-500/20 flex items-center justify-center mb-3 group-hover:scale-110 transition-transform">
+                  <Factory className="w-5 h-5 text-amber-400" />
+                </div>
+                <h3 className="font-medium text-white">Industries</h3>
+                <p className="text-xs text-gray-500 mt-1">Industry categories</p>
+              </Link>
+              <Link href="/demo/admin/process-types" className="bg-white/[0.02] hover:bg-white/[0.05] border border-white/[0.06] rounded-xl p-4 transition-all group">
+                <div className="w-10 h-10 rounded-lg bg-pink-500/20 flex items-center justify-center mb-3 group-hover:scale-110 transition-transform">
+                  <Workflow className="w-5 h-5 text-pink-400" />
+                </div>
+                <h3 className="font-medium text-white">Process Types</h3>
+                <p className="text-xs text-gray-500 mt-1">Process classifications</p>
+              </Link>
+              <Link href="/demo/admin/roles" className="bg-white/[0.02] hover:bg-white/[0.05] border border-white/[0.06] rounded-xl p-4 transition-all group">
+                <div className="w-10 h-10 rounded-lg bg-green-500/20 flex items-center justify-center mb-3 group-hover:scale-110 transition-transform">
+                  <Shield className="w-5 h-5 text-green-400" />
+                </div>
+                <h3 className="font-medium text-white">Roles</h3>
+                <p className="text-xs text-gray-500 mt-1">Participant roles</p>
+              </Link>
+              <Link href="/demo/admin/questions" className="bg-white/[0.02] hover:bg-white/[0.05] border border-white/[0.06] rounded-xl p-4 transition-all group">
+                <div className="w-10 h-10 rounded-lg bg-cyan-500/20 flex items-center justify-center mb-3 group-hover:scale-110 transition-transform">
+                  <HelpCircle className="w-5 h-5 text-cyan-400" />
+                </div>
+                <h3 className="font-medium text-white">Questions</h3>
+                <p className="text-xs text-gray-500 mt-1">Survey question bank</p>
+              </Link>
+              <Link href="/demo/dashboard" className="bg-white/[0.02] hover:bg-white/[0.05] border border-white/[0.06] rounded-xl p-4 transition-all group border-dashed">
+                <div className="w-10 h-10 rounded-lg bg-gray-500/20 flex items-center justify-center mb-3 group-hover:scale-110 transition-transform">
+                  <Eye className="w-5 h-5 text-gray-400" />
+                </div>
+                <h3 className="font-medium text-white">Executive View</h3>
+                <p className="text-xs text-gray-500 mt-1">Switch to dashboard</p>
+              </Link>
+            </div>
+          </div>
+
           <div className="grid lg:grid-cols-2 gap-6">
             {/* Recent Users */}
             <div className="bg-white/[0.02] backdrop-blur-sm rounded-xl border border-white/[0.06]">
