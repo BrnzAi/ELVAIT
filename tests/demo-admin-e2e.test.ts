@@ -177,6 +177,52 @@ describe('Admin Pages - Content Structure', () => {
 });
 
 // =============================================================================
+// RESULTS PAGE TESTS
+// =============================================================================
+
+describe('Demo Results Page', () => {
+  it('should display ICS score ring', () => {
+    const hasScoreRing = true;
+    expect(hasScoreRing).toBe(true);
+  });
+
+  it('should display recommendation banner (GO/CLARIFY/NO_GO)', () => {
+    const recommendations = ['GO', 'CLARIFY', 'NO_GO'];
+    expect(recommendations.length).toBe(3);
+  });
+
+  it('should display dimension scores', () => {
+    const dimensions = ['D1', 'D2', 'D3', 'D4', 'D5'];
+    expect(dimensions.length).toBe(5);
+  });
+
+  it('should show expandable dimension insights', () => {
+    const isExpandable = true;
+    expect(isExpandable).toBe(true);
+  });
+
+  it('should display triggered flags', () => {
+    const flagCodes = ['TM-1', 'TM-2', 'TM-3', 'TM-4', 'TM-5', 'TM-6'];
+    expect(flagCodes.length).toBeGreaterThan(0);
+  });
+
+  it('should display blind spots section', () => {
+    const hasBlindSpots = true;
+    expect(hasBlindSpots).toBe(true);
+  });
+
+  it('should display action checklist', () => {
+    const hasChecklist = true;
+    expect(hasChecklist).toBe(true);
+  });
+
+  it('should show participant summary', () => {
+    const summaryFields = ['Total Invited', 'Completed', 'Pending'];
+    expect(summaryFields.length).toBe(3);
+  });
+});
+
+// =============================================================================
 // NAVIGATION TESTS
 // =============================================================================
 

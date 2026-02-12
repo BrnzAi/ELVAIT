@@ -23,6 +23,7 @@ const DEMO_ROUTES = [
   { path: '/demo/login', name: 'Demo Login' },
   { path: '/demo/dashboard', name: 'Executive Dashboard' },
   { path: '/demo/survey', name: 'Survey View' },
+  { path: '/demo/results', name: 'Results View' },
   
   // Admin pages
   { path: '/demo/admin', name: 'Admin Dashboard' },
