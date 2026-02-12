@@ -2,8 +2,14 @@ import type { Metadata } from 'next';
 import './globals.css';
 
 export const metadata: Metadata = {
-  title: 'Clarity Before Automation Kit | AIHackers',
+  title: 'Clarity Before Automation Kit | ELVAIT',
   description: 'Get clarity on what, whether, and how to automate — before you invest.',
+  icons: {
+    icon: [
+      { url: '/favicon.svg', type: 'image/svg+xml' },
+    ],
+    apple: '/icon.svg',
+  },
   openGraph: {
     title: 'Clarity Before Automation Kit',
     description: 'Stop automating chaos. Get clarity first.',
