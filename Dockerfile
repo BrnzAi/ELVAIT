@@ -3,7 +3,7 @@ WORKDIR /app
 
 COPY package.json package-lock.json* ./
 COPY prisma ./prisma
-RUN if [ -f package-lock.json ]; then npm ci; else npm install; fi
+RUN npm ci
 RUN npx prisma generate
 
 FROM node:20-alpine AS builder
@@ -12,19 +12,9 @@ WORKDIR /app
 COPY --from=deps /app/node_modules ./node_modules
 COPY . .
 
-RUN mkdir -p public
-
 ENV NODE_ENV=production
 ENV NEXT_TELEMETRY_DISABLED=1
 RUN npm run build
-
-FROM node:20-alpine AS prod-deps
-WORKDIR /app
-
-COPY package.json package-lock.json* ./
-COPY prisma ./prisma
-RUN if [ -f package-lock.json ]; then npm ci --omit=dev; else npm install --omit=dev; fi
-RUN npx prisma generate
 
 FROM node:20-alpine AS runner
 WORKDIR /app
@@ -34,20 +24,24 @@ ENV PORT=3002
 ENV NEXT_TELEMETRY_DISABLED=1
 ENV DATABASE_URL="file:/app/data/production.db"
 
-# Copy dependencies with Prisma client
-COPY --from=prod-deps /app/node_modules ./node_modules
-COPY --from=builder /app/package.json ./package.json
-COPY --from=builder /app/public ./public
+# Install production dependencies only
+RUN npm install -g prisma
+
+# Copy built app
 COPY --from=builder /app/.next ./.next
+COPY --from=builder /app/public ./public
+COPY --from=builder /app/package.json ./package.json
+COPY --from=builder /app/node_modules ./node_modules
+COPY --from=builder /app/prisma ./prisma
 
-# Copy Prisma schema for migrations
-COPY --from=prod-deps /app/prisma ./prisma
+# Create data directory and initialize database
+RUN mkdir -p /app/data
+RUN npx prisma db push --skip-generate
 
-# Create data directory for SQLite
-RUN mkdir -p /app/data && chown -R node:node /app
+# Set permissions
+RUN chown -R node:node /app
 
 USER node
-
-# Initialize database and start server
 EXPOSE 3002
-CMD npx prisma db push --skip-generate && npm start
+
+CMD ["npm", "start"]
