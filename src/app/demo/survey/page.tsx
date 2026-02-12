@@ -189,8 +189,8 @@ export default function DemoSurveyPage() {
             Thank you for completing your assessment. Your responses have been recorded and will be analyzed with other participants' input.
           </p>
           <div className="space-y-3">
-            <Link href="/demo" className="block">
-              <Button className="w-full">View Demo Results</Button>
+            <Link href="/demo/results" className="block">
+              <Button className="w-full">View Your Results</Button>
             </Link>
             <Link href="/demo/login" className="block">
               <Button variant="outline" className="w-full">Try Another Role</Button>
