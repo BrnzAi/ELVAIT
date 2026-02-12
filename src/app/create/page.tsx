@@ -73,6 +73,18 @@ const TIME_HORIZONS = ['Immediate', '3-6 months', '>6 months'];
 
 const INVESTMENT_SIZES = ['<€100k', '€100k-€500k', '€500k-€1m', '>€1m'];
 
+const IMPACTED_AREAS = [
+  'IT / Technology',
+  'Operations',
+  'Finance',
+  'HR / People',
+  'Sales',
+  'Marketing',
+  'Customer Service',
+  'Legal / Compliance',
+  'Executive / Strategy'
+];
+
 export default function CreateCasePage() {
   const router = useRouter();
   const [step, setStep] = useState(1);
@@ -130,6 +142,7 @@ export default function CreateCasePage() {
                      !!formData.investmentType &&
                      formData.decisionDescription.length > 0 &&
                      formData.decisionDescription.length <= 500 &&
+                     formData.impactedAreas.length > 0 &&
                      !!formData.timeHorizon;
       case 3: return formData.dCtx1.length > 0 && 
                      formData.dCtx2.length > 0 && 
@@ -281,6 +294,34 @@ export default function CreateCasePage() {
                   rows={4}
                   placeholder="Describe what you are considering investing in and why this decision exists now..."
                 />
+              </div>
+
+              <div>
+                <label className="block text-sm font-medium mb-2">
+                  Impacted Areas <span className="text-red-500">*</span>
+                </label>
+                <div className="flex flex-wrap gap-2">
+                  {IMPACTED_AREAS.map(area => (
+                    <button
+                      key={area}
+                      onClick={() => {
+                        const current = formData.impactedAreas;
+                        const updated = current.includes(area)
+                          ? current.filter(a => a !== area)
+                          : [...current, area];
+                        updateField('impactedAreas', updated);
+                      }}
+                      className={`px-3 py-1.5 rounded-lg border text-sm transition-all ${
+                        formData.impactedAreas.includes(area)
+                          ? 'border-clarity-600 bg-clarity-50 dark:bg-clarity-900/20'
+                          : 'border-gray-200 dark:border-gray-700 hover:border-gray-300'
+                      }`}
+                    >
+                      {area}
+                    </button>
+                  ))}
+                </div>
+                <p className="mt-1 text-sm text-gray-500">Select all areas that will be impacted by this decision.</p>
               </div>
 
               <div>
