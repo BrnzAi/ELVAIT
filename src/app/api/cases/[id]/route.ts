@@ -20,8 +20,10 @@ export async function GET(
   { params }: RouteParams
 ) {
   try {
+    const { id } = params;
+    
     const caseData = await prisma.decisionCase.findUnique({
-      where: { id: params.id },
+      where: { id },
       include: {
         participants: {
           select: {
@@ -47,17 +49,29 @@ export async function GET(
       );
     }
     
-    // Parse JSON fields
+    // Get base URL for survey links
+    const baseUrl = request.nextUrl.origin;
+    
+    // Add surveyUrl to each participant
+    const participantsWithUrls = caseData.participants.map(p => ({
+      ...p,
+      surveyUrl: `${baseUrl}/survey/${p.token}`
+    }));
+    
+    // Parse JSON fields and construct response
     const response = {
       ...caseData,
-      impactedAreas: JSON.parse(caseData.impactedAreas)
+      participants: participantsWithUrls,
+      impactedAreas: caseData.impactedAreas ? JSON.parse(caseData.impactedAreas) : []
     };
     
     return NextResponse.json(response);
   } catch (error) {
     console.error('Error getting case:', error);
+    // Return more details in development
+    const errorMessage = error instanceof Error ? error.message : 'Unknown error';
     return NextResponse.json(
-      { error: 'Failed to get case' },
+      { error: 'Failed to get case', details: errorMessage },
       { status: 500 }
     );
   }
