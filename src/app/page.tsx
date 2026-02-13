@@ -1,9 +1,71 @@
 'use client';
 
+import { useState } from 'react';
 import Link from 'next/link';
-import { ArrowRight, CheckCircle, AlertTriangle, XCircle, Users, Brain, FileText, Zap } from 'lucide-react';
+import { ArrowRight, CheckCircle, AlertTriangle, XCircle, Users, Brain, FileText, Zap, ChevronDown } from 'lucide-react';
+
+// FAQ Data
+const faqData = [
+  {
+    question: "What is ELVAIT?",
+    answer: "ELVAIT (Clarity Before Automation Kit) is a decision-support platform that helps organizations evaluate AI and automation investments before committing resources. It collects structured input from multiple stakeholders and produces objective, rule-based recommendations."
+  },
+  {
+    question: "How does the scoring work?",
+    answer: "The Investment Clarity Score (ICS) is calculated from 5 dimensions: Strategic Alignment (20%), Business Value (25%), Technical Feasibility (20%), Organizational Readiness (20%), and Risk Awareness (15%). Scores 75+ = GO, 50-74 = CLARIFY, below 50 = NO-GO."
+  },
+  {
+    question: "What are the kit variants?",
+    answer: "Quick Check (Executive only, 15 min) for fast signals, Core (Exec + Business + Tech, 45 min) for investment decisions, Full (All 4 roles + Process, 60+ min) for automation projects, and Process Standalone (Process Owner, 20 min) for process audits."
+  },
+  {
+    question: "Can participants see each other's answers?",
+    answer: "No. Each participant only sees the decision context and their own questions. They cannot see other answers, the ICS score, flags, or recommendations. Only the assessment initiator can view results."
+  },
+  {
+    question: "What are flags?",
+    answer: "Flags detect thinking maturity issues — patterns indicating unclear thinking or misalignment. Examples: Within-Role Contradiction, Narrative Inflation, Overconfidence, Cross-Role Mismatch, Ownership Diffusion. Critical flags can override recommendations to NO-GO."
+  },
+  {
+    question: "How long does a survey take?",
+    answer: "5-10 minutes per participant depending on role and kit variant. Questions are Likert scale (1-5), single select, and optional open text."
+  },
+  {
+    question: "Can the recommendation be overridden?",
+    answer: "The system applies gate rules automatically: any dimension below 50 forces CLARIFY, critical flags force NO-GO, fewer than 2 roles responding forces CLARIFY. The AI never decides — recommendations are always rule-derived."
+  },
+  {
+    question: "What happens to my data?",
+    answer: "All traffic uses HTTPS. Survey links use unique, unguessable tokens. No passwords stored for participants. Data is processed securely and only visible to the assessment initiator."
+  }
+];
+
+// FAQ Item Component
+function FAQItem({ question, answer, isOpen, onClick }: { 
+  question: string; 
+  answer: string; 
+  isOpen: boolean; 
+  onClick: () => void;
+}) {
+  return (
+    <div className="border-b border-gray-200 dark:border-gray-700">
+      <button
+        onClick={onClick}
+        className="w-full py-5 flex items-center justify-between text-left hover:text-clarity-600 dark:hover:text-clarity-400 transition"
+      >
+        <span className="font-medium text-lg pr-4">{question}</span>
+        <ChevronDown className={`w-5 h-5 flex-shrink-0 transition-transform ${isOpen ? 'rotate-180' : ''}`} />
+      </button>
+      <div className={`overflow-hidden transition-all duration-300 ${isOpen ? 'max-h-96 pb-5' : 'max-h-0'}`}>
+        <p className="text-gray-600 dark:text-gray-400">{answer}</p>
+      </div>
+    </div>
+  );
+}
 
 export default function LandingPage() {
+  const [openFAQ, setOpenFAQ] = useState<number | null>(null);
+
   return (
     <div className="min-h-screen">
       {/* Hero Section */}
@@ -192,6 +254,39 @@ export default function LandingPage() {
                 <li>• Alternative approaches</li>
               </ul>
             </div>
+          </div>
+        </div>
+      </section>
+
+      {/* FAQ Section */}
+      <section className="py-24 bg-gray-50 dark:bg-gray-950">
+        <div className="max-w-3xl mx-auto px-6">
+          <div className="text-center mb-12">
+            <h2 className="text-4xl font-bold mb-4">Frequently Asked Questions</h2>
+            <p className="text-xl text-gray-600 dark:text-gray-400">Everything you need to know about ELVAIT</p>
+          </div>
+
+          <div className="bg-white dark:bg-gray-900 rounded-2xl shadow-lg border border-gray-200 dark:border-gray-800 overflow-hidden">
+            <div className="px-6">
+              {faqData.map((faq, index) => (
+                <FAQItem
+                  key={index}
+                  question={faq.question}
+                  answer={faq.answer}
+                  isOpen={openFAQ === index}
+                  onClick={() => setOpenFAQ(openFAQ === index ? null : index)}
+                />
+              ))}
+            </div>
+          </div>
+
+          <div className="text-center mt-8">
+            <Link 
+              href="/md/faq.md"
+              className="text-clarity-600 dark:text-clarity-400 hover:underline font-medium"
+            >
+              View complete FAQ →
+            </Link>
           </div>
         </div>
       </section>
