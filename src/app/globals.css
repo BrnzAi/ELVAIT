@@ -124,3 +124,62 @@ body {
     transform: translateY(0);
   }
 }
+
+/* Print styles for PDF export */
+@media print {
+  /* Hide navigation and buttons */
+  header, 
+  nav,
+  button,
+  .no-print {
+    display: none !important;
+  }
+  
+  /* Reset background colors for printing */
+  body {
+    background: white !important;
+    color: black !important;
+    -webkit-print-color-adjust: exact !important;
+    print-color-adjust: exact !important;
+  }
+  
+  /* Ensure dark mode elements print correctly */
+  .dark {
+    background: white !important;
+    color: black !important;
+  }
+  
+  /* Keep colored elements */
+  .bg-go, .bg-fixfirst, .bg-nogo,
+  .bg-green-500, .bg-amber-500, .bg-red-500 {
+    -webkit-print-color-adjust: exact !important;
+    print-color-adjust: exact !important;
+  }
+  
+  /* Remove shadows and borders for cleaner print */
+  * {
+    box-shadow: none !important;
+  }
+  
+  /* Ensure content fits on page */
+  main {
+    max-width: 100% !important;
+    padding: 20px !important;
+  }
+  
+  /* Page breaks */
+  .page-break {
+    page-break-before: always;
+  }
+  
+  /* Avoid breaking inside cards */
+  .bg-white, .rounded-xl {
+    page-break-inside: avoid;
+  }
+  
+  /* Print header */
+  @page {
+    margin: 1cm;
+    size: A4;
+  }
+}

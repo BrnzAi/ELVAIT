@@ -204,7 +204,11 @@ export default function ResultsPage() {
             <Brain className="w-6 h-6 text-clarity-600" />
             <span className="font-semibold">Assessment Results</span>
           </div>
-          <Button variant="outline" size="sm">
+          <Button 
+            variant="outline" 
+            size="sm"
+            onClick={() => window.print()}
+          >
             <Download className="w-4 h-4 mr-2" />
             Export PDF
           </Button>
