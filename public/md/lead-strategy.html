@@ -1,0 +1,793 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="UTF-8">
+  <title>ELVAIT - Lead Generation Strategy</title>
+  <style>
+    body {
+      font-family: 'Segoe UI', Arial, sans-serif;
+      max-width: 950px;
+      margin: 40px auto;
+      padding: 40px;
+      color: #1a1a1a;
+      line-height: 1.7;
+    }
+    h1 {
+      color: #2563eb;
+      border-bottom: 3px solid #2563eb;
+      padding-bottom: 10px;
+      font-size: 28px;
+    }
+    h2 {
+      color: #1e40af;
+      margin-top: 40px;
+      font-size: 20px;
+      border-left: 4px solid #2563eb;
+      padding-left: 15px;
+    }
+    h3 {
+      color: #374151;
+      margin-top: 25px;
+      font-size: 17px;
+    }
+    h4 {
+      color: #4b5563;
+      margin-top: 15px;
+      font-size: 15px;
+    }
+    .highlight {
+      background: #eff6ff;
+      border-left: 4px solid #2563eb;
+      padding: 20px;
+      margin: 20px 0;
+    }
+    .tactic {
+      background: #f8fafc;
+      border: 1px solid #e2e8f0;
+      border-radius: 8px;
+      padding: 20px;
+      margin: 15px 0;
+    }
+    .tactic h4 {
+      color: #2563eb;
+      margin-top: 0;
+    }
+    .effort {
+      display: inline-block;
+      padding: 3px 10px;
+      border-radius: 4px;
+      font-size: 12px;
+      font-weight: 600;
+      margin-left: 10px;
+    }
+    .effort.low { background: #dcfce7; color: #166534; }
+    .effort.medium { background: #fef3c7; color: #92400e; }
+    .effort.high { background: #fee2e2; color: #991b1b; }
+    .tag {
+      display: inline-block;
+      background: #dbeafe;
+      color: #1e40af;
+      padding: 4px 12px;
+      border-radius: 20px;
+      font-size: 13px;
+      margin: 3px 3px 3px 0;
+    }
+    .tag.green { background: #dcfce7; color: #166534; }
+    .tag.amber { background: #fef3c7; color: #92400e; }
+    table {
+      width: 100%;
+      border-collapse: collapse;
+      margin: 20px 0;
+      font-size: 14px;
+    }
+    th, td {
+      padding: 12px 15px;
+      text-align: left;
+      border: 1px solid #e5e7eb;
+    }
+    th {
+      background: #f3f4f6;
+      font-weight: 600;
+    }
+    ul, ol {
+      margin: 10px 0;
+      padding-left: 20px;
+    }
+    li {
+      margin: 8px 0;
+    }
+    code {
+      background: #f3f4f6;
+      padding: 2px 8px;
+      border-radius: 4px;
+      font-family: monospace;
+      font-size: 13px;
+    }
+    .channel-grid {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 15px;
+      margin: 20px 0;
+    }
+    .channel-card {
+      background: #f8fafc;
+      border: 1px solid #e2e8f0;
+      border-radius: 8px;
+      padding: 15px;
+    }
+    .channel-card h4 {
+      margin: 0 0 10px 0;
+      color: #1e40af;
+    }
+    .priority {
+      display: inline-block;
+      width: 24px;
+      height: 24px;
+      background: #2563eb;
+      color: white;
+      border-radius: 50%;
+      text-align: center;
+      line-height: 24px;
+      font-size: 12px;
+      font-weight: 600;
+      margin-right: 8px;
+    }
+    .footer {
+      margin-top: 50px;
+      padding-top: 20px;
+      border-top: 1px solid #e5e7eb;
+      color: #6b7280;
+      font-size: 14px;
+    }
+  </style>
+</head>
+<body>
+  <h1>ELVAIT — Lead Generation Strategy</h1>
+  <p style="color: #6b7280;">Complete Playbook for Finding ICP-Fit Leads</p>
+
+  <div class="highlight">
+    <strong>Goal:</strong> Build a predictable pipeline of mid-market and enterprise companies actively considering AI/automation investments, with multiple stakeholders who need alignment.
+  </div>
+
+  <h2>📊 Channel Overview</h2>
+
+  <table>
+    <tr>
+      <th>Channel</th>
+      <th>Type</th>
+      <th>Time to Results</th>
+      <th>Cost</th>
+      <th>Lead Quality</th>
+      <th>Priority</th>
+    </tr>
+    <tr>
+      <td>LinkedIn Outbound</td>
+      <td>Outbound</td>
+      <td>1-2 weeks</td>
+      <td>Low-Medium</td>
+      <td>High</td>
+      <td><span class="priority">1</span></td>
+    </tr>
+    <tr>
+      <td>Industry Events</td>
+      <td>Hybrid</td>
+      <td>1-3 months</td>
+      <td>Medium-High</td>
+      <td>Very High</td>
+      <td><span class="priority">2</span></td>
+    </tr>
+    <tr>
+      <td>Partner Referrals</td>
+      <td>Inbound</td>
+      <td>2-4 months</td>
+      <td>Low</td>
+      <td>Very High</td>
+      <td><span class="priority">3</span></td>
+    </tr>
+    <tr>
+      <td>Content/SEO</td>
+      <td>Inbound</td>
+      <td>3-6 months</td>
+      <td>Medium</td>
+      <td>High</td>
+      <td><span class="priority">4</span></td>
+    </tr>
+    <tr>
+      <td>Cold Email</td>
+      <td>Outbound</td>
+      <td>2-4 weeks</td>
+      <td>Low</td>
+      <td>Medium</td>
+      <td><span class="priority">5</span></td>
+    </tr>
+    <tr>
+      <td>Paid Ads (LinkedIn)</td>
+      <td>Inbound</td>
+      <td>Immediate</td>
+      <td>High</td>
+      <td>Medium-High</td>
+      <td><span class="priority">6</span></td>
+    </tr>
+    <tr>
+      <td>Webinars</td>
+      <td>Inbound</td>
+      <td>1-2 months</td>
+      <td>Medium</td>
+      <td>High</td>
+      <td><span class="priority">7</span></td>
+    </tr>
+  </table>
+
+  <h2>🔍 Lead Data Sources</h2>
+
+  <h3>Company Intelligence Platforms</h3>
+  <div class="tactic">
+    <h4>LinkedIn Sales Navigator <span class="effort low">Essential</span></h4>
+    <p><strong>What:</strong> Primary tool for finding and reaching decision-makers</p>
+    <p><strong>Search filters for ICP:</strong></p>
+    <ul>
+      <li>Company headcount: 200-10,000</li>
+      <li>Industry: Manufacturing, Financial Services, Healthcare, Retail</li>
+      <li>Geography: DACH, Nordics, Benelux, UK</li>
+      <li>Job titles: CIO, CTO, CDO, VP IT, VP Operations, COO, Head of Digital, Head of Automation</li>
+      <li>Posted content about: "digital transformation", "automation", "AI strategy"</li>
+      <li>Changed jobs in last 90 days (new CTO/CDO = high intent)</li>
+    </ul>
+    <p><strong>Cost:</strong> ~€80/month</p>
+  </div>
+
+  <div class="tactic">
+    <h4>Apollo.io <span class="effort low">Essential</span></h4>
+    <p><strong>What:</strong> Contact database + email finder + sequences</p>
+    <p><strong>Use for:</strong></p>
+    <ul>
+      <li>Building targeted contact lists from ICP criteria</li>
+      <li>Finding verified email addresses</li>
+      <li>Running automated email sequences</li>
+      <li>Intent signals: job changes, funding, tech stack</li>
+    </ul>
+    <p><strong>Filters:</strong> Same as LinkedIn + technology filters (companies using SAP, Salesforce, UiPath, etc.)</p>
+    <p><strong>Cost:</strong> €49-99/month</p>
+  </div>
+
+  <div class="tactic">
+    <h4>ZoomInfo / Cognism <span class="effort medium">Scale</span></h4>
+    <p><strong>What:</strong> Premium B2B database with intent data</p>
+    <p><strong>Use for:</strong></p>
+    <ul>
+      <li>Intent signals: companies researching "automation", "RPA", "AI implementation"</li>
+      <li>Org charts: find all stakeholders in target accounts</li>
+      <li>Technographics: companies with specific tech stack</li>
+      <li>Trigger events: funding, expansion, new executives</li>
+    </ul>
+    <p><strong>Cost:</strong> €500-1500/month (negotiate annual)</p>
+  </div>
+
+  <h3>Trigger-Based Lead Sources</h3>
+  
+  <div class="tactic">
+    <h4>Job Postings = Buying Signals <span class="effort low">High ROI</span></h4>
+    <p><strong>Logic:</strong> Companies hiring for automation roles are actively investing</p>
+    <p><strong>Search for postings with:</strong></p>
+    <ul>
+      <li>"Head of Automation" / "Automation Lead"</li>
+      <li>"Digital Transformation Manager"</li>
+      <li>"RPA Developer" / "Process Automation"</li>
+      <li>"AI/ML Engineer" (new team = new initiatives)</li>
+    </ul>
+    <p><strong>Tools:</strong></p>
+    <ul>
+      <li><strong>LinkedIn Jobs</strong> — manual search, filter by company size</li>
+      <li><strong>Indeed/Glassdoor</strong> — broader reach</li>
+      <li><strong>BuiltWith + job boards</strong> — correlate tech stack with hiring</li>
+    </ul>
+    <p><strong>Outreach angle:</strong> "I noticed you're building an automation team. Before you invest in tools, have you aligned stakeholders on what success looks like?"</p>
+  </div>
+
+  <div class="tactic">
+    <h4>News & Press Releases <span class="effort low">High Intent</span></h4>
+    <p><strong>Monitor for:</strong></p>
+    <ul>
+      <li>Automation/AI project announcements</li>
+      <li>Digital transformation initiatives</li>
+      <li>New CTO/CDO/CIO appointments</li>
+      <li>Failed project news (post-mortem opportunity)</li>
+      <li>Funding rounds (mid-market companies raising = scaling operations)</li>
+    </ul>
+    <p><strong>Tools:</strong></p>
+    <ul>
+      <li><strong>Google Alerts</strong> — free, set up for key terms + target companies</li>
+      <li><strong>Crunchbase</strong> — funding alerts</li>
+      <li><strong>Feedly</strong> — industry news aggregation</li>
+      <li><strong>Owler</strong> — company news tracking</li>
+    </ul>
+  </div>
+
+  <div class="tactic">
+    <h4>Technology Install Data <span class="effort medium">Precision Targeting</span></h4>
+    <p><strong>Logic:</strong> Companies using certain tech are more likely to need ELVAIT</p>
+    <p><strong>Target companies using:</strong></p>
+    <ul>
+      <li><strong>RPA tools:</strong> UiPath, Automation Anywhere, Blue Prism (already automating, need governance)</li>
+      <li><strong>ERP systems:</strong> SAP, Oracle (complex orgs, multiple stakeholders)</li>
+      <li><strong>Process mining:</strong> Celonis, ProcessGold (aware of process optimization)</li>
+      <li><strong>AI/ML platforms:</strong> DataRobot, H2O.ai (AI-forward, need structure)</li>
+    </ul>
+    <p><strong>Tools:</strong></p>
+    <ul>
+      <li><strong>BuiltWith</strong> — web technology detection</li>
+      <li><strong>HG Insights</strong> — enterprise tech install base</li>
+      <li><strong>Slintel</strong> — technographic data</li>
+    </ul>
+  </div>
+
+  <h3>Community & Social Listening</h3>
+
+  <div class="tactic">
+    <h4>LinkedIn Content Engagement <span class="effort low">Warm Leads</span></h4>
+    <p><strong>Monitor people who:</strong></p>
+    <ul>
+      <li>Post about automation challenges/failures</li>
+      <li>Comment on digital transformation content</li>
+      <li>Share articles about AI readiness</li>
+      <li>Ask questions about automation ROI</li>
+    </ul>
+    <p><strong>How:</strong></p>
+    <ul>
+      <li>Follow hashtags: #DigitalTransformation #Automation #AI #RPA #ProcessExcellence</li>
+      <li>Engage genuinely first (comment, share), then DM</li>
+      <li>Use Sales Navigator alerts for saved leads' activity</li>
+    </ul>
+  </div>
+
+  <div class="tactic">
+    <h4>Industry Forums & Communities <span class="effort medium">Targeted</span></h4>
+    <p><strong>Where ICP hangs out:</strong></p>
+    <ul>
+      <li><strong>Gartner Peer Community</strong> — CIOs discussing challenges</li>
+      <li><strong>CIO.com forums</strong></li>
+      <li><strong>Reddit:</strong> r/BusinessIntelligence, r/automation, r/CIO</li>
+      <li><strong>Slack communities:</strong> CTO Craft, Tech Leaders</li>
+      <li><strong>Discord:</strong> AI/ML communities</li>
+    </ul>
+    <p><strong>Approach:</strong> Contribute value first, don't pitch. Answer questions, share frameworks. Build authority.</p>
+  </div>
+
+  <h2>📤 Outbound Channels</h2>
+
+  <h3>1. LinkedIn Outbound (Primary)</h3>
+  
+  <div class="tactic">
+    <h4>Connection Request + Sequence <span class="effort low">Start Here</span></h4>
+    <p><strong>Target:</strong> CIOs, CTOs, COOs, Heads of Digital at ICP companies</p>
+    <p><strong>Sequence:</strong></p>
+    <ol>
+      <li><strong>Day 0:</strong> Connection request (no pitch, just relevant note)</li>
+      <li><strong>Day 2:</strong> Thank for connecting, share relevant content piece</li>
+      <li><strong>Day 5:</strong> Soft pitch — mention specific challenge + ELVAIT</li>
+      <li><strong>Day 10:</strong> Value add — send case study or framework</li>
+      <li><strong>Day 15:</strong> Direct ask — offer free assessment or demo</li>
+    </ol>
+    <p><strong>Sample connection note:</strong></p>
+    <code>"Hi [Name], I work with [industry] companies navigating automation investments. Saw your background in [specific thing] — would love to connect and share some frameworks we've developed for pre-investment clarity."</code>
+    <p><strong>Volume:</strong> 20-30 connection requests/day (stay under LinkedIn limits)</p>
+  </div>
+
+  <div class="tactic">
+    <h4>Engage-First Approach <span class="effort low">Higher Conversion</span></h4>
+    <p><strong>Before connecting:</strong></p>
+    <ol>
+      <li>Like 2-3 of their recent posts</li>
+      <li>Leave a thoughtful comment on one post</li>
+      <li>View their profile (they'll see you)</li>
+      <li>Wait 2-3 days</li>
+      <li>Then send connection request</li>
+    </ol>
+    <p><strong>Result:</strong> 2-3x higher accept rate because they recognize you</p>
+  </div>
+
+  <h3>2. Cold Email</h3>
+
+  <div class="tactic">
+    <h4>Multi-Touch Email Sequence <span class="effort medium">Scale</span></h4>
+    <p><strong>Setup:</strong></p>
+    <ul>
+      <li>Use Apollo, Outreach, or Lemlist for sequences</li>
+      <li>Warm up new domains (2-3 weeks before sending volume)</li>
+      <li>Verify emails before sending (NeverBounce, ZeroBounce)</li>
+    </ul>
+    <p><strong>5-Email Sequence:</strong></p>
+    <table>
+      <tr>
+        <th>Email</th>
+        <th>Day</th>
+        <th>Subject Line</th>
+        <th>Angle</th>
+      </tr>
+      <tr>
+        <td>1</td>
+        <td>0</td>
+        <td>"Quick question about [Company]'s automation plans"</td>
+        <td>Pattern interrupt, specific to them</td>
+      </tr>
+      <tr>
+        <td>2</td>
+        <td>3</td>
+        <td>"The €2M question"</td>
+        <td>Problem-focused (automation project failures)</td>
+      </tr>
+      <tr>
+        <td>3</td>
+        <td>7</td>
+        <td>"[Competitor] just did this"</td>
+        <td>Social proof / FOMO</td>
+      </tr>
+      <tr>
+        <td>4</td>
+        <td>12</td>
+        <td>"Free framework"</td>
+        <td>Value-add, share ICS framework</td>
+      </tr>
+      <tr>
+        <td>5</td>
+        <td>18</td>
+        <td>"Closing the loop"</td>
+        <td>Breakup email</td>
+      </tr>
+    </table>
+    <p><strong>Sample Email 1:</strong></p>
+    <code>Subject: Quick question about [Company]'s automation plans<br><br>Hi [First Name],<br><br>I noticed [Company] is [hiring for automation roles / announced a digital transformation initiative / using UiPath].<br><br>Quick question: before you invest in the next automation project, how are you making sure all stakeholders — business, tech, operations — are aligned on what success looks like?<br><br>We built a framework that gives you a clear GO/NO-GO recommendation in days, not months. 73% of automation projects fail due to misalignment, not technology.<br><br>Worth a 15-minute call to see if it fits?<br><br>[Name]</code>
+  </div>
+
+  <h3>3. Phone/Call Outreach</h3>
+
+  <div class="tactic">
+    <h4>Warm Calling (Post-Engagement) <span class="effort high">High Conversion</span></h4>
+    <p><strong>Only call after:</strong></p>
+    <ul>
+      <li>They opened your email 2+ times</li>
+      <li>They clicked a link</li>
+      <li>They viewed your LinkedIn profile</li>
+      <li>They accepted your connection</li>
+    </ul>
+    <p><strong>Script opener:</strong></p>
+    <code>"Hi [Name], this is [You] from ELVAIT. I sent you something about automation investment clarity last week — did you get a chance to look at it? [Pause] ... I'm calling because I noticed [specific trigger about their company] and thought it might be relevant."</code>
+    <p><strong>Tools:</strong> Aircall, Orum, Nooks (parallel dialing)</p>
+  </div>
+
+  <h2>📥 Inbound Channels</h2>
+
+  <h3>1. Content Marketing / SEO</h3>
+
+  <div class="tactic">
+    <h4>Problem-Aware Content <span class="effort medium">Long-term</span></h4>
+    <p><strong>Target keywords:</strong></p>
+    <ul>
+      <li>"why automation projects fail" (1,300 searches/mo)</li>
+      <li>"automation readiness assessment" (880 searches/mo)</li>
+      <li>"digital transformation checklist" (2,400 searches/mo)</li>
+      <li>"AI implementation risks" (720 searches/mo)</li>
+      <li>"RPA project failure" (480 searches/mo)</li>
+      <li>"automation ROI calculator" (590 searches/mo)</li>
+    </ul>
+    <p><strong>Content types:</strong></p>
+    <ul>
+      <li><strong>Blog posts:</strong> "5 Reasons Your Automation Project Will Fail (And How to Prevent It)"</li>
+      <li><strong>Guides:</strong> "The Complete Guide to AI Investment Due Diligence"</li>
+      <li><strong>Templates:</strong> "Automation Business Case Template" (gated)</li>
+      <li><strong>Tools:</strong> "Free Automation Readiness Quiz" (lead magnet)</li>
+    </ul>
+  </div>
+
+  <div class="tactic">
+    <h4>LinkedIn Thought Leadership <span class="effort low">Authority Building</span></h4>
+    <p><strong>Post 3-5x per week:</strong></p>
+    <ul>
+      <li>Hot takes on automation failures (controversial = engagement)</li>
+      <li>Frameworks and mental models</li>
+      <li>Industry data and statistics</li>
+      <li>Customer win stories (anonymized)</li>
+      <li>Behind-the-scenes of building ELVAIT</li>
+    </ul>
+    <p><strong>Format mix:</strong></p>
+    <ul>
+      <li>Text posts with hooks (most reach)</li>
+      <li>Carousels (educational content)</li>
+      <li>Polls (engagement)</li>
+      <li>Short videos (personal touch)</li>
+    </ul>
+  </div>
+
+  <h3>2. Webinars & Virtual Events</h3>
+
+  <div class="tactic">
+    <h4>Educational Webinars <span class="effort medium">High Intent Leads</span></h4>
+    <p><strong>Topics that attract ICP:</strong></p>
+    <ul>
+      <li>"Is Your Organization Ready for AI? A Self-Assessment Framework"</li>
+      <li>"The Hidden Costs of Automation Projects: What Vendors Won't Tell You"</li>
+      <li>"How to Get Stakeholder Buy-In Before Your Automation Project Starts"</li>
+      <li>"From Pilot to Scale: Why 70% of Automation Projects Get Stuck"</li>
+    </ul>
+    <p><strong>Promotion:</strong></p>
+    <ul>
+      <li>LinkedIn posts (organic)</li>
+      <li>LinkedIn ads (target ICP titles)</li>
+      <li>Email to existing contacts</li>
+      <li>Partner co-promotion</li>
+    </ul>
+    <p><strong>Follow-up:</strong> All registrants get sequence; attendees get personal outreach</p>
+  </div>
+
+  <h3>3. Paid Advertising</h3>
+
+  <div class="tactic">
+    <h4>LinkedIn Ads <span class="effort high">Fast, Expensive</span></h4>
+    <p><strong>Campaign types:</strong></p>
+    <ul>
+      <li><strong>Lead Gen Forms:</strong> Offer free assessment, capture in-platform</li>
+      <li><strong>Content Sponsorship:</strong> Promote high-value content to ICP</li>
+      <li><strong>Retargeting:</strong> Hit website visitors with social proof</li>
+    </ul>
+    <p><strong>Targeting:</strong></p>
+    <ul>
+      <li>Job titles: CIO, CTO, COO, VP IT, VP Operations, CDO</li>
+      <li>Company size: 200-10,000</li>
+      <li>Industries: Manufacturing, Financial Services, Healthcare</li>
+      <li>Skills: Digital Transformation, Process Automation, RPA</li>
+    </ul>
+    <p><strong>Budget:</strong> €50-100/day minimum for testing; €3,000-5,000/month for scale</p>
+    <p><strong>Expected CPL:</strong> €80-200 for enterprise</p>
+  </div>
+
+  <h2>🤝 Partnership Channels</h2>
+
+  <div class="tactic">
+    <h4>Consulting Firm Partnerships <span class="effort medium">Highest Quality</span></h4>
+    <p><strong>Target partners:</strong></p>
+    <ul>
+      <li><strong>Big 4 advisory:</strong> Deloitte, PwC, EY, KPMG (digital transformation practices)</li>
+      <li><strong>Mid-tier consultancies:</strong> Capgemini, Accenture, Cognizant</li>
+      <li><strong>Boutique firms:</strong> Digital transformation specialists, process consultants</li>
+      <li><strong>Regional players:</strong> DACH-focused consultancies</li>
+    </ul>
+    <p><strong>Value prop to partners:</strong></p>
+    <ul>
+      <li>Use ELVAIT in client engagements (adds structure to their methodology)</li>
+      <li>White-label option for their brand</li>
+      <li>Referral commission for leads sent</li>
+      <li>Co-marketing (webinars, content)</li>
+    </ul>
+    <p><strong>Approach:</strong> Find individual partners/managers via LinkedIn; propose pilot with one client</p>
+  </div>
+
+  <div class="tactic">
+    <h4>Technology Vendor Partnerships <span class="effort medium">Warm Intros</span></h4>
+    <p><strong>Target partners:</strong></p>
+    <ul>
+      <li><strong>RPA vendors:</strong> UiPath, Automation Anywhere (they want customers to succeed)</li>
+      <li><strong>Process mining:</strong> Celonis, ProcessGold</li>
+      <li><strong>Integration platforms:</strong> MuleSoft, Boomi</li>
+      <li><strong>ERP vendors:</strong> SAP partners, Oracle partners</li>
+    </ul>
+    <p><strong>Value prop:</strong> "Your customers fail because they start without alignment. We fix that. Better success = better NPS for you."</p>
+  </div>
+
+  <div class="tactic">
+    <h4>Industry Associations <span class="effort low">Credibility + Access</span></h4>
+    <p><strong>Target:</strong></p>
+    <ul>
+      <li>CIO associations (CIO Klub, CIO Magazine events)</li>
+      <li>Manufacturing associations (Industry 4.0 groups)</li>
+      <li>Digital transformation networks</li>
+      <li>Process excellence groups (APQC, iSixSigma)</li>
+    </ul>
+    <p><strong>Activities:</strong> Speaking slots, sponsored content, member discounts</p>
+  </div>
+
+  <h2>🎯 Event-Based Lead Gen</h2>
+
+  <div class="tactic">
+    <h4>Industry Conferences <span class="effort high">High Touch</span></h4>
+    <p><strong>Target events (DACH/EU):</strong></p>
+    <ul>
+      <li><strong>Gartner IT Symposium</strong> — CIO/CTO heavy</li>
+      <li><strong>Web Summit</strong> — broad tech audience</li>
+      <li><strong>AI Summit</strong> — AI-focused enterprises</li>
+      <li><strong>Process Mining Camp</strong> — process excellence audience</li>
+      <li><strong>Hannover Messe</strong> — manufacturing/Industry 4.0</li>
+      <li><strong>Digital Transformation World</strong></li>
+    </ul>
+    <p><strong>Tactics:</strong></p>
+    <ul>
+      <li><strong>Speaking:</strong> Submit CFPs for workshops/talks</li>
+      <li><strong>Booth:</strong> Interactive demo + free assessment offer</li>
+      <li><strong>Side events:</strong> Host dinner/drinks for 10-15 ICP attendees</li>
+      <li><strong>Attendee outreach:</strong> Get attendee list, reach out before/after</li>
+    </ul>
+  </div>
+
+  <div class="tactic">
+    <h4>Host Your Own Events <span class="effort medium">Owned Audience</span></h4>
+    <p><strong>Formats:</strong></p>
+    <ul>
+      <li><strong>Roundtables:</strong> "CIO Roundtable: Automation Investment Decisions" (10-15 people)</li>
+      <li><strong>Workshops:</strong> "Automation Readiness Workshop" (half-day, hands-on)</li>
+      <li><strong>Executive dinners:</strong> Invite 8-10 CIOs, facilitate discussion</li>
+    </ul>
+    <p><strong>Location:</strong> Nice venue, good food — make it worth their time</p>
+  </div>
+
+  <h2>📋 Lead Scoring Model</h2>
+
+  <table>
+    <tr>
+      <th>Attribute</th>
+      <th>Criteria</th>
+      <th>Points</th>
+    </tr>
+    <tr>
+      <td colspan="3" style="background: #dbeafe; font-weight: 600;">Company Fit</td>
+    </tr>
+    <tr>
+      <td>Company size</td>
+      <td>500-5,000 employees</td>
+      <td>+20</td>
+    </tr>
+    <tr>
+      <td></td>
+      <td>200-500 or 5,000-10,000</td>
+      <td>+10</td>
+    </tr>
+    <tr>
+      <td>Industry</td>
+      <td>Manufacturing, Financial Services, Healthcare</td>
+      <td>+15</td>
+    </tr>
+    <tr>
+      <td></td>
+      <td>Other target industries</td>
+      <td>+10</td>
+    </tr>
+    <tr>
+      <td>Geography</td>
+      <td>DACH, Nordics, Benelux</td>
+      <td>+10</td>
+    </tr>
+    <tr>
+      <td colspan="3" style="background: #dbeafe; font-weight: 600;">Contact Fit</td>
+    </tr>
+    <tr>
+      <td>Title</td>
+      <td>CIO, CTO, COO, CDO</td>
+      <td>+25</td>
+    </tr>
+    <tr>
+      <td></td>
+      <td>VP IT, VP Operations, Head of Digital</td>
+      <td>+20</td>
+    </tr>
+    <tr>
+      <td></td>
+      <td>Director level</td>
+      <td>+10</td>
+    </tr>
+    <tr>
+      <td colspan="3" style="background: #dbeafe; font-weight: 600;">Behavioral Signals</td>
+    </tr>
+    <tr>
+      <td>Trigger event</td>
+      <td>New exec in role &lt;90 days</td>
+      <td>+25</td>
+    </tr>
+    <tr>
+      <td></td>
+      <td>Hiring automation roles</td>
+      <td>+20</td>
+    </tr>
+    <tr>
+      <td></td>
+      <td>Announced automation initiative</td>
+      <td>+20</td>
+    </tr>
+    <tr>
+      <td>Engagement</td>
+      <td>Requested demo/assessment</td>
+      <td>+30</td>
+    </tr>
+    <tr>
+      <td></td>
+      <td>Attended webinar</td>
+      <td>+15</td>
+    </tr>
+    <tr>
+      <td></td>
+      <td>Downloaded content</td>
+      <td>+10</td>
+    </tr>
+    <tr>
+      <td></td>
+      <td>Opened 3+ emails</td>
+      <td>+10</td>
+    </tr>
+  </table>
+
+  <p><strong>Score thresholds:</strong></p>
+  <ul>
+    <li><strong>80+:</strong> Hot lead → immediate sales outreach</li>
+    <li><strong>50-79:</strong> Warm lead → nurture sequence + SDR follow-up</li>
+    <li><strong>30-49:</strong> Marketing qualified → content nurture</li>
+    <li><strong>&lt;30:</strong> Not qualified → remove or long-term nurture</li>
+  </ul>
+
+  <h2>🚀 90-Day Launch Plan</h2>
+
+  <h3>Month 1: Foundation</h3>
+  <ul>
+    <li>☐ Set up LinkedIn Sales Navigator + Apollo</li>
+    <li>☐ Build initial target account list (200 companies)</li>
+    <li>☐ Create LinkedIn outreach sequences</li>
+    <li>☐ Write 5-email cold sequence</li>
+    <li>☐ Publish 3 cornerstone content pieces</li>
+    <li>☐ Start daily LinkedIn posting</li>
+    <li>☐ Identify 10 potential consulting partners</li>
+  </ul>
+
+  <h3>Month 2: Scale</h3>
+  <ul>
+    <li>☐ Launch LinkedIn outbound (20-30 connections/day)</li>
+    <li>☐ Launch cold email (50-100 emails/day)</li>
+    <li>☐ Host first webinar</li>
+    <li>☐ Reach out to 5 consulting partners</li>
+    <li>☐ Set up Google Alerts for trigger events</li>
+    <li>☐ Test LinkedIn ads (small budget)</li>
+  </ul>
+
+  <h3>Month 3: Optimize</h3>
+  <ul>
+    <li>☐ Analyze conversion data, double down on what works</li>
+    <li>☐ Refine messaging based on call feedback</li>
+    <li>☐ Plan first executive roundtable event</li>
+    <li>☐ Close first partner deal</li>
+    <li>☐ Scale winning channels</li>
+  </ul>
+
+  <h2>📊 KPIs to Track</h2>
+
+  <table>
+    <tr>
+      <th>Metric</th>
+      <th>Target (Month 3)</th>
+    </tr>
+    <tr>
+      <td>LinkedIn connection accept rate</td>
+      <td>&gt;30%</td>
+    </tr>
+    <tr>
+      <td>Cold email reply rate</td>
+      <td>&gt;5%</td>
+    </tr>
+    <tr>
+      <td>Meetings booked / week</td>
+      <td>5-10</td>
+    </tr>
+    <tr>
+      <td>MQL → SQL conversion</td>
+      <td>&gt;25%</td>
+    </tr>
+    <tr>
+      <td>Cost per meeting</td>
+      <td>&lt;€100</td>
+    </tr>
+    <tr>
+      <td>Pipeline generated</td>
+      <td>€200K+</td>
+    </tr>
+  </table>
+
+  <div class="footer">
+    <p><strong>ELVAIT Lead Generation Strategy v1.0</strong> — February 2026</p>
+    <p>Internal document. Do not distribute externally.</p>
+  </div>
+</body>
+</html>
