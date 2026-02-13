@@ -167,6 +167,36 @@ If critical issues arise:
 
 ---
 
+## Post-Launch: Development Environment Setup
+
+Before making any changes to production, set up a dev environment:
+
+### Required Setup
+```
+□ Create 'develop' branch for dev deployments
+□ Set up branch-based CI/CD:
+    - push to 'develop' → deploy to elvait-dev
+    - push to 'main' → deploy to elvait (production)
+□ Create dev database (elvait_dev)
+□ Configure DATABASE_URL_DEV secret in GitHub
+□ Document dev workflow in README
+```
+
+### Development Workflow (After Setup)
+1. Create feature branch from `develop`
+2. Make changes, commit, push
+3. Create PR to `develop` → auto-deploy to dev
+4. Test on dev environment
+5. Create PR from `develop` to `main` → deploy to production
+
+### Environment URLs (Planned)
+| Environment | Branch | URL |
+|-------------|--------|-----|
+| Production | main | elvait.brnz.live |
+| Development | develop | elvait-dev.*.run.app |
+
+---
+
 ## Post-Launch Monitoring
 
 ### First 24 Hours
