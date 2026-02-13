@@ -84,8 +84,11 @@ export default function LandingPage() {
             <Link href="/demo" className="text-white/80 hover:text-white transition">
               Demo
             </Link>
+            <Link href="/dashboard" className="text-white/80 hover:text-white transition">
+              My Assessments
+            </Link>
             <Link 
-              href="/start"
+              href="/create"
               className="px-4 py-2 bg-white text-clarity-700 rounded-lg font-medium hover:bg-gray-100 transition"
             >
               Start Assessment

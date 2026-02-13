@@ -146,9 +146,9 @@ export default function CaseDetailPage() {
       {/* Header */}
       <header className="bg-white dark:bg-gray-900 border-b border-gray-200 dark:border-gray-800">
         <div className="max-w-6xl mx-auto px-6 py-4 flex items-center justify-between">
-          <Link href="/" className="flex items-center gap-2 text-gray-600 hover:text-gray-900 dark:text-gray-400 dark:hover:text-white">
+          <Link href="/dashboard" className="flex items-center gap-2 text-gray-600 hover:text-gray-900 dark:text-gray-400 dark:hover:text-white">
             <ArrowLeft className="w-5 h-5" />
-            <span>Back</span>
+            <span>My Assessments</span>
           </Link>
           <div className="flex items-center gap-2">
             <Brain className="w-6 h-6 text-clarity-600" />
@@ -172,15 +172,30 @@ export default function CaseDetailPage() {
               <h1 className="text-2xl font-bold mb-2">{caseData.decisionTitle}</h1>
               <p className="text-gray-600 dark:text-gray-400">{caseData.decisionDescription}</p>
             </div>
-            {caseData._count.responses > 0 && (
-              <Link href={`/cases/${caseData.id}/results`}>
-                <Button>
-                  <BarChart3 className="w-4 h-4 mr-2" />
-                  View Results
-                </Button>
-              </Link>
-            )}
           </div>
+          
+          {/* Prominent Results Banner */}
+          {caseData._count.responses > 0 && (
+            <div className="mt-4 p-4 bg-green-50 dark:bg-green-900/20 border-2 border-green-200 dark:border-green-800 rounded-xl">
+              <div className="flex flex-col sm:flex-row items-center justify-between gap-4">
+                <div className="flex items-center gap-3">
+                  <div className="w-10 h-10 bg-green-500 rounded-full flex items-center justify-center">
+                    <CheckCircle className="w-6 h-6 text-white" />
+                  </div>
+                  <div>
+                    <p className="font-semibold text-green-900 dark:text-green-100">Results Available!</p>
+                    <p className="text-sm text-green-700 dark:text-green-300">{caseData._count.responses} responses collected</p>
+                  </div>
+                </div>
+                <Link href={`/cases/${caseData.id}/results`}>
+                  <Button className="bg-green-600 hover:bg-green-700 text-white px-6">
+                    <BarChart3 className="w-5 h-5 mr-2" />
+                    View Results & Recommendation
+                  </Button>
+                </Link>
+              </div>
+            </div>
+          )}
           
           <div className="flex flex-wrap gap-4 text-sm text-gray-500">
             <span className="flex items-center gap-1">
