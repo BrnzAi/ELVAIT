@@ -280,14 +280,6 @@ export default function LandingPage() {
             </div>
           </div>
 
-          <div className="text-center mt-8">
-            <Link 
-              href="/md/faq.md"
-              className="text-clarity-600 dark:text-clarity-400 hover:underline font-medium"
-            >
-              View complete FAQ →
-            </Link>
-          </div>
         </div>
       </section>
 
