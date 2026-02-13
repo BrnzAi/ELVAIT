@@ -9,6 +9,7 @@ import {
   Users, Target, Shield, Briefcase, Settings
 } from 'lucide-react';
 import { Button } from '@/components/ui/button';
+import { exportToPDF, PDFExportData } from '@/lib/pdf-export';
 
 interface BlindSpot {
   label: string;
@@ -151,9 +152,6 @@ export default function ResultsPage() {
   const rec = results.recommendation.value;
   const ics = results.ics.value;
 
-  const recClass = rec === 'GO' ? 'go' : rec === 'CLARIFY' ? 'clarify' : 'nogo';
-  const recLabel = rec === 'GO' ? 'Ready to Proceed' : rec === 'CLARIFY' ? 'Action Required' : 'Do Not Proceed';
-
   const RecommendationBadge = () => {
     if (rec === 'GO') {
       return (
@@ -194,13 +192,6 @@ export default function ResultsPage() {
     );
   };
 
-  const getScoreClass = (score: number | null) => {
-    if (score === null) return 'low';
-    if (score >= 75) return 'high';
-    if (score >= 50) return 'medium';
-    return 'low';
-  };
-
   return (
     <div className="min-h-screen bg-gray-50 dark:bg-gray-950">
       {/* Header */}
@@ -217,7 +208,39 @@ export default function ResultsPage() {
           <Button 
             variant="outline" 
             size="sm"
-            onClick={() => window.print()}
+            onClick={() => {
+              if (!results) return;
+              const pdfData: PDFExportData = {
+                title: 'Assessment Results',
+                recommendation: results.recommendation.value || 'CLARIFY',
+                ics: results.ics.value || 0,
+                dimensions: Object.entries(results.dimensions.case)
+                  .filter(([code]) => code !== 'P' || results.dimensions.case[code] !== null)
+                  .map(([code, score]) => ({
+                    code,
+                    name: DIMENSION_LABELS[code]?.label || code,
+                    score: score || 0
+                  })),
+                flags: results.flags.items.map(f => ({
+                  code: f.flag_id,
+                  name: f.evidence.description || f.flag_id,
+                  severity: f.severity as 'critical' | 'warning' | 'info'
+                })),
+                blindSpots: results.blindSpots.map(s => ({
+                  title: s.label,
+                  description: s.explanation,
+                  severity: s.severity
+                })),
+                checklist: results.checklistItems.map(item => ({
+                  prompt: item.prompt,
+                  responsibleRole: ROLE_LABELS[item.responsibleRole] || item.responsibleRole
+                })),
+                participantCount: results.participantCount,
+                responseCount: results.responseCount,
+                generatedAt: results.generatedAt
+              };
+              exportToPDF(pdfData);
+            }}
           >
             <Download className="w-4 h-4 mr-2" />
             Export PDF
@@ -225,7 +248,7 @@ export default function ResultsPage() {
         </div>
       </header>
 
-      <main className="max-w-6xl mx-auto px-6 py-8 no-print">
+      <main className="max-w-6xl mx-auto px-6 py-8">
         {/* Top Summary */}
         <div className="grid md:grid-cols-2 gap-6 mb-8">
           {/* Recommendation */}
@@ -422,157 +445,11 @@ export default function ResultsPage() {
         )}
 
         {/* Meta */}
-        <div className="mt-8 text-center text-sm text-gray-400 no-print">
+        <div className="mt-8 text-center text-sm text-gray-400">
           Generated {new Date(results.generatedAt).toLocaleString()} • 
           {results.responseCount} responses from {results.participantCount} participants
         </div>
       </main>
-
-      {/* Print-optimized layout - hidden on screen, shown when printing */}
-      <div className="hidden print:block">
-        {/* Print Header */}
-        <div className="print-header">
-          <div>
-            <h1>ELVAIT Assessment Report</h1>
-            <p className="subtitle">Clarity Before Automation Kit</p>
-          </div>
-          <div className="text-right">
-            <p className="subtitle">{new Date(results.generatedAt).toLocaleDateString()}</p>
-          </div>
-        </div>
-
-        {/* Summary Section */}
-        <div className="print-section">
-          <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '16pt' }}>
-            {/* Recommendation */}
-            <div className={`print-recommendation ${recClass}`}>
-              <h3>{rec || 'PENDING'}</h3>
-              <p>{recLabel}</p>
-              <p style={{ marginTop: '8pt', fontSize: '9pt' }}>{results.recommendation.reason}</p>
-            </div>
-
-            {/* ICS Score */}
-            <div className="print-ics">
-              <div className="score">{ics !== null ? ics.toFixed(0) : 'N/A'}</div>
-              <div>/100</div>
-              <div className="label">{results.ics.label}</div>
-              <div className="print-score-bar" style={{ marginTop: '8pt' }}>
-                <div 
-                  className={`fill ${getScoreClass(ics)}`} 
-                  style={{ width: `${ics ?? 0}%` }} 
-                />
-              </div>
-            </div>
-          </div>
-        </div>
-
-        {/* Executive Summary */}
-        <div className="print-section">
-          <h2>Executive Summary</h2>
-          <p style={{ marginBottom: '12pt' }}>{results.narrative.executive}</p>
-          
-          <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '16pt' }}>
-            <div>
-              <strong style={{ fontSize: '10pt' }}>Key Findings</strong>
-              <ul className="print-list">
-                {results.narrative.keyFindings.map((finding, i) => (
-                  <li key={i}>{finding}</li>
-                ))}
-              </ul>
-            </div>
-            <div>
-              <strong style={{ fontSize: '10pt' }}>Next Steps</strong>
-              <p style={{ fontSize: '10pt' }}>{results.narrative.nextSteps}</p>
-            </div>
-          </div>
-        </div>
-
-        {/* Dimension Scores */}
-        <div className="print-section">
-          <h2>Dimension Scores</h2>
-          <div className="print-dimensions">
-            {Object.entries(results.dimensions.case).map(([dim, score]) => {
-              if (dim === 'P' && score === null) return null;
-              const config = DIMENSION_LABELS[dim];
-              if (!config) return null;
-              
-              return (
-                <div key={dim} className="print-dimension">
-                  <div className="name">{config.label}</div>
-                  <div className="score">{score?.toFixed(0) ?? 'N/A'}<span style={{ fontSize: '10pt', fontWeight: 'normal' }}>/100</span></div>
-                  <div className="print-score-bar">
-                    <div className={`fill ${getScoreClass(score)}`} style={{ width: `${score ?? 0}%` }} />
-                  </div>
-                </div>
-              );
-            })}
-          </div>
-        </div>
-
-        {/* Blind Spots */}
-        {results.blindSpots.length > 0 && (
-          <div className="print-section print-page-break">
-            <h2>Blind Spots & Risks</h2>
-            {results.blindSpots.map((spot, i) => (
-              <div key={i} style={{ marginBottom: '10pt', paddingLeft: '8pt', borderLeft: `3pt solid ${spot.severity === 'CRITICAL' ? '#ef4444' : spot.severity === 'WARN' ? '#f59e0b' : '#3b82f6'}` }}>
-                <div style={{ display: 'flex', alignItems: 'center', gap: '8pt' }}>
-                  <span className={`print-flag ${spot.severity.toLowerCase()}`}>{spot.severity}</span>
-                  <strong>{spot.label}</strong>
-                </div>
-                <p style={{ fontSize: '9pt', marginTop: '4pt' }}>{spot.explanation}</p>
-              </div>
-            ))}
-          </div>
-        )}
-
-        {/* Action Checklist */}
-        {results.checklistItems.length > 0 && (
-          <div className="print-section">
-            <h2>Action Checklist</h2>
-            <table>
-              <thead>
-                <tr>
-                  <th style={{ width: '5%' }}>#</th>
-                  <th style={{ width: '70%' }}>Action Item</th>
-                  <th style={{ width: '25%' }}>Responsible</th>
-                </tr>
-              </thead>
-              <tbody>
-                {results.checklistItems.map((item, i) => (
-                  <tr key={item.id}>
-                    <td>{i + 1}</td>
-                    <td>{item.prompt}</td>
-                    <td>{ROLE_LABELS[item.responsibleRole] || item.responsibleRole}</td>
-                  </tr>
-                ))}
-              </tbody>
-            </table>
-          </div>
-        )}
-
-        {/* Detected Signals */}
-        {results.flags.items.length > 0 && (
-          <div className="print-section">
-            <h2>Detected Signals ({results.flags.counts.critical} critical, {results.flags.counts.warn} warnings)</h2>
-            <div style={{ display: 'flex', flexWrap: 'wrap', gap: '6pt' }}>
-              {results.flags.items.slice(0, 15).map((flag, i) => (
-                <span key={i} className={`print-flag ${flag.severity.toLowerCase()}`}>
-                  {flag.flag_id}
-                </span>
-              ))}
-              {results.flags.items.length > 15 && (
-                <span style={{ fontSize: '9pt', color: '#6b7280' }}>+{results.flags.items.length - 15} more</span>
-              )}
-            </div>
-          </div>
-        )}
-
-        {/* Print Footer */}
-        <div className="print-footer">
-          <p>Generated by ELVAIT • {new Date(results.generatedAt).toLocaleString()} • {results.responseCount} responses from {results.participantCount} participants</p>
-          <p style={{ marginTop: '4pt' }}>Confidential — For authorized stakeholders only</p>
-        </div>
-      </div>
     </div>
   );
 }

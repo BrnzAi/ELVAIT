@@ -9,6 +9,7 @@ import {
   ChevronDown, Download
 } from 'lucide-react';
 import { Button } from '@/components/ui/button';
+import { exportToPDF, PDFExportData } from '@/lib/pdf-export';
 
 // =============================================================================
 // DEMO DATA - Different assessments based on ID
@@ -215,14 +216,36 @@ export default function DemoResultsByIdPage() {
     <div className="min-h-screen bg-gray-950 text-white">
       <div className="fixed inset-0 bg-[radial-gradient(ellipse_at_top,rgba(20,184,166,0.1),transparent_50%)]" />
       
-      <header className="border-b border-gray-800 sticky top-0 bg-gray-950/80 backdrop-blur-xl z-10 no-print">
+      <header className="border-b border-gray-800 sticky top-0 bg-gray-950/80 backdrop-blur-xl z-10">
         <div className="max-w-5xl mx-auto px-6 py-4 flex items-center justify-between">
           <div className="flex items-center gap-3">
             <Brain className="w-6 h-6 text-clarity-500" />
             <span className="font-semibold">Assessment Results</span>
           </div>
           <div className="flex items-center gap-4">
-            <Button variant="outline" size="sm" onClick={() => window.print()}>
+            <Button variant="outline" size="sm" onClick={() => {
+              const pdfData: PDFExportData = {
+                title: assessment.title,
+                recommendation: assessment.recommendation,
+                ics: assessment.ics,
+                dimensions: assessment.dimensions.map(d => ({
+                  code: d.code,
+                  name: d.name,
+                  score: d.score
+                })),
+                flags: assessment.flags.map(f => ({
+                  code: f.code,
+                  name: f.name,
+                  severity: f.severity
+                })),
+                blindSpots: assessment.blindSpots.map(b => ({
+                  title: b.title,
+                  description: b.description,
+                  severity: b.severity
+                }))
+              };
+              exportToPDF(pdfData);
+            }}>
               <Download className="w-4 h-4 mr-2" />
               Export PDF
             </Button>
@@ -234,7 +257,7 @@ export default function DemoResultsByIdPage() {
         </div>
       </header>
 
-      <main className="max-w-5xl mx-auto px-6 py-8 relative z-10 no-print">
+      <main className="max-w-5xl mx-auto px-6 py-8 relative z-10">
         {/* Assessment Header */}
         <div className="bg-gray-900 rounded-xl border border-gray-800 p-6 mb-6">
           <div className="flex flex-col md:flex-row md:items-center justify-between gap-6">
@@ -373,78 +396,6 @@ export default function DemoResultsByIdPage() {
           </Link>
         </div>
       </main>
-
-      {/* Print-optimized layout */}
-      <div className="hidden print:block">
-        <div className="print-header">
-          <div>
-            <h1>ELVAIT Assessment Report</h1>
-            <p className="subtitle">{assessment.title}</p>
-          </div>
-          <div className="text-right">
-            <p className="subtitle">{new Date().toLocaleDateString()}</p>
-          </div>
-        </div>
-
-        <div className="print-section">
-          <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '16pt' }}>
-            <div className={`print-recommendation ${assessment.recommendation.toLowerCase().replace('_', '')}`}>
-              <h3>{assessment.recommendation.replace('_', '-')}</h3>
-              <p>{assessment.recommendation === 'GO' ? 'Ready to Proceed' : assessment.recommendation === 'CLARIFY' ? 'Action Required' : 'Do Not Proceed'}</p>
-            </div>
-            <div className="print-ics">
-              <div className="score">{assessment.ics}</div>
-              <div>/100</div>
-              <div className="label">Investment Clarity Score</div>
-            </div>
-          </div>
-        </div>
-
-        <div className="print-section">
-          <h2>Dimension Scores</h2>
-          <div className="print-dimensions">
-            {assessment.dimensions.map(d => (
-              <div key={d.code} className="print-dimension">
-                <div className="name">{d.name}</div>
-                <div className="score">{d.score}<span style={{ fontSize: '10pt', fontWeight: 'normal' }}>/100</span></div>
-                <div className="print-score-bar">
-                  <div className={`fill ${d.score >= 75 ? 'high' : d.score >= 50 ? 'medium' : 'low'}`} style={{ width: `${d.score}%` }} />
-                </div>
-              </div>
-            ))}
-          </div>
-        </div>
-
-        {assessment.blindSpots.length > 0 && (
-          <div className="print-section">
-            <h2>Blind Spots Detected</h2>
-            {assessment.blindSpots.map((spot, i) => (
-              <div key={i} style={{ marginBottom: '10pt', paddingLeft: '8pt', borderLeft: '3pt solid #f59e0b' }}>
-                <strong>{spot.title}</strong>
-                <p style={{ fontSize: '9pt', marginTop: '4pt' }}>{spot.description}</p>
-              </div>
-            ))}
-          </div>
-        )}
-
-        {assessment.flags.length > 0 && (
-          <div className="print-section">
-            <h2>Triggered Flags ({assessment.flags.length})</h2>
-            <div style={{ display: 'flex', flexWrap: 'wrap', gap: '6pt' }}>
-              {assessment.flags.map(flag => (
-                <span key={flag.code} className={`print-flag ${flag.severity}`}>
-                  {flag.code}: {flag.name}
-                </span>
-              ))}
-            </div>
-          </div>
-        )}
-
-        <div className="print-footer">
-          <p>Generated by ELVAIT • {new Date().toLocaleString()} • Demo Assessment</p>
-          <p style={{ marginTop: '4pt' }}>Confidential — For authorized stakeholders only</p>
-        </div>
-      </div>
     </div>
   );
 }

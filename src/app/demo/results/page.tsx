@@ -8,6 +8,7 @@ import {
   ChevronDown, ChevronRight, Download
 } from 'lucide-react';
 import { Button } from '@/components/ui/button';
+import { exportToPDF, PDFExportData } from '@/lib/pdf-export';
 
 // =============================================================================
 // DEMO RESULTS DATA
@@ -233,14 +234,41 @@ export default function DemoResultsPage() {
     <div className="min-h-screen bg-gray-950 text-white">
       <div className="fixed inset-0 bg-[radial-gradient(ellipse_at_top,rgba(20,184,166,0.1),transparent_50%)]" />
       
-      <header className="border-b border-gray-800 sticky top-0 bg-gray-950/80 backdrop-blur-xl z-10 no-print">
+      <header className="border-b border-gray-800 sticky top-0 bg-gray-950/80 backdrop-blur-xl z-10">
         <div className="max-w-5xl mx-auto px-6 py-4 flex items-center justify-between">
           <div className="flex items-center gap-3">
             <Brain className="w-6 h-6 text-clarity-500" />
             <span className="font-semibold">Assessment Results</span>
           </div>
           <div className="flex items-center gap-4">
-            <Button variant="outline" size="sm" onClick={() => window.print()}>
+            <Button variant="outline" size="sm" onClick={() => {
+              const pdfData: PDFExportData = {
+                title: 'Marketing Automation Platform',
+                recommendation,
+                ics,
+                dimensions: DIMENSION_SCORES.map(d => ({
+                  code: d.code,
+                  name: d.name,
+                  score: d.score
+                })),
+                flags: triggeredFlags.map(f => ({
+                  code: f.code,
+                  name: f.name,
+                  severity: f.severity
+                })),
+                blindSpots: BLIND_SPOTS.map(b => ({
+                  title: b.title,
+                  description: b.description,
+                  severity: b.severity
+                })),
+                checklist: CHECKLIST.map(c => ({
+                  item: c.item,
+                  priority: c.priority,
+                  completed: c.completed
+                }))
+              };
+              exportToPDF(pdfData);
+            }}>
               <Download className="w-4 h-4 mr-2" />
               Export PDF
             </Button>
@@ -252,7 +280,7 @@ export default function DemoResultsPage() {
         </div>
       </header>
 
-      <main className="max-w-5xl mx-auto px-6 py-8 relative z-10 no-print">
+      <main className="max-w-5xl mx-auto px-6 py-8 relative z-10">
         {/* Assessment Header */}
         <div className="bg-gray-900 rounded-xl border border-gray-800 p-6 mb-6">
           <div className="flex flex-col md:flex-row md:items-center justify-between gap-6">
@@ -430,100 +458,6 @@ export default function DemoResultsPage() {
           </Link>
         </div>
       </main>
-
-      {/* Print-optimized layout */}
-      <div className="hidden print:block">
-        <div className="print-header">
-          <div>
-            <h1>ELVAIT Assessment Report</h1>
-            <p className="subtitle">Marketing Automation Platform</p>
-          </div>
-          <div className="text-right">
-            <p className="subtitle">{new Date().toLocaleDateString()}</p>
-          </div>
-        </div>
-
-        <div className="print-section">
-          <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '16pt' }}>
-            <div className={`print-recommendation ${recommendation.toLowerCase().replace('_', '')}`}>
-              <h3>{recommendation.replace('_', '-')}</h3>
-              <p>{recommendation === 'GO' ? 'Ready to Proceed' : recommendation === 'CLARIFY' ? 'Action Required' : 'Do Not Proceed'}</p>
-            </div>
-            <div className="print-ics">
-              <div className="score">{ics}</div>
-              <div>/100</div>
-              <div className="label">Investment Clarity Score</div>
-            </div>
-          </div>
-        </div>
-
-        <div className="print-section">
-          <h2>Dimension Scores</h2>
-          <div className="print-dimensions">
-            {DIMENSION_SCORES.map(d => (
-              <div key={d.code} className="print-dimension">
-                <div className="name">{d.name}</div>
-                <div className="score">{d.score}<span style={{ fontSize: '10pt', fontWeight: 'normal' }}>/100</span></div>
-                <div className="print-score-bar">
-                  <div className={`fill ${d.score >= 75 ? 'high' : d.score >= 50 ? 'medium' : 'low'}`} style={{ width: `${d.score}%` }} />
-                </div>
-              </div>
-            ))}
-          </div>
-        </div>
-
-        {BLIND_SPOTS.length > 0 && (
-          <div className="print-section">
-            <h2>Blind Spots Detected</h2>
-            {BLIND_SPOTS.map((spot, i) => (
-              <div key={i} style={{ marginBottom: '10pt', paddingLeft: '8pt', borderLeft: `3pt solid ${spot.severity === 'warning' ? '#f59e0b' : '#3b82f6'}` }}>
-                <strong>{spot.title}</strong>
-                <p style={{ fontSize: '9pt', marginTop: '4pt' }}>{spot.description}</p>
-              </div>
-            ))}
-          </div>
-        )}
-
-        {triggeredFlags.length > 0 && (
-          <div className="print-section">
-            <h2>Triggered Flags ({triggeredFlags.length})</h2>
-            <div style={{ display: 'flex', flexWrap: 'wrap', gap: '6pt' }}>
-              {triggeredFlags.map(flag => (
-                <span key={flag.code} className={`print-flag ${flag.severity}`}>
-                  {flag.code}: {flag.name}
-                </span>
-              ))}
-            </div>
-          </div>
-        )}
-
-        <div className="print-section">
-          <h2>Action Checklist</h2>
-          <table>
-            <thead>
-              <tr>
-                <th style={{ width: '5%' }}>✓</th>
-                <th style={{ width: '75%' }}>Action Item</th>
-                <th style={{ width: '20%' }}>Priority</th>
-              </tr>
-            </thead>
-            <tbody>
-              {CHECKLIST.map((item, i) => (
-                <tr key={i}>
-                  <td>{item.completed ? '✓' : '○'}</td>
-                  <td>{item.item}</td>
-                  <td>{item.priority}</td>
-                </tr>
-              ))}
-            </tbody>
-          </table>
-        </div>
-
-        <div className="print-footer">
-          <p>Generated by ELVAIT • {new Date().toLocaleString()} • Demo Assessment</p>
-          <p style={{ marginTop: '4pt' }}>Confidential — For authorized stakeholders only</p>
-        </div>
-      </div>
     </div>
   );
 }
