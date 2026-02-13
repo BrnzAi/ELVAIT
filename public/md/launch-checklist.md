@@ -1,8 +1,52 @@
 # ELVAIT Launch Checklist
 
 **Date:** 2026-02-13  
-**Status:** Ready for Launch  
-**URL:** https://elvait.brnz.live
+**Status:** In Progress  
+**Production URL:** https://elvait.brnz.live  
+**Dev URL:** https://elvait-dev-{hash}.europe-west1.run.app (TBD)
+
+---
+
+## 🔴 BLOCKING: Pre-Launch Requirements
+
+### 1. Development Environment Setup
+
+Before launching, we need a separate dev environment:
+
+```
+□ Create dev Cloud SQL instance (elvait-db-dev)
+□ Create dev Cloud Run service (elvait-dev)
+□ Set up GitHub branch protection (main = production)
+□ Create 'develop' branch for dev deployments
+□ Configure CI/CD for branch-based deployment:
+    - push to 'develop' → deploy to elvait-dev
+    - push to 'main' → deploy to elvait (production)
+□ Document dev workflow in README
+```
+
+### 2. Add DATABASE_URL Secret to GitHub
+
+**Required for deployment to work!**
+
+Go to: https://github.com/BrnzAi/ELVAIT/settings/secrets/actions
+
+Add secret:
+- **Name:** `DATABASE_URL`
+- **Value:** `postgresql://elvait_user:Elv41t2026SecureDB!@104.155.70.144:5432/elvait`
+
+```
+□ DATABASE_URL secret added to GitHub
+□ Trigger a deployment to verify
+```
+
+### 3. Database Persistence ✅
+
+| Item | Status |
+|------|--------|
+| Cloud SQL instance | ✅ elvait-db (RUNNABLE) |
+| Database | ✅ elvait |
+| User | ✅ elvait_user |
+| IP | ✅ 104.155.70.144 |
 
 ---
 
@@ -32,22 +76,70 @@
 | Full | All 4 + Process | ✅ |
 | Process Standalone | Process Owner | ✅ |
 
-### ✅ Technical Infrastructure
+### Technical Infrastructure
 
 | Item | Status | Details |
 |------|--------|---------|
 | Production URL | ✅ | https://elvait.brnz.live |
 | SSL/HTTPS | ✅ | Valid certificate |
-| Database | ✅ | SQLite persisted |
+| Database | ✅ | PostgreSQL (Cloud SQL) |
 | CI/CD | ✅ | GitHub Actions + Cloud Run |
 | Auto-scaling | ✅ | 0-10 instances |
 | Tests | ✅ | 437 passing |
+| Dev environment | ⏳ | Needs setup |
+
+---
+
+## Development Workflow (After Setup)
+
+### Making Changes
+
+```
+1. Create feature branch from 'develop'
+   git checkout develop
+   git checkout -b feature/my-feature
+
+2. Make changes and commit
+   git add -A
+   git commit -m "feat: description"
+
+3. Push to feature branch
+   git push origin feature/my-feature
+
+4. Create PR to 'develop' branch
+   - CI runs tests
+   - Review code
+
+5. Merge to 'develop'
+   - Auto-deploys to elvait-dev
+   - Test on dev environment
+
+6. Create PR from 'develop' to 'main'
+   - Final review
+   - Merge to deploy to production
+```
+
+### Environment URLs
+
+| Environment | Branch | URL | Database |
+|-------------|--------|-----|----------|
+| Production | main | elvait.brnz.live | elvait-db |
+| Development | develop | elvait-dev.*.run.app | elvait-db-dev |
 
 ---
 
 ## Launch Day Actions
 
-### 1. Final Smoke Test (15 min)
+### 1. Complete Pre-Launch Requirements
+
+```
+□ DATABASE_URL secret added to GitHub
+□ Dev environment set up
+□ Test deployment to dev
+□ Test deployment to production
+```
+
+### 2. Final Smoke Test (15 min)
 
 ```
 □ Go to https://elvait.brnz.live
@@ -60,92 +152,59 @@
 □ Delete test assessment
 ```
 
-### 2. Verify Demo System
+### 3. Verify Demo System
 
 ```
 □ Visit /demo - wizard works
 □ Login as Admin - dashboard loads
 □ Login as Executive - assessments visible
-□ Login as other roles - survey view works
 □ View demo results - all components render
 ```
 
-### 3. Documentation Access
+### 4. Documentation Access
 
 ```
 □ /md/prd.md - loads with auth (dev/fjemba71)
 □ /md/cases.md - loads with auth
 □ /md/tests.md - loads with auth
-□ /md/2026-02-12-report.md - loads with auth
-```
-
-### 4. Monitoring Setup (Optional)
-
-```
-□ Check Cloud Run logs accessible
-□ Set up uptime monitoring (e.g., UptimeRobot)
-□ Configure error alerting
 ```
 
 ---
 
-## User Onboarding Guide
+## Browser & Device Testing
 
-### For First-Time Users
-
-1. **Visit:** https://elvait.brnz.live
-2. **Explore Demo:** Click "Try Demo" to see the platform
-3. **Create Assessment:** Click "Start Assessment" when ready
-4. **Follow Wizard:**
-   - Step 1: Choose kit variant
-   - Step 2: Enter decision details
-   - Step 3: Answer framing questions
-5. **Invite Participants:** Add people by role
-6. **Share Links:** Copy unique survey URLs
-7. **Wait for Responses:** Track progress on case page
-8. **View Results:** See ICS, recommendation, flags
-
-### For Survey Participants
-
-1. Open the survey link you received
-2. Read the decision context
-3. Answer all questions honestly (1-5 scale)
-4. Submit your responses
-5. Done! (You won't see scores - only the initiator does)
+```
+□ Chrome (desktop)
+□ Firefox (desktop)
+□ Safari (desktop)
+□ Edge (desktop)
+□ Mobile iOS Safari
+□ Mobile Android Chrome
+□ Tablet view
+```
 
 ---
 
-## Key URLs Reference
+## Security Checklist
 
-| Purpose | URL |
-|---------|-----|
-| Home | https://elvait.brnz.live |
-| Create Assessment | https://elvait.brnz.live/create |
-| Demo | https://elvait.brnz.live/demo |
-| Demo Login | https://elvait.brnz.live/demo/login |
-| Admin Panel | https://elvait.brnz.live/demo/admin |
-| Documentation | https://elvait.brnz.live/md/prd.md |
+```
+□ HTTPS enforced
+□ Auth on /md/* routes working
+□ No secrets in code
+□ Database credentials secure
+□ Survey tokens unguessable
+□ Participant isolation (can't see others' answers)
+```
 
 ---
 
-## Known Limitations
+## Known Limitations (Document for Users)
 
 | Limitation | Workaround |
 |------------|------------|
 | No email notifications | Share survey links manually |
 | No PDF export | Screenshot or copy results |
-| Single database | Suitable for MVP scale |
 | No user accounts | Token-based access only |
-
----
-
-## Support Contacts
-
-| Issue | Action |
-|-------|--------|
-| Bug found | Report via Discord #elvait |
-| Feature request | Add to roadmap discussion |
-| Production down | Check Cloud Run console |
 
 ---
 
@@ -153,36 +212,32 @@
 
 If critical issues arise:
 
-1. **Revert to previous version:**
+1. **Revert code:**
    ```bash
    git revert HEAD
    git push origin main
    ```
-   CI/CD will auto-deploy the reverted code.
 
-2. **Manual rollback in Cloud Run:**
-   - Go to GCP Console → Cloud Run → elvait
-   - Click "Revisions"
-   - Route traffic to previous revision
+2. **Rollback in Cloud Run:**
+   - GCP Console → Cloud Run → elvait
+   - Click "Revisions" → Route to previous
 
 ---
 
 ## Post-Launch Monitoring
 
 ### First 24 Hours
-
 ```
 □ Monitor Cloud Run logs for errors
-□ Check database size growth
+□ Check database connections stable
 □ Verify survey links work
 □ Confirm results calculate correctly
 ```
 
 ### First Week
-
 ```
 □ Gather user feedback
-□ Track any error patterns
+□ Track error patterns
 □ Note feature requests
 □ Plan iteration priorities
 ```
@@ -194,47 +249,51 @@ If critical issues arise:
 | Role | Name | Approved |
 |------|------|----------|
 | Product Owner | __________ | □ |
-| Tech Lead | __________ | □ |
-| QA | __________ | □ |
+| Dev Lead | __________ | □ |
 
 **Launch Date:** ____________
-
-**Launch Time:** ____________
 
 ---
 
 ## Quick Commands
 
 ```bash
-# Check deployment status
+# Check production status
 curl -s https://elvait.brnz.live/api/cases | head -c 100
 
-# View recent logs (requires gcloud auth)
+# View Cloud Run logs
 gcloud run services logs read elvait --region=europe-west1 --limit=50
 
-# Run tests locally
-cd ELVAIT && npm test
+# View Cloud SQL status
+gcloud sql instances describe elvait-db --project=githubgcdeploy
 
-# Manual deploy
-gcloud run deploy elvait --source . --region europe-west1
+# Run tests locally
+npm test
+
+# Connect to database (requires Cloud SQL proxy)
+psql "postgresql://elvait_user:PASSWORD@104.155.70.144:5432/elvait"
 ```
 
 ---
 
 ## Summary
 
-**ELVAIT is ready for production use.**
+**Status: Almost Ready**
 
 - ✅ 437 automated tests passing
+- ✅ Cloud SQL database created
 - ✅ All critical flows verified
 - ✅ Production URL working
-- ✅ Survey links use correct domain
-- ✅ Demo system functional
-- ✅ Documentation complete
+- ⏳ DATABASE_URL secret needs adding to GitHub
+- ⏳ Dev environment needs setup
 
-**Recommended:** Run the smoke test checklist above before announcing to users.
+**Next Steps:**
+1. Add DATABASE_URL secret to GitHub
+2. Set up dev environment
+3. Run final smoke test
+4. Launch! 🚀
 
 ---
 
-*Checklist prepared: 2026-02-13*  
-*ELVAIT v1.0*
+*Checklist updated: 2026-02-13*  
+*ELVAIT v1.1 (PostgreSQL)*
