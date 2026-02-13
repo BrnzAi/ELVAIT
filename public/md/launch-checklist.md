@@ -38,10 +38,20 @@
 |------|--------|---------|
 | Production URL | ✅ | https://elvait.brnz.live |
 | SSL/HTTPS | ✅ | Valid certificate |
-| Database | ✅ | SQLite persisted |
+| Database | ✅ | SQLite (in-container) |
 | CI/CD | ✅ | GitHub Actions + Cloud Run |
 | Auto-scaling | ✅ | 0-10 instances |
 | Tests | ✅ | 437 passing |
+
+### ⚠️ Known Limitation: Database Persistence
+
+SQLite data resets on container restart/redeploy. For MVP testing this is acceptable.
+
+**Post-launch migration to PostgreSQL:**
+- Cloud SQL instance ready: `elvait-db` (104.155.70.144)
+- Database created: `elvait`
+- User created: `elvait_user`
+- Migration: Update schema + add DATABASE_URL secret
 
 ---
 
@@ -167,7 +177,19 @@ If critical issues arise:
 
 ---
 
-## Post-Launch: Development Environment Setup
+## Post-Launch Priority Tasks
+
+### 1. Migrate to PostgreSQL (Data Persistence)
+
+```
+□ Add DATABASE_URL secret to GitHub:
+  postgresql://elvait_user:Elv41t2026SecureDB!@104.155.70.144:5432/elvait
+□ Update prisma/schema.prisma: provider = "postgresql"
+□ Update Dockerfile: remove SQLite init, add migration at startup
+□ Deploy and verify data persists across restarts
+```
+
+### 2. Development Environment Setup
 
 Before making any changes to production, set up a dev environment:
 
