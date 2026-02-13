@@ -1,12 +1,12 @@
 // Clarity Before Automation Kit - Database Schema
-// Version: 1.0.0
+// Version: 1.1.0 - PostgreSQL for production persistence
 
 generator client {
   provider = "prisma-client-js"
 }
 
 datasource db {
-  provider = "sqlite"
+  provider = "postgresql"
   url      = env("DATABASE_URL")
 }
 

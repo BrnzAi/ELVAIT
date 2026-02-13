@@ -30,7 +30,7 @@ RUN apt-get update && apt-get install -y openssl && rm -rf /var/lib/apt/lists/*
 ENV NODE_ENV=production
 ENV PORT=3002
 ENV NEXT_TELEMETRY_DISABLED=1
-ENV DATABASE_URL="file:/app/data/production.db"
+# DATABASE_URL is set via Cloud Run environment variable
 
 # Copy built app
 COPY --from=builder /app/.next ./.next
@@ -39,13 +39,13 @@ COPY --from=builder /app/package.json ./package.json
 COPY --from=builder /app/node_modules ./node_modules
 COPY --from=builder /app/prisma ./prisma
 
-# Create data directory and initialize database
-RUN mkdir -p /app/data
-RUN npx prisma db push --skip-generate
+# Create startup script that runs migrations then starts the app
+RUN echo '#!/bin/sh\nnpx prisma db push --skip-generate --accept-data-loss\nnpm start' > /app/start.sh
+RUN chmod +x /app/start.sh
 
 # Set permissions
 RUN useradd -m appuser && chown -R appuser:appuser /app
 USER appuser
 
 EXPOSE 3002
-CMD ["npm", "start"]
+CMD ["/app/start.sh"]
