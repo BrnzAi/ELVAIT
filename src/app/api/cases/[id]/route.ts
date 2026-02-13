@@ -50,7 +50,23 @@ export async function GET(
     }
     
     // Get base URL for survey links
-    const baseUrl = request.nextUrl.origin;
+    // Use x-forwarded-host header (set by Cloud Run/proxies) or fall back to host header
+    const forwardedHost = request.headers.get('x-forwarded-host');
+    const host = request.headers.get('host');
+    const protocol = request.headers.get('x-forwarded-proto') || 'https';
+    
+    // Determine the correct base URL
+    let baseUrl: string;
+    if (forwardedHost) {
+      baseUrl = `${protocol}://${forwardedHost}`;
+    } else if (host && !host.includes('localhost')) {
+      baseUrl = `${protocol}://${host}`;
+    } else if (process.env.NEXT_PUBLIC_BASE_URL) {
+      baseUrl = process.env.NEXT_PUBLIC_BASE_URL;
+    } else {
+      // Fallback to production URL
+      baseUrl = 'https://elvait.brnz.live';
+    }
     
     // Add surveyUrl to each participant
     const participantsWithUrls = caseData.participants.map(p => ({

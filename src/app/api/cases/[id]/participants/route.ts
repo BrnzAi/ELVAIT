@@ -68,8 +68,22 @@ export async function POST(
       }
     });
     
-    // Generate survey URL
-    const baseUrl = process.env.NEXT_PUBLIC_APP_URL ?? 'http://localhost:3002';
+    // Generate survey URL using proper host detection
+    const forwardedHost = request.headers.get('x-forwarded-host');
+    const host = request.headers.get('host');
+    const protocol = request.headers.get('x-forwarded-proto') || 'https';
+    
+    let baseUrl: string;
+    if (forwardedHost) {
+      baseUrl = `${protocol}://${forwardedHost}`;
+    } else if (host && !host.includes('localhost')) {
+      baseUrl = `${protocol}://${host}`;
+    } else if (process.env.NEXT_PUBLIC_BASE_URL) {
+      baseUrl = process.env.NEXT_PUBLIC_BASE_URL;
+    } else {
+      baseUrl = 'https://elvait.brnz.live';
+    }
+    
     const surveyUrl = `${baseUrl}/survey/${token}`;
     
     return NextResponse.json({
@@ -107,7 +121,21 @@ export async function GET(
       orderBy: { invitedAt: 'asc' }
     });
     
-    const baseUrl = process.env.NEXT_PUBLIC_APP_URL ?? 'http://localhost:3002';
+    // Get proper base URL
+    const forwardedHost = request.headers.get('x-forwarded-host');
+    const host = request.headers.get('host');
+    const protocol = request.headers.get('x-forwarded-proto') || 'https';
+    
+    let baseUrl: string;
+    if (forwardedHost) {
+      baseUrl = `${protocol}://${forwardedHost}`;
+    } else if (host && !host.includes('localhost')) {
+      baseUrl = `${protocol}://${host}`;
+    } else if (process.env.NEXT_PUBLIC_BASE_URL) {
+      baseUrl = process.env.NEXT_PUBLIC_BASE_URL;
+    } else {
+      baseUrl = 'https://elvait.brnz.live';
+    }
     
     const withUrls = participants.map(p => ({
       ...p,
