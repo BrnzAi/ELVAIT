@@ -127,59 +127,292 @@ body {
 
 /* Print styles for PDF export */
 @media print {
-  /* Hide navigation and buttons */
-  header, 
+  @page {
+    margin: 15mm 20mm;
+    size: A4;
+  }
+
+  /* Hide interactive elements */
+  header:not(.print-header),
   nav,
   button,
-  .no-print {
+  .no-print,
+  footer {
     display: none !important;
   }
-  
-  /* Reset background colors for printing */
-  body {
-    background: white !important;
-    color: black !important;
-    -webkit-print-color-adjust: exact !important;
-    print-color-adjust: exact !important;
+
+  /* Show print-only elements */
+  .print-only,
+  .print\:block {
+    display: block !important;
   }
-  
-  /* Ensure dark mode elements print correctly */
-  .dark {
-    background: white !important;
-    color: black !important;
+
+  /* Hide elements marked hidden on screen that should show in print */
+  .hidden.print\:block {
+    display: block !important;
   }
-  
-  /* Keep colored elements */
-  .bg-go, .bg-fixfirst, .bg-nogo,
-  .bg-green-500, .bg-amber-500, .bg-red-500 {
-    -webkit-print-color-adjust: exact !important;
-    print-color-adjust: exact !important;
-  }
-  
-  /* Remove shadows and borders for cleaner print */
-  * {
+
+  /* Reset everything for print */
+  *,
+  *::before,
+  *::after {
+    background: transparent !important;
+    color: #000 !important;
     box-shadow: none !important;
+    text-shadow: none !important;
+    -webkit-print-color-adjust: exact !important;
+    print-color-adjust: exact !important;
   }
-  
-  /* Ensure content fits on page */
+
+  html, body {
+    font-size: 11pt !important;
+    line-height: 1.4 !important;
+    background: white !important;
+  }
+
+  /* Main content */
   main {
     max-width: 100% !important;
-    padding: 20px !important;
+    padding: 0 !important;
+    margin: 0 !important;
   }
-  
-  /* Page breaks */
-  .page-break {
-    page-break-before: always;
+
+  /* Print header with branding */
+  .print-header {
+    display: flex !important;
+    justify-content: space-between;
+    align-items: center;
+    padding-bottom: 12pt;
+    margin-bottom: 16pt;
+    border-bottom: 2pt solid #2563eb;
   }
-  
-  /* Avoid breaking inside cards */
-  .bg-white, .rounded-xl {
+
+  .print-header h1 {
+    font-size: 18pt !important;
+    font-weight: 700 !important;
+    color: #2563eb !important;
+  }
+
+  .print-header .subtitle {
+    font-size: 10pt !important;
+    color: #6b7280 !important;
+  }
+
+  /* Section cards */
+  .print-section {
+    margin-bottom: 16pt;
+    padding: 12pt;
+    border: 1pt solid #e5e7eb;
+    border-radius: 6pt;
     page-break-inside: avoid;
   }
-  
-  /* Print header */
-  @page {
-    margin: 1cm;
-    size: A4;
+
+  .print-section h2 {
+    font-size: 12pt !important;
+    font-weight: 600 !important;
+    color: #374151 !important;
+    margin-bottom: 8pt;
+    padding-bottom: 6pt;
+    border-bottom: 1pt solid #e5e7eb;
+    text-transform: uppercase;
+    letter-spacing: 0.5pt;
+  }
+
+  /* Recommendation badge - with colors! */
+  .print-recommendation {
+    padding: 12pt;
+    border-radius: 6pt;
+    margin-bottom: 12pt;
+  }
+
+  .print-recommendation.go {
+    background: #dcfce7 !important;
+    border: 2pt solid #22c55e !important;
+  }
+
+  .print-recommendation.go h3 {
+    color: #16a34a !important;
+  }
+
+  .print-recommendation.clarify {
+    background: #fef3c7 !important;
+    border: 2pt solid #f59e0b !important;
+  }
+
+  .print-recommendation.clarify h3 {
+    color: #d97706 !important;
+  }
+
+  .print-recommendation.nogo {
+    background: #fee2e2 !important;
+    border: 2pt solid #ef4444 !important;
+  }
+
+  .print-recommendation.nogo h3 {
+    color: #dc2626 !important;
+  }
+
+  .print-recommendation h3 {
+    font-size: 16pt !important;
+    font-weight: 700 !important;
+    margin-bottom: 4pt;
+  }
+
+  .print-recommendation p {
+    font-size: 10pt !important;
+    color: #4b5563 !important;
+  }
+
+  /* ICS Score display */
+  .print-ics {
+    text-align: center;
+    padding: 16pt;
+    background: #f3f4f6 !important;
+    border-radius: 6pt;
+    margin-bottom: 12pt;
+  }
+
+  .print-ics .score {
+    font-size: 36pt !important;
+    font-weight: 700 !important;
+    color: #2563eb !important;
+  }
+
+  .print-ics .label {
+    font-size: 10pt !important;
+    color: #6b7280 !important;
+    margin-top: 4pt;
+  }
+
+  /* Score bar */
+  .print-score-bar {
+    height: 8pt;
+    background: #e5e7eb !important;
+    border-radius: 4pt;
+    overflow: hidden;
+    margin: 8pt 0;
+  }
+
+  .print-score-bar .fill {
+    height: 100%;
+    border-radius: 4pt;
+  }
+
+  .print-score-bar .fill.high {
+    background: #22c55e !important;
+  }
+
+  .print-score-bar .fill.medium {
+    background: #f59e0b !important;
+  }
+
+  .print-score-bar .fill.low {
+    background: #ef4444 !important;
+  }
+
+  /* Dimension cards grid */
+  .print-dimensions {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 10pt;
+  }
+
+  .print-dimension {
+    padding: 10pt;
+    background: #f9fafb !important;
+    border: 1pt solid #e5e7eb;
+    border-radius: 4pt;
+  }
+
+  .print-dimension .name {
+    font-size: 9pt !important;
+    font-weight: 600 !important;
+    color: #374151 !important;
+  }
+
+  .print-dimension .score {
+    font-size: 20pt !important;
+    font-weight: 700 !important;
+    color: #111827 !important;
+  }
+
+  /* Lists */
+  .print-list {
+    margin: 0;
+    padding-left: 16pt;
+  }
+
+  .print-list li {
+    font-size: 10pt !important;
+    margin-bottom: 4pt;
+    color: #374151 !important;
+  }
+
+  /* Flag badges */
+  .print-flag {
+    display: inline-block;
+    padding: 2pt 6pt;
+    border-radius: 3pt;
+    font-size: 8pt !important;
+    font-weight: 600 !important;
+    margin-right: 4pt;
+  }
+
+  .print-flag.critical {
+    background: #fee2e2 !important;
+    color: #dc2626 !important;
+  }
+
+  .print-flag.warn {
+    background: #fef3c7 !important;
+    color: #d97706 !important;
+  }
+
+  .print-flag.info {
+    background: #dbeafe !important;
+    color: #2563eb !important;
+  }
+
+  /* Footer */
+  .print-footer {
+    margin-top: 20pt;
+    padding-top: 10pt;
+    border-top: 1pt solid #e5e7eb;
+    font-size: 8pt !important;
+    color: #9ca3af !important;
+    text-align: center;
+  }
+
+  /* Page breaks */
+  .print-page-break {
+    page-break-before: always;
+  }
+
+  /* Avoid orphans */
+  h2, h3 {
+    page-break-after: avoid;
+  }
+
+  p, li {
+    orphans: 3;
+    widows: 3;
+  }
+
+  /* Tables */
+  table {
+    width: 100%;
+    border-collapse: collapse;
+    font-size: 9pt !important;
+  }
+
+  th, td {
+    padding: 6pt;
+    border: 1pt solid #e5e7eb;
+    text-align: left;
+  }
+
+  th {
+    background: #f3f4f6 !important;
+    font-weight: 600 !important;
   }
 }
