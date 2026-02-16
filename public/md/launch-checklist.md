@@ -219,6 +219,29 @@ The system is currently open for testing and feedback. This means:
 
 **Note for IT Reviews:** If IT security reviews the current system, they will find demo user accesses that can reach system data. This is intentional for the testing phase. Full security lockdown will be completed before the product goes live with real client data.
 
+### Client Communication Template
+
+Use this message when informing clients about the current testing phase:
+
+---
+
+> **Subject: Important Note on Security for Testing Phase**
+>
+> Hi [Client Name],
+>
+> One important point regarding the current system state:
+>
+> The platform is currently in **testing/feedback mode**, which means demo user accounts are intentionally accessible for evaluation purposes.
+>
+> **Before we go to production with real data, we will:**
+> 1. Remove all demo access points
+> 2. Conduct a full security audit using our testing platform (www.kensai.app)
+> 3. Complete a security-based lockdown
+>
+> If your IT team reviews the system now, they will find demo user credentials that can access system data. Please let them know this is expected during the testing phase — full security hardening will be completed before go-live.
+>
+> Best regards
+
 ---
 
 ## Post-Launch Priority Tasks
