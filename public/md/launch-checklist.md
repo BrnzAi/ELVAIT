@@ -177,6 +177,50 @@ If critical issues arise:
 
 ---
 
+## ⚠️ Pre-Production Security Lockdown
+
+**IMPORTANT:** Before going live with real client data, the following security hardening MUST be completed:
+
+### Current State (Testing/Feedback Phase)
+The system is currently open for testing and feedback. This means:
+- Demo user accounts can access system data
+- Demo login credentials are publicly documented
+- No penetration testing completed yet
+
+### Pre-Production Security Checklist
+
+```
+□ Remove all demo access endpoints:
+    - /demo/login (remove or password-protect)
+    - /demo/admin (remove entirely)
+    - /demo/dashboard, /demo/survey, /demo/results
+□ Remove or disable demo user accounts from code
+□ Remove hardcoded demo credentials
+□ Full security audit using Kensai (www.kensai.app):
+    - Vulnerability scanning
+    - Penetration testing
+    - Authentication testing
+    - Authorization testing
+    - Data exposure testing
+□ Implement proper user authentication system
+□ Add rate limiting to all API endpoints
+□ Enable audit logging for all data access
+□ Review and restrict CORS settings
+□ Ensure all sensitive data encrypted at rest
+□ Security sign-off before production data allowed
+```
+
+### Timeline
+| Phase | Status | Security Level |
+|-------|--------|----------------|
+| Current: Testing/Feedback | Active | Open (demo access) |
+| Pre-production: Security Lockdown | Pending | Full audit required |
+| Production: Go-Live | Pending | Hardened + Tested |
+
+**Note for IT Reviews:** If IT security reviews the current system, they will find demo user accesses that can reach system data. This is intentional for the testing phase. Full security lockdown will be completed before the product goes live with real client data.
+
+---
+
 ## Post-Launch Priority Tasks
 
 ### 1. Migrate to PostgreSQL (Data Persistence)
