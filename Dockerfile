@@ -4,12 +4,12 @@ WORKDIR /app
 # Install OpenSSL for Prisma
 RUN apt-get update && apt-get install -y openssl && rm -rf /var/lib/apt/lists/*
 
-COPY package.json package-lock.json* ./
+COPY package.json package-lock.json* .npmrc* ./
 COPY prisma ./prisma
 
 # Dummy DATABASE_URL for prisma generate (not used at runtime)
 ENV DATABASE_URL="postgresql://dummy:dummy@localhost:5432/dummy"
-RUN npm ci
+RUN npm ci --legacy-peer-deps
 RUN npx prisma generate
 
 FROM node:20-slim AS builder
