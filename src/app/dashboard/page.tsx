@@ -2,7 +2,7 @@
 
 import { useEffect, useState } from 'react';
 import Link from 'next/link';
-import { ArrowLeft, Plus, Eye, Users, Clock, CheckCircle, AlertCircle, FileText } from 'lucide-react';
+import { ArrowLeft, Plus, Eye, Users, Clock, CheckCircle, AlertCircle, FileText, Trash2 } from 'lucide-react';
 
 interface Assessment {
   id: string;
@@ -24,19 +24,47 @@ export default function DashboardPage() {
   const [assessments, setAssessments] = useState<Assessment[]>([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
+  const [deleting, setDeleting] = useState<string | null>(null);
 
-  useEffect(() => {
+  const loadAssessments = () => {
     fetch('/api/cases')
       .then(res => res.json())
       .then(data => {
-        setAssessments(data);
+        setAssessments(Array.isArray(data) ? data : []);
         setLoading(false);
       })
       .catch(err => {
         setError('Failed to load assessments');
         setLoading(false);
       });
+  };
+
+  useEffect(() => {
+    loadAssessments();
   }, []);
+
+  const handleDelete = async (id: string, title: string, hasResponses: boolean) => {
+    const message = hasResponses 
+      ? `Delete "${title}"? This assessment has responses that will also be deleted.`
+      : `Delete "${title}"?`;
+    
+    if (!confirm(message)) return;
+    
+    setDeleting(id);
+    try {
+      const res = await fetch(`/api/cases/${id}?force=true`, { method: 'DELETE' });
+      if (res.ok) {
+        setAssessments(prev => prev.filter(a => a.id !== id));
+      } else {
+        const data = await res.json();
+        alert(data.error || 'Failed to delete');
+      }
+    } catch (err) {
+      alert('Failed to delete assessment');
+    } finally {
+      setDeleting(null);
+    }
+  };
 
   const getStatusBadge = (status: string, hasResponses: boolean) => {
     if (status === 'COMPLETED') {
@@ -145,6 +173,19 @@ export default function DashboardPage() {
                       <Users className="w-4 h-4" />
                       Manage
                     </Link>
+                    
+                    <button
+                      onClick={() => handleDelete(assessment.id, assessment.decisionTitle, assessment._count.responses > 0)}
+                      disabled={deleting === assessment.id}
+                      className="inline-flex items-center gap-2 px-3 py-2 text-red-500 hover:text-red-600 hover:bg-red-50 dark:hover:bg-red-900/20 rounded-lg transition disabled:opacity-50"
+                      title="Delete assessment"
+                    >
+                      {deleting === assessment.id ? (
+                        <span className="w-4 h-4 border-2 border-red-500/30 border-t-red-500 rounded-full animate-spin" />
+                      ) : (
+                        <Trash2 className="w-4 h-4" />
+                      )}
+                    </button>
                     
                     {assessment._count.responses > 0 && (
                       <Link

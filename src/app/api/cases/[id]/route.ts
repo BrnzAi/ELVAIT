@@ -191,6 +191,9 @@ export async function DELETE(
   { params }: RouteParams
 ) {
   try {
+    const { searchParams } = new URL(request.url);
+    const force = searchParams.get('force') === 'true';
+    
     const existing = await prisma.decisionCase.findUnique({
       where: { id: params.id },
       include: { _count: { select: { responses: true } } }
@@ -203,14 +206,19 @@ export async function DELETE(
       );
     }
     
-    // Only allow deletion if no responses
-    if (existing._count.responses > 0) {
+    // Warn if there are responses (unless force=true)
+    if (existing._count.responses > 0 && !force) {
       return NextResponse.json(
-        { error: 'Cannot delete case with existing responses' },
+        { 
+          error: 'Case has responses',
+          message: 'This assessment has responses. Add ?force=true to confirm deletion.',
+          responses: existing._count.responses
+        },
         { status: 400 }
       );
     }
     
+    // Delete case (cascades to participants, responses, summary)
     await prisma.decisionCase.delete({
       where: { id: params.id }
     });
