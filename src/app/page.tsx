@@ -3,6 +3,7 @@
 import { useState } from 'react';
 import Link from 'next/link';
 import { ArrowRight, CheckCircle, AlertTriangle, XCircle, Users, Brain, FileText, Zap, ChevronDown } from 'lucide-react';
+import { UserMenu } from '@/components/auth';
 
 // FAQ Data
 const faqData = [
@@ -93,6 +94,7 @@ export default function LandingPage() {
             >
               Start Assessment
             </Link>
+            <UserMenu />
           </div>
         </nav>
 
