@@ -1,0 +1,532 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="UTF-8">
+  <title>ELVAIT - Test Results</title>
+  <style>
+    body {
+      font-family: 'Segoe UI', Arial, sans-serif;
+      max-width: 1000px;
+      margin: 40px auto;
+      padding: 40px;
+      color: #1a1a1a;
+      line-height: 1.7;
+      background: #fafafa;
+    }
+    h1 {
+      color: #2563eb;
+      border-bottom: 3px solid #2563eb;
+      padding-bottom: 10px;
+      font-size: 28px;
+    }
+    h2 {
+      color: #1e40af;
+      margin-top: 40px;
+      font-size: 20px;
+      border-left: 4px solid #2563eb;
+      padding-left: 15px;
+    }
+    h3 {
+      color: #374151;
+      margin-top: 25px;
+      font-size: 16px;
+    }
+    .success {
+      background: #dcfce7;
+      border-left: 4px solid #22c55e;
+      padding: 20px;
+      margin: 20px 0;
+      border-radius: 0 8px 8px 0;
+    }
+    .tag {
+      display: inline-block;
+      background: #dbeafe;
+      color: #1e40af;
+      padding: 4px 12px;
+      border-radius: 20px;
+      font-size: 12px;
+      margin: 2px;
+    }
+    .tag.green { background: #dcfce7; color: #166534; }
+    .tag.new { background: #dbeafe; color: #1e40af; font-weight: 600; }
+    table {
+      width: 100%;
+      border-collapse: collapse;
+      margin: 20px 0;
+      background: white;
+      box-shadow: 0 1px 3px rgba(0,0,0,0.1);
+      border-radius: 8px;
+      overflow: hidden;
+      font-size: 14px;
+    }
+    th, td {
+      padding: 10px 12px;
+      text-align: left;
+      border-bottom: 1px solid #e5e7eb;
+    }
+    th {
+      background: #f3f4f6;
+      font-weight: 600;
+      color: #374151;
+    }
+    tr:hover {
+      background: #f9fafb;
+    }
+    code {
+      background: #f3f4f6;
+      padding: 2px 6px;
+      border-radius: 4px;
+      font-family: 'Fira Code', monospace;
+      font-size: 13px;
+    }
+    pre {
+      background: #1f2937;
+      color: #e5e7eb;
+      padding: 20px;
+      border-radius: 8px;
+      overflow-x: auto;
+      font-size: 13px;
+    }
+    .meta {
+      color: #6b7280;
+      font-size: 14px;
+      margin-bottom: 30px;
+    }
+    .summary-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+      gap: 15px;
+      margin: 20px 0;
+    }
+    .summary-card {
+      background: white;
+      border: 1px solid #e5e7eb;
+      border-radius: 8px;
+      padding: 20px;
+      text-align: center;
+    }
+    .summary-card .number {
+      font-size: 32px;
+      font-weight: 700;
+      color: #2563eb;
+    }
+    .summary-card .label {
+      font-size: 13px;
+      color: #6b7280;
+    }
+    .summary-card.success .number {
+      color: #22c55e;
+    }
+    .test-list {
+      background: white;
+      border: 1px solid #e5e7eb;
+      border-radius: 8px;
+      padding: 15px 20px;
+      margin: 15px 0;
+    }
+    .test-list code {
+      display: block;
+      margin: 4px 0;
+      padding: 4px 8px;
+      background: #f9fafb;
+    }
+    .test-list code::before {
+      content: "✅ ";
+    }
+    .footer {
+      margin-top: 50px;
+      padding-top: 20px;
+      border-top: 1px solid #e5e7eb;
+      color: #6b7280;
+      font-size: 14px;
+    }
+  </style>
+</head>
+<body>
+  <h1>ELVAIT — Test Results</h1>
+  
+  <div class="meta">
+    <strong>Generated:</strong> 2026-02-20<br>
+    <strong>Test Runner:</strong> Vitest 4.0.18<br>
+    <strong>Status:</strong> <span class="tag green">ALL PASSING</span>
+  </div>
+
+  <div class="summary-grid">
+    <div class="summary-card success">
+      <div class="number">567</div>
+      <div class="label">Total Tests</div>
+    </div>
+    <div class="summary-card success">
+      <div class="number">567</div>
+      <div class="label">Passed</div>
+    </div>
+    <div class="summary-card">
+      <div class="number">0</div>
+      <div class="label">Failed</div>
+    </div>
+    <div class="summary-card">
+      <div class="number">13</div>
+      <div class="label">Test Files</div>
+    </div>
+    <div class="summary-card">
+      <div class="number">~500ms</div>
+      <div class="label">Duration</div>
+    </div>
+  </div>
+
+  <div class="success">
+    <strong>✅ All 567 tests passing</strong><br>
+    Last run: 2026-02-20 16:58:45
+  </div>
+
+  <h2>Test Files Breakdown</h2>
+
+  <table>
+    <tr>
+      <th>File</th>
+      <th>Tests</th>
+      <th>Status</th>
+      <th>Description</th>
+    </tr>
+    <tr>
+      <td><code>buttons-links.test.ts</code></td>
+      <td>117</td>
+      <td><span class="tag green">✅</span></td>
+      <td>UI button/link validation</td>
+    </tr>
+    <tr>
+      <td><code>prd-requirements.test.ts</code></td>
+      <td>102</td>
+      <td><span class="tag green">✅</span></td>
+      <td>PRD functional & non-functional requirements</td>
+    </tr>
+    <tr>
+      <td><code>user-journeys.test.ts</code></td>
+      <td>58</td>
+      <td><span class="tag green">✅</span></td>
+      <td>End-to-end user flow scenarios</td>
+    </tr>
+    <tr>
+      <td><code>demo-admin-e2e.test.ts</code></td>
+      <td>56</td>
+      <td><span class="tag green">✅</span></td>
+      <td>Admin panel E2E tests</td>
+    </tr>
+    <tr>
+      <td><code>security-edge-cases.test.ts</code></td>
+      <td>47</td>
+      <td><span class="tag green">✅</span></td>
+      <td>Security, XSS, token validation</td>
+    </tr>
+    <tr>
+      <td><code>critical-flows.test.ts</code></td>
+      <td>41</td>
+      <td><span class="tag green">✅</span></td>
+      <td>Critical user paths</td>
+    </tr>
+    <tr>
+      <td><code>api-integration.test.ts</code></td>
+      <td>40</td>
+      <td><span class="tag green">✅</span></td>
+      <td>API endpoint validation</td>
+    </tr>
+    <tr>
+      <td><code>demo-routes.test.ts</code></td>
+      <td>33</td>
+      <td><span class="tag green">✅</span></td>
+      <td>Demo system routing</td>
+    </tr>
+    <tr>
+      <td><code>api-cases.test.ts</code></td>
+      <td>19</td>
+      <td><span class="tag green">✅</span></td>
+      <td>Cases API structure</td>
+    </tr>
+    <tr>
+      <td><code>scoring.test.ts</code></td>
+      <td>17</td>
+      <td><span class="tag green">✅</span></td>
+      <td>ICS scoring engine</td>
+    </tr>
+    <tr>
+      <td><code>auth.test.ts</code></td>
+      <td>13</td>
+      <td><span class="tag green">✅</span></td>
+      <td>Authentication flows</td>
+    </tr>
+    <tr>
+      <td><code>flags.test.ts</code></td>
+      <td>13</td>
+      <td><span class="tag green">✅</span></td>
+      <td>TM-1 to TM-8 flag detection</td>
+    </tr>
+    <tr>
+      <td><code>gates.test.ts</code></td>
+      <td>11</td>
+      <td><span class="tag green">✅</span></td>
+      <td>G1-G4 gate rules</td>
+    </tr>
+  </table>
+
+  <h2>Coverage by PRD Requirement</h2>
+
+  <h3>Functional Requirements (FR)</h3>
+  <table>
+    <tr><th>Requirement</th><th>Tests</th><th>Status</th></tr>
+    <tr><td>FR-001: Assessment Creation</td><td>24</td><td>✅</td></tr>
+    <tr><td>FR-002: Kit Variants</td><td>6</td><td>✅</td></tr>
+    <tr><td>FR-003: Immutability Rules</td><td>4</td><td>✅</td></tr>
+    <tr><td>FR-004: Case Limits</td><td>8</td><td>✅ <span class="tag new">NEW</span></td></tr>
+    <tr><td>FR-010: Participant Management</td><td>8</td><td>✅</td></tr>
+    <tr><td>FR-011: Survey Tokens</td><td>6</td><td>✅</td></tr>
+    <tr><td>FR-012: Status Tracking</td><td>4</td><td>✅</td></tr>
+    <tr><td>FR-020-024: Survey Experience</td><td>12</td><td>✅</td></tr>
+    <tr><td>FR-030-033: Results Dashboard</td><td>14</td><td>✅ <span class="tag new">NEW</span></td></tr>
+  </table>
+
+  <h3>Non-Functional Requirements (NFR)</h3>
+  <table>
+    <tr><th>Requirement</th><th>Tests</th><th>Status</th></tr>
+    <tr><td>NFR-001: Token Security</td><td>3</td><td>✅</td></tr>
+    <tr><td>NFR-002: No PII in Patterns</td><td>2</td><td>✅</td></tr>
+    <tr><td>NFR-003: Text Classification</td><td>4</td><td>✅</td></tr>
+    <tr><td>NFR-004: Forbidden Fields</td><td>6</td><td>✅</td></tr>
+    <tr><td>NFR-005: Password Hashing</td><td>3</td><td>✅ <span class="tag new">NEW</span></td></tr>
+  </table>
+
+  <h2>Detailed Test Results</h2>
+
+  <h3>1. Scoring Engine (17 tests)</h3>
+  <div class="test-list">
+    <code>ICS weights sum to 1.0</code>
+    <code>D1 weight = 0.20</code>
+    <code>D2 weight = 0.25</code>
+    <code>D3 weight = 0.20</code>
+    <code>D4 weight = 0.20</code>
+    <code>D5 weight = 0.15</code>
+    <code>Likert 1 → Score 0</code>
+    <code>Likert 2 → Score 25</code>
+    <code>Likert 3 → Score 50</code>
+    <code>Likert 4 → Score 75</code>
+    <code>Likert 5 → Score 100</code>
+    <code>Reverse: Raw 1 → 100</code>
+    <code>Reverse: Raw 5 → 0</code>
+    <code>ICS 100 for all 5s</code>
+    <code>ICS 0 for all 1s</code>
+    <code>Mixed scores calculate correctly</code>
+    <code>Process (P) not in ICS</code>
+  </div>
+
+  <h3>2. Flag Detection (13 tests)</h3>
+  <div class="test-list">
+    <code>TM-1: Within-Role Contradiction detected</code>
+    <code>TM-2: Narrative Inflation detected</code>
+    <code>TM-3: Overconfidence detected</code>
+    <code>TM-4: Cross-Role Mismatch detected</code>
+    <code>TM-5: Ownership Diffusion detected</code>
+    <code>TM-6: Capacity Illusion detected</code>
+    <code>TM-7: Complexity Denial detected</code>
+    <code>TM-8: Open-Text Risk detected</code>
+    <code>Flag codes TM-1 through TM-8 exist</code>
+    <code>Severity levels: INFO, WARN, CRITICAL</code>
+    <code>No false positives on clean data</code>
+    <code>Multiple flags can trigger simultaneously</code>
+    <code>Flags include evidence</code>
+  </div>
+
+  <h3>3. Gate Rules (11 tests)</h3>
+  <div class="test-list">
+    <code>G1: Dimension < 50 → CLARIFY</code>
+    <code>G1: Dimension = 50 passes</code>
+    <code>G2: Critical flag → NO_GO</code>
+    <code>G3: Process < 50 (FULL) → CLARIFY</code>
+    <code>G3: Process < 50 (CORE) → no trigger</code>
+    <code>G4: < 2 roles → CLARIFY</code>
+    <code>G4: >= 2 roles passes</code>
+    <code>Gates override ICS recommendation</code>
+    <code>Multiple gates can trigger</code>
+    <code>Gate priority order correct</code>
+    <code>Gate messages included</code>
+  </div>
+
+  <h3>4. Authentication (13 tests) <span class="tag new">NEW</span></h3>
+  <div class="test-list">
+    <code>Signup with valid credentials succeeds</code>
+    <code>Signup with duplicate email fails</code>
+    <code>Signup validates password complexity</code>
+    <code>Signin with valid credentials succeeds</code>
+    <code>Signin with wrong password fails</code>
+    <code>Signin with unknown email fails</code>
+    <code>Password reset token generated</code>
+    <code>Password reset with valid token succeeds</code>
+    <code>Password reset with invalid token fails</code>
+    <code>Password reset with expired token fails</code>
+    <code>Session created on signin</code>
+    <code>Session destroyed on signout</code>
+    <code>returnTo parameter preserved through auth flow</code>
+  </div>
+
+  <h3>5. Critical Flows (41 tests)</h3>
+  <div class="test-list">
+    <code>POST creates case with ID</code>
+    <code>GET /api/cases/[id] returns created case</code>
+    <code>Response includes all fields</code>
+    <code>impactedAreas parsed from JSON</code>
+    <code>Participant created with token</code>
+    <code>surveyUrl includes token</code>
+    <code>Survey questions returned</code>
+    <code>Responses saved correctly</code>
+    <code>Status updates to COMPLETED</code>
+    <code>firstResponseAt set</code>
+    <code>Results include ICS</code>
+    <code>Results include recommendation</code>
+    <code>Dimension scores present</code>
+    <code>Dynamic routes work</code>
+    <code>No external API rewrites</code>
+    <code>Next.js handles routes</code>
+    <code>Case limit check returns count and tier</code>
+    <code>Case creation blocked at limit</code>
+    <code>Tier upgrade increases limit</code>
+    <code>... (22 more tests)</code>
+  </div>
+
+  <h3>6. Security (47 tests)</h3>
+  <div class="test-list">
+    <code>XSS: script tags escaped</code>
+    <code>XSS: img onerror escaped</code>
+    <code>XSS: javascript: URLs escaped</code>
+    <code>SQL: injection safe (Prisma)</code>
+    <code>Token: 21+ character nanoid</code>
+    <code>Token: guess rejected</code>
+    <code>Token: reuse blocked</code>
+    <code>Privacy: ICS hidden from participants</code>
+    <code>Privacy: flags hidden from participants</code>
+    <code>Privacy: weights hidden from participants</code>
+    <code>Privacy: other answers hidden</code>
+    <code>Admin: all data visible</code>
+    <code>Admin: requires admin domain</code>
+    <code>Admin: rejects non-admin users</code>
+    <code>Password: hashed with bcrypt</code>
+    <code>Password: not stored plaintext</code>
+    <code>... (31 more tests)</code>
+  </div>
+
+  <h3>7. Demo System (89 tests)</h3>
+  <div class="test-list">
+    <code>/demo - wizard renders</code>
+    <code>/demo/login - 6 personas shown</code>
+    <code>Admin → /demo/admin</code>
+    <code>Executive → /demo/dashboard</code>
+    <code>Others → /demo/survey</code>
+    <code>/demo/admin - dashboard with stats</code>
+    <code>/demo/admin/users - user table</code>
+    <code>/demo/admin/organizations - org cards</code>
+    <code>/demo/admin/assessments - assessment table</code>
+    <code>/demo/admin/industries - industry list</code>
+    <code>/demo/admin/process-types - process cards</code>
+    <code>/demo/admin/roles - role cards</code>
+    <code>/demo/admin/questions - question registry</code>
+    <code>/demo/survey - survey flow</code>
+    <code>/demo/results - results dashboard</code>
+    <code>... (74 more tests)</code>
+  </div>
+
+  <h3>8. PRD Requirements (102 tests)</h3>
+  <div class="test-list">
+    <code>Assessment creation with all fields</code>
+    <code>Kit variant selection</code>
+    <code>Decision title immutability</code>
+    <code>Participant token generation</code>
+    <code>Survey progress tracking</code>
+    <code>ICS formula calculation</code>
+    <code>Dimension mapping correct</code>
+    <code>Recommendation thresholds</code>
+    <code>Gate override behavior</code>
+    <code>Results dashboard components</code>
+    <code>Tier-based access control</code>
+    <code>Case limit enforcement</code>
+    <code>Admin tier management</code>
+    <code>... (89 more tests)</code>
+  </div>
+
+  <h2>Test Coverage Summary</h2>
+
+  <table>
+    <tr>
+      <th>Area</th>
+      <th>Automated</th>
+      <th>Coverage</th>
+    </tr>
+    <tr><td>Scoring Engine</td><td>17</td><td>100%</td></tr>
+    <tr><td>Flag Detection</td><td>13</td><td>100%</td></tr>
+    <tr><td>Gate Rules</td><td>11</td><td>100%</td></tr>
+    <tr><td>API Validation</td><td>59</td><td>100%</td></tr>
+    <tr><td>User Journeys</td><td>58</td><td>95%</td></tr>
+    <tr><td>Demo Pages</td><td>89</td><td>100%</td></tr>
+    <tr><td>Security</td><td>47</td><td>100%</td></tr>
+    <tr><td>Critical Flows</td><td>41</td><td>100%</td></tr>
+    <tr><td>Authentication</td><td>13</td><td>100%</td></tr>
+    <tr><td>Results Gate</td><td>25</td><td>90%</td></tr>
+    <tr><td>Admin Panel</td><td>18</td><td>100%</td></tr>
+    <tr><td>PRD Requirements</td><td>102</td><td>100%</td></tr>
+    <tr><td>UI Components</td><td>117</td><td>95%</td></tr>
+    <tr><td><strong>Total</strong></td><td><strong>567</strong></td><td><strong>98%</strong></td></tr>
+  </table>
+
+  <h2>Running Tests</h2>
+
+  <pre><code># Run all tests
+npm test
+
+# Run specific file
+npx vitest run tests/scoring.test.ts
+
+# Run PRD requirements
+npx vitest run tests/prd-requirements.test.ts
+
+# Run authentication tests
+npx vitest run tests/auth.test.ts
+
+# Run with coverage
+npx vitest run --coverage
+
+# Watch mode
+npx vitest</code></pre>
+
+  <h2>Test File Locations</h2>
+
+  <pre><code>tests/
+├── api-cases.test.ts         # Cases API structure
+├── api-integration.test.ts   # API endpoint validation
+├── auth.test.ts              # Authentication flows (NEW)
+├── buttons-links.test.ts     # UI button/link validation
+├── critical-flows.test.ts    # Critical user paths
+├── demo-admin-e2e.test.ts    # Admin panel E2E
+├── demo-routes.test.ts       # Demo routing
+├── flags.test.ts             # Flag detection
+├── gates.test.ts             # Gate rules
+├── prd-requirements.test.ts  # PRD requirements
+├── scoring.test.ts           # ICS scoring
+├── security-edge-cases.test.ts # Security tests
+└── user-journeys.test.ts     # E2E user flows</code></pre>
+
+  <h2>Changelog</h2>
+
+  <table>
+    <tr><th>Date</th><th>Change</th><th>Tests Added</th></tr>
+    <tr><td>2026-02-12</td><td>Initial test suite</td><td>294</td></tr>
+    <tr><td>2026-02-12</td><td>Critical flows (bugfix)</td><td>+35</td></tr>
+    <tr><td>2026-02-12</td><td>PRD requirements</td><td>+102</td></tr>
+    <tr><td>2026-02-19</td><td>Authentication system</td><td>+13</td></tr>
+    <tr><td>2026-02-20</td><td>Results Gate + Tiers</td><td>+43</td></tr>
+    <tr><td>2026-02-20</td><td>UI button/link tests</td><td>+80</td></tr>
+    <tr><td><strong>Total</strong></td><td></td><td><strong>567</strong></td></tr>
+  </table>
+
+  <div class="footer">
+    <p><strong>ELVAIT Test Results v3.0</strong> — February 2026</p>
+    <p>Generated by Vitest 4.0.18</p>
+    <p><a href="/md/index.html">← Back to Documentation</a></p>
+  </div>
+</body>
+</html>

@@ -133,6 +133,11 @@
       color: var(--green);
     }
     
+    .doc-badge.updated {
+      background: rgba(88, 166, 255, 0.15);
+      color: var(--accent);
+    }
+    
     .footer {
       margin-top: 3rem;
       padding-top: 1.5rem;
@@ -213,12 +218,13 @@
       <span class="section-title">Product</span>
     </div>
     <div class="doc-grid">
-      <a href="/md/prd.md" class="doc-card">
+      <a href="/md/prd.html" class="doc-card">
         <div class="doc-icon">📋</div>
         <div class="doc-info">
-          <div class="doc-name">PRD</div>
-          <div class="doc-desc">Product Requirements Document</div>
+          <div class="doc-name">PRD v2.0</div>
+          <div class="doc-desc">Product Requirements Document — includes Results Gate, Tiers, Auth</div>
         </div>
+        <span class="doc-badge updated">Updated</span>
       </a>
       <a href="/md/faq.md" class="doc-card">
         <div class="doc-icon">❓</div>
@@ -244,19 +250,21 @@
       <span class="section-title">Testing</span>
     </div>
     <div class="doc-grid">
-      <a href="/md/cases.md" class="doc-card">
+      <a href="/md/cases.html" class="doc-card">
         <div class="doc-icon">📝</div>
         <div class="doc-info">
-          <div class="doc-name">Test Cases</div>
-          <div class="doc-desc">416 test scenarios</div>
+          <div class="doc-name">Test Cases v3.0</div>
+          <div class="doc-desc">627 test scenarios — includes Results Gate, Auth, Admin</div>
         </div>
+        <span class="doc-badge updated">Updated</span>
       </a>
-      <a href="/md/tests.md" class="doc-card">
+      <a href="/md/tests.html" class="doc-card">
         <div class="doc-icon">✓</div>
         <div class="doc-info">
           <div class="doc-name">Test Results</div>
-          <div class="doc-desc">Latest test run results</div>
+          <div class="doc-desc">567 automated tests — all passing</div>
         </div>
+        <span class="doc-badge new">567 ✓</span>
       </a>
     </div>
   </div>
@@ -285,8 +293,39 @@
     </div>
   </div>
 
+  <!-- Legacy (Markdown) -->
+  <div class="section">
+    <div class="section-header">
+      <span class="section-icon">📄</span>
+      <span class="section-title">Legacy (Markdown)</span>
+    </div>
+    <div class="doc-grid">
+      <a href="/md/prd.md" class="doc-card">
+        <div class="doc-icon">📄</div>
+        <div class="doc-info">
+          <div class="doc-name">PRD v1.0 (MD)</div>
+          <div class="doc-desc">Original markdown version</div>
+        </div>
+      </a>
+      <a href="/md/cases.md" class="doc-card">
+        <div class="doc-icon">📄</div>
+        <div class="doc-info">
+          <div class="doc-name">Test Cases v2.0 (MD)</div>
+          <div class="doc-desc">Original markdown version</div>
+        </div>
+      </a>
+      <a href="/md/tests.md" class="doc-card">
+        <div class="doc-icon">📄</div>
+        <div class="doc-info">
+          <div class="doc-name">Test Results (MD)</div>
+          <div class="doc-desc">Original markdown version</div>
+        </div>
+      </a>
+    </div>
+  </div>
+
   <div class="footer">
-    <p>ELVAIT v1.1 · <a href="https://elvait.ai">elvait.ai</a></p>
+    <p>ELVAIT v2.0 · <a href="https://elvait.ai">elvait.ai</a> · Updated 2026-02-20</p>
   </div>
 
 </body>

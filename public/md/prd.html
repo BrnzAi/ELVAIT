@@ -1,0 +1,1112 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="UTF-8">
+  <title>ELVAIT - Product Requirements Document</title>
+  <style>
+    body {
+      font-family: 'Segoe UI', Arial, sans-serif;
+      max-width: 1000px;
+      margin: 40px auto;
+      padding: 40px;
+      color: #1a1a1a;
+      line-height: 1.7;
+      background: #fafafa;
+    }
+    h1 {
+      color: #2563eb;
+      border-bottom: 3px solid #2563eb;
+      padding-bottom: 10px;
+      font-size: 32px;
+    }
+    h2 {
+      color: #1e40af;
+      margin-top: 40px;
+      font-size: 22px;
+      border-left: 4px solid #2563eb;
+      padding-left: 15px;
+    }
+    h3 {
+      color: #374151;
+      margin-top: 25px;
+      font-size: 17px;
+    }
+    h4 {
+      color: #4b5563;
+      margin-top: 20px;
+      font-size: 15px;
+    }
+    .highlight {
+      background: #eff6ff;
+      border-left: 4px solid #2563eb;
+      padding: 20px;
+      margin: 20px 0;
+      border-radius: 0 8px 8px 0;
+    }
+    .warning {
+      background: #fef3c7;
+      border-left: 4px solid #f59e0b;
+      padding: 20px;
+      margin: 20px 0;
+      border-radius: 0 8px 8px 0;
+    }
+    .success {
+      background: #dcfce7;
+      border-left: 4px solid #22c55e;
+      padding: 20px;
+      margin: 20px 0;
+      border-radius: 0 8px 8px 0;
+    }
+    .tag {
+      display: inline-block;
+      background: #dbeafe;
+      color: #1e40af;
+      padding: 4px 12px;
+      border-radius: 20px;
+      font-size: 13px;
+      margin: 3px 3px 3px 0;
+    }
+    .tag.green { background: #dcfce7; color: #166534; }
+    .tag.amber { background: #fef3c7; color: #92400e; }
+    .tag.red { background: #fee2e2; color: #991b1b; }
+    .tag.purple { background: #f3e8ff; color: #7c3aed; }
+    .tag.new { background: #dbeafe; color: #1e40af; font-weight: 600; }
+    table {
+      width: 100%;
+      border-collapse: collapse;
+      margin: 20px 0;
+      background: white;
+      box-shadow: 0 1px 3px rgba(0,0,0,0.1);
+      border-radius: 8px;
+      overflow: hidden;
+    }
+    th, td {
+      padding: 12px 15px;
+      text-align: left;
+      border-bottom: 1px solid #e5e7eb;
+    }
+    th {
+      background: #f3f4f6;
+      font-weight: 600;
+      color: #374151;
+    }
+    tr:hover {
+      background: #f9fafb;
+    }
+    ul, ol {
+      margin: 10px 0;
+      padding-left: 25px;
+    }
+    li {
+      margin: 8px 0;
+    }
+    code {
+      background: #f3f4f6;
+      padding: 2px 6px;
+      border-radius: 4px;
+      font-family: 'Fira Code', monospace;
+      font-size: 14px;
+    }
+    pre {
+      background: #1f2937;
+      color: #e5e7eb;
+      padding: 20px;
+      border-radius: 8px;
+      overflow-x: auto;
+      font-size: 14px;
+    }
+    pre code {
+      background: none;
+      color: inherit;
+      padding: 0;
+    }
+    .toc {
+      background: white;
+      border: 1px solid #e5e7eb;
+      border-radius: 8px;
+      padding: 20px 30px;
+      margin: 30px 0;
+    }
+    .toc h3 {
+      margin-top: 0;
+      color: #1e40af;
+    }
+    .toc ul {
+      columns: 2;
+      column-gap: 40px;
+    }
+    .toc a {
+      color: #4b5563;
+      text-decoration: none;
+    }
+    .toc a:hover {
+      color: #2563eb;
+    }
+    .meta {
+      color: #6b7280;
+      font-size: 14px;
+      margin-bottom: 30px;
+    }
+    .footer {
+      margin-top: 60px;
+      padding-top: 30px;
+      border-top: 2px solid #e5e7eb;
+      color: #6b7280;
+      font-size: 14px;
+    }
+    .section-new {
+      position: relative;
+    }
+    .section-new::before {
+      content: "NEW";
+      position: absolute;
+      right: 0;
+      top: 0;
+      background: #2563eb;
+      color: white;
+      padding: 4px 12px;
+      border-radius: 4px;
+      font-size: 12px;
+      font-weight: 600;
+    }
+  </style>
+</head>
+<body>
+  <h1>ELVAIT — Product Requirements Document</h1>
+  
+  <div class="meta">
+    <strong>Product:</strong> Clarity Before Automation Kit<br>
+    <strong>Version:</strong> 2.0<br>
+    <strong>Last Updated:</strong> 2026-02-20<br>
+    <strong>Status:</strong> Production<br>
+    <strong>URL:</strong> <a href="https://elvait.ai">https://elvait.ai</a>
+  </div>
+
+  <div class="toc">
+    <h3>📑 Table of Contents</h3>
+    <ul>
+      <li><a href="#executive-summary">1. Executive Summary</a></li>
+      <li><a href="#problem">2. Problem Statement</a></li>
+      <li><a href="#users">3. Target Users</a></li>
+      <li><a href="#tiers">4. Subscription Tiers</a></li>
+      <li><a href="#variants">5. Kit Variants</a></li>
+      <li><a href="#auth">6. Authentication</a></li>
+      <li><a href="#results-gate">7. Results Gate</a></li>
+      <li><a href="#functional">8. Functional Requirements</a></li>
+      <li><a href="#scoring">9. Scoring Engine</a></li>
+      <li><a href="#flags">10. Flag Detection</a></li>
+      <li><a href="#gates">11. Gating Rules</a></li>
+      <li><a href="#api">12. API Endpoints</a></li>
+      <li><a href="#technical">13. Technical Architecture</a></li>
+      <li><a href="#security">14. Security</a></li>
+      <li><a href="#deployment">15. Deployment</a></li>
+      <li><a href="#roadmap">16. Roadmap</a></li>
+    </ul>
+  </div>
+
+  <h2 id="executive-summary">1. Executive Summary</h2>
+  
+  <div class="highlight">
+    <strong>ELVAIT</strong> is a multi-role survey platform that collects stakeholder input on AI/automation investments, applies deterministic scoring and flag detection, and produces rule-based GO/CLARIFY/NO_GO recommendations.<br><br>
+    <strong>Core Principle:</strong> AI never decides outcomes — recommendations are always rule-derived from stakeholder responses.
+  </div>
+
+  <h3>Key Features</h3>
+  <ul>
+    <li><strong>Multi-stakeholder Assessment</strong> — Captures perspectives from executives, business owners, technical leads, and process owners</li>
+    <li><strong>Investment Clarity Score (ICS)</strong> — Deterministic 0-100 score based on 5 weighted dimensions</li>
+    <li><strong>Thinking Maturity Flags</strong> — 8 automated flags that detect blind spots and misalignments</li>
+    <li><strong>Tiered Access</strong> — Free tier for validation, paid tiers for enterprise features</li>
+    <li><strong>Results Gate</strong> — Converts anonymous users to registered accounts via tiered content</li>
+  </ul>
+
+  <h2 id="problem">2. Problem Statement</h2>
+  
+  <p>Organizations making AI/automation investment decisions suffer from:</p>
+  
+  <table>
+    <tr>
+      <th>Problem</th>
+      <th>Consequence</th>
+      <th>ELVAIT Solution</th>
+    </tr>
+    <tr>
+      <td>Stakeholder misalignment</td>
+      <td>Projects fail to satisfy anyone</td>
+      <td>Multi-role survey surfaces all perspectives</td>
+    </tr>
+    <tr>
+      <td>Unclear decision criteria</td>
+      <td>Analysis paralysis or premature commitment</td>
+      <td>Structured GO/CLARIFY/NO_GO framework</td>
+    </tr>
+    <tr>
+      <td>Hidden risks</td>
+      <td>Blind spots not surfaced until too late</td>
+      <td>Automated flag detection with evidence</td>
+    </tr>
+    <tr>
+      <td>Political cover-seeking</td>
+      <td>Bad projects persist; nobody kills them</td>
+      <td>Objective scoring removes politics</td>
+    </tr>
+  </table>
+
+  <h2 id="users">3. Target Users</h2>
+
+  <h3>3.1 Personas</h3>
+  
+  <table>
+    <tr>
+      <th>Role</th>
+      <th>Description</th>
+      <th>Survey Focus</th>
+    </tr>
+    <tr>
+      <td><span class="tag purple">Executive</span></td>
+      <td>C-suite, budget authority</td>
+      <td>Strategic alignment, ROI expectations</td>
+    </tr>
+    <tr>
+      <td><span class="tag green">Business Owner</span></td>
+      <td>Process owner, domain expert</td>
+      <td>Business impact, change readiness</td>
+    </tr>
+    <tr>
+      <td><span class="tag">Technical Owner</span></td>
+      <td>IT lead, architect</td>
+      <td>Technical feasibility, integration</td>
+    </tr>
+    <tr>
+      <td><span class="tag amber">Process Owner</span></td>
+      <td>Operations manager</td>
+      <td>Process documentation, automation readiness</td>
+    </tr>
+    <tr>
+      <td><span class="tag">Functional User</span></td>
+      <td>End user of the system</td>
+      <td>Day-to-day impact, adoption concerns</td>
+    </tr>
+  </table>
+
+  <h3>3.2 Assessment Initiator</h3>
+  <p>The person who creates assessments, invites participants, and reviews results. Typically a project manager, transformation lead, or consultant.</p>
+
+  <h2 id="tiers" class="section-new">4. Subscription Tiers</h2>
+
+  <table>
+    <tr>
+      <th>Tier</th>
+      <th>Price</th>
+      <th>Max Cases</th>
+      <th>Respondents</th>
+      <th>PDF Export</th>
+      <th>Custom Roles</th>
+    </tr>
+    <tr>
+      <td><span class="tag">Free</span></td>
+      <td>€0</td>
+      <td>1</td>
+      <td>10</td>
+      <td>❌</td>
+      <td>❌</td>
+    </tr>
+    <tr>
+      <td><span class="tag green">Starter</span></td>
+      <td>€79/decision</td>
+      <td>3</td>
+      <td>25</td>
+      <td>✅</td>
+      <td>❌</td>
+    </tr>
+    <tr>
+      <td><span class="tag purple">Professional</span></td>
+      <td>€149–299/mo</td>
+      <td>Unlimited</td>
+      <td>100</td>
+      <td>✅</td>
+      <td>+2 roles</td>
+    </tr>
+    <tr>
+      <td><span class="tag amber">Enterprise</span></td>
+      <td>Custom</td>
+      <td>Unlimited</td>
+      <td>Unlimited</td>
+      <td>✅</td>
+      <td>Unlimited</td>
+    </tr>
+  </table>
+
+  <div class="highlight">
+    <strong>Tier Enforcement:</strong><br>
+    • Tier stored on <code>User.tier</code> field (default: "free")<br>
+    • Case limits enforced on <code>POST /api/cases</code><br>
+    • Admin can manually upgrade users at <code>/admin/users</code>
+  </div>
+
+  <h2 id="variants">5. Kit Variants</h2>
+
+  <table>
+    <tr>
+      <th>Variant</th>
+      <th>Roles</th>
+      <th>Duration</th>
+      <th>Use Case</th>
+    </tr>
+    <tr>
+      <td><strong>Quick Check</strong></td>
+      <td>Executive only</td>
+      <td>15 min</td>
+      <td>Fast executive signal</td>
+    </tr>
+    <tr>
+      <td><strong>Core (Decision Clarity)</strong></td>
+      <td>Exec + Business + Technical</td>
+      <td>45 min</td>
+      <td>Investment-grade assessment</td>
+    </tr>
+    <tr>
+      <td><strong>Full Assessment</strong></td>
+      <td>All 4 roles + Process</td>
+      <td>60+ min</td>
+      <td>Automation-safe with process check</td>
+    </tr>
+    <tr>
+      <td><strong>Process Standalone</strong></td>
+      <td>Process Owner only</td>
+      <td>20 min</td>
+      <td>Process readiness audit</td>
+    </tr>
+  </table>
+
+  <h2 id="auth" class="section-new">6. Authentication</h2>
+
+  <h3>6.1 User Model</h3>
+  <pre><code>model User {
+  id              String    @id @default(cuid())
+  email           String    @unique
+  emailVerified   DateTime?
+  passwordHash    String
+  name            String?
+  tier            String    @default("free")
+  company         String?
+  createdAt       DateTime  @default(now())
+  updatedAt       DateTime  @updatedAt
+  cases           DecisionCase[]
+  sessions        Session[]
+}</code></pre>
+
+  <h3>6.2 Auth Flows</h3>
+  <table>
+    <tr>
+      <th>Flow</th>
+      <th>Endpoint</th>
+      <th>Description</th>
+    </tr>
+    <tr>
+      <td>Sign Up</td>
+      <td><code>POST /api/auth/signup</code></td>
+      <td>Create account with email/password</td>
+    </tr>
+    <tr>
+      <td>Sign In</td>
+      <td><code>POST /api/auth/signin</code></td>
+      <td>NextAuth credentials provider</td>
+    </tr>
+    <tr>
+      <td>Forgot Password</td>
+      <td><code>POST /api/auth/forgot-password</code></td>
+      <td>Send reset email</td>
+    </tr>
+    <tr>
+      <td>Reset Password</td>
+      <td><code>POST /api/auth/reset-password</code></td>
+      <td>Set new password with token</td>
+    </tr>
+    <tr>
+      <td>Verify Email</td>
+      <td><code>GET /verify-email?token=</code></td>
+      <td>Confirm email address</td>
+    </tr>
+  </table>
+
+  <h3>6.3 Password Requirements</h3>
+  <ul>
+    <li>Minimum 8 characters</li>
+    <li>At least one uppercase letter</li>
+    <li>At least one lowercase letter</li>
+    <li>At least one number</li>
+  </ul>
+
+  <h2 id="results-gate" class="section-new">7. Results Gate</h2>
+
+  <div class="highlight">
+    <strong>Purpose:</strong> Convert anonymous users to registered accounts by gating results content based on tier.
+  </div>
+
+  <h3>7.1 Tiered Content Visibility</h3>
+  <table>
+    <tr>
+      <th>Content</th>
+      <th>Tier 0 (Anonymous)</th>
+      <th>Tier 1 (Free)</th>
+      <th>Tier 2+ (Paid)</th>
+    </tr>
+    <tr>
+      <td>Verdict (GO/CLARIFY/NO_GO)</td>
+      <td>✅</td>
+      <td>✅</td>
+      <td>✅</td>
+    </tr>
+    <tr>
+      <td>ICS Score</td>
+      <td>✅</td>
+      <td>✅</td>
+      <td>✅</td>
+    </tr>
+    <tr>
+      <td>Top 2 Flags</td>
+      <td>✅</td>
+      <td>✅</td>
+      <td>✅</td>
+    </tr>
+    <tr>
+      <td>Generic Summary</td>
+      <td>✅</td>
+      <td>✅</td>
+      <td>✅</td>
+    </tr>
+    <tr>
+      <td>Role Breakdown</td>
+      <td>🔒 Blurred</td>
+      <td>✅</td>
+      <td>✅</td>
+    </tr>
+    <tr>
+      <td>All Flags (3+)</td>
+      <td>🔒 Blurred</td>
+      <td>✅</td>
+      <td>✅</td>
+    </tr>
+    <tr>
+      <td>Contradiction Map</td>
+      <td>🔒 Blurred</td>
+      <td>✅</td>
+      <td>✅</td>
+    </tr>
+    <tr>
+      <td>Save Case</td>
+      <td>🔒 Blocked</td>
+      <td>✅</td>
+      <td>✅</td>
+    </tr>
+    <tr>
+      <td>PDF Download</td>
+      <td>🔒 Blocked</td>
+      <td>🔒 Blocked</td>
+      <td>✅</td>
+    </tr>
+  </table>
+
+  <h3>7.2 Unlock Flow</h3>
+  <ol>
+    <li>Anonymous user sees blurred content with lock icon</li>
+    <li>Clicking locked content opens <code>UnlockModal</code></li>
+    <li>Modal shows "Create free account" CTA</li>
+    <li>User redirects to <code>/signup?returnTo=/cases/[id]/results</code></li>
+    <li>After registration, user auto-signs in and redirects back</li>
+    <li>Full Tier 1 content now visible</li>
+  </ol>
+
+  <h3>7.3 Key Components</h3>
+  <table>
+    <tr>
+      <th>Component</th>
+      <th>Location</th>
+      <th>Purpose</th>
+    </tr>
+    <tr>
+      <td><code>LockedOverlay</code></td>
+      <td><code>src/components/results/</code></td>
+      <td>Blur + lock icon overlay</td>
+    </tr>
+    <tr>
+      <td><code>UnlockModal</code></td>
+      <td><code>src/components/results/</code></td>
+      <td>Registration/upgrade prompt</td>
+    </tr>
+    <tr>
+      <td><code>getResultsAccess()</code></td>
+      <td><code>src/lib/tiers.ts</code></td>
+      <td>Compute tier permissions</td>
+    </tr>
+  </table>
+
+  <h2 id="functional">8. Functional Requirements</h2>
+
+  <h3>8.1 Assessment Creation</h3>
+  <table>
+    <tr>
+      <th>ID</th>
+      <th>Requirement</th>
+    </tr>
+    <tr>
+      <td>FR-001</td>
+      <td>Initiator can create assessment with: decision title (max 120 chars), investment type, description (max 500 chars), impacted areas, time horizon, estimated investment, D-CTX-1 through D-CTX-4</td>
+    </tr>
+    <tr>
+      <td>FR-002</td>
+      <td>Kit variant selection determines required roles and question set</td>
+    </tr>
+    <tr>
+      <td>FR-003</td>
+      <td>Decision title and variant are immutable after first participant response</td>
+    </tr>
+    <tr>
+      <td>FR-004</td>
+      <td>Case creation enforces tier-based limits (free: 1, starter: 3, etc.)</td>
+    </tr>
+  </table>
+
+  <h3>8.2 Participant Management</h3>
+  <table>
+    <tr>
+      <th>ID</th>
+      <th>Requirement</th>
+    </tr>
+    <tr>
+      <td>FR-010</td>
+      <td>Initiator can add participants by role with optional name/email</td>
+    </tr>
+    <tr>
+      <td>FR-011</td>
+      <td>Each participant receives unique survey URL with cryptographic token</td>
+    </tr>
+    <tr>
+      <td>FR-012</td>
+      <td>Participant status tracking: INVITED → IN_PROGRESS → COMPLETED</td>
+    </tr>
+  </table>
+
+  <h3>8.3 Survey Experience</h3>
+  <table>
+    <tr>
+      <th>ID</th>
+      <th>Requirement</th>
+    </tr>
+    <tr>
+      <td>FR-020</td>
+      <td>Participants see decision context (D-CTX fields) before questions</td>
+    </tr>
+    <tr>
+      <td>FR-021</td>
+      <td>Questions displayed by role-specific set based on kit variant</td>
+    </tr>
+    <tr>
+      <td>FR-022</td>
+      <td>Answer types: Likert 1-5, Single-select, Multi-select, Open text</td>
+    </tr>
+    <tr>
+      <td>FR-023</td>
+      <td>Progress saved automatically; participants can resume</td>
+    </tr>
+    <tr>
+      <td>FR-024</td>
+      <td><strong>Participants NEVER see:</strong> ICS scores, flags, weights, TM codes, others' answers</td>
+    </tr>
+  </table>
+
+  <h3>8.4 Results Dashboard</h3>
+  <table>
+    <tr>
+      <th>ID</th>
+      <th>Requirement</th>
+    </tr>
+    <tr>
+      <td>FR-030</td>
+      <td>Results visible only to initiator (and authenticated users with access)</td>
+    </tr>
+    <tr>
+      <td>FR-031</td>
+      <td>Dashboard displays: ICS score ring, dimension breakdown, flags, blind spots, action checklist</td>
+    </tr>
+    <tr>
+      <td>FR-032</td>
+      <td>Anonymous users see Tier 0 content with locked overlays</td>
+    </tr>
+    <tr>
+      <td>FR-033</td>
+      <td>PDF download available for Tier 2+ users only</td>
+    </tr>
+  </table>
+
+  <h2 id="scoring">9. Scoring Engine</h2>
+
+  <h3>9.1 Investment Clarity Score (ICS)</h3>
+  <pre><code>ICS = D1×0.20 + D2×0.25 + D3×0.20 + D4×0.20 + D5×0.15</code></pre>
+
+  <h3>9.2 Dimension Mapping</h3>
+  <table>
+    <tr>
+      <th>Code</th>
+      <th>Dimension</th>
+      <th>Weight</th>
+      <th>Questions</th>
+    </tr>
+    <tr>
+      <td>D1</td>
+      <td>Strategic Alignment</td>
+      <td>20%</td>
+      <td>E1-E6</td>
+    </tr>
+    <tr>
+      <td>D2</td>
+      <td>Business Value</td>
+      <td>25%</td>
+      <td>B1-B12</td>
+    </tr>
+    <tr>
+      <td>D3</td>
+      <td>Technical Feasibility</td>
+      <td>20%</td>
+      <td>T1-T12</td>
+    </tr>
+    <tr>
+      <td>D4</td>
+      <td>Organizational Readiness</td>
+      <td>20%</td>
+      <td>U1-U9</td>
+    </tr>
+    <tr>
+      <td>D5</td>
+      <td>Risk Awareness</td>
+      <td>15%</td>
+      <td>R1-R6</td>
+    </tr>
+    <tr>
+      <td>P</td>
+      <td>Process Readiness</td>
+      <td>Gate only</td>
+      <td>P1-P12</td>
+    </tr>
+  </table>
+
+  <div class="warning">
+    <strong>Important:</strong> Process dimension (P) is gate-only — it never contributes to ICS. It can only block a GO recommendation via Gate G3.
+  </div>
+
+  <h3>9.3 Likert Normalization</h3>
+  <pre><code>Score (0-100) = (AdjustedValue - 1) × 25
+
+AdjustedValue = 6 - RawValue  if is_reverse = true
+AdjustedValue = RawValue      if is_reverse = false</code></pre>
+
+  <h3>9.4 Recommendation Thresholds</h3>
+  <table>
+    <tr>
+      <th>ICS Range</th>
+      <th>Recommendation</th>
+      <th>Color</th>
+    </tr>
+    <tr>
+      <td>≥ 75</td>
+      <td><span class="tag green">GO</span></td>
+      <td>Green</td>
+    </tr>
+    <tr>
+      <td>50 – 74</td>
+      <td><span class="tag amber">CLARIFY</span></td>
+      <td>Yellow</td>
+    </tr>
+    <tr>
+      <td>< 50</td>
+      <td><span class="tag red">NO_GO</span></td>
+      <td>Red</td>
+    </tr>
+  </table>
+
+  <h2 id="flags">10. Flag Detection</h2>
+
+  <table>
+    <tr>
+      <th>Code</th>
+      <th>Flag Name</th>
+      <th>Trigger</th>
+      <th>Severity</th>
+    </tr>
+    <tr>
+      <td>TM-1</td>
+      <td>Within-Role Contradiction</td>
+      <td>Likert variance > 1.5 in same dimension</td>
+      <td><span class="tag amber">WARN</span></td>
+    </tr>
+    <tr>
+      <td>TM-2</td>
+      <td>Narrative Inflation</td>
+      <td>High confidence + low specificity</td>
+      <td><span class="tag amber">WARN</span></td>
+    </tr>
+    <tr>
+      <td>TM-3</td>
+      <td>Overconfidence</td>
+      <td>All 5s with no risks identified</td>
+      <td><span class="tag red">CRITICAL</span></td>
+    </tr>
+    <tr>
+      <td>TM-4</td>
+      <td>Cross-Role Mismatch</td>
+      <td>Role dimension gap > 30 points</td>
+      <td><span class="tag amber">WARN</span></td>
+    </tr>
+    <tr>
+      <td>TM-5</td>
+      <td>Ownership Diffusion</td>
+      <td>No clear owner identified</td>
+      <td><span class="tag amber">WARN</span></td>
+    </tr>
+    <tr>
+      <td>TM-6</td>
+      <td>Capacity Illusion</td>
+      <td>High readiness + low resource clarity</td>
+      <td><span class="tag amber">WARN</span></td>
+    </tr>
+    <tr>
+      <td>TM-7</td>
+      <td>Complexity Denial</td>
+      <td>Simple rating + complex indicators</td>
+      <td><span class="tag amber">WARN</span></td>
+    </tr>
+    <tr>
+      <td>TM-8</td>
+      <td>Open-Text Risk</td>
+      <td>Risk keywords in open responses</td>
+      <td><span class="tag">INFO</span></td>
+    </tr>
+  </table>
+
+  <h2 id="gates">11. Gating Rules</h2>
+
+  <table>
+    <tr>
+      <th>Gate</th>
+      <th>Condition</th>
+      <th>Override</th>
+    </tr>
+    <tr>
+      <td>G1</td>
+      <td>Any dimension < 50</td>
+      <td>→ CLARIFY</td>
+    </tr>
+    <tr>
+      <td>G2</td>
+      <td>Critical flag present</td>
+      <td>→ NO_GO</td>
+    </tr>
+    <tr>
+      <td>G3</td>
+      <td>Process gate failed (FULL kit only)</td>
+      <td>→ CLARIFY</td>
+    </tr>
+    <tr>
+      <td>G4</td>
+      <td>&lt; 2 roles responded</td>
+      <td>→ CLARIFY</td>
+    </tr>
+  </table>
+
+  <div class="highlight">
+    <strong>Gate Priority:</strong> Gates override ICS-based recommendations. A high ICS can still be overridden to CLARIFY or NO_GO by triggered gates.
+  </div>
+
+  <h2 id="api">12. API Endpoints</h2>
+
+  <h3>12.1 Cases API</h3>
+  <table>
+    <tr>
+      <th>Method</th>
+      <th>Endpoint</th>
+      <th>Description</th>
+      <th>Auth</th>
+    </tr>
+    <tr>
+      <td>POST</td>
+      <td><code>/api/cases</code></td>
+      <td>Create assessment</td>
+      <td>Optional</td>
+    </tr>
+    <tr>
+      <td>GET</td>
+      <td><code>/api/cases</code></td>
+      <td>List assessments</td>
+      <td>Optional</td>
+    </tr>
+    <tr>
+      <td>GET</td>
+      <td><code>/api/cases?countOnly=true</code></td>
+      <td>Get case count + tier</td>
+      <td>Required</td>
+    </tr>
+    <tr>
+      <td>GET</td>
+      <td><code>/api/cases/[id]</code></td>
+      <td>Get assessment details</td>
+      <td>Optional</td>
+    </tr>
+    <tr>
+      <td>PATCH</td>
+      <td><code>/api/cases/[id]</code></td>
+      <td>Update assessment</td>
+      <td>Optional</td>
+    </tr>
+    <tr>
+      <td>DELETE</td>
+      <td><code>/api/cases/[id]</code></td>
+      <td>Delete (if no responses)</td>
+      <td>Optional</td>
+    </tr>
+    <tr>
+      <td>POST</td>
+      <td><code>/api/cases/[id]/participants</code></td>
+      <td>Add participant</td>
+      <td>Optional</td>
+    </tr>
+    <tr>
+      <td>GET</td>
+      <td><code>/api/cases/[id]/results</code></td>
+      <td>Get scoring results</td>
+      <td>Optional</td>
+    </tr>
+    <tr>
+      <td>POST</td>
+      <td><code>/api/cases/claim</code></td>
+      <td>Link case to account</td>
+      <td>Required</td>
+    </tr>
+  </table>
+
+  <h3>12.2 Auth API</h3>
+  <table>
+    <tr>
+      <th>Method</th>
+      <th>Endpoint</th>
+      <th>Description</th>
+    </tr>
+    <tr>
+      <td>POST</td>
+      <td><code>/api/auth/signup</code></td>
+      <td>Create account</td>
+    </tr>
+    <tr>
+      <td>POST</td>
+      <td><code>/api/auth/signin</code></td>
+      <td>NextAuth handler</td>
+    </tr>
+    <tr>
+      <td>POST</td>
+      <td><code>/api/auth/forgot-password</code></td>
+      <td>Request reset</td>
+    </tr>
+    <tr>
+      <td>POST</td>
+      <td><code>/api/auth/reset-password</code></td>
+      <td>Set new password</td>
+    </tr>
+  </table>
+
+  <h3>12.3 Admin API</h3>
+  <table>
+    <tr>
+      <th>Method</th>
+      <th>Endpoint</th>
+      <th>Description</th>
+      <th>Auth</th>
+    </tr>
+    <tr>
+      <td>GET</td>
+      <td><code>/api/admin/users</code></td>
+      <td>List all users</td>
+      <td>Admin only</td>
+    </tr>
+    <tr>
+      <td>PATCH</td>
+      <td><code>/api/admin/users</code></td>
+      <td>Update user tier</td>
+      <td>Admin only</td>
+    </tr>
+  </table>
+
+  <h3>12.4 Contact API</h3>
+  <table>
+    <tr>
+      <th>Method</th>
+      <th>Endpoint</th>
+      <th>Description</th>
+    </tr>
+    <tr>
+      <td>POST</td>
+      <td><code>/api/contact</code></td>
+      <td>Send contact form email</td>
+    </tr>
+  </table>
+
+  <h2 id="technical">13. Technical Architecture</h2>
+
+  <h3>13.1 Stack</h3>
+  <table>
+    <tr>
+      <th>Layer</th>
+      <th>Technology</th>
+    </tr>
+    <tr>
+      <td>Frontend</td>
+      <td>Next.js 14 (App Router)</td>
+    </tr>
+    <tr>
+      <td>Styling</td>
+      <td>Tailwind CSS + Radix UI</td>
+    </tr>
+    <tr>
+      <td>Database</td>
+      <td>PostgreSQL + Prisma ORM</td>
+    </tr>
+    <tr>
+      <td>Auth</td>
+      <td>NextAuth v5</td>
+    </tr>
+    <tr>
+      <td>Hosting</td>
+      <td>Vercel</td>
+    </tr>
+    <tr>
+      <td>Domain</td>
+      <td>elvait.ai</td>
+    </tr>
+    <tr>
+      <td>Charts</td>
+      <td>Recharts</td>
+    </tr>
+    <tr>
+      <td>Animations</td>
+      <td>Framer Motion</td>
+    </tr>
+  </table>
+
+  <h3>13.2 Data Model</h3>
+  <pre><code>User (1) ──────── DecisionCase (N)
+                        │
+DecisionCase (1) ──┬── Participants (N)
+                   │        │
+                   │        └── SurveyResponses (N)
+                   │
+                   └── CaseSummary (1)
+                          ├── ICS Score
+                          ├── Dimension Scores
+                          ├── Flags
+                          └── Recommendation</code></pre>
+
+  <h2 id="security">14. Security</h2>
+
+  <h3>14.1 Data Privacy</h3>
+  <table>
+    <tr>
+      <th>Requirement</th>
+      <th>Implementation</th>
+    </tr>
+    <tr>
+      <td>NFR-001</td>
+      <td>Participant tokens are cryptographically random (nanoid 21+ chars)</td>
+    </tr>
+    <tr>
+      <td>NFR-002</td>
+      <td>No PII stored in pattern records (anonymized learning data)</td>
+    </tr>
+    <tr>
+      <td>NFR-003</td>
+      <td>Open text classified but raw text not stored long-term</td>
+    </tr>
+    <tr>
+      <td>NFR-004</td>
+      <td>Forbidden fields middleware blocks exposure of internal scores to participants</td>
+    </tr>
+    <tr>
+      <td>NFR-005</td>
+      <td>Passwords hashed with bcrypt (12 rounds)</td>
+    </tr>
+  </table>
+
+  <h3>14.2 Access Control</h3>
+  <ul>
+    <li><strong>Participants:</strong> Can only see their own survey; cannot see ICS, flags, or other responses</li>
+    <li><strong>Initiator:</strong> Full access to their own cases</li>
+    <li><strong>Admin:</strong> Can view/modify all users and tiers (restricted to @brnz.ai, @elvait.ai domains)</li>
+  </ul>
+
+  <h2 id="deployment">15. Deployment</h2>
+
+  <h3>15.1 Environments</h3>
+  <table>
+    <tr>
+      <th>Environment</th>
+      <th>URL</th>
+      <th>Branch</th>
+    </tr>
+    <tr>
+      <td>Production</td>
+      <td>https://elvait.ai</td>
+      <td>main</td>
+    </tr>
+    <tr>
+      <td>Preview</td>
+      <td>Vercel preview URLs</td>
+      <td>PR branches</td>
+    </tr>
+  </table>
+
+  <h3>15.2 CI/CD Pipeline</h3>
+  <ol>
+    <li>Push to <code>main</code> triggers Vercel deployment</li>
+    <li>Build runs (<code>prisma generate && next build</code>)</li>
+    <li>567 automated tests run via Vitest</li>
+    <li>Zero-downtime deployment on success</li>
+  </ol>
+
+  <h2 id="roadmap">16. Roadmap</h2>
+
+  <h3>Completed ✅</h3>
+  <ul>
+    <li>Multi-role survey with ICS scoring</li>
+    <li>8 Thinking Maturity flags (TM-1 to TM-8)</li>
+    <li>4 kit variants (Quick Check, Core, Full, Process)</li>
+    <li>Demo system with 6 personas</li>
+    <li>User authentication (signup, signin, password reset)</li>
+    <li>Subscription tiers (free, starter, professional, enterprise)</li>
+    <li>Results Gate with tiered content</li>
+    <li>Admin panel for tier management</li>
+    <li>Pricing and contact pages</li>
+  </ul>
+
+  <h3>Phase 2 (Planned)</h3>
+  <ul>
+    <li>Email invitations for participants</li>
+    <li>PDF report generation</li>
+    <li>Google OAuth</li>
+    <li>Case claim flow (link anonymous cases to account)</li>
+    <li>Stripe payment integration</li>
+  </ul>
+
+  <h3>Phase 3 (Considered)</h3>
+  <ul>
+    <li>Organization-level accounts</li>
+    <li>Custom question sets</li>
+    <li>Multi-language support</li>
+    <li>SSO/SAML authentication</li>
+    <li>Cross-case analytics</li>
+  </ul>
+
+  <div class="footer">
+    <p><strong>ELVAIT PRD v2.0</strong> — February 2026</p>
+    <p>Document maintained by ELVAIT development team</p>
+    <p><a href="/md/index.html">← Back to Documentation</a></p>
+  </div>
+</body>
+</html>

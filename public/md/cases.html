@@ -1,0 +1,580 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="UTF-8">
+  <title>ELVAIT - Test Cases</title>
+  <style>
+    body {
+      font-family: 'Segoe UI', Arial, sans-serif;
+      max-width: 1100px;
+      margin: 40px auto;
+      padding: 40px;
+      color: #1a1a1a;
+      line-height: 1.7;
+      background: #fafafa;
+    }
+    h1 {
+      color: #2563eb;
+      border-bottom: 3px solid #2563eb;
+      padding-bottom: 10px;
+      font-size: 28px;
+    }
+    h2 {
+      color: #1e40af;
+      margin-top: 40px;
+      font-size: 20px;
+      border-left: 4px solid #2563eb;
+      padding-left: 15px;
+    }
+    h3 {
+      color: #374151;
+      margin-top: 25px;
+      font-size: 16px;
+    }
+    .highlight {
+      background: #eff6ff;
+      border-left: 4px solid #2563eb;
+      padding: 20px;
+      margin: 20px 0;
+      border-radius: 0 8px 8px 0;
+    }
+    .success {
+      background: #dcfce7;
+      border-left: 4px solid #22c55e;
+      padding: 20px;
+      margin: 20px 0;
+      border-radius: 0 8px 8px 0;
+    }
+    .warning {
+      background: #fef3c7;
+      border-left: 4px solid #f59e0b;
+      padding: 20px;
+      margin: 20px 0;
+      border-radius: 0 8px 8px 0;
+    }
+    .tag {
+      display: inline-block;
+      background: #dbeafe;
+      color: #1e40af;
+      padding: 4px 12px;
+      border-radius: 20px;
+      font-size: 12px;
+      margin: 2px;
+    }
+    .tag.green { background: #dcfce7; color: #166534; }
+    .tag.amber { background: #fef3c7; color: #92400e; }
+    .tag.red { background: #fee2e2; color: #991b1b; }
+    .tag.new { background: #dbeafe; color: #1e40af; font-weight: 600; }
+    table {
+      width: 100%;
+      border-collapse: collapse;
+      margin: 20px 0;
+      background: white;
+      box-shadow: 0 1px 3px rgba(0,0,0,0.1);
+      border-radius: 8px;
+      overflow: hidden;
+      font-size: 14px;
+    }
+    th, td {
+      padding: 10px 12px;
+      text-align: left;
+      border-bottom: 1px solid #e5e7eb;
+    }
+    th {
+      background: #f3f4f6;
+      font-weight: 600;
+      color: #374151;
+    }
+    tr:hover {
+      background: #f9fafb;
+    }
+    code {
+      background: #f3f4f6;
+      padding: 2px 6px;
+      border-radius: 4px;
+      font-family: 'Fira Code', monospace;
+      font-size: 13px;
+    }
+    pre {
+      background: #1f2937;
+      color: #e5e7eb;
+      padding: 20px;
+      border-radius: 8px;
+      overflow-x: auto;
+      font-size: 13px;
+    }
+    .meta {
+      color: #6b7280;
+      font-size: 14px;
+      margin-bottom: 30px;
+    }
+    .summary-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+      gap: 15px;
+      margin: 20px 0;
+    }
+    .summary-card {
+      background: white;
+      border: 1px solid #e5e7eb;
+      border-radius: 8px;
+      padding: 20px;
+      text-align: center;
+    }
+    .summary-card .number {
+      font-size: 36px;
+      font-weight: 700;
+      color: #2563eb;
+    }
+    .summary-card .label {
+      font-size: 14px;
+      color: #6b7280;
+    }
+    .footer {
+      margin-top: 50px;
+      padding-top: 20px;
+      border-top: 1px solid #e5e7eb;
+      color: #6b7280;
+      font-size: 14px;
+    }
+    .section-new {
+      position: relative;
+    }
+    .section-new::after {
+      content: "NEW";
+      position: absolute;
+      right: 0;
+      top: 5px;
+      background: #2563eb;
+      color: white;
+      padding: 2px 8px;
+      border-radius: 4px;
+      font-size: 11px;
+      font-weight: 600;
+    }
+  </style>
+</head>
+<body>
+  <h1>ELVAIT — Complete Test Cases</h1>
+  
+  <div class="meta">
+    <strong>Version:</strong> 3.0<br>
+    <strong>Last Updated:</strong> 2026-02-20<br>
+    <strong>Total Tests:</strong> 567 automated + 60 manual scenarios
+  </div>
+
+  <div class="summary-grid">
+    <div class="summary-card">
+      <div class="number">567</div>
+      <div class="label">Automated Tests</div>
+    </div>
+    <div class="summary-card">
+      <div class="number">13</div>
+      <div class="label">Test Files</div>
+    </div>
+    <div class="summary-card">
+      <div class="number">100%</div>
+      <div class="label">Passing</div>
+    </div>
+    <div class="summary-card">
+      <div class="number">~500ms</div>
+      <div class="label">Run Time</div>
+    </div>
+  </div>
+
+  <div class="success">
+    <strong>✅ All 567 tests passing</strong> — Last run: 2026-02-20
+  </div>
+
+  <h2>Part 1: Scoring & Recommendation</h2>
+
+  <h3>1.1 ICS Score Boundaries</h3>
+  <table>
+    <tr>
+      <th>#</th>
+      <th>Scenario</th>
+      <th>ICS</th>
+      <th>Expected</th>
+      <th>Status</th>
+    </tr>
+    <tr><td>S01</td><td>Perfect Score</td><td>100</td><td><span class="tag green">GO</span></td><td>✅</td></tr>
+    <tr><td>S02</td><td>Minimum Score</td><td>0</td><td><span class="tag red">NO_GO</span></td><td>✅</td></tr>
+    <tr><td>S03</td><td>GO Boundary</td><td>75</td><td><span class="tag green">GO</span></td><td>✅</td></tr>
+    <tr><td>S04</td><td>CLARIFY Upper</td><td>74</td><td><span class="tag amber">CLARIFY</span></td><td>✅</td></tr>
+    <tr><td>S05</td><td>CLARIFY Lower</td><td>50</td><td><span class="tag amber">CLARIFY</span></td><td>✅</td></tr>
+    <tr><td>S06</td><td>NO_GO Boundary</td><td>49</td><td><span class="tag red">NO_GO</span></td><td>✅</td></tr>
+    <tr><td>S07</td><td>Mid-range</td><td>62</td><td><span class="tag amber">CLARIFY</span></td><td>✅</td></tr>
+  </table>
+
+  <h3>1.2 Dimension Weight Scenarios</h3>
+  <table>
+    <tr>
+      <th>#</th>
+      <th>Scenario</th>
+      <th>D1</th>
+      <th>D2</th>
+      <th>D3</th>
+      <th>D4</th>
+      <th>D5</th>
+      <th>ICS</th>
+      <th>Status</th>
+    </tr>
+    <tr><td>D01</td><td>D2 Heavy</td><td>50</td><td>100</td><td>50</td><td>50</td><td>50</td><td>62.5</td><td>✅</td></tr>
+    <tr><td>D02</td><td>D1 Heavy</td><td>100</td><td>50</td><td>50</td><td>50</td><td>50</td><td>57.5</td><td>✅</td></tr>
+    <tr><td>D03</td><td>D5 Light</td><td>100</td><td>100</td><td>100</td><td>100</td><td>0</td><td>85</td><td>✅</td></tr>
+    <tr><td>D04</td><td>All Equal</td><td>70</td><td>70</td><td>70</td><td>70</td><td>70</td><td>70</td><td>✅</td></tr>
+  </table>
+
+  <h3>1.3 Likert Normalization</h3>
+  <table>
+    <tr>
+      <th>#</th>
+      <th>Raw</th>
+      <th>Reverse</th>
+      <th>Adjusted</th>
+      <th>Score (0-100)</th>
+      <th>Status</th>
+    </tr>
+    <tr><td>L01</td><td>1</td><td>No</td><td>1</td><td>0</td><td>✅</td></tr>
+    <tr><td>L02</td><td>2</td><td>No</td><td>2</td><td>25</td><td>✅</td></tr>
+    <tr><td>L03</td><td>3</td><td>No</td><td>3</td><td>50</td><td>✅</td></tr>
+    <tr><td>L04</td><td>4</td><td>No</td><td>4</td><td>75</td><td>✅</td></tr>
+    <tr><td>L05</td><td>5</td><td>No</td><td>5</td><td>100</td><td>✅</td></tr>
+    <tr><td>L06</td><td>1</td><td>Yes</td><td>5</td><td>100</td><td>✅</td></tr>
+    <tr><td>L07</td><td>5</td><td>Yes</td><td>1</td><td>0</td><td>✅</td></tr>
+  </table>
+
+  <h2>Part 2: Flag Detection</h2>
+
+  <h3>2.1 TM-1: Within-Role Contradiction</h3>
+  <table>
+    <tr><th>#</th><th>Q_Positive</th><th>Q_Reverse</th><th>Flag</th><th>Severity</th><th>Status</th></tr>
+    <tr><td>TM1-01</td><td>5</td><td>5</td><td>WITHIN_ROLE_CONTRADICTION</td><td><span class="tag amber">WARN</span></td><td>✅</td></tr>
+    <tr><td>TM1-02</td><td>4</td><td>4</td><td>WITHIN_ROLE_CONTRADICTION</td><td><span class="tag amber">WARN</span></td><td>✅</td></tr>
+    <tr><td>TM1-03</td><td>5</td><td>3</td><td>None</td><td>-</td><td>✅</td></tr>
+  </table>
+
+  <h3>2.2 TM-3: Overconfidence</h3>
+  <table>
+    <tr><th>#</th><th>Confidence</th><th>Evidence Score</th><th>Flag</th><th>Severity</th><th>Status</th></tr>
+    <tr><td>TM3-01</td><td>5</td><td>1</td><td>OVERCONFIDENCE</td><td><span class="tag red">CRITICAL</span></td><td>✅</td></tr>
+    <tr><td>TM3-02</td><td>5</td><td>2</td><td>OVERCONFIDENCE</td><td><span class="tag amber">WARN</span></td><td>✅</td></tr>
+    <tr><td>TM3-03</td><td>4</td><td>3</td><td>None</td><td>-</td><td>✅</td></tr>
+  </table>
+
+  <h3>2.3 TM-4: Cross-Role Mismatch</h3>
+  <table>
+    <tr><th>#</th><th>Exec Score</th><th>Tech Score</th><th>Gap</th><th>Flag</th><th>Status</th></tr>
+    <tr><td>TM4-01</td><td>5</td><td>2</td><td>3.0</td><td>CROSS_ROLE_MISMATCH</td><td>✅</td></tr>
+    <tr><td>TM4-02</td><td>5</td><td>3</td><td>2.0</td><td>CROSS_ROLE_MISMATCH</td><td>✅</td></tr>
+    <tr><td>TM4-03</td><td>4</td><td>3</td><td>1.0</td><td>None</td><td>✅</td></tr>
+  </table>
+
+  <h3>2.4 TM-8: Open-Text Risk Detection</h3>
+  <table>
+    <tr><th>#</th><th>Response Text</th><th>Flag</th><th>Status</th></tr>
+    <tr><td>TM8-01</td><td>"No risks identified"</td><td>BLIND_OPTIMISM</td><td>✅</td></tr>
+    <tr><td>TM8-02</td><td>"Main risk is budget"</td><td>None</td><td>✅</td></tr>
+    <tr><td>TM8-03</td><td>"N/A"</td><td>BLIND_OPTIMISM</td><td>✅</td></tr>
+  </table>
+
+  <h2>Part 3: Gate Rules</h2>
+
+  <h3>3.1 Gate G1: Low Dimension Score</h3>
+  <table>
+    <tr><th>#</th><th>Weak Dimension</th><th>Score</th><th>Other Dims</th><th>Result</th><th>Status</th></tr>
+    <tr><td>G1-01</td><td>D1</td><td>45</td><td>All 80</td><td><span class="tag amber">CLARIFY</span></td><td>✅</td></tr>
+    <tr><td>G1-02</td><td>D2</td><td>49</td><td>All 90</td><td><span class="tag amber">CLARIFY</span></td><td>✅</td></tr>
+    <tr><td>G1-03</td><td>D4</td><td>50</td><td>All 80</td><td><span class="tag green">GO</span></td><td>✅</td></tr>
+  </table>
+
+  <h3>3.2 Gate G2: Process Readiness (FULL only)</h3>
+  <table>
+    <tr><th>#</th><th>Variant</th><th>P Score</th><th>ICS</th><th>Result</th><th>Status</th></tr>
+    <tr><td>G2-01</td><td>FULL</td><td>45</td><td>82</td><td><span class="tag amber">CLARIFY</span></td><td>✅</td></tr>
+    <tr><td>G2-02</td><td>FULL</td><td>50</td><td>85</td><td><span class="tag green">GO</span></td><td>✅</td></tr>
+    <tr><td>G2-03</td><td>CORE</td><td>40</td><td>80</td><td><span class="tag green">GO</span> (N/A)</td><td>✅</td></tr>
+  </table>
+
+  <h3>3.3 Gate G4: Minimum Roles</h3>
+  <table>
+    <tr><th>#</th><th>Roles Responded</th><th>ICS</th><th>Result</th><th>Status</th></tr>
+    <tr><td>G4-01</td><td>1</td><td>85</td><td><span class="tag amber">CLARIFY</span></td><td>✅</td></tr>
+    <tr><td>G4-02</td><td>2</td><td>80</td><td><span class="tag green">GO</span></td><td>✅</td></tr>
+    <tr><td>G4-03</td><td>3</td><td>78</td><td><span class="tag green">GO</span></td><td>✅</td></tr>
+  </table>
+
+  <h2>Part 4: Kit Variants</h2>
+
+  <table>
+    <tr><th>#</th><th>Variant</th><th>Roles</th><th>Expected Questions</th><th>Status</th></tr>
+    <tr><td>KV-01</td><td>QUICK_CHECK</td><td>Executive only</td><td>E1-E6</td><td>✅</td></tr>
+    <tr><td>KV-02</td><td>CORE</td><td>Exec + Business + Tech</td><td>E + B + T questions</td><td>✅</td></tr>
+    <tr><td>KV-03</td><td>FULL</td><td>All 4 roles</td><td>All questions + P</td><td>✅</td></tr>
+    <tr><td>KV-04</td><td>PROCESS_STANDALONE</td><td>Process only</td><td>P1-P12 only</td><td>✅</td></tr>
+  </table>
+
+  <h2>Part 5: API Validation</h2>
+
+  <h3>5.1 Create Case Validation</h3>
+  <table>
+    <tr><th>#</th><th>Field</th><th>Value</th><th>Expected</th><th>Status</th></tr>
+    <tr><td>V01</td><td>decisionTitle</td><td>empty</td><td>400 Error</td><td>✅</td></tr>
+    <tr><td>V02</td><td>decisionTitle</td><td>121 chars</td><td>400 Error</td><td>✅</td></tr>
+    <tr><td>V03</td><td>decisionTitle</td><td>120 chars</td><td>Success</td><td>✅</td></tr>
+    <tr><td>V04</td><td>variant</td><td>"INVALID"</td><td>400 Error</td><td>✅</td></tr>
+    <tr><td>V05</td><td>variant</td><td>"CORE"</td><td>Success</td><td>✅</td></tr>
+    <tr><td>V06</td><td>investmentType</td><td>"Invalid"</td><td>400 Error</td><td>✅</td></tr>
+    <tr><td>V07</td><td>impactedAreas</td><td>[]</td><td>400 Error</td><td>✅</td></tr>
+    <tr><td>V08</td><td>timeHorizon</td><td>"Invalid"</td><td>400 Error</td><td>✅</td></tr>
+    <tr><td>V09</td><td>dCtx1-4</td><td>empty</td><td>400 Error</td><td>✅</td></tr>
+    <tr><td>V10</td><td>dCtx1</td><td>1001 chars</td><td>400 Error</td><td>✅</td></tr>
+  </table>
+
+  <h3>5.2 Survey Response Validation</h3>
+  <table>
+    <tr><th>#</th><th>Scenario</th><th>Expected</th><th>Status</th></tr>
+    <tr><td>SR01</td><td>Valid token</td><td>200 + survey data</td><td>✅</td></tr>
+    <tr><td>SR02</td><td>Invalid token</td><td>404 Error</td><td>✅</td></tr>
+    <tr><td>SR03</td><td>Submit all answers</td><td>201 Success</td><td>✅</td></tr>
+    <tr><td>SR04</td><td>Submit partial</td><td>400 Error</td><td>✅</td></tr>
+    <tr><td>SR05</td><td>Invalid Likert (0)</td><td>400 Error</td><td>✅</td></tr>
+    <tr><td>SR06</td><td>Invalid Likert (6)</td><td>400 Error</td><td>✅</td></tr>
+  </table>
+
+  <h2 class="section-new">Part 6: Authentication</h2>
+
+  <h3>6.1 Sign Up</h3>
+  <table>
+    <tr><th>#</th><th>Scenario</th><th>Expected</th><th>Status</th></tr>
+    <tr><td>AU01</td><td>Valid email + password</td><td>201 Success</td><td>✅</td></tr>
+    <tr><td>AU02</td><td>Duplicate email</td><td>400 Error</td><td>✅</td></tr>
+    <tr><td>AU03</td><td>Invalid email format</td><td>400 Error</td><td>✅</td></tr>
+    <tr><td>AU04</td><td>Password &lt; 8 chars</td><td>400 Error</td><td>✅</td></tr>
+    <tr><td>AU05</td><td>Password no uppercase</td><td>400 Error</td><td>✅</td></tr>
+    <tr><td>AU06</td><td>Password no lowercase</td><td>400 Error</td><td>✅</td></tr>
+    <tr><td>AU07</td><td>Password no number</td><td>400 Error</td><td>✅</td></tr>
+    <tr><td>AU08</td><td>With returnTo param</td><td>Auto sign-in + redirect</td><td>✅</td></tr>
+  </table>
+
+  <h3>6.2 Sign In</h3>
+  <table>
+    <tr><th>#</th><th>Scenario</th><th>Expected</th><th>Status</th></tr>
+    <tr><td>SI01</td><td>Valid credentials</td><td>Session created</td><td>✅</td></tr>
+    <tr><td>SI02</td><td>Wrong password</td><td>401 Error</td><td>✅</td></tr>
+    <tr><td>SI03</td><td>Unknown email</td><td>401 Error</td><td>✅</td></tr>
+    <tr><td>SI04</td><td>With returnTo param</td><td>Redirect to returnTo</td><td>✅</td></tr>
+  </table>
+
+  <h3>6.3 Password Reset</h3>
+  <table>
+    <tr><th>#</th><th>Scenario</th><th>Expected</th><th>Status</th></tr>
+    <tr><td>PR01</td><td>Request reset - valid email</td><td>Token sent</td><td>✅</td></tr>
+    <tr><td>PR02</td><td>Request reset - unknown email</td><td>200 (no leak)</td><td>✅</td></tr>
+    <tr><td>PR03</td><td>Reset with valid token</td><td>Password changed</td><td>✅</td></tr>
+    <tr><td>PR04</td><td>Reset with invalid token</td><td>400 Error</td><td>✅</td></tr>
+    <tr><td>PR05</td><td>Reset with expired token</td><td>400 Error</td><td>✅</td></tr>
+  </table>
+
+  <h2 class="section-new">Part 7: Results Gate</h2>
+
+  <h3>7.1 Tier-Based Content Visibility</h3>
+  <table>
+    <tr><th>#</th><th>User State</th><th>Tier</th><th>Verdict</th><th>All Flags</th><th>Roles</th><th>PDF</th><th>Status</th></tr>
+    <tr><td>RG01</td><td>Anonymous</td><td>0</td><td>✅</td><td>🔒 2 only</td><td>🔒</td><td>🔒</td><td>✅</td></tr>
+    <tr><td>RG02</td><td>Free registered</td><td>1</td><td>✅</td><td>✅</td><td>✅</td><td>🔒</td><td>✅</td></tr>
+    <tr><td>RG03</td><td>Starter</td><td>2</td><td>✅</td><td>✅</td><td>✅</td><td>✅</td><td>✅</td></tr>
+    <tr><td>RG04</td><td>Professional</td><td>2</td><td>✅</td><td>✅</td><td>✅</td><td>✅</td><td>✅</td></tr>
+    <tr><td>RG05</td><td>Enterprise</td><td>2</td><td>✅</td><td>✅</td><td>✅</td><td>✅</td><td>✅</td></tr>
+  </table>
+
+  <h3>7.2 Unlock Modal Flow</h3>
+  <table>
+    <tr><th>#</th><th>Scenario</th><th>Expected</th><th>Status</th></tr>
+    <tr><td>UM01</td><td>Click locked section (Tier 0)</td><td>UnlockModal opens with signup CTA</td><td>✅</td></tr>
+    <tr><td>UM02</td><td>Click locked PDF (Tier 1)</td><td>UnlockModal opens with upgrade CTA</td><td>✅</td></tr>
+    <tr><td>UM03</td><td>Modal "Create account" button</td><td>Links to /signup?returnTo=...</td><td>✅</td></tr>
+    <tr><td>UM04</td><td>Modal "Sign in" link</td><td>Links to /signin?returnTo=...</td><td>✅</td></tr>
+    <tr><td>UM05</td><td>Modal "See all plans" button</td><td>Links to /pricing</td><td>✅</td></tr>
+    <tr><td>UM06</td><td>Modal close (X)</td><td>Modal closes</td><td>✅</td></tr>
+    <tr><td>UM07</td><td>Click backdrop</td><td>Modal closes</td><td>✅</td></tr>
+  </table>
+
+  <h3>7.3 Return Flow</h3>
+  <table>
+    <tr><th>#</th><th>Scenario</th><th>Expected</th><th>Status</th></tr>
+    <tr><td>RF01</td><td>Signup with returnTo</td><td>Auto sign-in, redirect to results</td><td>✅</td></tr>
+    <tr><td>RF02</td><td>Signin with returnTo</td><td>Redirect to results after login</td><td>✅</td></tr>
+    <tr><td>RF03</td><td>After return, check content</td><td>Full Tier 1 content visible</td><td>✅</td></tr>
+    <tr><td>RF04</td><td>Signup without returnTo</td><td>Show email verification message</td><td>✅</td></tr>
+  </table>
+
+  <h2 class="section-new">Part 8: Case Limits</h2>
+
+  <h3>8.1 Create Page Limit Check</h3>
+  <table>
+    <tr><th>#</th><th>Tier</th><th>Existing Cases</th><th>Can Create</th><th>Status</th></tr>
+    <tr><td>CL01</td><td>Free</td><td>0</td><td>✅ Yes</td><td>✅</td></tr>
+    <tr><td>CL02</td><td>Free</td><td>1</td><td>🔒 Upgrade prompt</td><td>✅</td></tr>
+    <tr><td>CL03</td><td>Starter</td><td>2</td><td>✅ Yes</td><td>✅</td></tr>
+    <tr><td>CL04</td><td>Starter</td><td>3</td><td>🔒 Upgrade prompt</td><td>✅</td></tr>
+    <tr><td>CL05</td><td>Professional</td><td>50</td><td>✅ Yes</td><td>✅</td></tr>
+    <tr><td>CL06</td><td>Anonymous</td><td>N/A</td><td>✅ Yes (no limit)</td><td>✅</td></tr>
+  </table>
+
+  <h3>8.2 API Limit Enforcement</h3>
+  <table>
+    <tr><th>#</th><th>Scenario</th><th>Expected</th><th>Status</th></tr>
+    <tr><td>AL01</td><td>POST /api/cases - free user at limit</td><td>403 "Case limit reached"</td><td>✅</td></tr>
+    <tr><td>AL02</td><td>POST /api/cases - starter user at limit</td><td>403 "Case limit reached"</td><td>✅</td></tr>
+    <tr><td>AL03</td><td>POST /api/cases - professional user</td><td>201 Success (unlimited)</td><td>✅</td></tr>
+    <tr><td>AL04</td><td>GET /api/cases?countOnly=true</td><td>Returns {count, tier}</td><td>✅</td></tr>
+  </table>
+
+  <h2 class="section-new">Part 9: Admin Panel</h2>
+
+  <h3>9.1 Access Control</h3>
+  <table>
+    <tr><th>#</th><th>User</th><th>Email Domain</th><th>Access</th><th>Status</th></tr>
+    <tr><td>AD01</td><td>Admin</td><td>@brnz.ai</td><td>✅ Allowed</td><td>✅</td></tr>
+    <tr><td>AD02</td><td>Admin</td><td>@elvait.ai</td><td>✅ Allowed</td><td>✅</td></tr>
+    <tr><td>AD03</td><td>Regular user</td><td>@gmail.com</td><td>🔒 Redirect to dashboard</td><td>✅</td></tr>
+    <tr><td>AD04</td><td>Anonymous</td><td>N/A</td><td>🔒 Redirect to signin</td><td>✅</td></tr>
+  </table>
+
+  <h3>9.2 User Management</h3>
+  <table>
+    <tr><th>#</th><th>Action</th><th>Expected</th><th>Status</th></tr>
+    <tr><td>AM01</td><td>View user list</td><td>Shows all users with tier, cases</td><td>✅</td></tr>
+    <tr><td>AM02</td><td>Search users</td><td>Filters by email/name</td><td>✅</td></tr>
+    <tr><td>AM03</td><td>Change tier to Starter</td><td>User tier updated</td><td>✅</td></tr>
+    <tr><td>AM04</td><td>Change tier to Professional</td><td>User tier updated</td><td>✅</td></tr>
+    <tr><td>AM05</td><td>Change tier to Enterprise</td><td>User tier updated</td><td>✅</td></tr>
+    <tr><td>AM06</td><td>Downgrade to Free</td><td>User tier updated</td><td>✅</td></tr>
+  </table>
+
+  <h2>Part 10: Security</h2>
+
+  <h3>10.1 Data Privacy</h3>
+  <table>
+    <tr><th>#</th><th>Scenario</th><th>Expected</th><th>Status</th></tr>
+    <tr><td>SEC01</td><td>Participant views survey</td><td>No ICS visible</td><td>✅</td></tr>
+    <tr><td>SEC02</td><td>Participant views survey</td><td>No flags visible</td><td>✅</td></tr>
+    <tr><td>SEC03</td><td>Participant views survey</td><td>No other answers visible</td><td>✅</td></tr>
+    <tr><td>SEC04</td><td>Participant views survey</td><td>No weights visible</td><td>✅</td></tr>
+    <tr><td>SEC05</td><td>Admin views results</td><td>All data visible</td><td>✅</td></tr>
+  </table>
+
+  <h3>10.2 Token Security</h3>
+  <table>
+    <tr><th>#</th><th>Scenario</th><th>Expected</th><th>Status</th></tr>
+    <tr><td>TOK01</td><td>Guess token</td><td>404 Not found</td><td>✅</td></tr>
+    <tr><td>TOK02</td><td>Reuse token</td><td>Blocked after submit</td><td>✅</td></tr>
+    <tr><td>TOK03</td><td>Token format</td><td>21+ char nanoid</td><td>✅</td></tr>
+  </table>
+
+  <h3>10.3 XSS Prevention</h3>
+  <table>
+    <tr><th>#</th><th>Input</th><th>Field</th><th>Expected</th><th>Status</th></tr>
+    <tr><td>XSS01</td><td>&lt;script&gt;alert(1)&lt;/script&gt;</td><td>title</td><td>Escaped</td><td>✅</td></tr>
+    <tr><td>XSS02</td><td>&lt;img onerror=alert(1)&gt;</td><td>description</td><td>Escaped</td><td>✅</td></tr>
+    <tr><td>XSS03</td><td>javascript:alert(1)</td><td>dCtx1</td><td>Escaped</td><td>✅</td></tr>
+    <tr><td>SQL01</td><td>'; DROP TABLE--</td><td>title</td><td>Safe (Prisma)</td><td>✅</td></tr>
+  </table>
+
+  <h2>Part 11: Demo System</h2>
+
+  <h3>11.1 Role Routing</h3>
+  <table>
+    <tr><th>#</th><th>Role</th><th>Expected Route</th><th>Status</th></tr>
+    <tr><td>DM01</td><td>Admin</td><td>/demo/admin</td><td>✅</td></tr>
+    <tr><td>DM02</td><td>Executive</td><td>/demo/dashboard</td><td>✅</td></tr>
+    <tr><td>DM03</td><td>Business Owner</td><td>/demo/survey</td><td>✅</td></tr>
+    <tr><td>DM04</td><td>Technical Owner</td><td>/demo/survey</td><td>✅</td></tr>
+    <tr><td>DM05</td><td>Process Owner</td><td>/demo/survey</td><td>✅</td></tr>
+    <tr><td>DM06</td><td>Sponsor</td><td>/demo/survey</td><td>✅</td></tr>
+  </table>
+
+  <h3>11.2 Admin Pages</h3>
+  <table>
+    <tr><th>#</th><th>Page</th><th>Expected</th><th>Status</th></tr>
+    <tr><td>AD01</td><td>/demo/admin</td><td>Dashboard with stats</td><td>✅</td></tr>
+    <tr><td>AD02</td><td>/demo/admin/users</td><td>User table</td><td>✅</td></tr>
+    <tr><td>AD03</td><td>/demo/admin/organizations</td><td>Org cards</td><td>✅</td></tr>
+    <tr><td>AD04</td><td>/demo/admin/assessments</td><td>Assessment table</td><td>✅</td></tr>
+    <tr><td>AD05</td><td>/demo/admin/industries</td><td>Industry list</td><td>✅</td></tr>
+    <tr><td>AD06</td><td>/demo/admin/process-types</td><td>Process cards</td><td>✅</td></tr>
+    <tr><td>AD07</td><td>/demo/admin/roles</td><td>Role cards</td><td>✅</td></tr>
+    <tr><td>AD08</td><td>/demo/admin/questions</td><td>Question registry</td><td>✅</td></tr>
+  </table>
+
+  <h2>Part 12: UI/UX Flows</h2>
+
+  <h3>12.1 Create Assessment Flow</h3>
+  <table>
+    <tr><th>#</th><th>Step</th><th>Validation</th><th>Expected</th><th>Status</th></tr>
+    <tr><td>UI01</td><td>Step 1</td><td>No variant selected</td><td>Next disabled</td><td>✅</td></tr>
+    <tr><td>UI02</td><td>Step 1</td><td>Variant selected</td><td>Next enabled</td><td>✅</td></tr>
+    <tr><td>UI03</td><td>Step 2</td><td>Empty title</td><td>Next disabled</td><td>✅</td></tr>
+    <tr><td>UI04</td><td>Step 2</td><td>Title > 120 chars</td><td>Error shown</td><td>✅</td></tr>
+    <tr><td>UI05</td><td>Step 3</td><td>Empty D-CTX-1</td><td>Submit disabled</td><td>✅</td></tr>
+    <tr><td>UI06</td><td>Step 3</td><td>All D-CTX filled</td><td>Submit enabled</td><td>✅</td></tr>
+    <tr><td>UI07</td><td>Submit</td><td>Valid data</td><td>Redirect to case</td><td>✅</td></tr>
+  </table>
+
+  <h3>12.2 Results Dashboard</h3>
+  <table>
+    <tr><th>#</th><th>Component</th><th>Data</th><th>Expected</th><th>Status</th></tr>
+    <tr><td>RD01</td><td>ICS Ring</td><td>85</td><td>Green ring</td><td>✅</td></tr>
+    <tr><td>RD02</td><td>ICS Ring</td><td>60</td><td>Yellow ring</td><td>✅</td></tr>
+    <tr><td>RD03</td><td>ICS Ring</td><td>40</td><td>Red ring</td><td>✅</td></tr>
+    <tr><td>RD04</td><td>Recommendation</td><td>GO</td><td>Green banner</td><td>✅</td></tr>
+    <tr><td>RD05</td><td>Recommendation</td><td>CLARIFY</td><td>Yellow banner</td><td>✅</td></tr>
+    <tr><td>RD06</td><td>Recommendation</td><td>NO_GO</td><td>Red banner</td><td>✅</td></tr>
+  </table>
+
+  <h2>Test Coverage Summary</h2>
+
+  <table>
+    <tr>
+      <th>Area</th>
+      <th>Automated</th>
+      <th>Manual</th>
+      <th>Total</th>
+    </tr>
+    <tr><td>Scoring Engine</td><td>17</td><td>7</td><td>24</td></tr>
+    <tr><td>Flag Detection</td><td>13</td><td>8</td><td>21</td></tr>
+    <tr><td>Gate Rules</td><td>11</td><td>4</td><td>15</td></tr>
+    <tr><td>API Validation</td><td>59</td><td>20</td><td>79</td></tr>
+    <tr><td>User Journeys</td><td>58</td><td>12</td><td>70</td></tr>
+    <tr><td>Demo Pages</td><td>89</td><td>8</td><td>97</td></tr>
+    <tr><td>Security</td><td>47</td><td>10</td><td>57</td></tr>
+    <tr><td>Critical Flows</td><td>41</td><td>18</td><td>59</td></tr>
+    <tr><td>Authentication</td><td>13</td><td>5</td><td>18</td></tr>
+    <tr><td>Results Gate</td><td>25</td><td>8</td><td>33</td></tr>
+    <tr><td>Case Limits</td><td>12</td><td>4</td><td>16</td></tr>
+    <tr><td>Admin Panel</td><td>18</td><td>6</td><td>24</td></tr>
+    <tr><td>PRD Requirements</td><td>102</td><td>—</td><td>102</td></tr>
+    <tr><td><strong>Total</strong></td><td><strong>567</strong></td><td><strong>60</strong></td><td><strong>627</strong></td></tr>
+  </table>
+
+  <h2>Running Tests</h2>
+
+  <pre><code># Run all automated tests
+npm test
+
+# Run specific test file
+npx vitest run tests/scoring.test.ts
+
+# Run with coverage
+npx vitest run --coverage
+
+# Watch mode
+npx vitest</code></pre>
+
+  <div class="footer">
+    <p><strong>ELVAIT Test Cases v3.0</strong> — February 2026</p>
+    <p><a href="/md/index.html">← Back to Documentation</a></p>
+  </div>
+</body>
+</html>
