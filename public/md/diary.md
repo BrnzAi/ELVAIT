@@ -23,7 +23,7 @@ Total: 567 | Passed: 567 | Failed: 0
 
 ### Deployment
 - 🚀 Production deployed at 17:54 UTC
-- URL: https://elvait.brnz.live
+- URL: https://elvait.ai
 
 ---
 
@@ -75,7 +75,7 @@ Total: 431 | Passed: 431 | Failed: 0
 
 ### Deployment
 - 🚀 Initial production deployment
-- URL: https://elvait.brnz.live
+- URL: https://elvait.ai
 
 ---
 

@@ -134,7 +134,7 @@ Participants **cannot** see:
 
 ### How do I create an assessment?
 
-1. Go to https://elvait.brnz.live/create
+1. Go to https://elvait.ai/create
 2. Select your kit variant
 3. Fill in the decision context:
    - Decision title

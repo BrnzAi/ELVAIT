@@ -133,36 +133,36 @@ describe('Critical Flow: Add Participant → Get Survey Link', () => {
 
   describe('Survey URL Production Validation', () => {
     it('surveyUrl should NOT contain localhost in production', () => {
-      const productionUrl = 'https://elvait.brnz.live/survey/abc123';
+      const productionUrl = 'https://elvait.ai/survey/abc123';
       expect(productionUrl).not.toContain('localhost');
     });
 
     it('surveyUrl should use HTTPS protocol', () => {
-      const productionUrl = 'https://elvait.brnz.live/survey/abc123';
+      const productionUrl = 'https://elvait.ai/survey/abc123';
       expect(productionUrl).toMatch(/^https:\/\//);
     });
 
     it('surveyUrl should contain production domain', () => {
-      const productionUrl = 'https://elvait.brnz.live/survey/abc123';
-      expect(productionUrl).toContain('elvait.brnz.live');
+      const productionUrl = 'https://elvait.ai/survey/abc123';
+      expect(productionUrl).toContain('elvait.ai');
     });
 
     it('surveyUrl should have correct path format', () => {
       const token = 'abc123token';
-      const surveyUrl = `https://elvait.brnz.live/survey/${token}`;
+      const surveyUrl = `https://elvait.ai/survey/${token}`;
       expect(surveyUrl).toMatch(/^https:\/\/elvait\.brnz\.live\/survey\/[a-zA-Z0-9_-]+$/);
     });
 
     it('should use x-forwarded-host when available', () => {
       // This documents the expected behavior:
       // When behind a proxy (Cloud Run), x-forwarded-host contains the real host
-      const forwardedHost = 'elvait.brnz.live';
+      const forwardedHost = 'elvait.ai';
       const expectedBase = `https://${forwardedHost}`;
-      expect(expectedBase).toBe('https://elvait.brnz.live');
+      expect(expectedBase).toBe('https://elvait.ai');
     });
 
     it('should fallback to production URL when no headers', () => {
-      const fallbackUrl = 'https://elvait.brnz.live';
+      const fallbackUrl = 'https://elvait.ai';
       expect(fallbackUrl).not.toContain('localhost');
       expect(fallbackUrl).toMatch(/^https:\/\//);
     });

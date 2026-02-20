@@ -198,7 +198,7 @@ describe('Case Detail Page - Buttons & Links', () => {
     });
 
     it('Copy Link button should copy survey URL', () => {
-      const surveyUrl = 'https://elvait.brnz.live/survey/abc123';
+      const surveyUrl = 'https://elvait.ai/survey/abc123';
       expect(surveyUrl).toContain('/survey/');
     });
   });

@@ -65,7 +65,7 @@ export async function GET(
       baseUrl = process.env.NEXT_PUBLIC_BASE_URL;
     } else {
       // Fallback to production URL
-      baseUrl = 'https://elvait.brnz.live';
+      baseUrl = 'https://elvait.ai';
     }
     
     // Add surveyUrl to each participant

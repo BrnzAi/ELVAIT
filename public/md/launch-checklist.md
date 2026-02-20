@@ -2,7 +2,7 @@
 
 **Date:** 2026-02-13  
 **Status:** Ready for Launch  
-**URL:** https://elvait.brnz.live
+**URL:** https://elvait.ai
 
 ---
 
@@ -36,7 +36,7 @@
 
 | Item | Status | Details |
 |------|--------|---------|
-| Production URL | ✅ | https://elvait.brnz.live |
+| Production URL | ✅ | https://elvait.ai |
 | SSL/HTTPS | ✅ | Valid certificate |
 | Database | ✅ | SQLite (in-container) |
 | CI/CD | ✅ | GitHub Actions + Cloud Run |
@@ -60,7 +60,7 @@ SQLite data resets on container restart/redeploy. For MVP testing this is accept
 ### 1. Final Smoke Test (15 min)
 
 ```
-□ Go to https://elvait.brnz.live
+□ Go to https://elvait.ai
 □ Create a test assessment (Quick Check)
 □ Add a participant
 □ Copy survey link - verify it's NOT localhost
@@ -103,7 +103,7 @@ SQLite data resets on container restart/redeploy. For MVP testing this is accept
 
 ### For First-Time Users
 
-1. **Visit:** https://elvait.brnz.live
+1. **Visit:** https://elvait.ai
 2. **Explore Demo:** Click "Try Demo" to see the platform
 3. **Create Assessment:** Click "Start Assessment" when ready
 4. **Follow Wizard:**
@@ -129,12 +129,12 @@ SQLite data resets on container restart/redeploy. For MVP testing this is accept
 
 | Purpose | URL |
 |---------|-----|
-| Home | https://elvait.brnz.live |
-| Create Assessment | https://elvait.brnz.live/create |
-| Demo | https://elvait.brnz.live/demo |
-| Demo Login | https://elvait.brnz.live/demo/login |
-| Admin Panel | https://elvait.brnz.live/demo/admin |
-| Documentation | https://elvait.brnz.live/md/prd.md |
+| Home | https://elvait.ai |
+| Create Assessment | https://elvait.ai/create |
+| Demo | https://elvait.ai/demo |
+| Demo Login | https://elvait.ai/demo/login |
+| Admin Panel | https://elvait.ai/demo/admin |
+| Documentation | https://elvait.ai/md/prd.md |
 
 ---
 
@@ -281,7 +281,7 @@ Before making any changes to production, set up a dev environment:
 ### Environment URLs (Planned)
 | Environment | Branch | URL |
 |-------------|--------|-----|
-| Production | main | elvait.brnz.live |
+| Production | main | elvait.ai |
 | Development | develop | elvait-dev.*.run.app |
 
 ---
@@ -326,7 +326,7 @@ Before making any changes to production, set up a dev environment:
 
 ```bash
 # Check deployment status
-curl -s https://elvait.brnz.live/api/cases | head -c 100
+curl -s https://elvait.ai/api/cases | head -c 100
 
 # View recent logs (requires gcloud auth)
 gcloud run services logs read elvait --region=europe-west1 --limit=50

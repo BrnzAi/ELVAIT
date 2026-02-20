@@ -81,7 +81,7 @@ export async function POST(
     } else if (process.env.NEXT_PUBLIC_BASE_URL) {
       baseUrl = process.env.NEXT_PUBLIC_BASE_URL;
     } else {
-      baseUrl = 'https://elvait.brnz.live';
+      baseUrl = 'https://elvait.ai';
     }
     
     const surveyUrl = `${baseUrl}/survey/${token}`;
@@ -134,7 +134,7 @@ export async function GET(
     } else if (process.env.NEXT_PUBLIC_BASE_URL) {
       baseUrl = process.env.NEXT_PUBLIC_BASE_URL;
     } else {
-      baseUrl = 'https://elvait.brnz.live';
+      baseUrl = 'https://elvait.ai';
     }
     
     const withUrls = participants.map(p => ({

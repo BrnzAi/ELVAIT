@@ -4,7 +4,7 @@
 **Version:** 1.0  
 **Last Updated:** 2026-02-12  
 **Status:** Production  
-**URL:** https://elvait.brnz.live
+**URL:** https://elvait.ai
 
 ---
 
@@ -298,7 +298,7 @@ DecisionCase (1) ──┬── Participants (N)
 
 | Environment | URL | Branch |
 |-------------|-----|--------|
-| Production | https://elvait.brnz.live | main |
+| Production | https://elvait.ai | main |
 | Cloud Run | https://elvait-644878782438.europe-west1.run.app | main |
 
 ### 11.2 CI/CD Pipeline
