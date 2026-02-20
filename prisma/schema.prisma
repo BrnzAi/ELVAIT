@@ -33,11 +33,16 @@ model User {
   createdAt       DateTime  @default(now())
   updatedAt       DateTime  @updatedAt
   
+  // Subscription tier
+  tier            String    @default("free")  // free | starter | professional | enterprise
+  company         String?
+  
   // Relations
   cases           DecisionCase[]
   sessions        Session[]
   
   @@index([email])
+  @@index([tier])
 }
 
 model Session {
