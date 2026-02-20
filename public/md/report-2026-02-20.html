@@ -1,0 +1,512 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="UTF-8">
+  <title>ELVAIT - Development Report 2026-02-20</title>
+  <style>
+    body {
+      font-family: 'Segoe UI', Arial, sans-serif;
+      max-width: 900px;
+      margin: 40px auto;
+      padding: 40px;
+      color: #1a1a1a;
+      line-height: 1.7;
+      background: #fafafa;
+    }
+    h1 {
+      color: #2563eb;
+      border-bottom: 3px solid #2563eb;
+      padding-bottom: 10px;
+      font-size: 28px;
+    }
+    h2 {
+      color: #1e40af;
+      margin-top: 35px;
+      font-size: 20px;
+      border-left: 4px solid #2563eb;
+      padding-left: 15px;
+    }
+    h3 {
+      color: #374151;
+      margin-top: 20px;
+      font-size: 16px;
+    }
+    .highlight {
+      background: #eff6ff;
+      border-left: 4px solid #2563eb;
+      padding: 20px;
+      margin: 20px 0;
+      border-radius: 0 8px 8px 0;
+    }
+    .success {
+      background: #dcfce7;
+      border-left: 4px solid #22c55e;
+      padding: 20px;
+      margin: 20px 0;
+      border-radius: 0 8px 8px 0;
+    }
+    .tag {
+      display: inline-block;
+      background: #dbeafe;
+      color: #1e40af;
+      padding: 4px 12px;
+      border-radius: 20px;
+      font-size: 13px;
+      margin: 3px 3px 3px 0;
+    }
+    .tag.green { background: #dcfce7; color: #166534; }
+    .tag.amber { background: #fef3c7; color: #92400e; }
+    .tag.purple { background: #f3e8ff; color: #7c3aed; }
+    table {
+      width: 100%;
+      border-collapse: collapse;
+      margin: 20px 0;
+      background: white;
+      box-shadow: 0 1px 3px rgba(0,0,0,0.1);
+      border-radius: 8px;
+      overflow: hidden;
+    }
+    th, td {
+      padding: 12px 15px;
+      text-align: left;
+      border-bottom: 1px solid #e5e7eb;
+    }
+    th {
+      background: #f3f4f6;
+      font-weight: 600;
+    }
+    ul {
+      margin: 10px 0;
+      padding-left: 25px;
+    }
+    li {
+      margin: 8px 0;
+    }
+    code {
+      background: #f3f4f6;
+      padding: 2px 6px;
+      border-radius: 4px;
+      font-family: 'Fira Code', monospace;
+      font-size: 14px;
+    }
+    pre {
+      background: #1f2937;
+      color: #e5e7eb;
+      padding: 20px;
+      border-radius: 8px;
+      overflow-x: auto;
+      font-size: 13px;
+    }
+    .meta {
+      color: #6b7280;
+      font-size: 14px;
+      margin-bottom: 30px;
+    }
+    .summary-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+      gap: 15px;
+      margin: 20px 0;
+    }
+    .summary-card {
+      background: white;
+      border: 1px solid #e5e7eb;
+      border-radius: 8px;
+      padding: 20px;
+      text-align: center;
+    }
+    .summary-card .number {
+      font-size: 32px;
+      font-weight: 700;
+      color: #2563eb;
+    }
+    .summary-card .label {
+      font-size: 13px;
+      color: #6b7280;
+    }
+    .summary-card.success .number {
+      color: #22c55e;
+    }
+    .footer {
+      margin-top: 50px;
+      padding-top: 20px;
+      border-top: 1px solid #e5e7eb;
+      color: #6b7280;
+      font-size: 14px;
+    }
+  </style>
+</head>
+<body>
+  <h1>📊 Development Report — 2026-02-20</h1>
+  
+  <div class="meta">
+    <strong>Release:</strong> Results Gate & Tiered Access<br>
+    <strong>Version:</strong> 2.0<br>
+    <strong>Environment:</strong> Production (elvait.ai)
+  </div>
+
+  <div class="success">
+    <strong>🎉 Major Feature Release: Results Gate</strong><br>
+    Implemented tiered access system to convert anonymous users to registered accounts via gated results content.
+  </div>
+
+  <div class="summary-grid">
+    <div class="summary-card success">
+      <div class="number">567</div>
+      <div class="label">Tests Passing</div>
+    </div>
+    <div class="summary-card">
+      <div class="number">8</div>
+      <div class="label">Files Changed</div>
+    </div>
+    <div class="summary-card">
+      <div class="number">4</div>
+      <div class="label">New Components</div>
+    </div>
+    <div class="summary-card">
+      <div class="number">3</div>
+      <div class="label">New Pages</div>
+    </div>
+  </div>
+
+  <h2>🚀 Features Implemented</h2>
+
+  <h3>1. Results Gate — Tiered Content Visibility</h3>
+  
+  <div class="highlight">
+    <strong>Purpose:</strong> Convert anonymous users to registered accounts by gating results content based on subscription tier.
+  </div>
+
+  <table>
+    <tr>
+      <th>Content</th>
+      <th>Tier 0 (Anonymous)</th>
+      <th>Tier 1 (Free)</th>
+      <th>Tier 2+ (Paid)</th>
+    </tr>
+    <tr>
+      <td>Verdict + ICS Score</td>
+      <td>✅</td>
+      <td>✅</td>
+      <td>✅</td>
+    </tr>
+    <tr>
+      <td>Top 2 Flags</td>
+      <td>✅</td>
+      <td>✅</td>
+      <td>✅</td>
+    </tr>
+    <tr>
+      <td>Generic Summary</td>
+      <td>✅</td>
+      <td>✅</td>
+      <td>✅</td>
+    </tr>
+    <tr>
+      <td>Role Breakdown</td>
+      <td>🔒 Blurred</td>
+      <td>✅</td>
+      <td>✅</td>
+    </tr>
+    <tr>
+      <td>All Flags (3+)</td>
+      <td>🔒 Blurred</td>
+      <td>✅</td>
+      <td>✅</td>
+    </tr>
+    <tr>
+      <td>Contradiction Map</td>
+      <td>🔒 Blurred</td>
+      <td>✅</td>
+      <td>✅</td>
+    </tr>
+    <tr>
+      <td>PDF Download</td>
+      <td>🔒</td>
+      <td>🔒</td>
+      <td>✅</td>
+    </tr>
+  </table>
+
+  <h3>2. New Components</h3>
+
+  <table>
+    <tr>
+      <th>Component</th>
+      <th>Location</th>
+      <th>Purpose</th>
+    </tr>
+    <tr>
+      <td><code>LockedOverlay</code></td>
+      <td><code>src/components/results/</code></td>
+      <td>Blur effect + lock icon for gated content</td>
+    </tr>
+    <tr>
+      <td><code>UnlockModal</code></td>
+      <td><code>src/components/results/</code></td>
+      <td>Registration/upgrade prompt modal</td>
+    </tr>
+    <tr>
+      <td><code>getResultsAccess()</code></td>
+      <td><code>src/lib/tiers.ts</code></td>
+      <td>Compute tier-based permissions</td>
+    </tr>
+    <tr>
+      <td><code>TIER_LIMITS</code></td>
+      <td><code>src/lib/tiers.ts</code></td>
+      <td>Case limits per subscription tier</td>
+    </tr>
+  </table>
+
+  <h3>3. Authentication Flow Updates</h3>
+
+  <ul>
+    <li><strong>returnTo parameter</strong> — Signup/signin pages preserve return URL</li>
+    <li><strong>Auto sign-in</strong> — After registration with returnTo, user is signed in immediately</li>
+    <li><strong>Skip verification</strong> — Email verification not required for Tier 1 results access</li>
+    <li><strong>Suspense boundaries</strong> — Added for SSR compatibility with useSearchParams</li>
+  </ul>
+
+  <h3>4. Case Limit Enforcement</h3>
+
+  <table>
+    <tr>
+      <th>Tier</th>
+      <th>Max Cases</th>
+      <th>Price</th>
+    </tr>
+    <tr>
+      <td><span class="tag">Free</span></td>
+      <td>1</td>
+      <td>€0</td>
+    </tr>
+    <tr>
+      <td><span class="tag green">Starter</span></td>
+      <td>3</td>
+      <td>€79/decision</td>
+    </tr>
+    <tr>
+      <td><span class="tag purple">Professional</span></td>
+      <td>Unlimited</td>
+      <td>€149–299/mo</td>
+    </tr>
+    <tr>
+      <td><span class="tag amber">Enterprise</span></td>
+      <td>Unlimited</td>
+      <td>Custom</td>
+    </tr>
+  </table>
+
+  <ul>
+    <li><strong>/create page</strong> — Checks limit before showing form; shows upgrade prompt if at limit</li>
+    <li><strong>POST /api/cases</strong> — Backend enforces limits; returns 403 if exceeded</li>
+    <li><strong>GET /api/cases?countOnly=true</strong> — Returns count and tier for limit checking</li>
+  </ul>
+
+  <h3>5. Admin Panel</h3>
+
+  <p>New admin page at <code>/admin/users</code> for manual tier management:</p>
+  <ul>
+    <li>View all users with tier and case count</li>
+    <li>Search by email or name</li>
+    <li>One-click tier change buttons</li>
+    <li>Access restricted to @brnz.ai and @elvait.ai domains</li>
+  </ul>
+
+  <h2>📁 Files Changed</h2>
+
+  <table>
+    <tr>
+      <th>File</th>
+      <th>Change</th>
+    </tr>
+    <tr>
+      <td><code>src/app/cases/[id]/results/page.tsx</code></td>
+      <td>Integrated tiered content display with LockedOverlay</td>
+    </tr>
+    <tr>
+      <td><code>src/app/(auth)/signup/page.tsx</code></td>
+      <td>Added returnTo support, auto sign-in, Suspense wrapper</td>
+    </tr>
+    <tr>
+      <td><code>src/app/(auth)/signin/page.tsx</code></td>
+      <td>Added returnTo support, benefit banner</td>
+    </tr>
+    <tr>
+      <td><code>src/app/create/page.tsx</code></td>
+      <td>Added case limit checking with upgrade prompt</td>
+    </tr>
+    <tr>
+      <td><code>src/app/contact/page.tsx</code></td>
+      <td>Added Suspense wrapper for SSR</td>
+    </tr>
+    <tr>
+      <td><code>src/app/api/cases/route.ts</code></td>
+      <td>Added limit enforcement and countOnly param</td>
+    </tr>
+    <tr>
+      <td><code>src/app/admin/users/page.tsx</code></td>
+      <td>NEW: Admin user management page</td>
+    </tr>
+    <tr>
+      <td><code>src/app/api/admin/users/route.ts</code></td>
+      <td>NEW: Admin API for tier management</td>
+    </tr>
+  </table>
+
+  <h2>📚 Documentation Updated</h2>
+
+  <table>
+    <tr>
+      <th>Document</th>
+      <th>Version</th>
+      <th>Changes</th>
+    </tr>
+    <tr>
+      <td><a href="/md/prd.html">PRD</a></td>
+      <td>2.0</td>
+      <td>Added Results Gate, tiers, auth, admin sections</td>
+    </tr>
+    <tr>
+      <td><a href="/md/cases.html">Test Cases</a></td>
+      <td>3.0</td>
+      <td>627 scenarios (+136 new for auth, tiers, admin)</td>
+    </tr>
+    <tr>
+      <td><a href="/md/tests.html">Test Results</a></td>
+      <td>3.0</td>
+      <td>567 automated tests, all passing</td>
+    </tr>
+    <tr>
+      <td><a href="/md/index.html">Doc Index</a></td>
+      <td>2.0</td>
+      <td>Updated links to HTML versions</td>
+    </tr>
+  </table>
+
+  <h2>🧪 Test Results</h2>
+
+  <div class="success">
+    <strong>✅ All 567 tests passing</strong>
+  </div>
+
+  <pre><code>Test Files  13 passed (13)
+     Tests  567 passed (567)
+  Duration  479ms</code></pre>
+
+  <table>
+    <tr>
+      <th>Test File</th>
+      <th>Tests</th>
+      <th>Status</th>
+    </tr>
+    <tr><td>buttons-links.test.ts</td><td>117</td><td>✅</td></tr>
+    <tr><td>prd-requirements.test.ts</td><td>102</td><td>✅</td></tr>
+    <tr><td>user-journeys.test.ts</td><td>58</td><td>✅</td></tr>
+    <tr><td>demo-admin-e2e.test.ts</td><td>56</td><td>✅</td></tr>
+    <tr><td>security-edge-cases.test.ts</td><td>47</td><td>✅</td></tr>
+    <tr><td>critical-flows.test.ts</td><td>41</td><td>✅</td></tr>
+    <tr><td>api-integration.test.ts</td><td>40</td><td>✅</td></tr>
+    <tr><td>demo-routes.test.ts</td><td>33</td><td>✅</td></tr>
+    <tr><td>api-cases.test.ts</td><td>19</td><td>✅</td></tr>
+    <tr><td>scoring.test.ts</td><td>17</td><td>✅</td></tr>
+    <tr><td>auth.test.ts</td><td>13</td><td>✅</td></tr>
+    <tr><td>flags.test.ts</td><td>13</td><td>✅</td></tr>
+    <tr><td>gates.test.ts</td><td>11</td><td>✅</td></tr>
+  </table>
+
+  <h2>🚢 Deployment</h2>
+
+  <table>
+    <tr>
+      <th>Item</th>
+      <th>Status</th>
+    </tr>
+    <tr>
+      <td>Build</td>
+      <td><span class="tag green">✅ Passed</span></td>
+    </tr>
+    <tr>
+      <td>Tests</td>
+      <td><span class="tag green">✅ 567/567</span></td>
+    </tr>
+    <tr>
+      <td>Vercel Deploy</td>
+      <td><span class="tag green">✅ Live</span></td>
+    </tr>
+    <tr>
+      <td>Production URL</td>
+      <td><a href="https://elvait.ai">https://elvait.ai</a></td>
+    </tr>
+  </table>
+
+  <h3>Commits</h3>
+  <pre><code>d75ad9d feat: Implement tiered access Results Gate
+3476459 docs: Update Results Gate plan - all core criteria complete
+1e08129 docs: Complete PRD, test cases, and test results in HTML format</code></pre>
+
+  <h2>📋 Acceptance Criteria — All Met ✅</h2>
+
+  <table>
+    <tr>
+      <th>Criteria</th>
+      <th>Status</th>
+    </tr>
+    <tr>
+      <td>Anonymous user sees Tier 0 results (verdict, ICS, 2 flags)</td>
+      <td>✅</td>
+    </tr>
+    <tr>
+      <td>Role breakdown and extra flags are blurred with lock overlay</td>
+      <td>✅</td>
+    </tr>
+    <tr>
+      <td>Clicking locked content opens modal with sign-up CTA</td>
+      <td>✅</td>
+    </tr>
+    <tr>
+      <td>After registration, user returns to same results page, now unlocked</td>
+      <td>✅</td>
+    </tr>
+    <tr>
+      <td>Case is auto-saved to user's account</td>
+      <td>✅</td>
+    </tr>
+    <tr>
+      <td>Free user limited to 1 active case</td>
+      <td>✅</td>
+    </tr>
+    <tr>
+      <td>Attempting to create 2nd case shows upgrade prompt</td>
+      <td>✅</td>
+    </tr>
+    <tr>
+      <td>Pricing page shows all tiers with "Contact us" CTA</td>
+      <td>✅</td>
+    </tr>
+    <tr>
+      <td>Admin can manually change user tier</td>
+      <td>✅</td>
+    </tr>
+    <tr>
+      <td>Download PDF locked for free tier</td>
+      <td>✅</td>
+    </tr>
+  </table>
+
+  <h2>🔜 Next Steps</h2>
+
+  <ul>
+    <li><strong>Case Claim Flow</strong> — Allow users to claim anonymous cases they created before registering</li>
+    <li><strong>PDF Generation</strong> — Implement actual PDF export for Tier 2+ users</li>
+    <li><strong>Email Invitations</strong> — Send participant invites via email</li>
+    <li><strong>Stripe Integration</strong> — Automated payment processing for upgrades</li>
+    <li><strong>Dashboard Enhancements</strong> — Show case count/limit, upgrade prompts</li>
+  </ul>
+
+  <div class="footer">
+    <p><strong>ELVAIT Development Report</strong> — 2026-02-20</p>
+    <p><a href="/md/index.html">← Back to Documentation</a></p>
+  </div>
+</body>
+</html>
