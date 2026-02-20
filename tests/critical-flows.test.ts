@@ -150,7 +150,7 @@ describe('Critical Flow: Add Participant → Get Survey Link', () => {
     it('surveyUrl should have correct path format', () => {
       const token = 'abc123token';
       const surveyUrl = `https://elvait.ai/survey/${token}`;
-      expect(surveyUrl).toMatch(/^https:\/\/elvait\.brnz\.live\/survey\/[a-zA-Z0-9_-]+$/);
+      expect(surveyUrl).toMatch(/^https:\/\/elvait\.ai\/survey\/[a-zA-Z0-9_-]+$/);
     });
 
     it('should use x-forwarded-host when available', () => {
