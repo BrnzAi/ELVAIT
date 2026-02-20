@@ -1,15 +1,18 @@
 'use client';
 
 import { useState, useEffect } from 'react';
-import { useParams } from 'next/navigation';
+import { useParams, usePathname } from 'next/navigation';
 import Link from 'next/link';
+import { useSession } from 'next-auth/react';
 import { 
-  ArrowLeft, Brain, Loader2, AlertCircle, Download,
+  ArrowLeft, Brain, Loader2, AlertCircle, Download, Lock,
   CheckCircle, AlertTriangle, XCircle, TrendingUp,
-  Users, Target, Shield, Briefcase, Settings
+  Users, Target, Shield, Briefcase, Settings, Unlock
 } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import { exportToPDF, PDFExportData } from '@/lib/pdf-export';
+import { LockedOverlay, UnlockModal } from '@/components/results';
+import { getResultsAccess, Tier } from '@/lib/tiers';
 
 interface BlindSpot {
   label: string;
@@ -99,9 +102,21 @@ const ROLE_LABELS: Record<string, string> = {
 
 export default function ResultsPage() {
   const params = useParams();
+  const pathname = usePathname();
+  const { data: session, status: sessionStatus } = useSession();
+  
   const [results, setResults] = useState<ResultsData | null>(null);
+  const [userTier, setUserTier] = useState<Tier | null>(null);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
+  
+  // Modal states
+  const [showUnlockModal, setShowUnlockModal] = useState(false);
+  const [unlockModalType, setUnlockModalType] = useState<'tier1' | 'tier2'>('tier1');
+  const [unlockModalFeature, setUnlockModalFeature] = useState('Full Results');
+
+  const isAuthenticated = sessionStatus === 'authenticated';
+  const access = getResultsAccess(isAuthenticated, userTier);
 
   useEffect(() => {
     const fetchResults = async () => {
@@ -122,6 +137,20 @@ export default function ResultsPage() {
     
     fetchResults();
   }, [params.id]);
+
+  // Fetch user tier when authenticated
+  useEffect(() => {
+    if (isAuthenticated && session?.user?.email) {
+      // For now, default to 'free' tier - in production this would come from the session/API
+      setUserTier('free');
+    }
+  }, [isAuthenticated, session]);
+
+  const openUnlockModal = (type: 'tier1' | 'tier2', feature: string) => {
+    setUnlockModalType(type);
+    setUnlockModalFeature(feature);
+    setShowUnlockModal(true);
+  };
 
   if (loading) {
     return (
@@ -151,6 +180,12 @@ export default function ResultsPage() {
 
   const rec = results.recommendation.value;
   const ics = results.ics.value;
+  
+  // Get visible flags based on access
+  const visibleFlags = access.canViewAllFlags 
+    ? results.flags.items 
+    : results.flags.items.slice(0, access.visibleFlagsCount);
+  const hiddenFlagsCount = results.flags.items.length - visibleFlags.length;
 
   const RecommendationBadge = () => {
     if (rec === 'GO') {
@@ -173,7 +208,7 @@ export default function ResultsPage() {
             <AlertTriangle className="w-8 h-8 text-white" />
           </div>
           <div>
-            <h2 className="text-2xl font-bold text-amber-700 dark:text-amber-400">CLARIFY</h2>
+            <h2 className="text-2xl font-bold text-amber-700 dark:text-amber-400">FIX FIRST</h2>
             <p className="text-amber-600 dark:text-amber-500">Action Required</p>
           </div>
         </div>
@@ -194,6 +229,15 @@ export default function ResultsPage() {
 
   return (
     <div className="min-h-screen bg-gray-50 dark:bg-gray-950">
+      {/* Unlock Modal */}
+      <UnlockModal
+        isOpen={showUnlockModal}
+        onClose={() => setShowUnlockModal(false)}
+        type={unlockModalType}
+        featureName={unlockModalFeature}
+        returnTo={pathname}
+      />
+
       {/* Header */}
       <header className="bg-white dark:bg-gray-900 border-b border-gray-200 dark:border-gray-800">
         <div className="max-w-6xl mx-auto px-6 py-4 flex items-center justify-between">
@@ -205,51 +249,63 @@ export default function ResultsPage() {
             <Brain className="w-6 h-6 text-clarity-600" />
             <span className="font-semibold">Assessment Results</span>
           </div>
-          <Button 
-            variant="outline" 
-            size="sm"
-            onClick={() => {
-              if (!results) return;
-              const pdfData: PDFExportData = {
-                title: 'Assessment Results',
-                recommendation: results.recommendation.value || 'CLARIFY',
-                ics: results.ics.value || 0,
-                dimensions: Object.entries(results.dimensions.case)
-                  .filter(([code]) => code !== 'P' || results.dimensions.case[code] !== null)
-                  .map(([code, score]) => ({
-                    code,
-                    name: DIMENSION_LABELS[code]?.label || code,
-                    score: score || 0
+          {access.canDownloadPDF ? (
+            <Button 
+              variant="outline" 
+              size="sm"
+              onClick={() => {
+                if (!results) return;
+                const pdfData: PDFExportData = {
+                  title: 'Assessment Results',
+                  recommendation: results.recommendation.value || 'CLARIFY',
+                  ics: results.ics.value || 0,
+                  dimensions: Object.entries(results.dimensions.case)
+                    .filter(([code]) => code !== 'P' || results.dimensions.case[code] !== null)
+                    .map(([code, score]) => ({
+                      code,
+                      name: DIMENSION_LABELS[code]?.label || code,
+                      score: score || 0
+                    })),
+                  flags: results.flags.items.map(f => ({
+                    code: f.flag_id,
+                    name: f.evidence.description || f.flag_id,
+                    severity: f.severity as 'critical' | 'warning' | 'info'
                   })),
-                flags: results.flags.items.map(f => ({
-                  code: f.flag_id,
-                  name: f.evidence.description || f.flag_id,
-                  severity: f.severity as 'critical' | 'warning' | 'info'
-                })),
-                blindSpots: results.blindSpots.map(s => ({
-                  title: s.label,
-                  description: s.explanation,
-                  severity: s.severity
-                })),
-                checklist: results.checklistItems.map(item => ({
-                  prompt: item.prompt,
-                  responsibleRole: ROLE_LABELS[item.responsibleRole] || item.responsibleRole
-                })),
-                participantCount: results.participantCount,
-                responseCount: results.responseCount,
-                generatedAt: results.generatedAt
-              };
-              exportToPDF(pdfData);
-            }}
-          >
-            <Download className="w-4 h-4 mr-2" />
-            Export PDF
-          </Button>
+                  blindSpots: results.blindSpots.map(s => ({
+                    title: s.label,
+                    description: s.explanation,
+                    severity: s.severity
+                  })),
+                  checklist: results.checklistItems.map(item => ({
+                    prompt: item.prompt,
+                    responsibleRole: ROLE_LABELS[item.responsibleRole] || item.responsibleRole
+                  })),
+                  participantCount: results.participantCount,
+                  responseCount: results.responseCount,
+                  generatedAt: results.generatedAt
+                };
+                exportToPDF(pdfData);
+              }}
+            >
+              <Download className="w-4 h-4 mr-2" />
+              Export PDF
+            </Button>
+          ) : (
+            <Button 
+              variant="outline" 
+              size="sm"
+              onClick={() => openUnlockModal('tier2', 'Download PDF Report')}
+              className="text-gray-400"
+            >
+              <Lock className="w-4 h-4 mr-2" />
+              Export PDF
+            </Button>
+          )}
         </div>
       </header>
 
       <main className="max-w-6xl mx-auto px-6 py-8">
-        {/* Top Summary */}
+        {/* Top Summary - Always Visible (Tier 0) */}
         <div className="grid md:grid-cols-2 gap-6 mb-8">
           {/* Recommendation */}
           <div className="bg-white dark:bg-gray-900 rounded-xl border border-gray-200 dark:border-gray-800 p-6">
@@ -288,7 +344,105 @@ export default function ResultsPage() {
           </div>
         </div>
 
-        {/* Executive Summary */}
+        {/* Top Flags - Show 2 for anonymous, all for authenticated */}
+        <div className="bg-white dark:bg-gray-900 rounded-xl border border-gray-200 dark:border-gray-800 p-6 mb-8">
+          <h2 className="text-lg font-semibold mb-4">
+            Detected Signals 
+            <span className="text-sm font-normal text-gray-500 ml-2">
+              ({results.flags.counts.critical} critical, {results.flags.counts.warn} warnings)
+            </span>
+          </h2>
+          <div className="space-y-2">
+            {visibleFlags.map((flag, i) => (
+              <div key={i} className="flex items-center gap-3 p-2 text-sm">
+                <span className={`w-2 h-2 rounded-full ${
+                  flag.severity === 'CRITICAL' ? 'bg-red-500' :
+                  flag.severity === 'WARN' ? 'bg-amber-500' : 'bg-blue-500'
+                }`} />
+                <span className="font-mono text-xs text-gray-500">{flag.flag_id}</span>
+                {flag.evidence.description && (
+                  <span className="text-gray-600 dark:text-gray-400 truncate">
+                    — {flag.evidence.description}
+                  </span>
+                )}
+              </div>
+            ))}
+          </div>
+          
+          {/* Locked flags indicator */}
+          {hiddenFlagsCount > 0 && (
+            <div 
+              className="mt-4 p-4 bg-gray-100 dark:bg-gray-800 rounded-lg cursor-pointer hover:bg-gray-200 dark:hover:bg-gray-700 transition-colors"
+              onClick={() => openUnlockModal('tier1', 'All Flags')}
+            >
+              <div className="flex items-center justify-center gap-2 text-gray-500">
+                <Lock className="w-4 h-4" />
+                <span className="text-sm">+{hiddenFlagsCount} more flags — Register free to see all</span>
+              </div>
+            </div>
+          )}
+        </div>
+
+        {/* Role Breakdown - Locked for anonymous */}
+        <LockedOverlay
+          isLocked={!access.canViewRoleBreakdown}
+          label="Register free to see role breakdown"
+          onClick={() => openUnlockModal('tier1', 'Role Breakdown')}
+        >
+          <div className="bg-white dark:bg-gray-900 rounded-xl border border-gray-200 dark:border-gray-800 p-6 mb-8">
+            <h2 className="text-lg font-semibold mb-4">Dimension Scores by Role</h2>
+            <div className="overflow-x-auto">
+              <table className="w-full text-sm">
+                <thead>
+                  <tr className="border-b dark:border-gray-700">
+                    <th className="text-left py-2 pr-4">Dimension</th>
+                    {Object.keys(results.dimensions.byRole).map(role => (
+                      <th key={role} className="text-center py-2 px-2 whitespace-nowrap">
+                        {ROLE_LABELS[role] || role}
+                      </th>
+                    ))}
+                    <th className="text-center py-2 pl-4 font-bold">Overall</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  {Object.entries(results.dimensions.case).map(([dim, overallScore]) => {
+                    if (dim === 'P' && overallScore === null) return null;
+                    const config = DIMENSION_LABELS[dim];
+                    if (!config) return null;
+                    
+                    return (
+                      <tr key={dim} className="border-b dark:border-gray-800">
+                        <td className="py-3 pr-4">
+                          <span className="font-medium">{config.label}</span>
+                        </td>
+                        {Object.entries(results.dimensions.byRole).map(([role, scores]) => {
+                          const score = scores[dim];
+                          return (
+                            <td key={role} className="text-center py-3 px-2">
+                              <span className={`inline-block px-2 py-1 rounded text-xs font-medium ${
+                                score === null ? 'text-gray-400' :
+                                score >= 75 ? 'bg-green-100 text-green-700 dark:bg-green-900/30 dark:text-green-400' :
+                                score >= 50 ? 'bg-amber-100 text-amber-700 dark:bg-amber-900/30 dark:text-amber-400' :
+                                'bg-red-100 text-red-700 dark:bg-red-900/30 dark:text-red-400'
+                              }`}>
+                                {score?.toFixed(0) ?? '—'}
+                              </span>
+                            </td>
+                          );
+                        })}
+                        <td className="text-center py-3 pl-4">
+                          <span className="font-bold">{overallScore?.toFixed(0) ?? '—'}</span>
+                        </td>
+                      </tr>
+                    );
+                  })}
+                </tbody>
+              </table>
+            </div>
+          </div>
+        </LockedOverlay>
+
+        {/* Executive Summary - Always visible but generic for anonymous */}
         <div className="bg-white dark:bg-gray-900 rounded-xl border border-gray-200 dark:border-gray-800 p-6 mb-8">
           <h2 className="text-lg font-semibold mb-4">Executive Summary</h2>
           <p className="text-gray-700 dark:text-gray-300 mb-4">{results.narrative.executive}</p>
@@ -296,12 +450,21 @@ export default function ResultsPage() {
             <div>
               <h3 className="font-medium mb-2">Key Findings</h3>
               <ul className="space-y-2">
-                {results.narrative.keyFindings.map((finding, i) => (
+                {results.narrative.keyFindings.slice(0, access.canViewAllFlags ? undefined : 2).map((finding, i) => (
                   <li key={i} className="flex items-start gap-2 text-sm text-gray-600 dark:text-gray-400">
                     <span className="text-clarity-600">•</span>
                     {finding}
                   </li>
                 ))}
+                {!access.canViewAllFlags && results.narrative.keyFindings.length > 2 && (
+                  <li 
+                    className="flex items-center gap-2 text-sm text-gray-400 cursor-pointer hover:text-gray-600"
+                    onClick={() => openUnlockModal('tier1', 'All Findings')}
+                  >
+                    <Lock className="w-3 h-3" />
+                    +{results.narrative.keyFindings.length - 2} more findings
+                  </li>
+                )}
               </ul>
             </div>
             <div>
@@ -311,7 +474,7 @@ export default function ResultsPage() {
           </div>
         </div>
 
-        {/* Dimension Scores */}
+        {/* Dimension Scores - Visible */}
         <div className="bg-white dark:bg-gray-900 rounded-xl border border-gray-200 dark:border-gray-800 p-6 mb-8">
           <h2 className="text-lg font-semibold mb-4">Dimension Scores</h2>
           <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-4">
@@ -346,55 +509,61 @@ export default function ResultsPage() {
           </div>
         </div>
 
-        {/* Blind Spots */}
+        {/* Blind Spots - Locked for anonymous */}
         {results.blindSpots.length > 0 && (
-          <div className="bg-white dark:bg-gray-900 rounded-xl border border-gray-200 dark:border-gray-800 p-6 mb-8">
-            <h2 className="text-lg font-semibold mb-4">Blind Spots & Risks</h2>
-            <div className="space-y-4">
-              {results.blindSpots.map((spot, i) => (
-                <div 
-                  key={i} 
-                  className={`p-4 rounded-lg border-l-4 ${
-                    spot.severity === 'CRITICAL' 
-                      ? 'bg-red-50 dark:bg-red-900/20 border-red-500' 
-                      : spot.severity === 'WARN'
-                        ? 'bg-amber-50 dark:bg-amber-900/20 border-amber-500'
-                        : 'bg-blue-50 dark:bg-blue-900/20 border-blue-500'
-                  }`}
-                >
-                  <div className="flex items-start justify-between">
-                    <div>
-                      <h3 className="font-medium">{spot.label}</h3>
-                      <p className="text-sm text-gray-600 dark:text-gray-400 mt-1">{spot.explanation}</p>
+          <LockedOverlay
+            isLocked={!access.canViewContradictionMap}
+            label="Register free to see blind spots"
+            onClick={() => openUnlockModal('tier1', 'Blind Spots & Risks')}
+          >
+            <div className="bg-white dark:bg-gray-900 rounded-xl border border-gray-200 dark:border-gray-800 p-6 mb-8">
+              <h2 className="text-lg font-semibold mb-4">Blind Spots & Risks</h2>
+              <div className="space-y-4">
+                {results.blindSpots.map((spot, i) => (
+                  <div 
+                    key={i} 
+                    className={`p-4 rounded-lg border-l-4 ${
+                      spot.severity === 'CRITICAL' 
+                        ? 'bg-red-50 dark:bg-red-900/20 border-red-500' 
+                        : spot.severity === 'WARN'
+                          ? 'bg-amber-50 dark:bg-amber-900/20 border-amber-500'
+                          : 'bg-blue-50 dark:bg-blue-900/20 border-blue-500'
+                    }`}
+                  >
+                    <div className="flex items-start justify-between">
+                      <div>
+                        <h3 className="font-medium">{spot.label}</h3>
+                        <p className="text-sm text-gray-600 dark:text-gray-400 mt-1">{spot.explanation}</p>
+                      </div>
+                      <span className={`px-2 py-1 text-xs font-medium rounded ${
+                        spot.severity === 'CRITICAL' ? 'bg-red-100 text-red-700' :
+                        spot.severity === 'WARN' ? 'bg-amber-100 text-amber-700' : 'bg-blue-100 text-blue-700'
+                      }`}>
+                        {spot.severity}
+                      </span>
                     </div>
-                    <span className={`px-2 py-1 text-xs font-medium rounded ${
-                      spot.severity === 'CRITICAL' ? 'bg-red-100 text-red-700' :
-                      spot.severity === 'WARN' ? 'bg-amber-100 text-amber-700' : 'bg-blue-100 text-blue-700'
-                    }`}>
-                      {spot.severity}
-                    </span>
+                    {(spot.whoSeesIt.length > 0 || spot.whoDoesnt.length > 0) && (
+                      <div className="mt-3 flex gap-4 text-xs">
+                        {spot.whoSeesIt.length > 0 && (
+                          <span className="text-gray-500">
+                            Sees it: {spot.whoSeesIt.map(r => ROLE_LABELS[r] || r).join(', ')}
+                          </span>
+                        )}
+                        {spot.whoDoesnt.length > 0 && (
+                          <span className="text-gray-500">
+                            Doesn't see it: {spot.whoDoesnt.map(r => ROLE_LABELS[r] || r).join(', ')}
+                          </span>
+                        )}
+                      </div>
+                    )}
                   </div>
-                  {(spot.whoSeesIt.length > 0 || spot.whoDoesnt.length > 0) && (
-                    <div className="mt-3 flex gap-4 text-xs">
-                      {spot.whoSeesIt.length > 0 && (
-                        <span className="text-gray-500">
-                          Sees it: {spot.whoSeesIt.map(r => ROLE_LABELS[r] || r).join(', ')}
-                        </span>
-                      )}
-                      {spot.whoDoesnt.length > 0 && (
-                        <span className="text-gray-500">
-                          Doesn't see it: {spot.whoDoesnt.map(r => ROLE_LABELS[r] || r).join(', ')}
-                        </span>
-                      )}
-                    </div>
-                  )}
-                </div>
-              ))}
+                ))}
+              </div>
             </div>
-          </div>
+          </LockedOverlay>
         )}
 
-        {/* Checklist */}
+        {/* Checklist - Always visible */}
         {results.checklistItems.length > 0 && (
           <div className="bg-white dark:bg-gray-900 rounded-xl border border-gray-200 dark:border-gray-800 p-6 mb-8">
             <h2 className="text-lg font-semibold mb-4">Action Checklist</h2>
@@ -416,30 +585,33 @@ export default function ResultsPage() {
           </div>
         )}
 
-        {/* Flags */}
-        {results.flags.items.length > 0 && (
-          <div className="bg-white dark:bg-gray-900 rounded-xl border border-gray-200 dark:border-gray-800 p-6">
-            <h2 className="text-lg font-semibold mb-4">
-              Detected Signals 
-              <span className="text-sm font-normal text-gray-500 ml-2">
-                ({results.flags.counts.critical} critical, {results.flags.counts.warn} warnings)
-              </span>
-            </h2>
-            <div className="space-y-2">
-              {results.flags.items.slice(0, 10).map((flag, i) => (
-                <div key={i} className="flex items-center gap-3 p-2 text-sm">
-                  <span className={`w-2 h-2 rounded-full ${
-                    flag.severity === 'CRITICAL' ? 'bg-red-500' :
-                    flag.severity === 'WARN' ? 'bg-amber-500' : 'bg-blue-500'
-                  }`} />
-                  <span className="font-mono text-xs text-gray-500">{flag.flag_id}</span>
-                  {flag.evidence.description && (
-                    <span className="text-gray-600 dark:text-gray-400 truncate">
-                      — {flag.evidence.description}
-                    </span>
-                  )}
+        {/* Unlock CTA for anonymous users */}
+        {!isAuthenticated && (
+          <div className="bg-gradient-to-r from-blue-600 to-blue-700 rounded-xl p-6 mb-8 text-white">
+            <div className="flex items-start gap-4">
+              <div className="w-12 h-12 rounded-full bg-white/20 flex items-center justify-center flex-shrink-0">
+                <Unlock className="w-6 h-6" />
+              </div>
+              <div className="flex-1">
+                <h3 className="text-lg font-semibold mb-1">Unlock full analysis — it's free</h3>
+                <p className="text-blue-100 mb-4">
+                  Register to see role breakdowns, all flags, contradiction map, and save your results.
+                </p>
+                <div className="flex flex-wrap gap-3">
+                  <Link
+                    href={`/signup?returnTo=${encodeURIComponent(pathname)}`}
+                    className="inline-flex items-center gap-2 px-5 py-2.5 bg-white text-blue-600 font-medium rounded-lg hover:bg-blue-50 transition-colors"
+                  >
+                    Create free account
+                  </Link>
+                  <Link
+                    href="/pricing"
+                    className="inline-flex items-center gap-2 px-5 py-2.5 bg-blue-500/30 text-white font-medium rounded-lg hover:bg-blue-500/40 transition-colors"
+                  >
+                    See what's included →
+                  </Link>
                 </div>
-              ))}
+              </div>
             </div>
           </div>
         )}

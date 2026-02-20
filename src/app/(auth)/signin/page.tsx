@@ -4,13 +4,14 @@ import { useState, Suspense } from 'react';
 import Link from 'next/link';
 import { useRouter, useSearchParams } from 'next/navigation';
 import { signIn } from 'next-auth/react';
-import { Mail, Lock, ArrowRight, AlertCircle } from 'lucide-react';
+import { Mail, Lock, ArrowRight, AlertCircle, Sparkles } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 
 function SignInForm() {
   const router = useRouter();
   const searchParams = useSearchParams();
-  const callbackUrl = searchParams.get('callbackUrl') || '/dashboard';
+  const returnTo = searchParams.get('returnTo');
+  const callbackUrl = returnTo || searchParams.get('callbackUrl') || '/dashboard';
   
   const [isLoading, setIsLoading] = useState(false);
   const [error, setError] = useState('');
@@ -51,6 +52,21 @@ function SignInForm() {
 
   return (
     <div className="bg-gray-900 rounded-2xl border border-gray-800 p-8">
+      {/* Show benefit banner when coming from results */}
+      {returnTo?.includes('/results') && (
+        <div className="mb-6 p-4 bg-blue-500/10 border border-blue-500/30 rounded-lg">
+          <div className="flex items-start gap-3">
+            <Sparkles className="w-5 h-5 text-blue-400 flex-shrink-0 mt-0.5" />
+            <div>
+              <p className="text-blue-300 font-medium">Sign in to see your full results</p>
+              <p className="text-blue-400/70 text-sm mt-1">
+                Your assessment is waiting with all the details unlocked.
+              </p>
+            </div>
+          </div>
+        </div>
+      )}
+
       <div className="text-center mb-8">
         <h1 className="text-2xl font-bold mb-2">Welcome back</h1>
         <p className="text-gray-400">
@@ -120,7 +136,7 @@ function SignInForm() {
             </span>
           ) : (
             <span className="flex items-center gap-2">
-              Sign In
+              {returnTo?.includes('/results') ? 'Sign in & see full results' : 'Sign In'}
               <ArrowRight className="w-4 h-4" />
             </span>
           )}
@@ -129,7 +145,10 @@ function SignInForm() {
 
       <div className="mt-6 text-center text-sm text-gray-400">
         Don't have an account?{' '}
-        <Link href="/signup" className="text-clarity-400 hover:text-clarity-300">
+        <Link 
+          href={returnTo ? `/signup?returnTo=${encodeURIComponent(returnTo)}` : '/signup'} 
+          className="text-clarity-400 hover:text-clarity-300"
+        >
           Sign up
         </Link>
       </div>

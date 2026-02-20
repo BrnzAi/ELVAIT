@@ -1,13 +1,17 @@
 'use client';
 
-import { useState } from 'react';
+import { useState, Suspense } from 'react';
 import Link from 'next/link';
-import { useRouter } from 'next/navigation';
-import { Mail, Lock, User, ArrowRight, CheckCircle, AlertCircle } from 'lucide-react';
+import { useRouter, useSearchParams } from 'next/navigation';
+import { signIn } from 'next-auth/react';
+import { Mail, Lock, User, ArrowRight, CheckCircle, AlertCircle, Sparkles } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 
-export default function SignUpPage() {
+function SignUpForm() {
   const router = useRouter();
+  const searchParams = useSearchParams();
+  const returnTo = searchParams.get('returnTo');
+  
   const [isLoading, setIsLoading] = useState(false);
   const [error, setError] = useState('');
   const [success, setSuccess] = useState(false);
@@ -47,6 +51,22 @@ export default function SignUpPage() {
         throw new Error(data.error || 'Failed to create account');
       }
 
+      // If there's a returnTo URL (e.g., from results page), sign in immediately and redirect
+      if (returnTo) {
+        const signInResult = await signIn('credentials', {
+          email: formData.email,
+          password: formData.password,
+          redirect: false,
+        });
+
+        if (signInResult?.ok) {
+          // Redirect to the original page
+          router.push(returnTo);
+          return;
+        }
+      }
+
+      // Standard flow - show success message
       setSuccess(true);
     } catch (err) {
       setError(err instanceof Error ? err.message : 'Something went wrong');
@@ -77,10 +97,28 @@ export default function SignUpPage() {
 
   return (
     <div className="bg-gray-900 rounded-2xl border border-gray-800 p-8">
+      {/* Show benefit banner when coming from results */}
+      {returnTo?.includes('/results') && (
+        <div className="mb-6 p-4 bg-blue-500/10 border border-blue-500/30 rounded-lg">
+          <div className="flex items-start gap-3">
+            <Sparkles className="w-5 h-5 text-blue-400 flex-shrink-0 mt-0.5" />
+            <div>
+              <p className="text-blue-300 font-medium">Unlock your full results</p>
+              <p className="text-blue-400/70 text-sm mt-1">
+                Create a free account to see role breakdowns, all flags, and save your assessment.
+              </p>
+            </div>
+          </div>
+        </div>
+      )}
+
       <div className="text-center mb-8">
         <h1 className="text-2xl font-bold mb-2">Create your account</h1>
         <p className="text-gray-400">
-          Save your assessments and track your clarity journey
+          {returnTo?.includes('/results') 
+            ? 'Free account • Takes 30 seconds'
+            : 'Save your assessments and track your clarity journey'
+          }
         </p>
       </div>
 
@@ -174,19 +212,42 @@ export default function SignUpPage() {
             </span>
           ) : (
             <span className="flex items-center gap-2">
-              Create Account
+              {returnTo?.includes('/results') ? 'Create account & see full results' : 'Create Account'}
               <ArrowRight className="w-4 h-4" />
             </span>
           )}
         </Button>
+
+        <p className="text-xs text-gray-500 text-center">
+          By registering you agree to our{' '}
+          <Link href="/terms" className="text-gray-400 hover:text-white">Terms</Link>
+          {' · '}
+          <Link href="/privacy" className="text-gray-400 hover:text-white">Privacy Policy</Link>
+        </p>
       </form>
 
       <div className="mt-6 text-center text-sm text-gray-400">
         Already have an account?{' '}
-        <Link href="/signin" className="text-clarity-400 hover:text-clarity-300">
+        <Link 
+          href={returnTo ? `/signin?returnTo=${encodeURIComponent(returnTo)}` : '/signin'} 
+          className="text-clarity-400 hover:text-clarity-300"
+        >
           Sign in
         </Link>
       </div>
     </div>
+  );
+}
+
+export default function SignUpPage() {
+  return (
+    <Suspense fallback={
+      <div className="bg-gray-900 rounded-2xl border border-gray-800 p-8 animate-pulse">
+        <div className="h-8 bg-gray-800 rounded w-1/2 mx-auto mb-4" />
+        <div className="h-4 bg-gray-800 rounded w-3/4 mx-auto" />
+      </div>
+    }>
+      <SignUpForm />
+    </Suspense>
   );
 }

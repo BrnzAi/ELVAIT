@@ -1,11 +1,11 @@
 'use client';
 
-import { useState } from 'react';
+import { useState, Suspense } from 'react';
 import Link from 'next/link';
 import { useSearchParams } from 'next/navigation';
 import { ArrowLeft, Send, Check, Mail } from 'lucide-react';
 
-export default function ContactPage() {
+function ContactForm() {
   const searchParams = useSearchParams();
   const preselectedPlan = searchParams.get('plan') || '';
   
@@ -215,5 +215,20 @@ export default function ContactPage() {
         </div>
       </div>
     </div>
+  );
+}
+
+export default function ContactPage() {
+  return (
+    <Suspense fallback={
+      <div className="min-h-screen bg-gray-950 text-white flex items-center justify-center">
+        <div className="text-center">
+          <div className="w-8 h-8 border-2 border-blue-500 border-t-transparent rounded-full animate-spin mx-auto mb-4" />
+          <p className="text-gray-400">Loading...</p>
+        </div>
+      </div>
+    }>
+      <ContactForm />
+    </Suspense>
   );
 }

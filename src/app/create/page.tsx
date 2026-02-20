@@ -1,12 +1,14 @@
 'use client';
 
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import { useRouter } from 'next/navigation';
 import Link from 'next/link';
-import { ArrowLeft, ArrowRight, Brain, Check, Users, Zap, FileText, AlertCircle } from 'lucide-react';
+import { useSession } from 'next-auth/react';
+import { ArrowLeft, ArrowRight, Brain, Check, Users, Zap, FileText, AlertCircle, Lock, Sparkles } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
 import { Textarea } from '@/components/ui/textarea';
+import { TIER_LIMITS, Tier } from '@/lib/tiers';
 
 type KitVariant = 'QUICK_CHECK' | 'CORE' | 'FULL' | 'PROCESS_STANDALONE';
 
@@ -87,9 +89,17 @@ const IMPACTED_AREAS = [
 
 export default function CreateCasePage() {
   const router = useRouter();
+  const { data: session, status: sessionStatus } = useSession();
+  
   const [step, setStep] = useState(1);
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState<string | null>(null);
+  
+  // Case limit state
+  const [checkingLimit, setCheckingLimit] = useState(true);
+  const [limitReached, setLimitReached] = useState(false);
+  const [caseCount, setCaseCount] = useState(0);
+  const [userTier, setUserTier] = useState<Tier>('free');
   
   const [formData, setFormData] = useState<FormData>({
     variant: 'CORE',
@@ -104,6 +114,37 @@ export default function CreateCasePage() {
     dCtx3: '',
     dCtx4: ''
   });
+
+  // Check case limit for authenticated users
+  useEffect(() => {
+    const checkCaseLimit = async () => {
+      if (sessionStatus === 'loading') return;
+      
+      if (sessionStatus === 'authenticated') {
+        try {
+          const response = await fetch('/api/cases?countOnly=true');
+          if (response.ok) {
+            const data = await response.json();
+            const count = data.count || 0;
+            const tier = data.tier || 'free';
+            setCaseCount(count);
+            setUserTier(tier as Tier);
+            
+            const maxCases = TIER_LIMITS[tier as Tier]?.maxCases || 1;
+            if (count >= maxCases) {
+              setLimitReached(true);
+            }
+          }
+        } catch (err) {
+          console.error('Failed to check case limit:', err);
+        }
+      }
+      
+      setCheckingLimit(false);
+    };
+    
+    checkCaseLimit();
+  }, [sessionStatus]);
 
   const updateField = (field: keyof FormData, value: string | string[]) => {
     setFormData(prev => ({ ...prev, [field]: value }));
@@ -151,6 +192,90 @@ export default function CreateCasePage() {
       default: return true;
     }
   };
+
+  // Show loading while checking limit
+  if (checkingLimit && sessionStatus !== 'unauthenticated') {
+    return (
+      <div className="min-h-screen bg-gray-50 dark:bg-gray-950 flex items-center justify-center">
+        <div className="text-center">
+          <div className="w-8 h-8 border-2 border-clarity-600 border-t-transparent rounded-full animate-spin mx-auto mb-4" />
+          <p className="text-gray-600">Loading...</p>
+        </div>
+      </div>
+    );
+  }
+
+  // Show upgrade prompt if limit reached
+  if (limitReached) {
+    const maxCases = TIER_LIMITS[userTier]?.maxCases || 1;
+    
+    return (
+      <div className="min-h-screen bg-gray-50 dark:bg-gray-950">
+        <header className="bg-white dark:bg-gray-900 border-b border-gray-200 dark:border-gray-800">
+          <div className="max-w-4xl mx-auto px-6 py-4 flex items-center justify-between">
+            <Link href="/dashboard" className="flex items-center gap-2 text-gray-600 hover:text-gray-900 dark:text-gray-400 dark:hover:text-white">
+              <ArrowLeft className="w-5 h-5" />
+              <span>Back to Dashboard</span>
+            </Link>
+            <div className="flex items-center gap-2">
+              <Brain className="w-6 h-6 text-clarity-600" />
+              <span className="font-semibold">New Assessment</span>
+            </div>
+            <div />
+          </div>
+        </header>
+
+        <main className="max-w-2xl mx-auto px-6 py-16">
+          <div className="text-center">
+            <div className="w-20 h-20 rounded-full bg-amber-100 dark:bg-amber-900/30 flex items-center justify-center mx-auto mb-6">
+              <Lock className="w-10 h-10 text-amber-600" />
+            </div>
+            <h1 className="text-3xl font-bold mb-4">You've used your free assessment</h1>
+            <p className="text-gray-600 dark:text-gray-400 mb-2">
+              Your {userTier} plan includes {maxCases} active assessment{maxCases > 1 ? 's' : ''}.
+            </p>
+            <p className="text-gray-600 dark:text-gray-400 mb-8">
+              You currently have <strong>{caseCount}</strong> assessment{caseCount > 1 ? 's' : ''}.
+            </p>
+
+            <div className="bg-white dark:bg-gray-900 rounded-xl border border-gray-200 dark:border-gray-800 p-6 mb-8">
+              <h2 className="font-semibold mb-4">Upgrade to create more assessments</h2>
+              <div className="grid gap-4 text-left">
+                <div className="flex items-start gap-3 p-3 bg-gray-50 dark:bg-gray-800 rounded-lg">
+                  <Sparkles className="w-5 h-5 text-blue-500 mt-0.5" />
+                  <div>
+                    <p className="font-medium">Starter — €79/decision</p>
+                    <p className="text-sm text-gray-500">Up to 3 active assessments + PDF reports</p>
+                  </div>
+                </div>
+                <div className="flex items-start gap-3 p-3 bg-gray-50 dark:bg-gray-800 rounded-lg">
+                  <Sparkles className="w-5 h-5 text-purple-500 mt-0.5" />
+                  <div>
+                    <p className="font-medium">Professional — €149–299/month</p>
+                    <p className="text-sm text-gray-500">Unlimited assessments + cross-case analytics</p>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <div className="flex flex-col sm:flex-row gap-4 justify-center">
+              <Link href="/pricing">
+                <Button size="lg">
+                  See all plans
+                  <ArrowRight className="w-4 h-4 ml-2" />
+                </Button>
+              </Link>
+              <Link href="/contact?plan=starter">
+                <Button variant="outline" size="lg">
+                  Contact us
+                </Button>
+              </Link>
+            </div>
+          </div>
+        </main>
+      </div>
+    );
+  }
 
   return (
     <div className="min-h-screen bg-gray-50 dark:bg-gray-950">
