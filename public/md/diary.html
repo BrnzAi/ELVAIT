@@ -1,0 +1,488 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>ELVAIT Project Diary</title>
+  <style>
+    :root {
+      --bg: #0d1117;
+      --card-bg: #161b22;
+      --border: #30363d;
+      --text: #c9d1d9;
+      --text-muted: #8b949e;
+      --accent: #58a6ff;
+      --green: #3fb950;
+      --yellow: #d29922;
+      --red: #f85149;
+      --purple: #a371f7;
+    }
+    
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+    
+    body {
+      font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Helvetica, Arial, sans-serif;
+      background: var(--bg);
+      color: var(--text);
+      line-height: 1.6;
+      padding: 2rem;
+      max-width: 900px;
+      margin: 0 auto;
+    }
+    
+    h1 {
+      font-size: 2rem;
+      margin-bottom: 0.5rem;
+      color: #fff;
+    }
+    
+    .subtitle {
+      color: var(--text-muted);
+      margin-bottom: 2rem;
+      font-size: 0.95rem;
+    }
+    
+    .day {
+      margin-bottom: 2rem;
+    }
+    
+    .day-header {
+      display: flex;
+      align-items: center;
+      gap: 0.75rem;
+      margin-bottom: 1rem;
+      padding-bottom: 0.5rem;
+      border-bottom: 1px solid var(--border);
+    }
+    
+    .day-date {
+      font-size: 1.1rem;
+      font-weight: 600;
+      color: #fff;
+    }
+    
+    .day-weekday {
+      color: var(--text-muted);
+      font-size: 0.9rem;
+    }
+    
+    .section {
+      margin-bottom: 1.25rem;
+    }
+    
+    .section-title {
+      font-size: 0.8rem;
+      font-weight: 600;
+      text-transform: uppercase;
+      letter-spacing: 0.05em;
+      color: var(--text-muted);
+      margin-bottom: 0.5rem;
+    }
+    
+    .entry {
+      display: flex;
+      align-items: flex-start;
+      gap: 0.75rem;
+      padding: 0.5rem 0;
+    }
+    
+    .icon {
+      width: 20px;
+      height: 20px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 0.9rem;
+      flex-shrink: 0;
+    }
+    
+    .entry-text {
+      flex: 1;
+    }
+    
+    .entry-title {
+      font-weight: 500;
+      color: #fff;
+    }
+    
+    .entry-desc {
+      color: var(--text-muted);
+      font-size: 0.9rem;
+    }
+    
+    .test-results {
+      background: var(--card-bg);
+      border: 1px solid var(--border);
+      border-radius: 6px;
+      padding: 0.75rem 1rem;
+      font-family: 'SF Mono', Consolas, monospace;
+      font-size: 0.85rem;
+      margin-top: 0.5rem;
+    }
+    
+    .test-pass {
+      color: var(--green);
+    }
+    
+    .test-fail {
+      color: var(--red);
+    }
+    
+    .deployment {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.5rem;
+      background: rgba(63, 185, 80, 0.15);
+      border: 1px solid rgba(63, 185, 80, 0.4);
+      border-radius: 6px;
+      padding: 0.25rem 0.75rem;
+      font-size: 0.85rem;
+      color: var(--green);
+      margin-top: 0.25rem;
+    }
+    
+    .milestone {
+      background: linear-gradient(135deg, rgba(163, 113, 247, 0.15), rgba(88, 166, 255, 0.15));
+      border: 1px solid rgba(163, 113, 247, 0.4);
+      border-radius: 8px;
+      padding: 1rem;
+      margin-bottom: 1rem;
+    }
+    
+    .milestone-title {
+      font-size: 1.1rem;
+      font-weight: 600;
+      color: var(--purple);
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+    }
+    
+    a {
+      color: var(--accent);
+      text-decoration: none;
+    }
+    
+    a:hover {
+      text-decoration: underline;
+    }
+    
+    .legend {
+      background: var(--card-bg);
+      border: 1px solid var(--border);
+      border-radius: 8px;
+      padding: 1rem;
+      margin-top: 2rem;
+    }
+    
+    .legend-title {
+      font-weight: 600;
+      margin-bottom: 0.75rem;
+      color: #fff;
+    }
+    
+    .legend-items {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(180px, 1fr));
+      gap: 0.5rem;
+    }
+    
+    .legend-item {
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+      font-size: 0.85rem;
+    }
+    
+    .cron-info {
+      background: var(--card-bg);
+      border: 1px solid var(--border);
+      border-radius: 8px;
+      padding: 1rem;
+      margin-top: 1rem;
+    }
+    
+    .cron-info code {
+      background: var(--bg);
+      padding: 0.15rem 0.4rem;
+      border-radius: 4px;
+      font-family: 'SF Mono', Consolas, monospace;
+      font-size: 0.85rem;
+    }
+  </style>
+</head>
+<body>
+  <h1>📔 ELVAIT Project Diary</h1>
+  <p class="subtitle">Daily log of development progress, test results, and deployments</p>
+
+  <!-- 2026-02-20 -->
+  <div class="day">
+    <div class="day-header">
+      <span class="day-date">2026-02-20</span>
+      <span class="day-weekday">Thu</span>
+    </div>
+    
+    <div class="section">
+      <div class="section-title">Updates</div>
+      <div class="entry">
+        <span class="icon">🔧</span>
+        <div class="entry-text">
+          <span class="entry-title">Domain Migration</span>
+          <div class="entry-desc">Switched to production domain elvait.ai</div>
+        </div>
+      </div>
+      <div class="entry">
+        <span class="icon">📝</span>
+        <div class="entry-text">
+          <span class="entry-title">Documentation Index</span>
+          <div class="entry-desc">Created /md index page listing all docs</div>
+        </div>
+      </div>
+      <div class="entry">
+        <span class="icon">📔</span>
+        <div class="entry-text">
+          <span class="entry-title">Project Diary</span>
+          <div class="entry-desc">Added visual diary at /md/diary.html</div>
+        </div>
+      </div>
+      <div class="entry">
+        <span class="icon">⏰</span>
+        <div class="entry-text">
+          <span class="entry-title">Automated Testing</span>
+          <div class="entry-desc">Scheduled daily tests at 01:00 UTC</div>
+        </div>
+      </div>
+    </div>
+
+    <div class="section">
+      <div class="section-title">Tests</div>
+      <div class="test-results">
+        <span class="test-pass">✓ 567 passed</span> · <span class="test-fail">0 failed</span>
+      </div>
+    </div>
+  </div>
+
+  <!-- 2026-02-19 -->
+  <div class="day">
+    <div class="day-header">
+      <span class="day-date">2026-02-19</span>
+      <span class="day-weekday">Wed</span>
+    </div>
+    
+    <div class="section">
+      <div class="section-title">Features</div>
+      <div class="entry">
+        <span class="icon">✅</span>
+        <div class="entry-text">
+          <span class="entry-title">User Authentication</span>
+          <div class="entry-desc">Sign up, sign in, email verification, password reset</div>
+        </div>
+      </div>
+      <div class="entry">
+        <span class="icon">✅</span>
+        <div class="entry-text">
+          <span class="entry-title">SMTP Email</span>
+          <div class="entry-desc">Mailgun integration for verification & reset emails</div>
+        </div>
+      </div>
+      <div class="entry">
+        <span class="icon">✅</span>
+        <div class="entry-text">
+          <span class="entry-title">Delete Assessment</span>
+          <div class="entry-desc">Trash button on dashboard cards with confirmation</div>
+        </div>
+      </div>
+    </div>
+
+    <div class="section">
+      <div class="section-title">Fixes</div>
+      <div class="entry">
+        <span class="icon">🔧</span>
+        <div class="entry-text">
+          <span class="entry-title">PostgreSQL Migration</span>
+          <div class="entry-desc">Production database stability</div>
+        </div>
+      </div>
+      <div class="entry">
+        <span class="icon">🔧</span>
+        <div class="entry-text">
+          <span class="entry-title">CI/CD Fixes</span>
+          <div class="entry-desc">npm legacy-peer-deps, auth env vars in Cloud Run</div>
+        </div>
+      </div>
+    </div>
+
+    <div class="section">
+      <div class="section-title">Tests</div>
+      <div class="test-results">
+        <span class="test-pass">✓ 567 passed</span> · <span class="test-fail">0 failed</span>
+      </div>
+    </div>
+
+    <div class="section">
+      <div class="section-title">Deployment</div>
+      <div class="deployment">🚀 Production deployed at 17:54 UTC</div>
+    </div>
+  </div>
+
+  <!-- 2026-02-16 -->
+  <div class="day">
+    <div class="day-header">
+      <span class="day-date">2026-02-16</span>
+      <span class="day-weekday">Sun</span>
+    </div>
+    
+    <div class="section">
+      <div class="section-title">Documentation</div>
+      <div class="entry">
+        <span class="icon">📝</span>
+        <div class="entry-text">
+          <span class="entry-title">Security Lockdown</span>
+          <div class="entry-desc">Pre-production security section added to launch checklist</div>
+        </div>
+      </div>
+      <div class="entry">
+        <span class="icon">📝</span>
+        <div class="entry-text">
+          <span class="entry-title">Client Communication</span>
+          <div class="entry-desc">Template for security testing phase</div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- 2026-02-13 -->
+  <div class="day">
+    <div class="day-header">
+      <span class="day-date">2026-02-13</span>
+      <span class="day-weekday">Thu</span>
+    </div>
+    
+    <div class="section">
+      <div class="section-title">Features</div>
+      <div class="entry">
+        <span class="icon">✅</span>
+        <div class="entry-text">
+          <span class="entry-title">Dashboard Page</span>
+          <div class="entry-desc">User's assessments overview</div>
+        </div>
+      </div>
+      <div class="entry">
+        <span class="icon">✅</span>
+        <div class="entry-text">
+          <span class="entry-title">PDF Export</span>
+          <div class="entry-desc">Real PDF with jsPDF (no print dialog)</div>
+        </div>
+      </div>
+      <div class="entry">
+        <span class="icon">✅</span>
+        <div class="entry-text">
+          <span class="entry-title">FAQ Section</span>
+          <div class="entry-desc">Added to landing page</div>
+        </div>
+      </div>
+      <div class="entry">
+        <span class="icon">✅</span>
+        <div class="entry-text">
+          <span class="entry-title">PostgreSQL Migration</span>
+          <div class="entry-desc">Persistent data storage</div>
+        </div>
+      </div>
+    </div>
+
+    <div class="section">
+      <div class="section-title">Tests</div>
+      <div class="test-results">
+        <span class="test-pass">✓ 431 passed</span> · <span class="test-fail">0 failed</span>
+      </div>
+    </div>
+  </div>
+
+  <!-- 2026-02-12 -->
+  <div class="day">
+    <div class="day-header">
+      <span class="day-date">2026-02-12</span>
+      <span class="day-weekday">Wed</span>
+    </div>
+    
+    <div class="milestone">
+      <div class="milestone-title">🎉 v1.0 Production Ready</div>
+    </div>
+    
+    <div class="section">
+      <div class="section-title">Features</div>
+      <div class="entry">
+        <span class="icon">✅</span>
+        <div class="entry-text">
+          <span class="entry-title">Complete Assessment Workflow</span>
+          <div class="entry-desc">Create, manage, survey, results</div>
+        </div>
+      </div>
+      <div class="entry">
+        <span class="icon">✅</span>
+        <div class="entry-text">
+          <span class="entry-title">Scoring Engine</span>
+          <div class="entry-desc">5 dimensions + 8 flags + 4 gates</div>
+        </div>
+      </div>
+      <div class="entry">
+        <span class="icon">✅</span>
+        <div class="entry-text">
+          <span class="entry-title">Demo System</span>
+          <div class="entry-desc">6 personas with interactive demo</div>
+        </div>
+      </div>
+      <div class="entry">
+        <span class="icon">✅</span>
+        <div class="entry-text">
+          <span class="entry-title">Admin Panel</span>
+          <div class="entry-desc">8 management sub-pages</div>
+        </div>
+      </div>
+      <div class="entry">
+        <span class="icon">✅</span>
+        <div class="entry-text">
+          <span class="entry-title">CI/CD Pipeline</span>
+          <div class="entry-desc">GitHub Actions + GCP Cloud Run</div>
+        </div>
+      </div>
+    </div>
+
+    <div class="section">
+      <div class="section-title">Tests</div>
+      <div class="test-results">
+        <span class="test-pass">✓ 431 passed</span> · <span class="test-fail">0 failed</span>
+      </div>
+    </div>
+
+    <div class="section">
+      <div class="section-title">Deployment</div>
+      <div class="deployment">🚀 Initial production deployment</div>
+    </div>
+  </div>
+
+  <!-- Legend -->
+  <div class="legend">
+    <div class="legend-title">Legend</div>
+    <div class="legend-items">
+      <div class="legend-item"><span>✅</span> Feature completed</div>
+      <div class="legend-item"><span>🔧</span> Bug fix / improvement</div>
+      <div class="legend-item"><span>📝</span> Documentation</div>
+      <div class="legend-item"><span>🚀</span> Deployment</div>
+      <div class="legend-item"><span>⚠️</span> Issue / warning</div>
+      <div class="legend-item"><span>❌</span> Test failure</div>
+    </div>
+  </div>
+
+  <!-- Cron Info -->
+  <div class="cron-info">
+    <strong>Automated Testing</strong><br>
+    Daily test runs scheduled at <code>01:00 UTC</code>. Results auto-appended to this diary.
+  </div>
+
+</body>
+</html>

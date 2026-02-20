@@ -8,7 +8,7 @@ Protected documentation hub. All files require authentication.
 
 | Document | Description |
 |----------|-------------|
-| [Diary](/md/diary.md) | Daily development log, test results, deployments |
+| [Diary](/md/diary.html) | Daily development log, test results, deployments |
 
 ---
 
