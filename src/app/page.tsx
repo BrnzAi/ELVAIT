@@ -2,7 +2,7 @@
 
 import { useState } from 'react';
 import Link from 'next/link';
-import { ArrowRight, CheckCircle, AlertTriangle, XCircle, Users, Brain, FileText, Zap, ChevronDown } from 'lucide-react';
+import { ArrowRight, CheckCircle, AlertTriangle, XCircle, Users, Brain, FileText, Zap, ChevronDown, Check, X } from 'lucide-react';
 import { UserMenu } from '@/components/auth';
 
 // FAQ Data
@@ -39,6 +39,78 @@ const faqData = [
     question: "What happens to my data?",
     answer: "All traffic uses HTTPS. Survey links use unique, unguessable tokens. No passwords stored for participants. Data is processed securely and only visible to the assessment initiator."
   }
+];
+
+// Pricing Data
+const pricingPlans = [
+  {
+    name: 'Free',
+    price: '€0',
+    period: 'forever',
+    description: 'Try your first assessment',
+    features: [
+      { name: 'Active assessments', value: '1', included: true },
+      { name: 'Respondents per assessment', value: '10', included: true },
+      { name: 'Role breakdown', value: true, included: true },
+      { name: 'All flags & insights', value: true, included: true },
+      { name: 'PDF Reports', value: false, included: false },
+      { name: 'Custom questions', value: false, included: false },
+    ],
+    cta: 'Get Started',
+    href: '/signup',
+    highlighted: false,
+  },
+  {
+    name: 'Starter',
+    price: '€79',
+    period: 'per decision',
+    description: 'For important decisions',
+    features: [
+      { name: 'Active assessments', value: '3', included: true },
+      { name: 'Respondents per assessment', value: '25', included: true },
+      { name: 'Role breakdown', value: true, included: true },
+      { name: 'All flags & insights', value: true, included: true },
+      { name: 'PDF Reports', value: true, included: true },
+      { name: 'Custom questions', value: false, included: false },
+    ],
+    cta: 'Contact Us',
+    href: '/contact?plan=starter',
+    highlighted: true,
+  },
+  {
+    name: 'Professional',
+    price: '€149–299',
+    period: 'per month',
+    description: 'For teams & consultants',
+    features: [
+      { name: 'Active assessments', value: 'Unlimited', included: true },
+      { name: 'Respondents per assessment', value: '100', included: true },
+      { name: 'Role breakdown', value: true, included: true },
+      { name: 'All flags & insights', value: true, included: true },
+      { name: 'PDF Reports', value: true, included: true },
+      { name: 'Custom questions', value: 'Limited', included: true },
+    ],
+    cta: 'Contact Us',
+    href: '/contact?plan=professional',
+    highlighted: false,
+  },
+  {
+    name: 'Enterprise',
+    price: 'Custom',
+    period: 'annual contract',
+    description: 'For organizations',
+    features: [
+      { name: 'Active assessments', value: 'Unlimited', included: true },
+      { name: 'Respondents per assessment', value: 'Unlimited', included: true },
+      { name: 'Role breakdown', value: true, included: true },
+      { name: 'All flags & insights', value: true, included: true },
+      { name: 'PDF Reports', value: true, included: true },
+      { name: 'Custom questions', value: 'Unlimited', included: true },
+    ],
+    cta: 'Contact Us',
+    href: '/contact?plan=enterprise',
+    highlighted: false,
+  },
 ];
 
 // FAQ Item Component
@@ -85,14 +157,17 @@ export default function LandingPage() {
             <Link href="/demo" className="text-white/80 hover:text-white transition">
               Demo
             </Link>
+            <Link href="/pricing" className="text-white/80 hover:text-white transition">
+              Pricing
+            </Link>
             <Link href="/dashboard" className="text-white/80 hover:text-white transition">
               My Assessments
             </Link>
             <Link 
-              href="/create"
+              href="/signup"
               className="px-4 py-2 bg-white text-clarity-700 rounded-lg font-medium hover:bg-gray-100 transition"
             >
-              Start Assessment
+              Get Started
             </Link>
             <UserMenu />
           </div>
@@ -115,7 +190,7 @@ export default function LandingPage() {
 
           <div className="flex flex-col sm:flex-row items-center justify-center gap-4">
             <Link 
-              href="/start"
+              href="/signup"
               className="w-full sm:w-auto px-8 py-4 bg-white text-clarity-700 rounded-xl font-semibold text-lg hover:bg-gray-100 transition flex items-center justify-center gap-2"
             >
               Start Free Assessment
@@ -263,15 +338,83 @@ export default function LandingPage() {
         </div>
       </section>
 
+      {/* Pricing Section */}
+      <section id="pricing" className="py-24 bg-gray-50 dark:bg-gray-950">
+        <div className="max-w-7xl mx-auto px-6">
+          <div className="text-center mb-16">
+            <h2 className="text-4xl font-bold mb-4">Simple, Transparent Pricing</h2>
+            <p className="text-xl text-gray-600 dark:text-gray-400">Start free. Upgrade when you need more.</p>
+          </div>
+
+          <div className="grid md:grid-cols-4 gap-6">
+            {pricingPlans.map((plan, i) => (
+              <div 
+                key={i} 
+                className={`bg-white dark:bg-gray-900 rounded-2xl p-6 border-2 ${
+                  plan.highlighted 
+                    ? 'border-clarity-500 shadow-lg shadow-clarity-500/20' 
+                    : 'border-gray-200 dark:border-gray-800'
+                }`}
+              >
+                {plan.highlighted && (
+                  <div className="text-xs font-semibold text-clarity-600 dark:text-clarity-400 mb-2">
+                    MOST POPULAR
+                  </div>
+                )}
+                <h3 className="text-xl font-bold mb-1">{plan.name}</h3>
+                <p className="text-sm text-gray-500 dark:text-gray-400 mb-4">{plan.description}</p>
+                <div className="mb-6">
+                  <span className="text-3xl font-bold">{plan.price}</span>
+                  <span className="text-gray-500 dark:text-gray-400 text-sm ml-1">{plan.period}</span>
+                </div>
+                <Link
+                  href={plan.href}
+                  className={`block w-full py-2.5 px-4 rounded-lg font-medium text-center transition mb-6 ${
+                    plan.highlighted
+                      ? 'bg-clarity-600 text-white hover:bg-clarity-700'
+                      : 'bg-gray-100 dark:bg-gray-800 text-gray-900 dark:text-white hover:bg-gray-200 dark:hover:bg-gray-700'
+                  }`}
+                >
+                  {plan.cta}
+                </Link>
+                <ul className="space-y-3 text-sm">
+                  {plan.features.map((feature, j) => (
+                    <li key={j} className="flex items-center gap-2">
+                      {feature.included ? (
+                        <Check className="w-4 h-4 text-green-500 flex-shrink-0" />
+                      ) : (
+                        <X className="w-4 h-4 text-gray-300 dark:text-gray-600 flex-shrink-0" />
+                      )}
+                      <span className={feature.included ? '' : 'text-gray-400 dark:text-gray-500'}>
+                        {feature.name}
+                        {typeof feature.value === 'string' && feature.value !== 'true' && (
+                          <span className="text-gray-500 dark:text-gray-400 ml-1">({feature.value})</span>
+                        )}
+                      </span>
+                    </li>
+                  ))}
+                </ul>
+              </div>
+            ))}
+          </div>
+
+          <div className="text-center mt-10">
+            <Link href="/pricing" className="text-clarity-600 dark:text-clarity-400 hover:underline font-medium">
+              View full pricing comparison →
+            </Link>
+          </div>
+        </div>
+      </section>
+
       {/* FAQ Section */}
-      <section className="py-24 bg-gray-50 dark:bg-gray-950">
+      <section className="py-24 bg-white dark:bg-gray-900">
         <div className="max-w-3xl mx-auto px-6">
           <div className="text-center mb-12">
             <h2 className="text-4xl font-bold mb-4">Frequently Asked Questions</h2>
             <p className="text-xl text-gray-600 dark:text-gray-400">Everything you need to know about ELVAIT</p>
           </div>
 
-          <div className="bg-white dark:bg-gray-900 rounded-2xl shadow-lg border border-gray-200 dark:border-gray-800 overflow-hidden">
+          <div className="bg-gray-50 dark:bg-gray-950 rounded-2xl shadow-lg border border-gray-200 dark:border-gray-800 overflow-hidden">
             <div className="px-6">
               {faqData.map((faq, index) => (
                 <FAQItem
@@ -292,18 +435,26 @@ export default function LandingPage() {
       <section className="py-24 bg-gradient-to-br from-clarity-600 to-clarity-800">
         <div className="max-w-4xl mx-auto px-6 text-center">
           <h2 className="text-4xl font-bold text-white mb-6">
-            Would you spend $2,000 to avoid a $1.2M mistake?
+            Ready to make confident automation decisions?
           </h2>
           <p className="text-xl text-white/80 mb-10">
-            Get clarity before you commit. Start your first assessment for free.
+            Join organizations that evaluate before they invest. Start your first assessment for free.
           </p>
-          <Link 
-            href="/start"
-            className="inline-flex items-center gap-2 px-8 py-4 bg-white text-clarity-700 rounded-xl font-semibold text-lg hover:bg-gray-100 transition"
-          >
-            Start Free Assessment
-            <ArrowRight className="w-5 h-5" />
-          </Link>
+          <div className="flex flex-col sm:flex-row items-center justify-center gap-4">
+            <Link 
+              href="/signup"
+              className="inline-flex items-center gap-2 px-8 py-4 bg-white text-clarity-700 rounded-xl font-semibold text-lg hover:bg-gray-100 transition"
+            >
+              Create Free Account
+              <ArrowRight className="w-5 h-5" />
+            </Link>
+            <Link 
+              href="/pricing"
+              className="inline-flex items-center gap-2 px-8 py-4 bg-white/10 text-white rounded-xl font-semibold text-lg hover:bg-white/20 transition"
+            >
+              See Pricing
+            </Link>
+          </div>
         </div>
       </section>
 
@@ -313,11 +464,15 @@ export default function LandingPage() {
           <div className="flex flex-col md:flex-row items-center justify-between gap-4">
             <div className="flex items-center gap-2">
               <Brain className="w-6 h-6 text-clarity-400" />
-              <span className="text-white font-semibold">Clarity Kit</span>
-              <span className="text-gray-500">by AIHackers</span>
+              <span className="text-white font-semibold">ELVAIT</span>
+            </div>
+            <div className="flex items-center gap-6 text-sm">
+              <Link href="/pricing" className="hover:text-white transition">Pricing</Link>
+              <Link href="/demo" className="hover:text-white transition">Demo</Link>
+              <Link href="/contact" className="hover:text-white transition">Contact</Link>
             </div>
             <div className="text-sm">
-              © 2026 AIHackers. All rights reserved.
+              © 2026 ELVAIT. All rights reserved.
             </div>
           </div>
         </div>
