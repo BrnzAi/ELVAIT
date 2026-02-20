@@ -9,35 +9,43 @@ import { UserMenu } from '@/components/auth';
 const faqData = [
   {
     question: "What is ELVAIT?",
-    answer: "ELVAIT (Clarity Before Automation Kit) is a decision-support platform that helps organizations evaluate AI and automation investments before committing resources. It collects structured input from multiple stakeholders and produces objective, rule-based recommendations."
+    answer: "ELVAIT is a decision-support platform that helps organizations evaluate AI and automation investments before committing resources. It collects structured input from multiple stakeholders and produces objective, rule-based GO/CLARIFY/NO-GO recommendations."
+  },
+  {
+    question: "How much does it cost?",
+    answer: "Start free with 1 assessment. Starter plan is €79 per decision (up to 3 assessments). Professional is €149-299/month for unlimited assessments. Enterprise pricing is custom. No credit card required to start."
   },
   {
     question: "How does the scoring work?",
     answer: "The Investment Clarity Score (ICS) is calculated from 5 dimensions: Strategic Alignment (20%), Business Value (25%), Technical Feasibility (20%), Organizational Readiness (20%), and Risk Awareness (15%). Scores 75+ = GO, 50-74 = CLARIFY, below 50 = NO-GO."
   },
   {
-    question: "What are the kit variants?",
-    answer: "Quick Check (Executive only, 15 min) for fast signals, Core (Exec + Business + Tech, 45 min) for investment decisions, Full (All 4 roles + Process, 60+ min) for automation projects, and Process Standalone (Process Owner, 20 min) for process audits."
+    question: "What do I get with a free account?",
+    answer: "Free accounts include 1 active assessment, up to 10 respondents, full role breakdown analysis, all flags and insights, and the contradiction map. PDF reports and custom questions require a paid plan."
+  },
+  {
+    question: "How long does an assessment take?",
+    answer: "5-15 minutes per participant depending on role. Quick Check (Executive only) takes 15 min total, Core assessment takes 45 min across 3 roles, Full assessment takes 60+ min across 4 roles."
   },
   {
     question: "Can participants see each other's answers?",
-    answer: "No. Each participant only sees the decision context and their own questions. They cannot see other answers, the ICS score, flags, or recommendations. Only the assessment initiator can view results."
+    answer: "No. Each participant only sees the decision context and their own questions. They cannot see other answers, scores, flags, or recommendations. Only the assessment creator can view full results."
   },
   {
     question: "What are flags?",
-    answer: "Flags detect thinking maturity issues — patterns indicating unclear thinking or misalignment. Examples: Within-Role Contradiction, Narrative Inflation, Overconfidence, Cross-Role Mismatch, Ownership Diffusion. Critical flags can override recommendations to NO-GO."
+    answer: "Flags detect thinking maturity issues — patterns indicating unclear thinking or misalignment. Examples: Overconfidence, Cross-Role Mismatch, Ownership Diffusion. Critical flags can override recommendations to NO-GO."
   },
   {
-    question: "How long does a survey take?",
-    answer: "5-10 minutes per participant depending on role and kit variant. Questions are Likert scale (1-5), single select, and optional open text."
+    question: "Do I need to verify my email?",
+    answer: "No. You can start using ELVAIT immediately after signing up. Email verification is optional and doesn't block access to your assessment results."
   },
   {
-    question: "Can the recommendation be overridden?",
-    answer: "The system applies gate rules automatically: any dimension below 50 forces CLARIFY, critical flags force NO-GO, fewer than 2 roles responding forces CLARIFY. The AI never decides — recommendations are always rule-derived."
+    question: "Can I upgrade my plan later?",
+    answer: "Yes. Contact us anytime to upgrade from Free to Starter, Professional, or Enterprise. Your existing assessments and data will be preserved."
   },
   {
     question: "What happens to my data?",
-    answer: "All traffic uses HTTPS. Survey links use unique, unguessable tokens. No passwords stored for participants. Data is processed securely and only visible to the assessment initiator."
+    answer: "All traffic uses HTTPS. Survey links use unique, unguessable tokens. Data is processed securely and only visible to the assessment creator. We don't sell or share your data."
   }
 ];
 
