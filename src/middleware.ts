@@ -36,11 +36,16 @@ export function middleware(request: NextRequest) {
         },
       });
     }
+
+    // Redirect /md to /md/index.md
+    if (pathname === '/md' || pathname === '/md/') {
+      return NextResponse.redirect(new URL('/md/index.md', request.url));
+    }
   }
 
   return NextResponse.next();
 }
 
 export const config = {
-  matcher: '/md/:path*',
+  matcher: ['/md', '/md/:path*'],
 };
