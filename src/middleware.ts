@@ -37,9 +37,9 @@ export function middleware(request: NextRequest) {
       });
     }
 
-    // Redirect /md to /md/index.md
+    // Redirect /md to /md/index.html
     if (pathname === '/md' || pathname === '/md/') {
-      return NextResponse.redirect(new URL('/md/index.md', request.url));
+      return NextResponse.redirect(new URL('/md/index.html', request.url));
     }
   }
 
