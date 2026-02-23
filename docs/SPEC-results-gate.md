@@ -198,23 +198,30 @@ Opens a **bottom sheet / modal** (not a separate page):
 ## 5. Registration — Flow Requirements
 
 **Principles:**
-- Minimum friction: Email + Password or Google OAuth
-- Do **not** require email verification before unlocking results
-- After registration: automatically return to the same results page — **already unlocked**
+- Minimum friction: Email + Password (Google OAuth planned)
+- **Require email verification** before sign-in — users must verify email to unlock Tier 1 results
+- After registration: show "Check your email" message with verification link
+- After verification: user can sign in and results unlock
 
 **Fields:**
 ```
+Name (optional) ______
 Email ________________
-Password _____________  (or [Continue with Google])
-[Create account & see full results]
+Password _____________
+Confirm Password _____
+[Create account]
 
 By registering you agree to Terms · Privacy Policy
 ```
 
 **After registration:**
-- Results unlock instantly (Tier 1)
-- Case is automatically saved to "My Assessments"
-- Brief tooltip appears: "Results saved to your account"
+- User sees "Check your email" confirmation screen
+- Verification email sent with magic link
+- User clicks link → email verified → can now sign in
+- After sign in: results unlock (Tier 1), case saved to "My Assessments"
+
+**Sign-in error handling:**
+- If user tries to sign in before verifying: "Please verify your email before signing in"
 
 ---
 
@@ -264,15 +271,17 @@ The rest of the process is handled manually: outreach → invoice → bank trans
 ## 8. Technical Requirements (MVP for Launch)
 
 ### Must Have
-- [ ] Results page renders Tier 0 content without auth
-- [ ] Blur + lock overlay on Tier 1+ content
-- [ ] Click on locked element → modal with CTA
-- [ ] Registration (email/password + Google OAuth)
-- [ ] After registration — auto-unlock results on the same page
-- [ ] "My Assessments" — list of saved cases
-- [ ] 1-case limit for free account (upgrade prompt on second attempt)
-- [ ] Pricing page / modal with "Contact us" button (email form or mailto link)
-- [ ] **Minimal admin panel:** a role field per account that can be set manually (free / starter / professional / enterprise)
+- [x] Results page renders Tier 0 content without auth
+- [x] Blur + lock overlay on Tier 1+ content
+- [x] Click on locked element → modal with CTA
+- [x] Registration (email/password) with email verification
+- [x] Email verification required before sign-in
+- [x] After sign-in — results unlock on the same page
+- [x] "My Assessments" — list of saved cases (Dashboard)
+- [x] 1-case limit for free account (upgrade prompt on second attempt)
+- [x] Pricing page with "Contact us" button
+- [x] Contact form with email notification
+- [x] **Admin panel:** `/admin/users` with tier management (restricted to @brnz.ai, @elvait.ai)
 
 ### Manual Client Onboarding Process (no payment system required)
 

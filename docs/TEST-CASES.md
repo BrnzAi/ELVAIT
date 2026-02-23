@@ -293,3 +293,66 @@ npx vitest run
 | AC-008 | ICS >= 75 + no flags → GO | Scenarios 1, 12 |
 | AC-009 | Process standalone no ICS | Scenario 13 |
 | AC-010 | Multi-participant averaging | Scenario 15 |
+
+---
+
+## Results Gate Test Cases
+
+Tests for the tiered access system that gates results page content.
+
+### Authentication & Verification
+
+| # | Scenario | Expected | Test File |
+|---|----------|----------|-----------|
+| RG-01 | Unverified user tries to sign in | Blocked with "Please verify your email" | auth.test.ts |
+| RG-02 | Verified user signs in | Success, redirected to dashboard/returnTo | auth.test.ts |
+| RG-03 | Sign up sends verification email | Email sent with verification link | auth.test.ts |
+| RG-04 | Sign up does NOT auto-sign-in | Shows "Check your email" message | auth.test.ts |
+
+### Tier 0 - Anonymous Access
+
+| # | Scenario | Expected | Test File |
+|---|----------|----------|-----------|
+| RG-05 | Anonymous views results | Sees verdict, ICS, 2 flags, summary | results-gate.test.ts |
+| RG-06 | Anonymous clicks locked content | Opens unlock modal with signup CTA | results-gate.test.ts |
+| RG-07 | Anonymous tries PDF download | Shows upgrade modal | results-gate.test.ts |
+| RG-08 | Unverified = unauthenticated | Treated as Tier 0 | results-gate.test.ts |
+
+### Tier 1 - Free Account Access
+
+| # | Scenario | Expected | Test File |
+|---|----------|----------|-----------|
+| RG-09 | Free user views results | Sees all flags, role breakdown, contradiction map | results-gate.test.ts |
+| RG-10 | Free user creates first case | Allowed | results-gate.test.ts |
+| RG-11 | Free user creates second case | Blocked with upgrade prompt | results-gate.test.ts |
+| RG-12 | Free user tries PDF download | Blocked with upgrade prompt | results-gate.test.ts |
+
+### Tier 2+ - Paid Account Access
+
+| # | Scenario | Expected | Test File |
+|---|----------|----------|-----------|
+| RG-13 | Starter user downloads PDF | Allowed | results-gate.test.ts |
+| RG-14 | Starter user creates 4th case | Blocked (3 case limit) | results-gate.test.ts |
+| RG-15 | Professional user - unlimited cases | Allowed | results-gate.test.ts |
+| RG-16 | Enterprise user - all features | Full access | results-gate.test.ts |
+
+### Admin Access
+
+| # | Scenario | Expected | Test File |
+|---|----------|----------|-----------|
+| RG-17 | @brnz.ai user accesses /admin/users | Allowed | auth.test.ts |
+| RG-18 | @elvait.ai user accesses /admin/users | Allowed | auth.test.ts |
+| RG-19 | @gmail.com user accesses /admin/users | Blocked (redirect or 403) | auth.test.ts |
+
+### Running Results Gate Tests
+
+```bash
+# Run results gate tests only
+npx vitest run tests/results-gate.test.ts
+
+# Run auth tests (includes verification)
+npx vitest run tests/auth.test.ts
+
+# Run all tests
+npx vitest run
+```

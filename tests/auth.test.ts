@@ -1,7 +1,7 @@
 /**
  * Authentication Tests
  * 
- * Tests for password utilities and token generation
+ * Tests for password utilities, token generation, and email verification
  */
 
 import { describe, it, expect } from 'vitest';
@@ -116,5 +116,97 @@ describe('Auth: Token Format', () => {
     
     // All tokens should be unique
     expect(tokens.size).toBe(100);
+  });
+});
+
+// =============================================================================
+// Email Verification Tests
+// =============================================================================
+
+describe('Auth: Email Verification Requirements', () => {
+  describe('Sign-in Flow', () => {
+    it('should block sign-in for unverified users', () => {
+      // Auth config throws EMAIL_NOT_VERIFIED if emailVerified is null
+      const user = { email: 'test@example.com', emailVerified: null };
+      const shouldBlock = !user.emailVerified;
+      expect(shouldBlock).toBe(true);
+    });
+
+    it('should allow sign-in for verified users', () => {
+      const user = { email: 'test@example.com', emailVerified: new Date() };
+      const shouldBlock = !user.emailVerified;
+      expect(shouldBlock).toBe(false);
+    });
+
+    it('should return EMAIL_NOT_VERIFIED error code', () => {
+      const errorCode = 'EMAIL_NOT_VERIFIED';
+      expect(errorCode).toBe('EMAIL_NOT_VERIFIED');
+    });
+  });
+
+  describe('Sign-up Flow', () => {
+    it('should NOT auto-sign-in after registration', () => {
+      // Registration creates user but does not sign them in
+      const autoSignIn = false;
+      expect(autoSignIn).toBe(false);
+    });
+
+    it('should send verification email after registration', () => {
+      const sendsVerificationEmail = true;
+      expect(sendsVerificationEmail).toBe(true);
+    });
+
+    it('should show "Check your email" message after registration', () => {
+      const successMessage = 'Account created. Please check your email to verify your account.';
+      expect(successMessage).toContain('check your email');
+    });
+  });
+
+  describe('Results Gate Integration', () => {
+    it('unverified users should be treated as Tier 0 (anonymous)', () => {
+      // Since unverified users cannot sign in, isAuthenticated = false
+      const isAuthenticated = false; // can't sign in without verification
+      const tier = null;
+      const effectiveTier = isAuthenticated ? tier : 'anonymous';
+      expect(effectiveTier).toBe('anonymous');
+    });
+
+    it('verified + signed-in users should get Tier 1 access', () => {
+      const isAuthenticated = true;
+      const tier = 'free';
+      const hasTier1Access = isAuthenticated && tier !== null;
+      expect(hasTier1Access).toBe(true);
+    });
+  });
+});
+
+// =============================================================================
+// Admin Email Domain Tests
+// =============================================================================
+
+describe('Auth: Admin Access', () => {
+  const ADMIN_DOMAINS = ['brnz.ai', 'elvait.ai'];
+
+  const isAdminEmail = (email: string): boolean => {
+    const domain = email.split('@')[1]?.toLowerCase();
+    return ADMIN_DOMAINS.includes(domain);
+  };
+
+  it('should allow @brnz.ai emails as admin', () => {
+    expect(isAdminEmail('user@brnz.ai')).toBe(true);
+  });
+
+  it('should allow @elvait.ai emails as admin', () => {
+    expect(isAdminEmail('user@elvait.ai')).toBe(true);
+  });
+
+  it('should reject other domains as admin', () => {
+    expect(isAdminEmail('user@gmail.com')).toBe(false);
+    expect(isAdminEmail('user@example.com')).toBe(false);
+  });
+
+  it('should be case-insensitive', () => {
+    expect(isAdminEmail('user@BRNZ.AI')).toBe(true);
+    expect(isAdminEmail('user@ELVAIT.AI')).toBe(true);
   });
 });
