@@ -44,6 +44,10 @@ const faqData = [
     answer: "No. You can start using ELVAIT immediately after signing up. Email verification is optional and doesn't block access to your assessment results."
   },
   {
+    question: "Can I upgrade my plan later?",
+    answer: "Yes. You can upgrade anytime by contacting us. Moving from Free to Starter, Professional, or Enterprise preserves all your existing assessments and data. We'll set up your new tier within 24 hours."
+  },
+  {
     question: "What happens to my data?",
     answer: "All traffic uses HTTPS. Survey links use unique, unguessable tokens. Data is processed securely and only visible to the assessment creator. We don't sell or share your data."
   }
