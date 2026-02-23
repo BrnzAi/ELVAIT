@@ -6,17 +6,19 @@ const plans = [
     name: 'Free',
     price: '€0',
     priceDetail: 'forever',
-    description: 'Try your first assessment',
+    description: 'Quick Check for Decision Owners',
+    tier: 'Quick Check',
     features: [
-      { name: 'Active assessments', value: '1', included: true },
-      { name: 'Respondents per assessment', value: '10', included: true },
-      { name: 'Role breakdown', value: true, included: true },
-      { name: 'All flags & insights', value: true, included: true },
-      { name: 'Contradiction map', value: true, included: true },
+      { name: 'Assessments', value: '1', included: true },
+      { name: 'Assessment type', value: 'Quick Check', included: true },
+      { name: 'Respondents', value: '10', included: true },
+      { name: 'Basic GO/FIX/NO-GO verdict', value: true, included: true },
+      { name: 'Full role breakdown', value: false, included: false },
+      { name: 'All flags & insights', value: false, included: false },
+      { name: 'Contradiction detection', value: false, included: false },
+      { name: 'Executive summary', value: false, included: false },
       { name: 'PDF Reports', value: false, included: false },
-      { name: 'Custom roles', value: false, included: false },
       { name: 'Custom questions', value: false, included: false },
-      { name: 'Cross-case analytics', value: false, included: false },
       { name: 'API access', value: false, included: false },
     ],
     cta: 'Get Started',
@@ -24,67 +26,99 @@ const plans = [
     highlight: false,
   },
   {
-    name: 'Starter',
-    price: '€79',
-    priceDetail: 'per decision',
-    description: 'For important decisions',
+    name: 'Try Out',
+    price: '€199',
+    priceDetail: 'for 3 months',
+    description: 'Full assessment trial',
+    tier: 'Full Standard',
     features: [
-      { name: 'Active assessments', value: '3', included: true },
-      { name: 'Respondents per assessment', value: '25', included: true },
-      { name: 'Role breakdown', value: true, included: true },
+      { name: 'Assessments', value: '1', included: true },
+      { name: 'Assessment type', value: 'Full Standard', included: true },
+      { name: 'Respondents', value: '50', included: true },
+      { name: 'Basic GO/FIX/NO-GO verdict', value: true, included: true },
+      { name: 'Full role breakdown', value: true, included: true },
       { name: 'All flags & insights', value: true, included: true },
-      { name: 'Contradiction map', value: true, included: true },
+      { name: 'Contradiction detection', value: true, included: true },
+      { name: 'Executive summary', value: true, included: true },
       { name: 'PDF Reports', value: true, included: true },
-      { name: 'Custom roles', value: false, included: false },
       { name: 'Custom questions', value: false, included: false },
-      { name: 'Cross-case analytics', value: false, included: false },
       { name: 'API access', value: false, included: false },
     ],
     cta: 'Contact Us',
-    ctaLink: '/contact?plan=starter',
+    ctaLink: '/contact?plan=tryout',
     highlight: true,
+    note: '€199 credited toward Core upgrade',
   },
   {
-    name: 'Professional',
-    price: '€149–299',
-    priceDetail: 'per month',
-    description: 'For teams & consultants',
+    name: 'Core',
+    price: '€1,900',
+    priceDetail: 'per year',
+    description: 'For teams running multiple assessments',
+    tier: 'Core',
     features: [
-      { name: 'Active assessments', value: 'Unlimited', included: true },
-      { name: 'Respondents per assessment', value: '100', included: true },
-      { name: 'Role breakdown', value: true, included: true },
+      { name: 'Assessments', value: 'Up to 10', included: true },
+      { name: 'Assessment type', value: 'Core', included: true },
+      { name: 'Respondents', value: '150 per assessment', included: true },
+      { name: 'Basic GO/FIX/NO-GO verdict', value: true, included: true },
+      { name: 'Full role breakdown', value: true, included: true },
       { name: 'All flags & insights', value: true, included: true },
-      { name: 'Contradiction map', value: true, included: true },
+      { name: 'Contradiction detection', value: true, included: true },
+      { name: 'Executive summary', value: true, included: true },
       { name: 'PDF Reports', value: true, included: true },
-      { name: 'Custom roles', value: '+2 roles', included: true },
-      { name: 'Custom questions', value: 'Limited', included: true },
-      { name: 'Cross-case analytics', value: true, included: true },
+      { name: 'Custom questions', value: false, included: false },
       { name: 'API access', value: false, included: false },
     ],
     cta: 'Contact Us',
-    ctaLink: '/contact?plan=professional',
+    ctaLink: '/contact?plan=core',
     highlight: false,
+  },
+  {
+    name: 'Advanced',
+    price: '€3,500',
+    priceDetail: 'per year',
+    description: 'Flexible questions & AI insights',
+    tier: 'Advanced',
+    features: [
+      { name: 'Assessments', value: 'Up to 20', included: true },
+      { name: 'Assessment type', value: 'Advanced', included: true },
+      { name: 'Respondents', value: '250 per assessment', included: true },
+      { name: 'Basic GO/FIX/NO-GO verdict', value: true, included: true },
+      { name: 'Full role breakdown', value: true, included: true },
+      { name: 'All flags & insights', value: true, included: true },
+      { name: 'Contradiction detection', value: true, included: true },
+      { name: 'Executive summary', value: true, included: true },
+      { name: 'PDF Reports', value: true, included: true },
+      { name: 'Custom questions', value: 'Limited', included: true },
+      { name: 'API access', value: false, included: false },
+    ],
+    cta: 'Contact Us',
+    ctaLink: '/contact?plan=advanced',
+    highlight: false,
+    note: 'Includes AI clarity narrative & blind spot analysis',
   },
   {
     name: 'Enterprise',
     price: 'Custom',
-    priceDetail: 'annual contract',
-    description: 'For organizations',
+    priceDetail: 'upon request',
+    description: 'Full customization & API',
+    tier: 'Enterprise',
     features: [
-      { name: 'Active assessments', value: 'Unlimited', included: true },
-      { name: 'Respondents per assessment', value: 'Unlimited', included: true },
-      { name: 'Role breakdown', value: true, included: true },
+      { name: 'Assessments', value: 'Unlimited', included: true },
+      { name: 'Assessment type', value: 'Full Custom', included: true },
+      { name: 'Respondents', value: 'Unlimited', included: true },
+      { name: 'Basic GO/FIX/NO-GO verdict', value: true, included: true },
+      { name: 'Full role breakdown', value: true, included: true },
       { name: 'All flags & insights', value: true, included: true },
-      { name: 'Contradiction map', value: true, included: true },
+      { name: 'Contradiction detection', value: true, included: true },
+      { name: 'Executive summary', value: true, included: true },
       { name: 'PDF Reports', value: true, included: true },
-      { name: 'Custom roles', value: 'Unlimited', included: true },
       { name: 'Custom questions', value: 'Full', included: true },
-      { name: 'Cross-case analytics', value: true, included: true },
       { name: 'API access', value: true, included: true },
     ],
     cta: 'Contact Us',
     ctaLink: '/contact?plan=enterprise',
     highlight: false,
+    note: 'Org-wide dashboard, scoring logic modification, dedicated onboarding',
   },
 ];
 
@@ -112,33 +146,33 @@ export default function PricingPage() {
             Simple, transparent pricing
           </h1>
           <p className="text-xl text-gray-400 max-w-2xl mx-auto">
-            Start free. Upgrade when you need more assessments or advanced features.
+            Start free with Quick Check. Upgrade for full assessments and advanced features.
           </p>
         </div>
 
         {/* Pricing Grid */}
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-5 gap-4">
           {plans.map((plan) => (
             <div
               key={plan.name}
-              className={`rounded-2xl p-6 ${
+              className={`rounded-2xl p-5 ${
                 plan.highlight
                   ? 'bg-blue-600 ring-2 ring-blue-400'
                   : 'bg-gray-900 border border-gray-800'
               }`}
             >
               {/* Plan Header */}
-              <div className="mb-6">
+              <div className="mb-4">
                 <h2 className="text-lg font-semibold mb-1">{plan.name}</h2>
-                <p className={`text-sm ${plan.highlight ? 'text-blue-200' : 'text-gray-400'}`}>
+                <p className={`text-xs ${plan.highlight ? 'text-blue-200' : 'text-gray-400'}`}>
                   {plan.description}
                 </p>
               </div>
 
               {/* Price */}
-              <div className="mb-6">
-                <span className="text-4xl font-bold">{plan.price}</span>
-                <span className={`text-sm ml-2 ${plan.highlight ? 'text-blue-200' : 'text-gray-400'}`}>
+              <div className="mb-4">
+                <span className="text-3xl font-bold">{plan.price}</span>
+                <span className={`text-xs ml-1 ${plan.highlight ? 'text-blue-200' : 'text-gray-400'}`}>
                   {plan.priceDetail}
                 </span>
               </div>
@@ -146,7 +180,7 @@ export default function PricingPage() {
               {/* CTA */}
               <Link
                 href={plan.ctaLink}
-                className={`block w-full py-3 px-4 rounded-lg text-center font-medium transition-colors mb-6 ${
+                className={`block w-full py-2.5 px-4 rounded-lg text-center font-medium transition-colors mb-4 text-sm ${
                   plan.highlight
                     ? 'bg-white text-blue-600 hover:bg-gray-100'
                     : 'bg-gray-800 text-white hover:bg-gray-700'
@@ -155,21 +189,28 @@ export default function PricingPage() {
                 {plan.cta}
               </Link>
 
+              {/* Note */}
+              {plan.note && (
+                <p className={`text-xs mb-4 ${plan.highlight ? 'text-blue-200' : 'text-gray-500'}`}>
+                  {plan.note}
+                </p>
+              )}
+
               {/* Features */}
-              <ul className="space-y-3">
+              <ul className="space-y-2">
                 {plan.features.map((feature) => (
                   <li
                     key={feature.name}
-                    className={`flex items-start gap-2 text-sm ${
+                    className={`flex items-start gap-2 text-xs ${
                       !feature.included && !plan.highlight ? 'text-gray-500' : ''
                     }`}
                   >
                     {feature.included ? (
-                      <Check className={`w-4 h-4 mt-0.5 flex-shrink-0 ${
+                      <Check className={`w-3.5 h-3.5 mt-0.5 flex-shrink-0 ${
                         plan.highlight ? 'text-blue-200' : 'text-green-400'
                       }`} />
                     ) : (
-                      <X className={`w-4 h-4 mt-0.5 flex-shrink-0 ${
+                      <X className={`w-3.5 h-3.5 mt-0.5 flex-shrink-0 ${
                         plan.highlight ? 'text-blue-300' : 'text-gray-600'
                       }`} />
                     )}
@@ -186,6 +227,99 @@ export default function PricingPage() {
               </ul>
             </div>
           ))}
+        </div>
+
+        {/* Comparison Table */}
+        <div className="mt-20">
+          <h2 className="text-2xl font-bold mb-8 text-center">Compare all features</h2>
+          <div className="overflow-x-auto">
+            <table className="w-full text-sm">
+              <thead>
+                <tr className="border-b border-gray-800">
+                  <th className="text-left py-4 px-4 font-medium text-gray-400">Feature</th>
+                  {plans.map(plan => (
+                    <th key={plan.name} className="text-center py-4 px-2 font-semibold">
+                      {plan.name}
+                    </th>
+                  ))}
+                </tr>
+              </thead>
+              <tbody className="divide-y divide-gray-800">
+                <tr>
+                  <td className="py-3 px-4 text-gray-400">Assessments</td>
+                  <td className="py-3 px-2 text-center">1</td>
+                  <td className="py-3 px-2 text-center">1</td>
+                  <td className="py-3 px-2 text-center">Up to 10</td>
+                  <td className="py-3 px-2 text-center">Up to 20</td>
+                  <td className="py-3 px-2 text-center">Unlimited</td>
+                </tr>
+                <tr>
+                  <td className="py-3 px-4 text-gray-400">Tier</td>
+                  <td className="py-3 px-2 text-center">Quick Check</td>
+                  <td className="py-3 px-2 text-center">Full Standard</td>
+                  <td className="py-3 px-2 text-center">Core</td>
+                  <td className="py-3 px-2 text-center">Advanced</td>
+                  <td className="py-3 px-2 text-center">Custom</td>
+                </tr>
+                <tr>
+                  <td className="py-3 px-4 text-gray-400">Respondents</td>
+                  <td className="py-3 px-2 text-center">10</td>
+                  <td className="py-3 px-2 text-center">50</td>
+                  <td className="py-3 px-2 text-center">150</td>
+                  <td className="py-3 px-2 text-center">250</td>
+                  <td className="py-3 px-2 text-center">Unlimited</td>
+                </tr>
+                <tr>
+                  <td className="py-3 px-4 text-gray-400">Full results & insights</td>
+                  <td className="py-3 px-2 text-center"><X className="w-4 h-4 mx-auto text-gray-600" /></td>
+                  <td className="py-3 px-2 text-center"><Check className="w-4 h-4 mx-auto text-green-400" /></td>
+                  <td className="py-3 px-2 text-center"><Check className="w-4 h-4 mx-auto text-green-400" /></td>
+                  <td className="py-3 px-2 text-center"><Check className="w-4 h-4 mx-auto text-green-400" /></td>
+                  <td className="py-3 px-2 text-center"><Check className="w-4 h-4 mx-auto text-green-400" /></td>
+                </tr>
+                <tr>
+                  <td className="py-3 px-4 text-gray-400">PDF Reports</td>
+                  <td className="py-3 px-2 text-center"><X className="w-4 h-4 mx-auto text-gray-600" /></td>
+                  <td className="py-3 px-2 text-center"><Check className="w-4 h-4 mx-auto text-green-400" /></td>
+                  <td className="py-3 px-2 text-center"><Check className="w-4 h-4 mx-auto text-green-400" /></td>
+                  <td className="py-3 px-2 text-center"><Check className="w-4 h-4 mx-auto text-green-400" /></td>
+                  <td className="py-3 px-2 text-center"><Check className="w-4 h-4 mx-auto text-green-400" /></td>
+                </tr>
+                <tr>
+                  <td className="py-3 px-4 text-gray-400">Custom questions</td>
+                  <td className="py-3 px-2 text-center"><X className="w-4 h-4 mx-auto text-gray-600" /></td>
+                  <td className="py-3 px-2 text-center"><X className="w-4 h-4 mx-auto text-gray-600" /></td>
+                  <td className="py-3 px-2 text-center"><X className="w-4 h-4 mx-auto text-gray-600" /></td>
+                  <td className="py-3 px-2 text-center">Limited</td>
+                  <td className="py-3 px-2 text-center">Full</td>
+                </tr>
+                <tr>
+                  <td className="py-3 px-4 text-gray-400">AI clarity narrative</td>
+                  <td className="py-3 px-2 text-center"><X className="w-4 h-4 mx-auto text-gray-600" /></td>
+                  <td className="py-3 px-2 text-center"><X className="w-4 h-4 mx-auto text-gray-600" /></td>
+                  <td className="py-3 px-2 text-center"><X className="w-4 h-4 mx-auto text-gray-600" /></td>
+                  <td className="py-3 px-2 text-center"><Check className="w-4 h-4 mx-auto text-green-400" /></td>
+                  <td className="py-3 px-2 text-center"><Check className="w-4 h-4 mx-auto text-green-400" /></td>
+                </tr>
+                <tr>
+                  <td className="py-3 px-4 text-gray-400">API access</td>
+                  <td className="py-3 px-2 text-center"><X className="w-4 h-4 mx-auto text-gray-600" /></td>
+                  <td className="py-3 px-2 text-center"><X className="w-4 h-4 mx-auto text-gray-600" /></td>
+                  <td className="py-3 px-2 text-center"><X className="w-4 h-4 mx-auto text-gray-600" /></td>
+                  <td className="py-3 px-2 text-center"><X className="w-4 h-4 mx-auto text-gray-600" /></td>
+                  <td className="py-3 px-2 text-center"><Check className="w-4 h-4 mx-auto text-green-400" /></td>
+                </tr>
+                <tr>
+                  <td className="py-3 px-4 text-gray-400">Price</td>
+                  <td className="py-3 px-2 text-center font-semibold">Free</td>
+                  <td className="py-3 px-2 text-center font-semibold">€199/3mo</td>
+                  <td className="py-3 px-2 text-center font-semibold">€1,900/yr</td>
+                  <td className="py-3 px-2 text-center font-semibold">€3,500/yr</td>
+                  <td className="py-3 px-2 text-center font-semibold">Custom</td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
         </div>
 
         {/* FAQ / Contact Section */}

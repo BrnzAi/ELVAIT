@@ -17,11 +17,11 @@ const faqData = [
   },
   {
     question: "What do I get with a free account?",
-    answer: "Free accounts include 1 active assessment, up to 10 respondents, full role breakdown analysis, all flags and insights, the contradiction map, and the ability to save your cases. PDF reports require a paid plan."
+    answer: "Free accounts include 1 Quick Check assessment with up to 10 respondents. You get the basic GO/FIX FIRST/NO-GO verdict. Full results (role breakdown, all flags, contradiction map) and PDF reports require a paid plan starting at €199."
   },
   {
     question: "How much does it cost?",
-    answer: "Start free with 1 assessment. Starter plan is €79 per decision (up to 3 assessments). Professional is €149-299/month for unlimited assessments. Enterprise pricing is custom. No credit card required to start."
+    answer: "Start free with Quick Check (1 assessment, basic verdict). Try Out is €199 for 3 months (full assessment, credited toward Core). Core is €1,900/year (up to 10 assessments). Advanced is €3,500/year (up to 20 assessments, AI insights). Enterprise pricing is custom."
   },
   {
     question: "How does the scoring work?",
@@ -59,13 +59,12 @@ const pricingPlans = [
     name: 'Free',
     price: '€0',
     period: 'forever',
-    description: 'Try your first assessment',
+    description: 'Quick Check for Decision Owners',
     features: [
-      { name: 'Active assessments', value: '1', included: true },
-      { name: 'Respondents per assessment', value: '10', included: true },
-      { name: 'Role breakdown', value: true, included: true },
-      { name: 'All flags & insights', value: true, included: true },
-      { name: 'Contradiction map', value: true, included: true },
+      { name: 'Assessments', value: '1', included: true },
+      { name: 'Assessment type', value: 'Quick Check', included: true },
+      { name: 'Basic GO/FIX/NO-GO verdict', value: true, included: true },
+      { name: 'Full results & insights', value: false, included: false },
       { name: 'PDF Reports', value: false, included: false },
     ],
     cta: 'Get Started',
@@ -73,51 +72,68 @@ const pricingPlans = [
     highlighted: false,
   },
   {
-    name: 'Starter',
-    price: '€79',
-    period: 'per decision',
-    description: 'For important decisions',
+    name: 'Try Out',
+    price: '€199',
+    period: 'for 3 months',
+    description: 'Full assessment trial',
     features: [
-      { name: 'Active assessments', value: '3', included: true },
-      { name: 'Respondents per assessment', value: '25', included: true },
-      { name: 'Role breakdown', value: true, included: true },
-      { name: 'All flags & insights', value: true, included: true },
-      { name: 'Contradiction map', value: true, included: true },
-      { name: 'PDF Reports', value: true, included: true },
+      { name: 'Assessments', value: '1', included: true },
+      { name: 'Assessment type', value: 'Full Standard', included: true },
+      { name: 'All 5 roles', value: true, included: true },
+      { name: 'Up to 50 respondents', value: true, included: true },
+      { name: 'Executive summary', value: true, included: true },
+      { name: '€199 credited toward Core', value: true, included: true },
     ],
     cta: 'Contact Us',
-    href: '/contact?plan=starter',
+    href: '/contact?plan=tryout',
     highlighted: true,
   },
   {
-    name: 'Professional',
-    price: '€149–299',
-    period: 'per month',
-    description: 'For teams & consultants',
+    name: 'Core',
+    price: '€1,900',
+    period: 'per year',
+    description: 'For teams running multiple assessments',
     features: [
-      { name: 'Active assessments', value: 'Unlimited', included: true },
-      { name: 'Respondents per assessment', value: '100', included: true },
-      { name: 'Role breakdown', value: true, included: true },
-      { name: 'All flags & insights', value: true, included: true },
-      { name: 'Contradiction map', value: true, included: true },
+      { name: 'Assessments', value: 'Up to 10', included: true },
+      { name: '5 predefined roles', value: true, included: true },
+      { name: 'Contradiction detection', value: true, included: true },
+      { name: 'Up to 150 respondents', value: true, included: true },
+      { name: 'Executive summary', value: true, included: true },
       { name: 'PDF Reports', value: true, included: true },
     ],
     cta: 'Contact Us',
-    href: '/contact?plan=professional',
+    href: '/contact?plan=core',
+    highlighted: false,
+  },
+  {
+    name: 'Advanced',
+    price: '€3,500',
+    period: 'per year',
+    description: 'Flexible questions & AI insights',
+    features: [
+      { name: 'Assessments', value: 'Up to 20', included: true },
+      { name: 'Everything in Core', value: true, included: true },
+      { name: 'Flexible question & role architecture', value: true, included: true },
+      { name: 'Blind spot analysis', value: true, included: true },
+      { name: 'AI clarity narrative', value: true, included: true },
+      { name: 'Up to 250 respondents', value: true, included: true },
+    ],
+    cta: 'Contact Us',
+    href: '/contact?plan=advanced',
     highlighted: false,
   },
   {
     name: 'Enterprise',
     price: 'Custom',
-    period: 'annual contract',
-    description: 'For organizations',
+    period: 'upon request',
+    description: 'Full customization & API',
     features: [
-      { name: 'Active assessments', value: 'Unlimited', included: true },
-      { name: 'Respondents per assessment', value: 'Unlimited', included: true },
-      { name: 'Role breakdown', value: true, included: true },
-      { name: 'All flags & insights', value: true, included: true },
-      { name: 'Contradiction map', value: true, included: true },
-      { name: 'PDF Reports', value: true, included: true },
+      { name: 'Assessments', value: 'Unlimited', included: true },
+      { name: 'Full customization', value: true, included: true },
+      { name: 'Scoring logic modification', value: true, included: true },
+      { name: 'Org-wide dashboard', value: true, included: true },
+      { name: 'API integration', value: true, included: true },
+      { name: 'Dedicated onboarding', value: true, included: true },
     ],
     cta: 'Contact Us',
     href: '/contact?plan=enterprise',
@@ -253,140 +269,140 @@ export default function LandingPage() {
           </div>
 
           <div className="grid md:grid-cols-3 gap-8">
-            {/* Tier 0 - Anonymous */}
+            {/* Tier 0 - Free (Quick Check) */}
             <div className="relative bg-white dark:bg-gray-900 rounded-2xl p-8 shadow-lg border border-gray-200 dark:border-gray-800">
               <div className="absolute -top-3 left-6 px-3 py-1 bg-gray-500 text-white text-xs font-semibold rounded-full">
-                NO SIGNUP
+                FREE
               </div>
               <div className="flex items-center gap-3 mb-6">
                 <div className="w-12 h-12 bg-gray-100 dark:bg-gray-800 rounded-xl flex items-center justify-center">
                   <Eye className="w-6 h-6 text-gray-600 dark:text-gray-400" />
                 </div>
                 <div>
-                  <h3 className="text-xl font-bold">Try Free</h3>
-                  <p className="text-sm text-gray-500">Instant preview</p>
+                  <h3 className="text-xl font-bold">Quick Check</h3>
+                  <p className="text-sm text-gray-500">Basic verdict</p>
                 </div>
               </div>
               <ul className="space-y-3">
                 <li className="flex items-center gap-2 text-gray-700 dark:text-gray-300">
                   <Check className="w-5 h-5 text-green-500 flex-shrink-0" />
-                  <span>GO/FIX FIRST/NO-GO verdict</span>
+                  <span>1 assessment</span>
+                </li>
+                <li className="flex items-center gap-2 text-gray-700 dark:text-gray-300">
+                  <Check className="w-5 h-5 text-green-500 flex-shrink-0" />
+                  <span>Up to 10 respondents</span>
+                </li>
+                <li className="flex items-center gap-2 text-gray-700 dark:text-gray-300">
+                  <Check className="w-5 h-5 text-green-500 flex-shrink-0" />
+                  <span>GO/FIX/NO-GO verdict</span>
                 </li>
                 <li className="flex items-center gap-2 text-gray-700 dark:text-gray-300">
                   <Check className="w-5 h-5 text-green-500 flex-shrink-0" />
                   <span>Investment Clarity Score</span>
                 </li>
-                <li className="flex items-center gap-2 text-gray-700 dark:text-gray-300">
-                  <Check className="w-5 h-5 text-green-500 flex-shrink-0" />
-                  <span>Top 2 flags</span>
-                </li>
-                <li className="flex items-center gap-2 text-gray-700 dark:text-gray-300">
-                  <Check className="w-5 h-5 text-green-500 flex-shrink-0" />
-                  <span>Summary & next steps</span>
+                <li className="flex items-center gap-2 text-gray-400">
+                  <Lock className="w-5 h-5 flex-shrink-0" />
+                  <span>Full results & insights</span>
                 </li>
                 <li className="flex items-center gap-2 text-gray-400">
                   <Lock className="w-5 h-5 flex-shrink-0" />
-                  <span>Role breakdown</span>
-                </li>
-                <li className="flex items-center gap-2 text-gray-400">
-                  <Lock className="w-5 h-5 flex-shrink-0" />
-                  <span>All flags & insights</span>
+                  <span>PDF reports</span>
                 </li>
               </ul>
               <Link
-                href="/create"
+                href="/signup"
                 className="mt-6 block w-full py-3 px-4 bg-gray-100 dark:bg-gray-800 text-gray-900 dark:text-white rounded-lg font-medium text-center hover:bg-gray-200 dark:hover:bg-gray-700 transition"
               >
-                Try Now
+                Get Started
               </Link>
             </div>
 
-            {/* Tier 1 - Free Account */}
+            {/* Try Out - €199 */}
             <div className="relative bg-white dark:bg-gray-900 rounded-2xl p-8 shadow-xl border-2 border-clarity-500 transform scale-105">
               <div className="absolute -top-3 left-6 px-3 py-1 bg-clarity-600 text-white text-xs font-semibold rounded-full">
-                FREE ACCOUNT
+                TRY OUT · €199
               </div>
               <div className="flex items-center gap-3 mb-6">
                 <div className="w-12 h-12 bg-clarity-100 dark:bg-clarity-900/30 rounded-xl flex items-center justify-center">
                   <BarChart3 className="w-6 h-6 text-clarity-600" />
                 </div>
                 <div>
-                  <h3 className="text-xl font-bold">Full Results</h3>
-                  <p className="text-sm text-gray-500">Everything you need</p>
+                  <h3 className="text-xl font-bold">Full Standard</h3>
+                  <p className="text-sm text-gray-500">3 month trial</p>
                 </div>
               </div>
               <ul className="space-y-3">
                 <li className="flex items-center gap-2 text-gray-700 dark:text-gray-300">
                   <Check className="w-5 h-5 text-green-500 flex-shrink-0" />
-                  <span>Everything in Try Free</span>
+                  <span>1 full assessment</span>
+                </li>
+                <li className="flex items-center gap-2 text-gray-700 dark:text-gray-300">
+                  <Check className="w-5 h-5 text-green-500 flex-shrink-0" />
+                  <span>All 5 roles</span>
                 </li>
                 <li className="flex items-center gap-2 text-gray-700 dark:text-gray-300 font-medium">
                   <Check className="w-5 h-5 text-clarity-500 flex-shrink-0" />
-                  <span>Role-by-role breakdown</span>
+                  <span>Up to 50 respondents</span>
                 </li>
                 <li className="flex items-center gap-2 text-gray-700 dark:text-gray-300 font-medium">
                   <Check className="w-5 h-5 text-clarity-500 flex-shrink-0" />
-                  <span>All flags & insights</span>
+                  <span>Full results & insights</span>
                 </li>
                 <li className="flex items-center gap-2 text-gray-700 dark:text-gray-300 font-medium">
                   <Check className="w-5 h-5 text-clarity-500 flex-shrink-0" />
-                  <span>Contradiction map</span>
+                  <span>Executive summary</span>
                 </li>
-                <li className="flex items-center gap-2 text-gray-700 dark:text-gray-300 font-medium">
-                  <Check className="w-5 h-5 text-clarity-500 flex-shrink-0" />
-                  <span>Save & revisit cases</span>
-                </li>
-                <li className="flex items-center gap-2 text-gray-400">
-                  <Lock className="w-5 h-5 flex-shrink-0" />
-                  <span>PDF report export</span>
+                <li className="flex items-center gap-2 text-gray-700 dark:text-gray-300">
+                  <Check className="w-5 h-5 text-green-500 flex-shrink-0" />
+                  <span>€199 credited to Core</span>
                 </li>
               </ul>
               <Link
-                href="/signup"
+                href="/contact?plan=tryout"
                 className="mt-6 block w-full py-3 px-4 bg-clarity-600 text-white rounded-lg font-medium text-center hover:bg-clarity-700 transition"
               >
-                Create Free Account
+                Contact Us
               </Link>
             </div>
 
             {/* Tier 2 - Paid */}
             <div className="relative bg-white dark:bg-gray-900 rounded-2xl p-8 shadow-lg border border-gray-200 dark:border-gray-800">
               <div className="absolute -top-3 left-6 px-3 py-1 bg-amber-500 text-white text-xs font-semibold rounded-full">
-                PAID PLANS
+                FROM €199
               </div>
               <div className="flex items-center gap-3 mb-6">
                 <div className="w-12 h-12 bg-amber-100 dark:bg-amber-900/30 rounded-xl flex items-center justify-center">
                   <Download className="w-6 h-6 text-amber-600" />
                 </div>
                 <div>
-                  <h3 className="text-xl font-bold">PDF Export</h3>
-                  <p className="text-sm text-gray-500">Share with stakeholders</p>
+                  <h3 className="text-xl font-bold">Full Results</h3>
+                  <p className="text-sm text-gray-500">Complete analysis & PDF</p>
                 </div>
               </div>
               <ul className="space-y-3">
-                <li className="flex items-center gap-2 text-gray-700 dark:text-gray-300">
-                  <Check className="w-5 h-5 text-green-500 flex-shrink-0" />
-                  <span>Everything in Free</span>
+                <li className="flex items-center gap-2 text-gray-700 dark:text-gray-300 font-medium">
+                  <Check className="w-5 h-5 text-amber-500 flex-shrink-0" />
+                  <span>Full role breakdown</span>
+                </li>
+                <li className="flex items-center gap-2 text-gray-700 dark:text-gray-300 font-medium">
+                  <Check className="w-5 h-5 text-amber-500 flex-shrink-0" />
+                  <span>All flags & insights</span>
+                </li>
+                <li className="flex items-center gap-2 text-gray-700 dark:text-gray-300 font-medium">
+                  <Check className="w-5 h-5 text-amber-500 flex-shrink-0" />
+                  <span>Contradiction detection</span>
                 </li>
                 <li className="flex items-center gap-2 text-gray-700 dark:text-gray-300 font-medium">
                   <Check className="w-5 h-5 text-amber-500 flex-shrink-0" />
                   <span>PDF report download</span>
                 </li>
-                <li className="flex items-center gap-2 text-gray-700 dark:text-gray-300 font-medium">
-                  <Check className="w-5 h-5 text-amber-500 flex-shrink-0" />
-                  <span>Up to 3 assessments (Starter)</span>
-                </li>
-                <li className="flex items-center gap-2 text-gray-700 dark:text-gray-300 font-medium">
-                  <Check className="w-5 h-5 text-amber-500 flex-shrink-0" />
-                  <span>Unlimited (Pro/Enterprise)</span>
+                <li className="flex items-center gap-2 text-gray-700 dark:text-gray-300">
+                  <Check className="w-5 h-5 text-green-500 flex-shrink-0" />
+                  <span>Up to 50 respondents</span>
                 </li>
                 <li className="flex items-center gap-2 text-gray-700 dark:text-gray-300">
                   <Check className="w-5 h-5 text-green-500 flex-shrink-0" />
-                  <span>More respondents</span>
-                </li>
-                <li className="flex items-center gap-2 text-gray-700 dark:text-gray-300">
-                  <Check className="w-5 h-5 text-green-500 flex-shrink-0" />
-                  <span>Priority support</span>
+                  <span>Executive summary</span>
                 </li>
               </ul>
               <Link
@@ -552,7 +568,7 @@ export default function LandingPage() {
             <p className="text-xl text-gray-600 dark:text-gray-400">Start free. Upgrade when you need more.</p>
           </div>
 
-          <div className="grid md:grid-cols-4 gap-6">
+          <div className="grid md:grid-cols-3 lg:grid-cols-5 gap-4">
             {pricingPlans.map((plan, i) => (
               <div 
                 key={i} 
