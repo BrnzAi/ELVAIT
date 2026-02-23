@@ -60,13 +60,13 @@ describe('Results Gate: Tier 0 (Anonymous)', () => {
 });
 
 // =============================================================================
-// Tier 1 - Free Account Access
+// Tier 1 - Free Account Access (Quick Check Only)
 // =============================================================================
 
-describe('Results Gate: Tier 1 (Free Account)', () => {
+describe('Results Gate: Tier 1 (Free Account - Quick Check Only)', () => {
   const access = getResultsAccess(true, 'free');
 
-  describe('Unlocked Content', () => {
+  describe('Basic Content (Same as Tier 0)', () => {
     it('should show all Tier 0 content', () => {
       expect(access.canViewVerdict).toBe(true);
       expect(access.canViewICS).toBe(true);
@@ -74,25 +74,24 @@ describe('Results Gate: Tier 1 (Free Account)', () => {
       expect(access.canViewNextSteps).toBe(true);
     });
 
-    it('should show role breakdown', () => {
-      expect(access.canViewRoleBreakdown).toBe(true);
-    });
-
-    it('should show all flags', () => {
-      expect(access.canViewAllFlags).toBe(true);
-      expect(access.visibleFlagsCount).toBe(Infinity);
-    });
-
-    it('should show contradiction map', () => {
-      expect(access.canViewContradictionMap).toBe(true);
-    });
-
     it('should allow saving case', () => {
       expect(access.canSaveCase).toBe(true);
     });
   });
 
-  describe('Still Locked Content', () => {
+  describe('Locked Content (Requires Paid Plan)', () => {
+    it('should NOT show role breakdown (Quick Check only)', () => {
+      expect(access.canViewRoleBreakdown).toBe(false);
+    });
+
+    it('should NOT show all flags (basic verdict only)', () => {
+      expect(access.canViewAllFlags).toBe(false);
+    });
+
+    it('should NOT show contradiction map', () => {
+      expect(access.canViewContradictionMap).toBe(false);
+    });
+
     it('should NOT allow PDF download', () => {
       expect(access.canDownloadPDF).toBe(false);
     });
@@ -104,7 +103,7 @@ describe('Results Gate: Tier 1 (Free Account)', () => {
 // =============================================================================
 
 describe('Results Gate: Tier 2+ (Paid)', () => {
-  const tiers: Tier[] = ['starter', 'professional', 'enterprise'];
+  const tiers: Tier[] = ['tryout', 'core', 'advanced', 'enterprise'];
 
   tiers.forEach(tier => {
     describe(`${tier} tier`, () => {
@@ -142,24 +141,42 @@ describe('Results Gate: Case Limits', () => {
     });
   });
 
-  describe('Starter tier (3 case limit)', () => {
-    it('should allow up to 3 cases', () => {
-      expect(canCreateCase('starter', 0).allowed).toBe(true);
-      expect(canCreateCase('starter', 1).allowed).toBe(true);
-      expect(canCreateCase('starter', 2).allowed).toBe(true);
+  describe('Try Out tier (1 case limit)', () => {
+    it('should allow first case', () => {
+      const result = canCreateCase('tryout', 0);
+      expect(result.allowed).toBe(true);
     });
 
-    it('should block 4th case', () => {
-      const result = canCreateCase('starter', 3);
+    it('should block second case', () => {
+      const result = canCreateCase('tryout', 1);
+      expect(result.allowed).toBe(false);
+      expect(result.reason).toContain('Try Out');
+    });
+  });
+
+  describe('Core tier (10 case limit)', () => {
+    it('should allow up to 10 cases', () => {
+      expect(canCreateCase('core', 0).allowed).toBe(true);
+      expect(canCreateCase('core', 5).allowed).toBe(true);
+      expect(canCreateCase('core', 9).allowed).toBe(true);
+    });
+
+    it('should block 11th case', () => {
+      const result = canCreateCase('core', 10);
       expect(result.allowed).toBe(false);
     });
   });
 
-  describe('Professional tier (unlimited)', () => {
-    it('should allow any number of cases', () => {
-      expect(canCreateCase('professional', 0).allowed).toBe(true);
-      expect(canCreateCase('professional', 100).allowed).toBe(true);
-      expect(canCreateCase('professional', 1000).allowed).toBe(true);
+  describe('Advanced tier (20 case limit)', () => {
+    it('should allow up to 20 cases', () => {
+      expect(canCreateCase('advanced', 0).allowed).toBe(true);
+      expect(canCreateCase('advanced', 10).allowed).toBe(true);
+      expect(canCreateCase('advanced', 19).allowed).toBe(true);
+    });
+
+    it('should block 21st case', () => {
+      const result = canCreateCase('advanced', 20);
+      expect(result.allowed).toBe(false);
     });
   });
 
@@ -167,6 +184,7 @@ describe('Results Gate: Case Limits', () => {
     it('should allow any number of cases', () => {
       expect(canCreateCase('enterprise', 0).allowed).toBe(true);
       expect(canCreateCase('enterprise', 100).allowed).toBe(true);
+      expect(canCreateCase('enterprise', 1000).allowed).toBe(true);
     });
   });
 });
@@ -190,17 +208,41 @@ describe('Results Gate: Tier Limits', () => {
     it('should NOT allow PDF download', () => {
       expect(limits.canDownloadPDF).toBe(false);
     });
+
+    it('should NOT allow full results (Quick Check only)', () => {
+      expect(limits.canViewFullResults).toBe(false);
+    });
   });
 
-  describe('Starter tier limits', () => {
-    const limits = TIER_LIMITS.starter;
+  describe('Try Out tier limits', () => {
+    const limits = TIER_LIMITS.tryout;
 
-    it('should have 3 case limit', () => {
-      expect(limits.maxCases).toBe(3);
+    it('should have 1 case limit', () => {
+      expect(limits.maxCases).toBe(1);
     });
 
-    it('should have 25 respondents per case', () => {
-      expect(limits.maxRespondentsPerCase).toBe(25);
+    it('should have 50 respondents per case', () => {
+      expect(limits.maxRespondentsPerCase).toBe(50);
+    });
+
+    it('should allow PDF download', () => {
+      expect(limits.canDownloadPDF).toBe(true);
+    });
+
+    it('should allow full results', () => {
+      expect(limits.canViewFullResults).toBe(true);
+    });
+  });
+
+  describe('Core tier limits', () => {
+    const limits = TIER_LIMITS.core;
+
+    it('should have 10 case limit', () => {
+      expect(limits.maxCases).toBe(10);
+    });
+
+    it('should have 150 respondents per case', () => {
+      expect(limits.maxRespondentsPerCase).toBe(150);
     });
 
     it('should allow PDF download', () => {
@@ -208,19 +250,23 @@ describe('Results Gate: Tier Limits', () => {
     });
   });
 
-  describe('Professional tier limits', () => {
-    const limits = TIER_LIMITS.professional;
+  describe('Advanced tier limits', () => {
+    const limits = TIER_LIMITS.advanced;
 
-    it('should have unlimited cases', () => {
-      expect(limits.maxCases).toBe(Infinity);
+    it('should have 20 case limit', () => {
+      expect(limits.maxCases).toBe(20);
     });
 
-    it('should have 100 respondents per case', () => {
-      expect(limits.maxRespondentsPerCase).toBe(100);
+    it('should have 250 respondents per case', () => {
+      expect(limits.maxRespondentsPerCase).toBe(250);
     });
 
     it('should allow PDF download', () => {
       expect(limits.canDownloadPDF).toBe(true);
+    });
+
+    it('should have AI insights', () => {
+      expect(limits.hasAIInsights).toBe(true);
     });
   });
 
@@ -237,6 +283,10 @@ describe('Results Gate: Tier Limits', () => {
 
     it('should allow PDF download', () => {
       expect(limits.canDownloadPDF).toBe(true);
+    });
+
+    it('should allow API access', () => {
+      expect(limits.canUseAPI).toBe(true);
     });
   });
 });
@@ -258,9 +308,17 @@ describe('Results Gate: Email Verification', () => {
     expect(unverifiedUserCanSignIn).toBe(false);
   });
 
-  it('verified + authenticated user gets Tier 1+ access', () => {
+  it('free tier user gets basic access (Quick Check only)', () => {
     const access = getResultsAccess(true, 'free');
+    // Free tier: can save case but NOT full results
+    expect(access.canSaveCase).toBe(true);
+    expect(access.canViewRoleBreakdown).toBe(false); // Quick Check only
+  });
+
+  it('paid tier user (tryout+) gets full access', () => {
+    const access = getResultsAccess(true, 'tryout');
     expect(access.canViewRoleBreakdown).toBe(true);
     expect(access.canViewAllFlags).toBe(true);
+    expect(access.canDownloadPDF).toBe(true);
   });
 });

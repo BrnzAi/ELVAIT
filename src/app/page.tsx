@@ -45,7 +45,7 @@ const faqData = [
   },
   {
     question: "Can I upgrade my plan later?",
-    answer: "Yes. You can upgrade anytime by contacting us. Moving from Free to Starter, Professional, or Enterprise preserves all your existing assessments and data. We'll set up your new tier within 24 hours."
+    answer: "Yes. You can upgrade anytime by contacting us. Moving from Free to Try Out, Core, Advanced, or Enterprise preserves all your existing assessments and data. The €199 Try Out fee is credited toward a Core subscription."
   },
   {
     question: "What happens to my data?",

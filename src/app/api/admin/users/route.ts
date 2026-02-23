@@ -75,7 +75,7 @@ export async function PATCH(request: NextRequest) {
     const { userId, tier } = body;
     
     // Validate tier
-    const validTiers: Tier[] = ['free', 'starter', 'professional', 'enterprise'];
+    const validTiers: Tier[] = ['free', 'tryout', 'core', 'advanced', 'enterprise'];
     if (!validTiers.includes(tier)) {
       return NextResponse.json(
         { error: 'Invalid tier' },

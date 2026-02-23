@@ -23,8 +23,9 @@ interface UserData {
 
 const TIERS: { id: Tier; label: string; icon: typeof User }[] = [
   { id: 'free', label: 'Free', icon: User },
-  { id: 'starter', label: 'Starter', icon: Shield },
-  { id: 'professional', label: 'Professional', icon: Crown },
+  { id: 'tryout', label: 'Try Out', icon: Shield },
+  { id: 'core', label: 'Core', icon: Crown },
+  { id: 'advanced', label: 'Advanced', icon: Crown },
   { id: 'enterprise', label: 'Enterprise', icon: Building2 },
 ];
 
@@ -181,11 +182,12 @@ export default function AdminUsersPage() {
                   <td className="px-6 py-4">
                     <span className={`inline-flex items-center gap-1.5 px-2.5 py-1 rounded-full text-sm font-medium ${
                       user.tier === 'enterprise' ? 'bg-purple-100 text-purple-800 dark:bg-purple-900/30 dark:text-purple-300' :
-                      user.tier === 'professional' ? 'bg-blue-100 text-blue-800 dark:bg-blue-900/30 dark:text-blue-300' :
-                      user.tier === 'starter' ? 'bg-green-100 text-green-800 dark:bg-green-900/30 dark:text-green-300' :
+                      user.tier === 'advanced' ? 'bg-amber-100 text-amber-800 dark:bg-amber-900/30 dark:text-amber-300' :
+                      user.tier === 'core' ? 'bg-blue-100 text-blue-800 dark:bg-blue-900/30 dark:text-blue-300' :
+                      user.tier === 'tryout' ? 'bg-green-100 text-green-800 dark:bg-green-900/30 dark:text-green-300' :
                       'bg-gray-100 text-gray-800 dark:bg-gray-800 dark:text-gray-300'
                     }`}>
-                      {user.tier.charAt(0).toUpperCase() + user.tier.slice(1)}
+                      {user.tier === 'tryout' ? 'Try Out' : user.tier.charAt(0).toUpperCase() + user.tier.slice(1)}
                     </span>
                   </td>
                   <td className="px-6 py-4">
