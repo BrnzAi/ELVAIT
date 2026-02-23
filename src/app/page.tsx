@@ -41,7 +41,7 @@ const faqData = [
   },
   {
     question: "Do I need to verify my email?",
-    answer: "No. You can start using ELVAIT immediately after signing up. Email verification is optional and doesn't block access to your assessment results."
+    answer: "Yes. After signing up, you'll receive a verification email. Click the link to activate your account and unlock full access to your assessment results."
   },
   {
     question: "Can I upgrade my plan later?",
