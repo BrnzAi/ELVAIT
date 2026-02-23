@@ -176,8 +176,8 @@
   
   <div class="meta">
     <strong>Product:</strong> Clarity Before Automation Kit<br>
-    <strong>Version:</strong> 2.0<br>
-    <strong>Last Updated:</strong> 2026-02-20<br>
+    <strong>Version:</strong> 2.1<br>
+    <strong>Last Updated:</strong> 2026-02-23<br>
     <strong>Status:</strong> Production<br>
     <strong>URL:</strong> <a href="https://elvait.ai">https://elvait.ai</a>
   </div>
@@ -296,44 +296,52 @@
 
   <table>
     <tr>
-      <th>Tier</th>
+      <th>Package</th>
       <th>Price</th>
-      <th>Max Cases</th>
+      <th>Assessments</th>
       <th>Respondents</th>
-      <th>PDF Export</th>
-      <th>Custom Roles</th>
+      <th>Assessment Type</th>
+      <th>Key Features</th>
     </tr>
     <tr>
       <td><span class="tag">Free</span></td>
       <td>€0</td>
       <td>1</td>
       <td>10</td>
-      <td>❌</td>
-      <td>❌</td>
+      <td>Quick Check</td>
+      <td>Basic GO/FIX/NO-GO verdict only</td>
     </tr>
     <tr>
-      <td><span class="tag green">Starter</span></td>
-      <td>€79/decision</td>
-      <td>3</td>
-      <td>25</td>
-      <td>✅</td>
-      <td>❌</td>
+      <td><span class="tag purple">Try Out</span></td>
+      <td>€199 / 3 months</td>
+      <td>1</td>
+      <td>50</td>
+      <td>Full Standard</td>
+      <td>All 5 roles, full results, €199 credited to Core</td>
     </tr>
     <tr>
-      <td><span class="tag purple">Professional</span></td>
-      <td>€149–299/mo</td>
-      <td>Unlimited</td>
-      <td>100</td>
-      <td>✅</td>
-      <td>+2 roles</td>
+      <td><span class="tag green">Core</span></td>
+      <td>€1,900 / year</td>
+      <td>Up to 10</td>
+      <td>150</td>
+      <td>Core</td>
+      <td>Contradiction detection, PDF reports</td>
     </tr>
     <tr>
-      <td><span class="tag amber">Enterprise</span></td>
+      <td><span class="tag amber">Advanced</span></td>
+      <td>€3,500 / year</td>
+      <td>Up to 20</td>
+      <td>250</td>
+      <td>Advanced</td>
+      <td>AI clarity narrative, blind spot analysis, flexible questions</td>
+    </tr>
+    <tr>
+      <td><span class="tag red">Enterprise</span></td>
       <td>Custom</td>
       <td>Unlimited</td>
       <td>Unlimited</td>
-      <td>✅</td>
-      <td>Unlimited</td>
+      <td>Full Custom</td>
+      <td>API, org-wide dashboard, scoring logic modification</td>
     </tr>
   </table>
 
@@ -341,7 +349,9 @@
     <strong>Tier Enforcement:</strong><br>
     • Tier stored on <code>User.tier</code> field (default: "free")<br>
     • Case limits enforced on <code>POST /api/cases</code><br>
-    • Admin can manually upgrade users at <code>/admin/users</code>
+    • Admin can manually upgrade users at <code>/admin/users</code><br>
+    • Free tier: Quick Check only, basic verdict, no full results<br>
+    • Try Out: €199 credited toward Core upgrade
   </div>
 
   <h2 id="variants">5. Kit Variants</h2>
@@ -438,6 +448,19 @@
     <li>At least one number</li>
   </ul>
 
+  <h3>6.4 Email Verification</h3>
+  <div class="warning">
+    <strong>⚠️ Email verification is REQUIRED before sign-in.</strong><br>
+    Users cannot access Tier 1+ features until email is verified.
+  </div>
+  <ol>
+    <li>User signs up → Verification email sent</li>
+    <li>User sees "Check your email" confirmation screen</li>
+    <li>User clicks verification link → <code>emailVerified</code> timestamp set</li>
+    <li>User can now sign in → Tier 1+ access unlocked</li>
+  </ol>
+  <p><strong>Error handling:</strong> If user tries to sign in before verification, auth returns <code>EMAIL_NOT_VERIFIED</code> error with clear message: "Please verify your email before signing in."</p>
+
   <h2 id="results-gate" class="section-new">7. Results Gate</h2>
 
   <div class="highlight">
@@ -514,9 +537,14 @@
     <li>Clicking locked content opens <code>UnlockModal</code></li>
     <li>Modal shows "Create free account" CTA</li>
     <li>User redirects to <code>/signup?returnTo=/cases/[id]/results</code></li>
-    <li>After registration, user auto-signs in and redirects back</li>
+    <li>User completes registration → sees "Check your email" screen</li>
+    <li>User clicks verification link in email → email verified</li>
+    <li>User signs in → redirects back to results page</li>
     <li>Full Tier 1 content now visible</li>
   </ol>
+  <div class="warning">
+    <strong>Note:</strong> Email verification is required before sign-in. Users cannot skip verification to access Tier 1 content.
+  </div>
 
   <h3>7.3 Key Components</h3>
   <table>
@@ -1066,7 +1094,7 @@ DecisionCase (1) ──┬── Participants (N)
   <ol>
     <li>Push to <code>main</code> triggers Vercel deployment</li>
     <li>Build runs (<code>prisma generate && next build</code>)</li>
-    <li>567 automated tests run via Vitest</li>
+    <li>622 automated tests run via Vitest</li>
     <li>Zero-downtime deployment on success</li>
   </ol>
 
@@ -1078,11 +1106,13 @@ DecisionCase (1) ──┬── Participants (N)
     <li>8 Thinking Maturity flags (TM-1 to TM-8)</li>
     <li>4 kit variants (Quick Check, Core, Full, Process)</li>
     <li>Demo system with 6 personas</li>
-    <li>User authentication (signup, signin, password reset)</li>
-    <li>Subscription tiers (free, starter, professional, enterprise)</li>
+    <li>User authentication (signup, signin, password reset, email verification)</li>
+    <li>Subscription tiers (Free, Try Out, Core, Advanced, Enterprise)</li>
     <li>Results Gate with tiered content</li>
-    <li>Admin panel for tier management</li>
-    <li>Pricing and contact pages</li>
+    <li>Admin panel for tier management (@brnz.ai, @elvait.ai)</li>
+    <li>Pricing page with 5 plans and comparison table</li>
+    <li>Contact form with email notification</li>
+    <li>Landing page with Results Gate messaging</li>
   </ul>
 
   <h3>Phase 2 (Planned)</h3>
@@ -1104,10 +1134,10 @@ DecisionCase (1) ──┬── Participants (N)
   </ul>
 
   <div class="footer">
-    <p><strong>ELVAIT PRD v2.0</strong> — February 2026</p>
+    <p><strong>ELVAIT PRD v2.1</strong> — February 2026</p>
     <p>Document maintained by ELVAIT development team</p>
     <p><a href="/md/index.html">← Back to Documentation</a></p>
   </div>
 </body>
 </html>
-<!-- Updated: Fri Feb 20 05:52:38 PM CET 2026 -->
+<!-- Updated: Sun Feb 23 07:45:00 PM CET 2026 -->
