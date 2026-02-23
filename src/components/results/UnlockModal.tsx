@@ -137,17 +137,21 @@ export function UnlockModal({
             </div>
 
             <p className="text-gray-300 mb-6">
-              Available on Starter and above plans.
+              Available on Try Out and above plans.
             </p>
 
             <div className="bg-gray-800 rounded-lg p-4 mb-6 space-y-3">
               <div className="flex justify-between items-center">
-                <span className="text-gray-300">Starter</span>
-                <span className="text-white font-medium">€79/decision</span>
+                <span className="text-gray-300">Try Out</span>
+                <span className="text-white font-medium">€199 for 3 months</span>
               </div>
               <div className="flex justify-between items-center">
-                <span className="text-gray-300">Professional</span>
-                <span className="text-white font-medium">from €149/month</span>
+                <span className="text-gray-300">Core</span>
+                <span className="text-white font-medium">€1,900/year</span>
+              </div>
+              <div className="flex justify-between items-center">
+                <span className="text-gray-300">Advanced</span>
+                <span className="text-white font-medium">€3,500/year</span>
               </div>
             </div>
 

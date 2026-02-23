@@ -168,8 +168,9 @@ function ContactForm() {
                   className="w-full px-4 py-3 bg-gray-800 border border-gray-700 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent"
                 >
                   <option value="">Select a plan (optional)</option>
-                  <option value="starter">Starter — €79/decision</option>
-                  <option value="professional">Professional — €149–299/month</option>
+                  <option value="tryout">Try Out — €199/3 months</option>
+                  <option value="core">Core — €1,900/year</option>
+                  <option value="advanced">Advanced — €3,500/year</option>
                   <option value="enterprise">Enterprise — Custom</option>
                 </select>
               </div>

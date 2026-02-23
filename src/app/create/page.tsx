@@ -244,15 +244,22 @@ export default function CreateCasePage() {
                 <div className="flex items-start gap-3 p-3 bg-gray-50 dark:bg-gray-800 rounded-lg">
                   <Sparkles className="w-5 h-5 text-blue-500 mt-0.5" />
                   <div>
-                    <p className="font-medium">Starter — €79/decision</p>
-                    <p className="text-sm text-gray-500">Up to 3 active assessments + PDF reports</p>
+                    <p className="font-medium">Try Out — €199/3 months</p>
+                    <p className="text-sm text-gray-500">1 full assessment + PDF report (credited to Core)</p>
                   </div>
                 </div>
                 <div className="flex items-start gap-3 p-3 bg-gray-50 dark:bg-gray-800 rounded-lg">
                   <Sparkles className="w-5 h-5 text-purple-500 mt-0.5" />
                   <div>
-                    <p className="font-medium">Professional — €149–299/month</p>
-                    <p className="text-sm text-gray-500">Unlimited assessments + cross-case analytics</p>
+                    <p className="font-medium">Core — €1,900/year</p>
+                    <p className="text-sm text-gray-500">Up to 10 assessments + PDF reports</p>
+                  </div>
+                </div>
+                <div className="flex items-start gap-3 p-3 bg-gray-50 dark:bg-gray-800 rounded-lg">
+                  <Sparkles className="w-5 h-5 text-green-500 mt-0.5" />
+                  <div>
+                    <p className="font-medium">Advanced — €3,500/year</p>
+                    <p className="text-sm text-gray-500">Up to 20 assessments + AI insights</p>
                   </div>
                 </div>
               </div>
@@ -265,7 +272,7 @@ export default function CreateCasePage() {
                   <ArrowRight className="w-4 h-4 ml-2" />
                 </Button>
               </Link>
-              <Link href="/contact?plan=starter">
+              <Link href="/contact?plan=tryout">
                 <Button variant="outline" size="lg">
                   Contact us
                 </Button>

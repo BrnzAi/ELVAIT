@@ -2,13 +2,11 @@
 
 import { useState, Suspense } from 'react';
 import Link from 'next/link';
-import { useRouter, useSearchParams } from 'next/navigation';
-import { signIn } from 'next-auth/react';
+import { useSearchParams } from 'next/navigation';
 import { Mail, Lock, User, ArrowRight, CheckCircle, AlertCircle, Sparkles } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 
 function SignUpForm() {
-  const router = useRouter();
   const searchParams = useSearchParams();
   const returnTo = searchParams.get('returnTo');
   
@@ -51,22 +49,8 @@ function SignUpForm() {
         throw new Error(data.error || 'Failed to create account');
       }
 
-      // If there's a returnTo URL (e.g., from results page), sign in immediately and redirect
-      if (returnTo) {
-        const signInResult = await signIn('credentials', {
-          email: formData.email,
-          password: formData.password,
-          redirect: false,
-        });
-
-        if (signInResult?.ok) {
-          // Redirect to the original page
-          router.push(returnTo);
-          return;
-        }
-      }
-
-      // Standard flow - show success message
+      // Email verification is required before sign-in
+      // Show success message prompting user to check their email
       setSuccess(true);
     } catch (err) {
       setError(err instanceof Error ? err.message : 'Something went wrong');
