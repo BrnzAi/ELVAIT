@@ -2,7 +2,7 @@
 
 import { useState } from 'react';
 import Link from 'next/link';
-import { ArrowRight, CheckCircle, AlertTriangle, XCircle, Users, Brain, FileText, Zap, ChevronDown, Check, X } from 'lucide-react';
+import { ArrowRight, CheckCircle, AlertTriangle, XCircle, Users, Brain, FileText, Zap, ChevronDown, Check, X, Lock, Eye, Download, Shield, Sparkles, BarChart3 } from 'lucide-react';
 import { UserMenu } from '@/components/auth';
 
 // FAQ Data
@@ -12,16 +12,20 @@ const faqData = [
     answer: "ELVAIT is a decision-support platform that helps organizations evaluate AI and automation investments before committing resources. It collects structured input from multiple stakeholders and produces objective, rule-based GO/CLARIFY/NO-GO recommendations."
   },
   {
+    question: "Can I try it without signing up?",
+    answer: "Yes! You can create and run a full assessment without an account. You'll see the verdict, Investment Clarity Score, top 2 flags, and summary immediately. Create a free account to unlock role breakdowns, all flags, and the contradiction map."
+  },
+  {
+    question: "What do I get with a free account?",
+    answer: "Free accounts include 1 active assessment, up to 10 respondents, full role breakdown analysis, all flags and insights, the contradiction map, and the ability to save your cases. PDF reports require a paid plan."
+  },
+  {
     question: "How much does it cost?",
     answer: "Start free with 1 assessment. Starter plan is €79 per decision (up to 3 assessments). Professional is €149-299/month for unlimited assessments. Enterprise pricing is custom. No credit card required to start."
   },
   {
     question: "How does the scoring work?",
     answer: "The Investment Clarity Score (ICS) is calculated from 5 dimensions: Strategic Alignment (20%), Business Value (25%), Technical Feasibility (20%), Organizational Readiness (20%), and Risk Awareness (15%). Scores 75+ = GO, 50-74 = CLARIFY, below 50 = NO-GO."
-  },
-  {
-    question: "What do I get with a free account?",
-    answer: "Free accounts include 1 active assessment, up to 10 respondents, full role breakdown analysis, all flags and insights, and the contradiction map. PDF reports and custom questions require a paid plan."
   },
   {
     question: "How long does an assessment take?",
@@ -38,10 +42,6 @@ const faqData = [
   {
     question: "Do I need to verify my email?",
     answer: "No. You can start using ELVAIT immediately after signing up. Email verification is optional and doesn't block access to your assessment results."
-  },
-  {
-    question: "Can I upgrade my plan later?",
-    answer: "Yes. Contact us anytime to upgrade from Free to Starter, Professional, or Enterprise. Your existing assessments and data will be preserved."
   },
   {
     question: "What happens to my data?",
@@ -61,8 +61,8 @@ const pricingPlans = [
       { name: 'Respondents per assessment', value: '10', included: true },
       { name: 'Role breakdown', value: true, included: true },
       { name: 'All flags & insights', value: true, included: true },
+      { name: 'Contradiction map', value: true, included: true },
       { name: 'PDF Reports', value: false, included: false },
-      { name: 'Custom questions', value: false, included: false },
     ],
     cta: 'Get Started',
     href: '/signup',
@@ -78,8 +78,8 @@ const pricingPlans = [
       { name: 'Respondents per assessment', value: '25', included: true },
       { name: 'Role breakdown', value: true, included: true },
       { name: 'All flags & insights', value: true, included: true },
+      { name: 'Contradiction map', value: true, included: true },
       { name: 'PDF Reports', value: true, included: true },
-      { name: 'Custom questions', value: false, included: false },
     ],
     cta: 'Contact Us',
     href: '/contact?plan=starter',
@@ -95,8 +95,8 @@ const pricingPlans = [
       { name: 'Respondents per assessment', value: '100', included: true },
       { name: 'Role breakdown', value: true, included: true },
       { name: 'All flags & insights', value: true, included: true },
+      { name: 'Contradiction map', value: true, included: true },
       { name: 'PDF Reports', value: true, included: true },
-      { name: 'Custom questions', value: 'Limited', included: true },
     ],
     cta: 'Contact Us',
     href: '/contact?plan=professional',
@@ -112,8 +112,8 @@ const pricingPlans = [
       { name: 'Respondents per assessment', value: 'Unlimited', included: true },
       { name: 'Role breakdown', value: true, included: true },
       { name: 'All flags & insights', value: true, included: true },
+      { name: 'Contradiction map', value: true, included: true },
       { name: 'PDF Reports', value: true, included: true },
-      { name: 'Custom questions', value: 'Unlimited', included: true },
     ],
     cta: 'Contact Us',
     href: '/contact?plan=enterprise',
@@ -159,7 +159,7 @@ export default function LandingPage() {
             <div className="w-10 h-10 rounded-xl bg-white/20 flex items-center justify-center">
               <Brain className="w-6 h-6 text-white" />
             </div>
-            <span className="text-xl font-bold text-white">Clarity Kit</span>
+            <span className="text-xl font-bold text-white">ELVAIT</span>
           </div>
           <div className="flex items-center gap-4">
             <Link href="/demo" className="text-white/80 hover:text-white transition">
@@ -172,10 +172,10 @@ export default function LandingPage() {
               My Assessments
             </Link>
             <Link 
-              href="/signup"
+              href="/create"
               className="px-4 py-2 bg-white text-clarity-700 rounded-lg font-medium hover:bg-gray-100 transition"
             >
-              Get Started
+              Try Free
             </Link>
             <UserMenu />
           </div>
@@ -183,8 +183,8 @@ export default function LandingPage() {
 
         <div className="relative z-10 max-w-7xl mx-auto px-6 py-24 text-center">
           <div className="inline-flex items-center gap-2 px-4 py-2 bg-white/10 rounded-full text-white/90 text-sm mb-8">
-            <Zap className="w-4 h-4" />
-            <span>Stop Automating Chaos</span>
+            <Sparkles className="w-4 h-4" />
+            <span>Try free — no signup required</span>
           </div>
           
           <h1 className="text-5xl md:text-7xl font-extrabold text-white mb-6 leading-tight">
@@ -193,12 +193,13 @@ export default function LandingPage() {
           </h1>
           
           <p className="text-xl md:text-2xl text-white/80 max-w-3xl mx-auto mb-10">
-            Get clarity on <strong className="text-white">what</strong>, <strong className="text-white">whether</strong>, and <strong className="text-white">how</strong> to automate — before you invest.
+            Get instant GO/NO-GO recommendations for your AI investments.<br />
+            <span className="text-white font-medium">Run your first assessment in 15 minutes.</span>
           </p>
 
           <div className="flex flex-col sm:flex-row items-center justify-center gap-4">
             <Link 
-              href="/signup"
+              href="/create"
               className="w-full sm:w-auto px-8 py-4 bg-white text-clarity-700 rounded-xl font-semibold text-lg hover:bg-gray-100 transition flex items-center justify-center gap-2"
             >
               Start Free Assessment
@@ -213,7 +214,7 @@ export default function LandingPage() {
           </div>
 
           <p className="mt-8 text-white/60 text-sm">
-            No credit card required • 15 minutes per stakeholder • Instant AI analysis
+            No credit card • No signup required • See results instantly
           </p>
         </div>
       </header>
@@ -237,8 +238,166 @@ export default function LandingPage() {
         </div>
       </section>
 
-      {/* How It Works */}
+      {/* Results Gate Preview Section */}
       <section className="py-24 bg-gray-50 dark:bg-gray-950">
+        <div className="max-w-7xl mx-auto px-6">
+          <div className="text-center mb-16">
+            <h2 className="text-4xl font-bold mb-4">See Results Instantly</h2>
+            <p className="text-xl text-gray-600 dark:text-gray-400">
+              Try before you sign up. Get more with a free account.
+            </p>
+          </div>
+
+          <div className="grid md:grid-cols-3 gap-8">
+            {/* Tier 0 - Anonymous */}
+            <div className="relative bg-white dark:bg-gray-900 rounded-2xl p-8 shadow-lg border border-gray-200 dark:border-gray-800">
+              <div className="absolute -top-3 left-6 px-3 py-1 bg-gray-500 text-white text-xs font-semibold rounded-full">
+                NO SIGNUP
+              </div>
+              <div className="flex items-center gap-3 mb-6">
+                <div className="w-12 h-12 bg-gray-100 dark:bg-gray-800 rounded-xl flex items-center justify-center">
+                  <Eye className="w-6 h-6 text-gray-600 dark:text-gray-400" />
+                </div>
+                <div>
+                  <h3 className="text-xl font-bold">Try Free</h3>
+                  <p className="text-sm text-gray-500">Instant preview</p>
+                </div>
+              </div>
+              <ul className="space-y-3">
+                <li className="flex items-center gap-2 text-gray-700 dark:text-gray-300">
+                  <Check className="w-5 h-5 text-green-500 flex-shrink-0" />
+                  <span>GO/FIX FIRST/NO-GO verdict</span>
+                </li>
+                <li className="flex items-center gap-2 text-gray-700 dark:text-gray-300">
+                  <Check className="w-5 h-5 text-green-500 flex-shrink-0" />
+                  <span>Investment Clarity Score</span>
+                </li>
+                <li className="flex items-center gap-2 text-gray-700 dark:text-gray-300">
+                  <Check className="w-5 h-5 text-green-500 flex-shrink-0" />
+                  <span>Top 2 flags</span>
+                </li>
+                <li className="flex items-center gap-2 text-gray-700 dark:text-gray-300">
+                  <Check className="w-5 h-5 text-green-500 flex-shrink-0" />
+                  <span>Summary & next steps</span>
+                </li>
+                <li className="flex items-center gap-2 text-gray-400">
+                  <Lock className="w-5 h-5 flex-shrink-0" />
+                  <span>Role breakdown</span>
+                </li>
+                <li className="flex items-center gap-2 text-gray-400">
+                  <Lock className="w-5 h-5 flex-shrink-0" />
+                  <span>All flags & insights</span>
+                </li>
+              </ul>
+              <Link
+                href="/create"
+                className="mt-6 block w-full py-3 px-4 bg-gray-100 dark:bg-gray-800 text-gray-900 dark:text-white rounded-lg font-medium text-center hover:bg-gray-200 dark:hover:bg-gray-700 transition"
+              >
+                Try Now
+              </Link>
+            </div>
+
+            {/* Tier 1 - Free Account */}
+            <div className="relative bg-white dark:bg-gray-900 rounded-2xl p-8 shadow-xl border-2 border-clarity-500 transform scale-105">
+              <div className="absolute -top-3 left-6 px-3 py-1 bg-clarity-600 text-white text-xs font-semibold rounded-full">
+                FREE ACCOUNT
+              </div>
+              <div className="flex items-center gap-3 mb-6">
+                <div className="w-12 h-12 bg-clarity-100 dark:bg-clarity-900/30 rounded-xl flex items-center justify-center">
+                  <BarChart3 className="w-6 h-6 text-clarity-600" />
+                </div>
+                <div>
+                  <h3 className="text-xl font-bold">Full Results</h3>
+                  <p className="text-sm text-gray-500">Everything you need</p>
+                </div>
+              </div>
+              <ul className="space-y-3">
+                <li className="flex items-center gap-2 text-gray-700 dark:text-gray-300">
+                  <Check className="w-5 h-5 text-green-500 flex-shrink-0" />
+                  <span>Everything in Try Free</span>
+                </li>
+                <li className="flex items-center gap-2 text-gray-700 dark:text-gray-300 font-medium">
+                  <Check className="w-5 h-5 text-clarity-500 flex-shrink-0" />
+                  <span>Role-by-role breakdown</span>
+                </li>
+                <li className="flex items-center gap-2 text-gray-700 dark:text-gray-300 font-medium">
+                  <Check className="w-5 h-5 text-clarity-500 flex-shrink-0" />
+                  <span>All flags & insights</span>
+                </li>
+                <li className="flex items-center gap-2 text-gray-700 dark:text-gray-300 font-medium">
+                  <Check className="w-5 h-5 text-clarity-500 flex-shrink-0" />
+                  <span>Contradiction map</span>
+                </li>
+                <li className="flex items-center gap-2 text-gray-700 dark:text-gray-300 font-medium">
+                  <Check className="w-5 h-5 text-clarity-500 flex-shrink-0" />
+                  <span>Save & revisit cases</span>
+                </li>
+                <li className="flex items-center gap-2 text-gray-400">
+                  <Lock className="w-5 h-5 flex-shrink-0" />
+                  <span>PDF report export</span>
+                </li>
+              </ul>
+              <Link
+                href="/signup"
+                className="mt-6 block w-full py-3 px-4 bg-clarity-600 text-white rounded-lg font-medium text-center hover:bg-clarity-700 transition"
+              >
+                Create Free Account
+              </Link>
+            </div>
+
+            {/* Tier 2 - Paid */}
+            <div className="relative bg-white dark:bg-gray-900 rounded-2xl p-8 shadow-lg border border-gray-200 dark:border-gray-800">
+              <div className="absolute -top-3 left-6 px-3 py-1 bg-amber-500 text-white text-xs font-semibold rounded-full">
+                PAID PLANS
+              </div>
+              <div className="flex items-center gap-3 mb-6">
+                <div className="w-12 h-12 bg-amber-100 dark:bg-amber-900/30 rounded-xl flex items-center justify-center">
+                  <Download className="w-6 h-6 text-amber-600" />
+                </div>
+                <div>
+                  <h3 className="text-xl font-bold">PDF Export</h3>
+                  <p className="text-sm text-gray-500">Share with stakeholders</p>
+                </div>
+              </div>
+              <ul className="space-y-3">
+                <li className="flex items-center gap-2 text-gray-700 dark:text-gray-300">
+                  <Check className="w-5 h-5 text-green-500 flex-shrink-0" />
+                  <span>Everything in Free</span>
+                </li>
+                <li className="flex items-center gap-2 text-gray-700 dark:text-gray-300 font-medium">
+                  <Check className="w-5 h-5 text-amber-500 flex-shrink-0" />
+                  <span>PDF report download</span>
+                </li>
+                <li className="flex items-center gap-2 text-gray-700 dark:text-gray-300 font-medium">
+                  <Check className="w-5 h-5 text-amber-500 flex-shrink-0" />
+                  <span>Up to 3 assessments (Starter)</span>
+                </li>
+                <li className="flex items-center gap-2 text-gray-700 dark:text-gray-300 font-medium">
+                  <Check className="w-5 h-5 text-amber-500 flex-shrink-0" />
+                  <span>Unlimited (Pro/Enterprise)</span>
+                </li>
+                <li className="flex items-center gap-2 text-gray-700 dark:text-gray-300">
+                  <Check className="w-5 h-5 text-green-500 flex-shrink-0" />
+                  <span>More respondents</span>
+                </li>
+                <li className="flex items-center gap-2 text-gray-700 dark:text-gray-300">
+                  <Check className="w-5 h-5 text-green-500 flex-shrink-0" />
+                  <span>Priority support</span>
+                </li>
+              </ul>
+              <Link
+                href="/pricing"
+                className="mt-6 block w-full py-3 px-4 bg-gray-100 dark:bg-gray-800 text-gray-900 dark:text-white rounded-lg font-medium text-center hover:bg-gray-200 dark:hover:bg-gray-700 transition"
+              >
+                View Plans
+              </Link>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      {/* How It Works */}
+      <section className="py-24 bg-white dark:bg-gray-900">
         <div className="max-w-7xl mx-auto px-6">
           <div className="text-center mb-16">
             <h2 className="text-4xl font-bold mb-4">How It Works</h2>
@@ -270,7 +429,7 @@ export default function LandingPage() {
               },
             ].map((phase, i) => (
               <div key={i} className="relative">
-                <div className="bg-white dark:bg-gray-900 rounded-2xl p-8 shadow-lg border border-gray-200 dark:border-gray-800 h-full">
+                <div className="bg-gray-50 dark:bg-gray-950 rounded-2xl p-8 shadow-lg border border-gray-200 dark:border-gray-800 h-full">
                   <div className={`w-14 h-14 ${phase.color} rounded-xl flex items-center justify-center mb-6`}>
                     <phase.icon className="w-7 h-7 text-white" />
                   </div>
@@ -290,7 +449,7 @@ export default function LandingPage() {
       </section>
 
       {/* Outcomes Section */}
-      <section className="py-24 bg-white dark:bg-gray-900">
+      <section className="py-24 bg-gray-50 dark:bg-gray-950">
         <div className="max-w-7xl mx-auto px-6">
           <div className="text-center mb-16">
             <h2 className="text-4xl font-bold mb-4">Clear Outcomes</h2>
@@ -341,6 +500,41 @@ export default function LandingPage() {
                 <li>• Prerequisites for success</li>
                 <li>• Alternative approaches</li>
               </ul>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      {/* Trust Section */}
+      <section className="py-16 bg-white dark:bg-gray-900 border-y border-gray-200 dark:border-gray-800">
+        <div className="max-w-7xl mx-auto px-6">
+          <div className="grid md:grid-cols-3 gap-8 text-center">
+            <div className="flex flex-col items-center">
+              <div className="w-12 h-12 bg-clarity-100 dark:bg-clarity-900/30 rounded-full flex items-center justify-center mb-4">
+                <Shield className="w-6 h-6 text-clarity-600" />
+              </div>
+              <h3 className="font-semibold mb-2">Private & Secure</h3>
+              <p className="text-sm text-gray-600 dark:text-gray-400">
+                HTTPS everywhere. Unique survey tokens. Only you see full results.
+              </p>
+            </div>
+            <div className="flex flex-col items-center">
+              <div className="w-12 h-12 bg-clarity-100 dark:bg-clarity-900/30 rounded-full flex items-center justify-center mb-4">
+                <Zap className="w-6 h-6 text-clarity-600" />
+              </div>
+              <h3 className="font-semibold mb-2">Instant Results</h3>
+              <p className="text-sm text-gray-600 dark:text-gray-400">
+                AI analysis runs in seconds. No waiting for consultants.
+              </p>
+            </div>
+            <div className="flex flex-col items-center">
+              <div className="w-12 h-12 bg-clarity-100 dark:bg-clarity-900/30 rounded-full flex items-center justify-center mb-4">
+                <Users className="w-6 h-6 text-clarity-600" />
+              </div>
+              <h3 className="font-semibold mb-2">Multi-Stakeholder</h3>
+              <p className="text-sm text-gray-600 dark:text-gray-400">
+                Collect perspectives from executives, tech leads, and end users.
+              </p>
             </div>
           </div>
         </div>
@@ -446,21 +640,22 @@ export default function LandingPage() {
             Ready to make confident automation decisions?
           </h2>
           <p className="text-xl text-white/80 mb-10">
-            Join organizations that evaluate before they invest. Start your first assessment for free.
+            Try your first assessment free — no signup required.<br />
+            Create an account to unlock full results.
           </p>
           <div className="flex flex-col sm:flex-row items-center justify-center gap-4">
             <Link 
-              href="/signup"
+              href="/create"
               className="inline-flex items-center gap-2 px-8 py-4 bg-white text-clarity-700 rounded-xl font-semibold text-lg hover:bg-gray-100 transition"
             >
-              Create Free Account
+              Start Free Assessment
               <ArrowRight className="w-5 h-5" />
             </Link>
             <Link 
-              href="/pricing"
+              href="/demo"
               className="inline-flex items-center gap-2 px-8 py-4 bg-white/10 text-white rounded-xl font-semibold text-lg hover:bg-white/20 transition"
             >
-              See Pricing
+              View Demo First
             </Link>
           </div>
         </div>
