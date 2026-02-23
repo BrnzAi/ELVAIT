@@ -110,6 +110,18 @@ Implement tiered access system with results gating to convert anonymous users to
 
 ---
 
+### Phase 7: Landing Page Update ✅ COMPLETED
+
+**Task 7.1: Update landing page for Results Gate** ✅
+- Updated hero with "Try free — no signup required" messaging
+- Added "See Results Instantly" section showing 3 tiers
+- Updated FAQ with "Can I try without signing up?" question
+- Changed primary CTA to "Try Free" → /create
+- Added Trust section (secure, instant, multi-stakeholder)
+- Changed brand from "Clarity Kit" to "ELVAIT" in nav
+
+---
+
 ## Remaining / Future Work
 
 1. **Case claim flow** — Allow users to claim anonymous cases they created before registering
@@ -120,4 +132,4 @@ Implement tiered access system with results gating to convert anonymous users to
 
 ---
 
-*Status: Core feature complete. All acceptance criteria met.*
+*Status: Core feature complete. All acceptance criteria met. Landing page updated.*
