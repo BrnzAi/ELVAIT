@@ -18,8 +18,9 @@ export function UserMenu() {
         setIsOpen(false);
       }
     }
-    document.addEventListener('mousedown', handleClickOutside);
-    return () => document.removeEventListener('mousedown', handleClickOutside);
+    // Use click instead of mousedown to allow menu items to handle their clicks first
+    document.addEventListener('click', handleClickOutside);
+    return () => document.removeEventListener('click', handleClickOutside);
   }, []);
 
   if (status === 'loading') {
@@ -87,17 +88,21 @@ export function UserMenu() {
           </div>
           
           <div className="p-1">
-            <Link
-              href="/dashboard"
-              onClick={() => setIsOpen(false)}
-              className="flex items-center gap-2 px-3 py-2 text-sm text-gray-300 hover:text-white hover:bg-gray-800 rounded-md transition-colors"
+            <button
+              onClick={(e) => {
+                e.preventDefault();
+                e.stopPropagation();
+                setIsOpen(false);
+                router.push('/dashboard');
+              }}
+              className="w-full flex items-center gap-2 px-3 py-2 text-sm text-gray-300 hover:text-white hover:bg-gray-800 rounded-md transition-colors text-left"
             >
               <LayoutDashboard className="w-4 h-4" />
               Dashboard
-            </Link>
+            </button>
             <button
               onClick={handleSignOut}
-              className="w-full flex items-center gap-2 px-3 py-2 text-sm text-gray-300 hover:text-white hover:bg-gray-800 rounded-md transition-colors"
+              className="w-full flex items-center gap-2 px-3 py-2 text-sm text-gray-300 hover:text-white hover:bg-gray-800 rounded-md transition-colors text-left"
             >
               <LogOut className="w-4 h-4" />
               Sign out

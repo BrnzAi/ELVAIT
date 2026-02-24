@@ -110,8 +110,11 @@ describe('UI: UserMenu Component', () => {
   });
 
   describe('Navigation Links', () => {
-    it('should have Dashboard link', () => {
-      expect(userMenuCode).toContain('href="/dashboard"');
+    it('should have Dashboard navigation', () => {
+      // Dashboard can be a Link with href OR a button with router.push
+      const hasDashboardLink = userMenuCode.includes('href="/dashboard"');
+      const hasDashboardPush = userMenuCode.includes("router.push('/dashboard')");
+      expect(hasDashboardLink || hasDashboardPush).toBe(true);
       expect(userMenuCode).toContain('Dashboard');
     });
   });
