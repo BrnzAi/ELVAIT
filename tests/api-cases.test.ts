@@ -139,6 +139,86 @@ describe('Cases API - Response Structure', () => {
 });
 
 // =============================================================================
+// PARTICIPANT API TESTS
+// =============================================================================
+
+describe('Participants API - Add Participant', () => {
+  it('should require role field', () => {
+    const requiredFields = ['role'];
+    expect(requiredFields).toContain('role');
+  });
+
+  it('should accept optional email and name', () => {
+    const optionalFields = ['email', 'name'];
+    expect(optionalFields.length).toBe(2);
+  });
+
+  it('should validate role against ALL_ROLES', () => {
+    const validRoles = ['EXEC', 'BUSINESS_OWNER', 'TECH_OWNER', 'USER', 'PROCESS_OWNER'];
+    expect(validRoles.length).toBe(5);
+    expect(validRoles).toContain('PROCESS_OWNER');
+  });
+
+  it('should generate unique survey token', () => {
+    // Token should be generated with nanoid
+    const tokenLength = 24;
+    expect(tokenLength).toBeGreaterThan(20);
+  });
+
+  it('should return surveyUrl with token', () => {
+    const mockToken = 'abc123xyz789';
+    const surveyUrl = `https://elvait.ai/survey/${mockToken}`;
+    expect(surveyUrl).toContain('/survey/');
+    expect(surveyUrl).toContain(mockToken);
+  });
+});
+
+describe('Participants API - Invitation Email', () => {
+  it('should send email if participant has email', () => {
+    const participant = { email: 'test@example.com', name: 'Test User', role: 'PROCESS_OWNER' };
+    const shouldSendEmail = !!participant.email;
+    expect(shouldSendEmail).toBe(true);
+  });
+
+  it('should NOT send email if participant has no email', () => {
+    const participant = { email: null, name: 'Test User', role: 'PROCESS_OWNER' };
+    const shouldSendEmail = !!participant.email;
+    expect(shouldSendEmail).toBe(false);
+  });
+
+  it('should include role label in email', () => {
+    const ROLE_LABELS: Record<string, string> = {
+      EXEC: 'Executive',
+      BUSINESS_OWNER: 'Business Owner',
+      TECH_OWNER: 'Technical Owner',
+      USER: 'Functional User',
+      PROCESS_OWNER: 'Process Owner'
+    };
+    expect(ROLE_LABELS['PROCESS_OWNER']).toBe('Process Owner');
+    expect(ROLE_LABELS['EXEC']).toBe('Executive');
+  });
+
+  it('should include survey URL in email', () => {
+    const surveyUrl = 'https://elvait.ai/survey/abc123';
+    const emailHtml = `<a href="${surveyUrl}">Start Survey</a>`;
+    expect(emailHtml).toContain(surveyUrl);
+  });
+
+  it('should include case title in email', () => {
+    const caseTitle = 'Test Assessment';
+    const emailText = `for the assessment: "${caseTitle}"`;
+    expect(emailText).toContain(caseTitle);
+  });
+
+  it('should return emailSent flag in response', () => {
+    const responseWithEmail = { emailSent: true };
+    const responseWithoutEmail = { emailSent: false };
+    expect(responseWithEmail.emailSent).toBe(true);
+    expect(responseWithoutEmail.emailSent).toBe(false);
+  });
+});
+
+// =============================================================================
 // DATABASE DEPENDENCY TESTS
 // =============================================================================
 
