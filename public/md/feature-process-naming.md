@@ -42,31 +42,39 @@ When the selected variant is **Full Assessment** or **Process Readiness Scan**, 
 - Each process has:
   - **Name** (required, max 80 chars) — e.g. "Order Fulfillment", "Customer Onboarding", "Invoice Processing"
   - **Description** (optional, max 200 chars) — brief context for participants
+  - **Weight** (required, default: equal) — importance weight as percentage, all weights must sum to 100%
 - Minimum: 1 process (cannot remove the last one)
 - Maximum: 5 processes (prevents survey fatigue)
 - Processes can be **reordered** (drag or up/down arrows) and **removed** (except last)
+- No template suggestions — users enter their own process names (companies have very specific naming)
 
 ### During Survey (Participant Experience)
 
 For **Process Owner** participants:
 
-- If the assessment has **1 process**: Survey works exactly as today (no change to UX)
-- If the assessment has **2+ processes**: 
+- Each Process Owner is **assigned to specific processes** (one or more) — they only evaluate the processes they're responsible for
+- If assigned to **1 process**: Survey works exactly as today (no change to UX)
+- If assigned to **2+ processes**: 
   - After the introductory context screen, participant sees: _"This assessment evaluates the following processes: [list]. You'll answer questions for each process separately."_
-  - Process Readiness questions repeat per process, with the process name shown prominently: _"Regarding: **[Process Name]**"_
+  - Process Readiness questions repeat per assigned process, with the process name shown prominently: _"Regarding: **[Process Name]**"_
   - Each process section is clearly separated with a header and optional description
   - Progress indicator shows which process they're on (e.g. "Process 2 of 3")
 
 For **User Representative** participants (Full Assessment only):
-- Same approach — Operational Reality questions may reference specific processes
-- If only 1 process, no change to UX
+- Same approach — assigned to specific processes, Operational Reality questions reference those processes
+- If assigned to only 1 process, no change to UX
 
 Other roles (Decision Owners, Business Owners, Technical Owners) are **not affected** — they answer their questions once, as today.
+
+**Participant assignment UI** (case detail page):
+- When adding a PROCESS_OWNER or USER participant, a process assignment selector appears
+- Checkboxes for each named process — at least one must be selected
+- Default: all processes selected
 
 ### Results & Scoring
 
 - **Per-process Process Readiness Score**: Each named process gets its own score (0–100)
-- **Aggregate Process Readiness Score**: Weighted average across all processes (equal weight by default)
+- **Aggregate Process Readiness Score**: Weighted average across all processes using user-defined weights (default: equal)
 - **Process Gate**: For Full Assessment, the gate uses the **lowest** individual process score (weakest link principle) — one broken process can still block GO
 - **Results page** shows:
   - Process scores in a table/chart comparing processes side by side
@@ -88,6 +96,7 @@ model AssessmentProcess {
   
   name        String       // e.g. "Order Fulfillment" (max 80 chars)
   description String?      // Optional context (max 200 chars)
+  weight      Int          @default(100) // Importance weight (percentage, all must sum to 100)
   sortOrder   Int          @default(0)
   
   createdAt   DateTime     @default(now())
@@ -95,9 +104,22 @@ model AssessmentProcess {
   
   // Relations
   responses   SurveyResponse[]
+  participants ParticipantProcess[]
   
   @@index([caseId])
   @@unique([caseId, sortOrder])
+}
+
+model ParticipantProcess {
+  id            String            @id @default(cuid())
+  participantId String
+  participant   Participant       @relation(fields: [participantId], references: [id], onDelete: Cascade)
+  processId     String
+  process       AssessmentProcess @relation(fields: [processId], references: [id], onDelete: Cascade)
+  
+  @@unique([participantId, processId])
+  @@index([participantId])
+  @@index([processId])
 }
 ```
 
@@ -108,13 +130,18 @@ model AssessmentProcess {
 processes    AssessmentProcess[]
 ```
 
+**Participant** — add relation:
+```prisma
+assignedProcesses  ParticipantProcess[]
+```
+
 **SurveyResponse** — add optional process link:
 ```prisma
 processId    String?
 process      AssessmentProcess? @relation(fields: [processId], references: [id])
 ```
 
-Responses for non-process roles (EXEC, BUSINESS_OWNER, TECH_OWNER) will have `processId = null`. Only PROCESS_OWNER and USER responses are linked to a specific process.
+Responses for non-process roles (EXEC, BUSINESS_OWNER, TECH_OWNER) will have `processId = null`. Only PROCESS_OWNER and USER responses are linked to a specific process. The `ParticipantProcess` join table controls which processes each participant evaluates.
 
 ---
 
@@ -187,19 +214,21 @@ Responses for non-process roles (EXEC, BUSINESS_OWNER, TECH_OWNER) will have `pr
 | Component | Complexity |
 |-----------|-----------|
 | Schema + migration | Small |
-| Create flow UI (ProcessEditor) | Medium |
+| Create flow UI (ProcessEditor + weights) | Medium |
+| Participant-process assignment UI | Medium |
 | API changes (CRUD + validation) | Medium |
 | Survey flow (per-process questions) | Medium-Large |
-| Scoring (per-process + aggregate) | Medium |
-| Results display | Medium |
+| Scoring (per-process weighted + aggregate) | Medium |
+| Results display (per-process breakdown) | Medium |
+| PDF report (per-process section) | Medium |
 | Tests | Medium |
-| **Total** | **~2-3 days** |
+| **Total** | **~3-4 days** |
 
 ---
 
-## Open Questions
+## Decisions (2026-02-24, confirmed by Katja)
 
-1. **Weight distribution**: Should all processes be equally weighted, or should users assign importance weights?
-2. **Process-specific participants**: Should different Process Owners be assignable to different processes, or does one Process Owner evaluate all processes?
-3. **PDF reports**: Should per-process breakdown appear in exported reports?
-4. **Process templates**: Should we offer common process name suggestions (e.g. "Order-to-Cash", "Hire-to-Retire")?
+1. **Weight distribution**: ✅ Users can assign importance weights to each process. Default: equal weight. UI shows weight sliders/inputs that must sum to 100%.
+2. **Process-specific participants**: ✅ Different Process Owners can be assigned to different processes. Each participant is linked to one or more specific processes rather than evaluating all.
+3. **PDF reports**: ✅ Per-process breakdown will appear in exported reports.
+4. **Process templates**: ❌ Not now. Companies have very specific process names, and sub-processes within standard frameworks (e.g. multiple processes within Order-to-Cash) make templates unreliable. Future consideration when the system recognizes repeatable patterns or customers request it.
