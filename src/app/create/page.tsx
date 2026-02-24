@@ -9,6 +9,7 @@ import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
 import { Textarea } from '@/components/ui/textarea';
 import { TIER_LIMITS, Tier } from '@/lib/tiers';
+import ProcessEditor, { ProcessEntry } from '@/components/cases/ProcessEditor';
 
 type KitVariant = 'QUICK_CHECK' | 'CORE' | 'FULL' | 'PROCESS_STANDALONE';
 
@@ -20,6 +21,7 @@ interface FormData {
   impactedAreas: string[];
   timeHorizon: string;
   estimatedInvestment: string;
+  processes: ProcessEntry[];
   dCtx1: string;
   dCtx2: string;
   dCtx3: string;
@@ -113,6 +115,7 @@ export default function CreateCasePage() {
     impactedAreas: [],
     timeHorizon: '',
     estimatedInvestment: '',
+    processes: [{ name: 'Main Process', description: '', weight: 100 }],
     dCtx1: '',
     dCtx2: '',
     dCtx3: '',
@@ -150,7 +153,7 @@ export default function CreateCasePage() {
     checkCaseLimit();
   }, [sessionStatus]);
 
-  const updateField = (field: keyof FormData, value: string | string[]) => {
+  const updateField = (field: keyof FormData, value: string | string[] | ProcessEntry[]) => {
     setFormData(prev => ({ ...prev, [field]: value }));
   };
 
@@ -182,13 +185,31 @@ export default function CreateCasePage() {
   const canProceed = () => {
     switch (step) {
       case 1: return !!formData.variant;
-      case 2: return formData.decisionTitle.length > 0 && 
-                     formData.decisionTitle.length <= 120 &&
-                     !!formData.investmentType &&
-                     formData.decisionDescription.length > 0 &&
-                     formData.decisionDescription.length <= 500 &&
-                     formData.impactedAreas.length > 0 &&
-                     !!formData.timeHorizon;
+      case 2: {
+        const basicValid = formData.decisionTitle.length > 0 && 
+                          formData.decisionTitle.length <= 120 &&
+                          !!formData.investmentType &&
+                          formData.decisionDescription.length > 0 &&
+                          formData.decisionDescription.length <= 500 &&
+                          formData.impactedAreas.length > 0 &&
+                          !!formData.timeHorizon;
+        
+        // Check process validation for variants that need it
+        if (formData.variant === 'FULL' || formData.variant === 'PROCESS_STANDALONE') {
+          const processesValid = formData.processes.length >= 1 &&
+                                formData.processes.length <= 5 &&
+                                formData.processes.every(p => p.name.trim().length > 0 && p.name.length <= 80) &&
+                                Math.abs(formData.processes.reduce((sum, p) => sum + p.weight, 0) - 100) < 0.1;
+          
+          // Check for unique process names
+          const names = formData.processes.map(p => p.name.trim().toLowerCase());
+          const uniqueNames = new Set(names);
+          
+          return basicValid && processesValid && names.length === uniqueNames.size;
+        }
+        
+        return basicValid;
+      }
       case 3: return formData.dCtx1.length > 0 && 
                      formData.dCtx2.length > 0 && 
                      formData.dCtx3.length > 0 && 
@@ -508,6 +529,16 @@ export default function CreateCasePage() {
                   ))}
                 </div>
               </div>
+
+              {/* Process Editor - only for variants that include Process Readiness */}
+              {(formData.variant === 'FULL' || formData.variant === 'PROCESS_STANDALONE') && (
+                <div className="p-6 bg-white dark:bg-gray-900 rounded-xl border border-gray-200 dark:border-gray-800">
+                  <ProcessEditor
+                    processes={formData.processes}
+                    onChange={(processes) => updateField('processes', processes)}
+                  />
+                </div>
+              )}
             </div>
           </div>
         )}

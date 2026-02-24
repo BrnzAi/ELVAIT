@@ -11,6 +11,14 @@ import {
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
 
+interface AssessmentProcess {
+  id: string;
+  name: string;
+  description: string | null;
+  weight: number;
+  sortOrder: number;
+}
+
 interface Participant {
   id: string;
   role: string;
@@ -19,6 +27,7 @@ interface Participant {
   token: string;
   status: string;
   surveyUrl: string;
+  assignedProcesses?: AssessmentProcess[];
 }
 
 interface CaseData {
@@ -36,6 +45,7 @@ interface CaseData {
   createdAt: string;
   firstResponseAt: string | null;
   participants: Participant[];
+  processes: AssessmentProcess[];
   _count: { responses: number; participants: number };
   completedParticipants: number;
 }
@@ -63,6 +73,7 @@ export default function CaseDetailPage() {
   const [error, setError] = useState<string | null>(null);
   const [addingRole, setAddingRole] = useState<string | null>(null);
   const [newParticipant, setNewParticipant] = useState({ name: '', email: '' });
+  const [selectedProcesses, setSelectedProcesses] = useState<string[]>([]);
   const [copiedToken, setCopiedToken] = useState<string | null>(null);
 
   const fetchCase = async () => {
@@ -84,19 +95,23 @@ export default function CaseDetailPage() {
 
   const addParticipant = async (role: string) => {
     try {
+      const needsProcessSelection = (role === 'PROCESS_OWNER' || role === 'USER') && caseData?.processes && caseData.processes.length > 0;
+      
       const response = await fetch(`/api/cases/${params.id}/participants`, {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({
           role,
           name: newParticipant.name || null,
-          email: newParticipant.email || null
+          email: newParticipant.email || null,
+          processIds: needsProcessSelection ? selectedProcesses : undefined
         })
       });
       
       if (!response.ok) throw new Error('Failed to add participant');
       
       setNewParticipant({ name: '', email: '' });
+      setSelectedProcesses([]);
       setAddingRole(null);
       fetchCase();
     } catch (err) {
@@ -232,7 +247,20 @@ export default function CaseDetailPage() {
                   <Button
                     variant="outline"
                     size="sm"
-                    onClick={() => setAddingRole(addingRole === role ? null : role)}
+                    onClick={() => {
+                      if (addingRole === role) {
+                        setAddingRole(null);
+                        setSelectedProcesses([]);
+                      } else {
+                        setAddingRole(role);
+                        // Default to all processes for PROCESS_OWNER and USER roles
+                        if ((role === 'PROCESS_OWNER' || role === 'USER') && caseData?.processes) {
+                          setSelectedProcesses(caseData.processes.map(p => p.id));
+                        } else {
+                          setSelectedProcesses([]);
+                        }
+                      }
+                    }}
                   >
                     <Plus className="w-4 h-4 mr-1" />
                     Add
@@ -252,11 +280,55 @@ export default function CaseDetailPage() {
                       value={newParticipant.email}
                       onChange={e => setNewParticipant(p => ({ ...p, email: e.target.value }))}
                     />
+                    
+                    {/* Process selection for PROCESS_OWNER and USER roles */}
+                    {(role === 'PROCESS_OWNER' || role === 'USER') && caseData?.processes && caseData.processes.length > 0 && (
+                      <div className="space-y-2">
+                        <label className="text-sm font-medium">
+                          Assign to processes:
+                        </label>
+                        <div className="space-y-2 max-h-40 overflow-y-auto">
+                          {caseData.processes.map(process => (
+                            <label key={process.id} className="flex items-start gap-2 cursor-pointer">
+                              <input
+                                type="checkbox"
+                                checked={selectedProcesses.includes(process.id)}
+                                onChange={e => {
+                                  if (e.target.checked) {
+                                    setSelectedProcesses(prev => [...prev, process.id]);
+                                  } else {
+                                    setSelectedProcesses(prev => prev.filter(id => id !== process.id));
+                                  }
+                                }}
+                                className="mt-1"
+                              />
+                              <div>
+                                <div className="text-sm font-medium">{process.name}</div>
+                                {process.description && (
+                                  <div className="text-xs text-gray-500">{process.description}</div>
+                                )}
+                              </div>
+                            </label>
+                          ))}
+                        </div>
+                        {selectedProcesses.length === 0 && (
+                          <p className="text-xs text-red-600">At least one process must be selected</p>
+                        )}
+                      </div>
+                    )}
+                    
                     <div className="flex gap-2">
-                      <Button size="sm" onClick={() => addParticipant(role)}>
+                      <Button 
+                        size="sm" 
+                        onClick={() => addParticipant(role)}
+                        disabled={(role === 'PROCESS_OWNER' || role === 'USER') && selectedProcesses.length === 0}
+                      >
                         Create Link
                       </Button>
-                      <Button size="sm" variant="outline" onClick={() => setAddingRole(null)}>
+                      <Button size="sm" variant="outline" onClick={() => {
+                        setAddingRole(null);
+                        setSelectedProcesses([]);
+                      }}>
                         Cancel
                       </Button>
                     </div>
@@ -282,6 +354,11 @@ export default function CaseDetailPage() {
                               {p.name || p.email || 'Anonymous'}
                             </p>
                             <p className="text-xs text-gray-500">{p.status.toLowerCase()}</p>
+                            {p.assignedProcesses && p.assignedProcesses.length > 0 && (
+                              <p className="text-xs text-gray-500">
+                                Processes: {p.assignedProcesses.map(proc => proc.name).join(', ')}
+                              </p>
+                            )}
                           </div>
                         </div>
                         <div className="flex items-center gap-2">
