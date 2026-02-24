@@ -151,13 +151,15 @@ describe('Scoring - Variant Weights (AC-SCORE-07)', () => {
     expect(config.activeRoles).toContain('TECH_OWNER');
   });
   
-  it('Full: Exec 40%, Business 20%, Tech 20%, Process 20%', () => {
+  it('Full: Exec 30%, Business 20%, Tech 20%, Process 15%, User 15%', () => {
     const config = VARIANT_CONFIG.FULL;
     
-    expect(config.weights.EXEC).toBe(0.40);
+    expect(config.weights.EXEC).toBe(0.30);
     expect(config.weights.BUSINESS_OWNER).toBe(0.20);
     expect(config.weights.TECH_OWNER).toBe(0.20);
-    expect(config.weights.PROCESS_OWNER).toBe(0.20);
+    expect(config.weights.PROCESS_OWNER).toBe(0.15);
+    expect(config.weights.USER).toBe(0.15);
+    expect(config.activeRoles).toContain('USER');
     expect(config.processIsGate).toBe(true);
   });
   

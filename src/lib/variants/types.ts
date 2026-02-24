@@ -37,27 +37,27 @@ export interface VariantDisplayInfo {
 export const VARIANT_DISPLAY: Record<KitVariant, VariantDisplayInfo> = {
   QUICK_CHECK: {
     name: 'Quick Check',
-    description: 'Fast executive signal',
+    description: 'Rapid executive clarity signal focused on strategic intent',
     estimatedTime: '15 minutes',
-    purpose: 'Get a rapid assessment of decision clarity from executive perspective only.'
+    purpose: 'Tests whether the initiative is conceptually sound before involving the wider organization.'
   },
   CORE: {
-    name: 'Decision Clarity (Core)',
-    description: 'Investment-grade assessment',
+    name: 'Decision Clarity',
+    description: 'Cross-functional alignment assessment',
     estimatedTime: '45 minutes total',
-    purpose: 'Comprehensive assessment with Executive, Business Owner, and Technical Owner perspectives.'
+    purpose: 'Identifies contradictions between intent, value expectations, and implementation reality — before investment commitment.'
   },
   FULL: {
-    name: 'Decision + Process Reality (Full)',
-    description: 'Automation-safe assessment',
+    name: 'Full Assessment',
+    description: 'The 360° Clarity Before Automation assessment',
     estimatedTime: '60+ minutes total',
-    purpose: 'Complete assessment including process readiness evaluation. Required for automation decisions.'
+    purpose: 'Evaluates strategic intent, value logic, technical feasibility, process stability, and operational reality — detecting structural risks before automation amplifies them.'
   },
   PROCESS_STANDALONE: {
-    name: 'Process Check (Standalone)',
-    description: 'Process readiness only',
+    name: 'Process Readiness Scan',
+    description: 'Process maturity and operational stability assessment',
     estimatedTime: '20 minutes',
-    purpose: 'Assess process readiness independently. Does not produce ICS score.'
+    purpose: 'Ensures automation will not institutionalize inefficiencies or unclear ownership.'
   }
 };
 

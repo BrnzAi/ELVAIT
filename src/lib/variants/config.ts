@@ -53,12 +53,13 @@ export const VARIANT_CONFIG: Record<KitVariant, VariantConfig> = {
    * - Users contribute signals to G3 (adoption risk) but not to ICS
    */
   FULL: {
-    activeRoles: ['EXEC', 'BUSINESS_OWNER', 'TECH_OWNER', 'PROCESS_OWNER'],
+    activeRoles: ['EXEC', 'BUSINESS_OWNER', 'TECH_OWNER', 'PROCESS_OWNER', 'USER'],
     weights: { 
-      EXEC: 0.40, 
+      EXEC: 0.30, 
       BUSINESS_OWNER: 0.20, 
       TECH_OWNER: 0.20, 
-      PROCESS_OWNER: 0.20 
+      PROCESS_OWNER: 0.15,
+      USER: 0.15
     },
     computeIcs: true,
     processIsGate: true,
@@ -189,9 +190,9 @@ export function getIcsWeights(variant: KitVariant): Record<Role, number> {
 export function getVariantDisplayName(variant: KitVariant): string {
   const names: Record<KitVariant, string> = {
     QUICK_CHECK: 'Quick Check',
-    CORE: 'Decision Clarity (Core)',
-    FULL: 'Decision + Process Reality (Full)',
-    PROCESS_STANDALONE: 'Process Check (Standalone)'
+    CORE: 'Decision Clarity',
+    FULL: 'Full Assessment',
+    PROCESS_STANDALONE: 'Process Readiness Scan'
   };
   return names[variant];
 }

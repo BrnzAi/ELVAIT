@@ -30,36 +30,40 @@ const VARIANTS = [
   {
     id: 'QUICK_CHECK' as KitVariant,
     name: 'Quick Check',
-    description: 'Fast executive signal',
+    description: 'Rapid executive clarity signal focused on strategic intent. Tests whether the initiative is conceptually sound before involving the wider organization.',
     time: '15 min',
-    roles: ['Executive'],
+    roles: ['Decision Owners'],
+    lenses: ['Strategy'],
     icon: Zap,
     color: 'blue'
   },
   {
     id: 'CORE' as KitVariant,
     name: 'Decision Clarity',
-    description: 'Investment-grade assessment',
+    description: 'Cross-functional alignment assessment across strategy, business logic, and technical feasibility. Identifies contradictions between intent, value expectations, and implementation reality — before investment commitment.',
     time: '45 min',
-    roles: ['Executive', 'Business Owner', 'Technical Owner'],
+    roles: ['Decision Owners', 'Business Owners', 'Technical Owners'],
+    lenses: ['Strategy', 'Business Value', 'Technical Feasibility'],
     icon: Brain,
     color: 'purple'
   },
   {
     id: 'FULL' as KitVariant,
     name: 'Full Assessment',
-    description: 'Automation-safe with process check',
+    description: 'The 360° Clarity Before Automation assessment. Evaluates strategic intent, value logic, technical feasibility, process stability, and operational reality — detecting structural risks before automation amplifies them.',
     time: '60+ min',
-    roles: ['Executive', 'Business Owner', 'Technical Owner', 'Process Owner'],
+    roles: ['Decision Owners', 'Business Owners', 'Technical Owners', 'Process Owners', 'User Representatives'],
+    lenses: ['Strategy', 'Business Value', 'Technical Feasibility', 'Process Readiness', 'Operational Reality'],
     icon: FileText,
     color: 'green'
   },
   {
     id: 'PROCESS_STANDALONE' as KitVariant,
-    name: 'Process Check',
-    description: 'Process readiness only',
+    name: 'Process Readiness Scan',
+    description: 'Focused assessment of process maturity and operational stability before digitization or automation. Ensures automation will not institutionalize inefficiencies or unclear ownership.',
     time: '20 min',
-    roles: ['Process Owner'],
+    roles: ['Process Owners'],
+    lenses: ['Process Readiness'],
     icon: Users,
     color: 'amber'
   }
@@ -361,6 +365,13 @@ export default function CreateCasePage() {
                     {variant.roles.map(role => (
                       <span key={role} className="px-2 py-0.5 bg-gray-100 dark:bg-gray-800 rounded text-xs">
                         {role}
+                      </span>
+                    ))}
+                  </div>
+                  <div className="mt-2 flex flex-wrap gap-1">
+                    {variant.lenses.map(lens => (
+                      <span key={lens} className="px-2 py-0.5 bg-clarity-100 dark:bg-clarity-900/30 text-clarity-700 dark:text-clarity-300 rounded text-xs">
+                        🔍 {lens}
                       </span>
                     ))}
                   </div>
