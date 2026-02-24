@@ -36,7 +36,8 @@ interface CaseData {
   createdAt: string;
   firstResponseAt: string | null;
   participants: Participant[];
-  _count: { responses: number };
+  _count: { responses: number; participants: number };
+  completedParticipants: number;
 }
 
 const ROLE_LABELS: Record<string, string> = {
@@ -175,7 +176,7 @@ export default function CaseDetailPage() {
           </div>
           
           {/* Prominent Results Banner */}
-          {caseData._count.responses > 0 && (
+          {caseData.completedParticipants > 0 && (
             <div className="mt-4 p-4 bg-green-50 dark:bg-green-900/20 border-2 border-green-200 dark:border-green-800 rounded-xl">
               <div className="flex flex-col sm:flex-row items-center justify-between gap-4">
                 <div className="flex items-center gap-3">
@@ -184,7 +185,7 @@ export default function CaseDetailPage() {
                   </div>
                   <div>
                     <p className="font-semibold text-green-900 dark:text-green-100">Results Available!</p>
-                    <p className="text-sm text-green-700 dark:text-green-300">{caseData._count.responses} responses collected</p>
+                    <p className="text-sm text-green-700 dark:text-green-300">{caseData.completedParticipants} participant{caseData.completedParticipants !== 1 ? 's' : ''} completed</p>
                   </div>
                 </div>
                 <Link href={`/cases/${caseData.id}/results`}>

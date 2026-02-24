@@ -74,7 +74,7 @@ export async function POST(request: NextRequest) {
     const token = await createVerificationToken(email);
     const verifyUrl = `${process.env.NEXT_PUBLIC_APP_URL}/verify-email?token=${token}`;
 
-    await sendEmail({
+    const emailResult = await sendEmail({
       to: email,
       subject: 'Verify your ELVAIT account',
       html: `
@@ -88,10 +88,15 @@ export async function POST(request: NextRequest) {
       text: `Welcome to ELVAIT!\n\nPlease verify your email by visiting: ${verifyUrl}\n\nThis link expires in 24 hours.\n\n— ELVAIT Team`,
     });
 
+    if (!emailResult.success) {
+      console.warn(`Failed to send verification email to ${email}: ${emailResult.error}`);
+    }
+
     return NextResponse.json(
       {
         success: true,
         message: 'Account created. Please check your email to verify your account.',
+        emailSent: emailResult.success,
       },
       { status: 201 }
     );

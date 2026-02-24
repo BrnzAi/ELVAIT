@@ -37,10 +37,22 @@ export async function GET(
         },
         summary: true,
         _count: {
-          select: { responses: true }
+          select: { 
+            responses: true,
+            participants: true
+          }
         }
       }
     });
+    
+    // Count completed participants separately
+    const completedParticipants = caseData ? 
+      await prisma.participant.count({
+        where: { 
+          caseId: id, 
+          status: 'COMPLETED' 
+        }
+      }) : 0;
     
     if (!caseData) {
       return NextResponse.json(
@@ -78,7 +90,8 @@ export async function GET(
     const response = {
       ...caseData,
       participants: participantsWithUrls,
-      impactedAreas: caseData.impactedAreas ? JSON.parse(caseData.impactedAreas) : []
+      impactedAreas: caseData.impactedAreas ? JSON.parse(caseData.impactedAreas) : [],
+      completedParticipants
     };
     
     return NextResponse.json(response);
