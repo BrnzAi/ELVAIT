@@ -167,10 +167,17 @@ export async function POST(
       }
     }
     
+    // Get assigned process names for the response
+    const assignedProcesses = assignedProcessIds.map(id => {
+      const process = caseData.processes.find(p => p.id === id);
+      return process ? { id: process.id, name: process.name } : null;
+    }).filter(Boolean);
+    
     return NextResponse.json({
-      ...participant,
+      ...result.participant,
       surveyUrl,
-      emailSent: !!email
+      emailSent: !!email,
+      assignedProcesses
     }, { status: 201 });
   } catch (error) {
     console.error('Error adding participant:', error);
@@ -198,7 +205,17 @@ export async function GET(
         status: true,
         invitedAt: true,
         startedAt: true,
-        completedAt: true
+        completedAt: true,
+        assignedProcesses: {
+          select: {
+            process: {
+              select: {
+                id: true,
+                name: true
+              }
+            }
+          }
+        }
       },
       orderBy: { invitedAt: 'asc' }
     });
@@ -221,7 +238,8 @@ export async function GET(
     
     const withUrls = participants.map(p => ({
       ...p,
-      surveyUrl: `${baseUrl}/survey/${p.token}`
+      surveyUrl: `${baseUrl}/survey/${p.token}`,
+      assignedProcesses: p.assignedProcesses.map(ap => ap.process)
     }));
     
     return NextResponse.json(withUrls);
