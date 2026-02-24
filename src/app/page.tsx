@@ -56,32 +56,17 @@ const faqData = [
 // Pricing Data
 const pricingPlans = [
   {
-    name: 'Free',
-    price: '€0',
-    period: 'forever',
-    description: 'Quick Check for Decision Owners',
-    features: [
-      { name: 'Assessments', value: '1', included: true },
-      { name: 'Assessment type', value: 'Quick Check', included: true },
-      { name: 'Basic GO/FIX/NO-GO verdict', value: true, included: true },
-      { name: 'Full results & insights', value: false, included: false },
-      { name: 'PDF Reports', value: false, included: false },
-    ],
-    cta: 'Get Started',
-    href: '/signup',
-    highlighted: false,
-  },
-  {
     name: 'Try Out',
     price: '€199',
     period: 'for 3 months',
     description: 'Full assessment trial',
     features: [
       { name: 'Assessments', value: '1', included: true },
-      { name: 'Assessment type', value: 'Full Standard', included: true },
       { name: 'All 5 roles', value: true, included: true },
       { name: 'Up to 50 respondents', value: true, included: true },
+      { name: 'Full results & insights', value: true, included: true },
       { name: 'Executive summary', value: true, included: true },
+      { name: 'PDF Reports', value: true, included: true },
       { name: '€199 credited toward Core', value: true, included: true },
     ],
     cta: 'Contact Us',
@@ -113,8 +98,8 @@ const pricingPlans = [
     features: [
       { name: 'Assessments', value: 'Up to 20', included: true },
       { name: 'Everything in Core', value: true, included: true },
-      { name: 'Flexible question & role architecture', value: true, included: true },
-      { name: 'Blind spot analysis', value: true, included: true },
+      { name: 'Custom roles', value: 'Limited', included: true },
+      { name: 'Custom questions', value: 'Limited', included: true },
       { name: 'AI clarity narrative', value: true, included: true },
       { name: 'Up to 250 respondents', value: true, included: true },
     ],
@@ -129,8 +114,8 @@ const pricingPlans = [
     description: 'Full customization & API',
     features: [
       { name: 'Assessments', value: 'Unlimited', included: true },
-      { name: 'Full customization', value: true, included: true },
-      { name: 'Scoring logic modification', value: true, included: true },
+      { name: 'Custom roles', value: 'Full', included: true },
+      { name: 'Custom questions', value: 'Full', included: true },
       { name: 'Org-wide dashboard', value: true, included: true },
       { name: 'API integration', value: true, included: true },
       { name: 'Dedicated onboarding', value: true, included: true },
@@ -272,7 +257,7 @@ export default function LandingPage() {
             {/* Tier 0 - Free (Quick Check) */}
             <div className="relative bg-white dark:bg-gray-900 rounded-2xl p-8 shadow-lg border border-gray-200 dark:border-gray-800">
               <div className="absolute -top-3 left-6 px-3 py-1 bg-gray-500 text-white text-xs font-semibold rounded-full">
-                FREE
+                QUICK CHECK
               </div>
               <div className="flex items-center gap-3 mb-6">
                 <div className="w-12 h-12 bg-gray-100 dark:bg-gray-800 rounded-xl flex items-center justify-center">
@@ -286,7 +271,11 @@ export default function LandingPage() {
               <ul className="space-y-3">
                 <li className="flex items-center gap-2 text-gray-700 dark:text-gray-300">
                   <Check className="w-5 h-5 text-green-500 flex-shrink-0" />
-                  <span>1 assessment</span>
+                  <span>1 Quick Check assessment</span>
+                </li>
+                <li className="flex items-center gap-2 text-gray-700 dark:text-gray-300">
+                  <Check className="w-5 h-5 text-green-500 flex-shrink-0" />
+                  <span>1 Role</span>
                 </li>
                 <li className="flex items-center gap-2 text-gray-700 dark:text-gray-300">
                   <Check className="w-5 h-5 text-green-500 flex-shrink-0" />
@@ -294,19 +283,11 @@ export default function LandingPage() {
                 </li>
                 <li className="flex items-center gap-2 text-gray-700 dark:text-gray-300">
                   <Check className="w-5 h-5 text-green-500 flex-shrink-0" />
-                  <span>GO/FIX/NO-GO verdict</span>
+                  <span>Basic GO/FIX/NO-GO verdict</span>
                 </li>
                 <li className="flex items-center gap-2 text-gray-700 dark:text-gray-300">
                   <Check className="w-5 h-5 text-green-500 flex-shrink-0" />
                   <span>Investment Clarity Score</span>
-                </li>
-                <li className="flex items-center gap-2 text-gray-400">
-                  <Lock className="w-5 h-5 flex-shrink-0" />
-                  <span>Full results & insights</span>
-                </li>
-                <li className="flex items-center gap-2 text-gray-400">
-                  <Lock className="w-5 h-5 flex-shrink-0" />
-                  <span>PDF reports</span>
                 </li>
               </ul>
               <Link
@@ -327,33 +308,37 @@ export default function LandingPage() {
                   <BarChart3 className="w-6 h-6 text-clarity-600" />
                 </div>
                 <div>
-                  <h3 className="text-xl font-bold">Full Standard</h3>
-                  <p className="text-sm text-gray-500">3 month trial</p>
+                  <h3 className="text-xl font-bold">Try Out</h3>
+                  <p className="text-sm text-gray-500">Full assessment trial</p>
                 </div>
               </div>
               <ul className="space-y-3">
                 <li className="flex items-center gap-2 text-gray-700 dark:text-gray-300">
                   <Check className="w-5 h-5 text-green-500 flex-shrink-0" />
-                  <span>1 full assessment</span>
+                  <span>1 Full assessment</span>
                 </li>
                 <li className="flex items-center gap-2 text-gray-700 dark:text-gray-300">
                   <Check className="w-5 h-5 text-green-500 flex-shrink-0" />
                   <span>All 5 roles</span>
                 </li>
-                <li className="flex items-center gap-2 text-gray-700 dark:text-gray-300 font-medium">
-                  <Check className="w-5 h-5 text-clarity-500 flex-shrink-0" />
+                <li className="flex items-center gap-2 text-gray-700 dark:text-gray-300">
+                  <Check className="w-5 h-5 text-green-500 flex-shrink-0" />
                   <span>Up to 50 respondents</span>
                 </li>
-                <li className="flex items-center gap-2 text-gray-700 dark:text-gray-300 font-medium">
-                  <Check className="w-5 h-5 text-clarity-500 flex-shrink-0" />
+                <li className="flex items-center gap-2 text-gray-700 dark:text-gray-300">
+                  <Check className="w-5 h-5 text-green-500 flex-shrink-0" />
                   <span>Full results & insights</span>
                 </li>
-                <li className="flex items-center gap-2 text-gray-700 dark:text-gray-300 font-medium">
-                  <Check className="w-5 h-5 text-clarity-500 flex-shrink-0" />
+                <li className="flex items-center gap-2 text-gray-700 dark:text-gray-300">
+                  <Check className="w-5 h-5 text-green-500 flex-shrink-0" />
                   <span>Executive summary</span>
                 </li>
                 <li className="flex items-center gap-2 text-gray-700 dark:text-gray-300">
                   <Check className="w-5 h-5 text-green-500 flex-shrink-0" />
+                  <span>PDF reports</span>
+                </li>
+                <li className="flex items-center gap-2 text-gray-700 dark:text-gray-300 font-medium">
+                  <Check className="w-5 h-5 text-clarity-500 flex-shrink-0" />
                   <span>€199 credited to Core</span>
                 </li>
               </ul>
@@ -365,44 +350,48 @@ export default function LandingPage() {
               </Link>
             </div>
 
-            {/* Tier 2 - Paid */}
+            {/* All Plans from €199 */}
             <div className="relative bg-white dark:bg-gray-900 rounded-2xl p-8 shadow-lg border border-gray-200 dark:border-gray-800">
               <div className="absolute -top-3 left-6 px-3 py-1 bg-amber-500 text-white text-xs font-semibold rounded-full">
-                FROM €199
+                ALL PLANS FROM €199
               </div>
               <div className="flex items-center gap-3 mb-6">
                 <div className="w-12 h-12 bg-amber-100 dark:bg-amber-900/30 rounded-xl flex items-center justify-center">
                   <Download className="w-6 h-6 text-amber-600" />
                 </div>
                 <div>
-                  <h3 className="text-xl font-bold">Full Results</h3>
-                  <p className="text-sm text-gray-500">Complete analysis & PDF</p>
+                  <h3 className="text-xl font-bold">Full Plans</h3>
+                  <p className="text-sm text-gray-500">Core to Enterprise</p>
                 </div>
               </div>
               <ul className="space-y-3">
-                <li className="flex items-center gap-2 text-gray-700 dark:text-gray-300 font-medium">
+                <li className="flex items-center gap-2 text-gray-700 dark:text-gray-300">
                   <Check className="w-5 h-5 text-amber-500 flex-shrink-0" />
-                  <span>Full role breakdown</span>
-                </li>
-                <li className="flex items-center gap-2 text-gray-700 dark:text-gray-300 font-medium">
-                  <Check className="w-5 h-5 text-amber-500 flex-shrink-0" />
-                  <span>All flags & insights</span>
-                </li>
-                <li className="flex items-center gap-2 text-gray-700 dark:text-gray-300 font-medium">
-                  <Check className="w-5 h-5 text-amber-500 flex-shrink-0" />
-                  <span>Contradiction detection</span>
-                </li>
-                <li className="flex items-center gap-2 text-gray-700 dark:text-gray-300 font-medium">
-                  <Check className="w-5 h-5 text-amber-500 flex-shrink-0" />
-                  <span>PDF report download</span>
+                  <span>10–Unlimited Full Assessments + customized</span>
                 </li>
                 <li className="flex items-center gap-2 text-gray-700 dark:text-gray-300">
-                  <Check className="w-5 h-5 text-green-500 flex-shrink-0" />
-                  <span>Up to 50 respondents</span>
+                  <Check className="w-5 h-5 text-amber-500 flex-shrink-0" />
+                  <span>All 5 roles + customized</span>
                 </li>
                 <li className="flex items-center gap-2 text-gray-700 dark:text-gray-300">
-                  <Check className="w-5 h-5 text-green-500 flex-shrink-0" />
+                  <Check className="w-5 h-5 text-amber-500 flex-shrink-0" />
+                  <span>50–Unlimited Respondents</span>
+                </li>
+                <li className="flex items-center gap-2 text-gray-700 dark:text-gray-300">
+                  <Check className="w-5 h-5 text-amber-500 flex-shrink-0" />
+                  <span>Full results & insights</span>
+                </li>
+                <li className="flex items-center gap-2 text-gray-700 dark:text-gray-300">
+                  <Check className="w-5 h-5 text-amber-500 flex-shrink-0" />
                   <span>Executive summary</span>
+                </li>
+                <li className="flex items-center gap-2 text-gray-700 dark:text-gray-300">
+                  <Check className="w-5 h-5 text-amber-500 flex-shrink-0" />
+                  <span>PDF reports</span>
+                </li>
+                <li className="flex items-center gap-2 text-gray-700 dark:text-gray-300">
+                  <Check className="w-5 h-5 text-amber-500 flex-shrink-0" />
+                  <span>API access</span>
                 </li>
               </ul>
               <Link
@@ -568,7 +557,7 @@ export default function LandingPage() {
             <p className="text-xl text-gray-600 dark:text-gray-400">Start free. Upgrade when you need more.</p>
           </div>
 
-          <div className="grid md:grid-cols-3 lg:grid-cols-5 gap-4">
+          <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-4">
             {pricingPlans.map((plan, i) => (
               <div 
                 key={i} 

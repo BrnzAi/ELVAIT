@@ -3,29 +3,6 @@ import { Check, X, ArrowLeft } from 'lucide-react';
 
 const plans = [
   {
-    name: 'Free',
-    price: '€0',
-    priceDetail: 'forever',
-    description: 'Quick Check for Decision Owners',
-    tier: 'Quick Check',
-    features: [
-      { name: 'Assessments', value: '1', included: true },
-      { name: 'Assessment type', value: 'Quick Check', included: true },
-      { name: 'Respondents', value: '10', included: true },
-      { name: 'Basic GO/FIX/NO-GO verdict', value: true, included: true },
-      { name: 'Full role breakdown', value: false, included: false },
-      { name: 'All flags & insights', value: false, included: false },
-      { name: 'Contradiction detection', value: false, included: false },
-      { name: 'Executive summary', value: false, included: false },
-      { name: 'PDF Reports', value: false, included: false },
-      { name: 'Custom questions', value: false, included: false },
-      { name: 'API access', value: false, included: false },
-    ],
-    cta: 'Get Started',
-    ctaLink: '/signup',
-    highlight: false,
-  },
-  {
     name: 'Try Out',
     price: '€199',
     priceDetail: 'for 3 months',
@@ -41,6 +18,7 @@ const plans = [
       { name: 'Contradiction detection', value: true, included: true },
       { name: 'Executive summary', value: true, included: true },
       { name: 'PDF Reports', value: true, included: true },
+      { name: 'Custom roles', value: false, included: false },
       { name: 'Custom questions', value: false, included: false },
       { name: 'API access', value: false, included: false },
     ],
@@ -65,6 +43,7 @@ const plans = [
       { name: 'Contradiction detection', value: true, included: true },
       { name: 'Executive summary', value: true, included: true },
       { name: 'PDF Reports', value: true, included: true },
+      { name: 'Custom roles', value: false, included: false },
       { name: 'Custom questions', value: false, included: false },
       { name: 'API access', value: false, included: false },
     ],
@@ -88,6 +67,7 @@ const plans = [
       { name: 'Contradiction detection', value: true, included: true },
       { name: 'Executive summary', value: true, included: true },
       { name: 'PDF Reports', value: true, included: true },
+      { name: 'Custom roles', value: 'Limited', included: true },
       { name: 'Custom questions', value: 'Limited', included: true },
       { name: 'API access', value: false, included: false },
     ],
@@ -112,6 +92,7 @@ const plans = [
       { name: 'Contradiction detection', value: true, included: true },
       { name: 'Executive summary', value: true, included: true },
       { name: 'PDF Reports', value: true, included: true },
+      { name: 'Custom roles', value: 'Full', included: true },
       { name: 'Custom questions', value: 'Full', included: true },
       { name: 'API access', value: true, included: true },
     ],
@@ -146,12 +127,12 @@ export default function PricingPage() {
             Simple, transparent pricing
           </h1>
           <p className="text-xl text-gray-400 max-w-2xl mx-auto">
-            Start free with Quick Check. Upgrade for full assessments and advanced features.
+            Full assessments start at €199. Choose the plan that fits your needs.
           </p>
         </div>
 
         {/* Pricing Grid */}
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-5 gap-4">
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4">
           {plans.map((plan) => (
             <div
               key={plan.name}
@@ -248,14 +229,12 @@ export default function PricingPage() {
                 <tr>
                   <td className="py-3 px-4 text-gray-400">Assessments</td>
                   <td className="py-3 px-2 text-center">1</td>
-                  <td className="py-3 px-2 text-center">1</td>
                   <td className="py-3 px-2 text-center">Up to 10</td>
                   <td className="py-3 px-2 text-center">Up to 20</td>
                   <td className="py-3 px-2 text-center">Unlimited</td>
                 </tr>
                 <tr>
                   <td className="py-3 px-4 text-gray-400">Tier</td>
-                  <td className="py-3 px-2 text-center">Quick Check</td>
                   <td className="py-3 px-2 text-center">Full Standard</td>
                   <td className="py-3 px-2 text-center">Core</td>
                   <td className="py-3 px-2 text-center">Advanced</td>
@@ -263,7 +242,6 @@ export default function PricingPage() {
                 </tr>
                 <tr>
                   <td className="py-3 px-4 text-gray-400">Respondents</td>
-                  <td className="py-3 px-2 text-center">10</td>
                   <td className="py-3 px-2 text-center">50</td>
                   <td className="py-3 px-2 text-center">150</td>
                   <td className="py-3 px-2 text-center">250</td>
@@ -271,7 +249,6 @@ export default function PricingPage() {
                 </tr>
                 <tr>
                   <td className="py-3 px-4 text-gray-400">Full results & insights</td>
-                  <td className="py-3 px-2 text-center"><X className="w-4 h-4 mx-auto text-gray-600" /></td>
                   <td className="py-3 px-2 text-center"><Check className="w-4 h-4 mx-auto text-green-400" /></td>
                   <td className="py-3 px-2 text-center"><Check className="w-4 h-4 mx-auto text-green-400" /></td>
                   <td className="py-3 px-2 text-center"><Check className="w-4 h-4 mx-auto text-green-400" /></td>
@@ -279,15 +256,20 @@ export default function PricingPage() {
                 </tr>
                 <tr>
                   <td className="py-3 px-4 text-gray-400">PDF Reports</td>
-                  <td className="py-3 px-2 text-center"><X className="w-4 h-4 mx-auto text-gray-600" /></td>
                   <td className="py-3 px-2 text-center"><Check className="w-4 h-4 mx-auto text-green-400" /></td>
                   <td className="py-3 px-2 text-center"><Check className="w-4 h-4 mx-auto text-green-400" /></td>
                   <td className="py-3 px-2 text-center"><Check className="w-4 h-4 mx-auto text-green-400" /></td>
                   <td className="py-3 px-2 text-center"><Check className="w-4 h-4 mx-auto text-green-400" /></td>
                 </tr>
                 <tr>
-                  <td className="py-3 px-4 text-gray-400">Custom questions</td>
+                  <td className="py-3 px-4 text-gray-400">Custom roles</td>
                   <td className="py-3 px-2 text-center"><X className="w-4 h-4 mx-auto text-gray-600" /></td>
+                  <td className="py-3 px-2 text-center"><X className="w-4 h-4 mx-auto text-gray-600" /></td>
+                  <td className="py-3 px-2 text-center">Limited</td>
+                  <td className="py-3 px-2 text-center">Full</td>
+                </tr>
+                <tr>
+                  <td className="py-3 px-4 text-gray-400">Custom questions</td>
                   <td className="py-3 px-2 text-center"><X className="w-4 h-4 mx-auto text-gray-600" /></td>
                   <td className="py-3 px-2 text-center"><X className="w-4 h-4 mx-auto text-gray-600" /></td>
                   <td className="py-3 px-2 text-center">Limited</td>
@@ -295,7 +277,6 @@ export default function PricingPage() {
                 </tr>
                 <tr>
                   <td className="py-3 px-4 text-gray-400">AI clarity narrative</td>
-                  <td className="py-3 px-2 text-center"><X className="w-4 h-4 mx-auto text-gray-600" /></td>
                   <td className="py-3 px-2 text-center"><X className="w-4 h-4 mx-auto text-gray-600" /></td>
                   <td className="py-3 px-2 text-center"><X className="w-4 h-4 mx-auto text-gray-600" /></td>
                   <td className="py-3 px-2 text-center"><Check className="w-4 h-4 mx-auto text-green-400" /></td>
@@ -306,12 +287,10 @@ export default function PricingPage() {
                   <td className="py-3 px-2 text-center"><X className="w-4 h-4 mx-auto text-gray-600" /></td>
                   <td className="py-3 px-2 text-center"><X className="w-4 h-4 mx-auto text-gray-600" /></td>
                   <td className="py-3 px-2 text-center"><X className="w-4 h-4 mx-auto text-gray-600" /></td>
-                  <td className="py-3 px-2 text-center"><X className="w-4 h-4 mx-auto text-gray-600" /></td>
                   <td className="py-3 px-2 text-center"><Check className="w-4 h-4 mx-auto text-green-400" /></td>
                 </tr>
                 <tr>
                   <td className="py-3 px-4 text-gray-400">Price</td>
-                  <td className="py-3 px-2 text-center font-semibold">Free</td>
                   <td className="py-3 px-2 text-center font-semibold">€199/3mo</td>
                   <td className="py-3 px-2 text-center font-semibold">€1,900/yr</td>
                   <td className="py-3 px-2 text-center font-semibold">€3,500/yr</td>
