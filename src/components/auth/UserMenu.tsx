@@ -47,10 +47,17 @@ export function UserMenu() {
     );
   }
 
-  const handleSignOut = async () => {
-    await signOut({ redirect: false });
-    router.push('/');
-    router.refresh();
+  const handleSignOut = async (e: React.MouseEvent) => {
+    e.preventDefault();
+    e.stopPropagation();
+    setIsOpen(false);
+    try {
+      await signOut({ callbackUrl: '/', redirect: true });
+    } catch (error) {
+      console.error('Sign out error:', error);
+      // Fallback: redirect manually
+      window.location.href = '/';
+    }
   };
 
   return (
