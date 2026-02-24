@@ -11,6 +11,15 @@ import { nanoid } from 'nanoid';
 import { isRoleActive } from '@/lib/variants/config';
 import { Role, ALL_ROLES } from '@/lib/questions/types';
 import { KitVariant } from '@/lib/variants/types';
+import { sendEmail } from '@/lib/email';
+
+const ROLE_LABELS: Record<string, string> = {
+  EXEC: 'Executive',
+  BUSINESS_OWNER: 'Business Owner',
+  TECH_OWNER: 'Technical Owner',
+  USER: 'Functional User',
+  PROCESS_OWNER: 'Process Owner'
+};
 
 interface RouteParams {
   params: { id: string };
@@ -86,9 +95,34 @@ export async function POST(
     
     const surveyUrl = `${baseUrl}/survey/${token}`;
     
+    // Send invitation email if email is provided
+    if (email) {
+      const roleLabel = ROLE_LABELS[role as Role] || role;
+      const emailResult = await sendEmail({
+        to: email,
+        subject: `You're invited to participate in an ELVAIT assessment`,
+        html: `
+          <h2>You've been invited to participate!</h2>
+          <p>Hi${name ? ` ${name}` : ''},</p>
+          <p>You've been invited to provide your input as a <strong>${roleLabel}</strong> for the assessment: "<strong>${caseData.decisionTitle}</strong>".</p>
+          <p>Your perspective is valuable and will help inform this investment decision.</p>
+          <p><a href="${surveyUrl}" style="display: inline-block; background: #2563eb; color: white; padding: 12px 24px; text-decoration: none; border-radius: 6px; margin: 16px 0;">Start Survey</a></p>
+          <p>Or copy this link: ${surveyUrl}</p>
+          <p>The survey takes about 10-15 minutes to complete.</p>
+          <p>— ELVAIT Team</p>
+        `,
+        text: `You've been invited to participate!\n\nHi${name ? ` ${name}` : ''},\n\nYou've been invited to provide your input as a ${roleLabel} for the assessment: "${caseData.decisionTitle}".\n\nYour perspective is valuable and will help inform this investment decision.\n\nStart the survey: ${surveyUrl}\n\nThe survey takes about 10-15 minutes to complete.\n\n— ELVAIT Team`,
+      });
+      
+      if (!emailResult.success) {
+        console.warn(`Failed to send invitation email to ${email}: ${emailResult.error}`);
+      }
+    }
+    
     return NextResponse.json({
       ...participant,
-      surveyUrl
+      surveyUrl,
+      emailSent: !!email
     }, { status: 201 });
   } catch (error) {
     console.error('Error adding participant:', error);
