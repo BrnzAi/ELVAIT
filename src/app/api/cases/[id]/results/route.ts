@@ -15,6 +15,8 @@ import { NextRequest, NextResponse } from 'next/server';
 import { prisma } from '@/lib/db';
 import { KitVariant } from '@/lib/variants/types';
 import { Role } from '@/lib/questions/types';
+import { getQuestionsForRole, QUESTION_REGISTRY } from '@/lib/questions/registry';
+import { getActiveRoles } from '@/lib/variants/config';
 
 // Scoring
 import { calculateCaseScores, Answer } from '@/lib/scoring/dimensions';
@@ -128,7 +130,8 @@ export async function GET(
     const blindSpots = generateBlindSpots({
       flags: flagResult.flags,
       mismatches: summary.topMismatches,
-      openTextClassifications: flagResult.openTextClassifications
+      openTextClassifications: flagResult.openTextClassifications,
+      participantCount: caseData.participants.length
     });
     
     // 8. Generate checklist
@@ -140,7 +143,24 @@ export async function GET(
       )
     });
     
-    // 9. Generate AI summary
+    // 9. Collect text responses
+    const activeRoles = getActiveRoles(variant);
+    const questions = QUESTION_REGISTRY.filter(q => activeRoles.includes(q.role));
+    const textResponses = caseData.responses
+      .filter(r => r.answerType === 'TEXT' && r.rawValue.trim())
+      .map(r => {
+        const participant = caseData.participants.find(p => p.id === r.participantId);
+        const question = questions.find(q => q.question_id === r.questionId);
+        
+        return {
+          questionId: r.questionId,
+          questionText: question?.text ?? r.questionId,
+          response: r.rawValue,
+          participantRole: participant?.role ?? 'UNKNOWN'
+        };
+      });
+
+    // 10. Generate AI summary
     const aiSummary = generateAiSummary({
       summary,
       context: {
@@ -152,7 +172,9 @@ export async function GET(
         dCtx4: caseData.dCtx4 ?? ''
       },
       blindSpots,
-      checklistItems
+      checklistItems,
+      textResponses,
+      participantCount: caseData.participants.length
     });
     
     // Save summary to database
@@ -228,6 +250,7 @@ export async function GET(
       // Interpretation
       blindSpots,
       checklistItems,
+      textResponses,
       
       // AI summary
       narrative: {

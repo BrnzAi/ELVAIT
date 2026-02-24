@@ -174,6 +174,7 @@ export interface GenerateBlindSpotsInput {
   mismatches: CrossRoleMismatch[];
   openTextClassifications: OpenTextClassification[];
   limit?: number;
+  participantCount?: number;
 }
 
 /**
@@ -186,7 +187,12 @@ export interface GenerateBlindSpotsInput {
  * 4. Open text signals
  */
 export function generateBlindSpots(input: GenerateBlindSpotsInput): BlindSpot[] {
-  const { flags, mismatches, openTextClassifications, limit = 5 } = input;
+  const { flags, mismatches, openTextClassifications, limit = 5, participantCount = 1 } = input;
+  
+  // For single participants, blind spots don't make sense - return empty array
+  if (participantCount === 1) {
+    return [];
+  }
   
   const candidates: BlindSpot[] = [];
   let rank = 1;

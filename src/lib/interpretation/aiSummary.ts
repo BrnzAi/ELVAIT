@@ -29,11 +29,21 @@ export interface DecisionContext {
   dCtx4: string; // What would make this decision a mistake in hindsight?
 }
 
+interface TextResponse {
+  questionId: string;
+  questionText: string;
+  response: string;
+  participantRole: string;
+  score?: number;
+}
+
 export interface AiSummaryInput {
   summary: CaseSummary;
   context: DecisionContext;
   blindSpots: BlindSpot[];
   checklistItems: ChecklistItem[];
+  textResponses?: TextResponse[];
+  participantCount?: number;
 }
 
 export interface AiSummaryOutput {
@@ -64,7 +74,7 @@ export interface AiSummaryOutput {
  * For now, uses deterministic templates to ensure bounded output.
  */
 export function generateAiSummary(input: AiSummaryInput): AiSummaryOutput {
-  const { summary, context, blindSpots, checklistItems } = input;
+  const { summary, context, blindSpots, checklistItems, textResponses = [], participantCount = 1 } = input;
   
   // Executive Summary
   const executiveSummary = generateExecutiveSummary(summary, context);
@@ -73,7 +83,7 @@ export function generateAiSummary(input: AiSummaryInput): AiSummaryOutput {
   const boardNarrative = generateBoardNarrative(summary, context, blindSpots);
   
   // Key Findings
-  const keyFindings = generateKeyFindings(summary, blindSpots);
+  const keyFindings = generateKeyFindings(summary, blindSpots, textResponses, participantCount);
   
   // Risk Summary
   const riskSummary = generateRiskSummary(summary, blindSpots);
@@ -182,17 +192,31 @@ function generateBoardNarrative(
 // KEY FINDINGS
 // =============================================================================
 
-function generateKeyFindings(summary: CaseSummary, blindSpots: BlindSpot[]): string[] {
+function generateKeyFindings(
+  summary: CaseSummary, 
+  blindSpots: BlindSpot[], 
+  textResponses: TextResponse[], 
+  participantCount: number
+): string[] {
   const findings: string[] = [];
   
   // ICS-based finding
   if (summary.ics !== null) {
     if (summary.ics >= 75) {
-      findings.push('Overall investment clarity is high, supporting a positive decision.');
+      findings.push(participantCount === 1 ? 
+        'Investment clarity assessment is high.' : 
+        'Overall investment clarity is high, supporting a positive decision.'
+      );
     } else if (summary.ics >= 55) {
-      findings.push('Investment clarity is partial; specific areas require attention before proceeding.');
+      findings.push(participantCount === 1 ? 
+        'Investment clarity assessment is partial; some areas require attention.' :
+        'Investment clarity is partial; specific areas require attention before proceeding.'
+      );
     } else {
-      findings.push('Investment clarity is low; fundamental issues need resolution.');
+      findings.push(participantCount === 1 ? 
+        'Investment clarity assessment is low; several issues need resolution.' :
+        'Investment clarity is low; fundamental issues need resolution.'
+      );
     }
   }
   
@@ -203,15 +227,25 @@ function generateKeyFindings(summary: CaseSummary, blindSpots: BlindSpot[]): str
     findings.push(`Critical issues identified: ${flagNames.join(', ')}.`);
   }
   
-  // Top mismatches
-  if (summary.topMismatches.length > 0) {
-    const topMismatch = summary.topMismatches[0];
-    findings.push(`Significant perception gap in ${topMismatch.group.replace(/_/g, ' ')}: ${topMismatch.gap.toFixed(0)} points between ${topMismatch.roleA} and ${topMismatch.roleB}.`);
-  }
-  
-  // Blind spots
-  for (const spot of blindSpots.slice(0, 2)) {
-    findings.push(spot.label + ': ' + spot.explanation.split('.')[0] + '.');
+  // For single participants, show text responses instead of comparison-based findings
+  if (participantCount === 1) {
+    // Show key text responses
+    for (const textResp of textResponses.slice(0, 2)) {
+      if (textResp.response.length > 20) { // Only meaningful responses
+        findings.push(`"${textResp.response}" (${textResp.questionText})`);
+      }
+    }
+  } else {
+    // Top mismatches (only for multi-participant)
+    if (summary.topMismatches.length > 0) {
+      const topMismatch = summary.topMismatches[0];
+      findings.push(`Significant perception gap in ${topMismatch.group.replace(/_/g, ' ')}: ${topMismatch.gap.toFixed(0)} points between ${topMismatch.roleA} and ${topMismatch.roleB}.`);
+    }
+    
+    // Blind spots (only for multi-participant)
+    for (const spot of blindSpots.slice(0, 2)) {
+      findings.push(spot.label + ': ' + spot.explanation.split('.')[0] + '.');
+    }
   }
   
   return findings;

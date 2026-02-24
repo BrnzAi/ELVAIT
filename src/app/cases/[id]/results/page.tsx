@@ -31,6 +31,14 @@ interface ChecklistItem {
   priority: number;
 }
 
+interface TextResponse {
+  questionId: string;
+  questionText: string;
+  response: string;
+  participantRole: string;
+  score?: number;
+}
+
 interface Flag {
   flag_id: string;
   severity: 'CRITICAL' | 'WARN' | 'INFO';
@@ -67,6 +75,7 @@ interface ResultsData {
   };
   blindSpots: BlindSpot[];
   checklistItems: ChecklistItem[];
+  textResponses: TextResponse[];
   narrative: {
     executive: string;
     keyFindings: string[];
@@ -509,8 +518,8 @@ export default function ResultsPage() {
           </div>
         </div>
 
-        {/* Blind Spots - Locked for anonymous */}
-        {results.blindSpots.length > 0 && (
+        {/* Blind Spots - Locked for anonymous, Hidden for single respondent */}
+        {results.blindSpots.length > 0 && results.participantCount > 1 && (
           <LockedOverlay
             isLocked={!access.canViewContradictionMap}
             label="Register free to see blind spots"
@@ -561,6 +570,55 @@ export default function ResultsPage() {
               </div>
             </div>
           </LockedOverlay>
+        )}
+
+        {/* Single respondent note */}
+        {results.participantCount === 1 && (
+          <div className="bg-blue-50 dark:bg-blue-900/20 rounded-xl border border-blue-200 dark:border-blue-800 p-6 mb-8">
+            <div className="flex items-start gap-3">
+              <div className="w-8 h-8 bg-blue-500 rounded-full flex items-center justify-center flex-shrink-0">
+                <Users className="w-4 h-4 text-white" />
+              </div>
+              <div>
+                <h3 className="font-medium text-blue-900 dark:text-blue-100 mb-1">Single Participant Assessment</h3>
+                <p className="text-sm text-blue-800 dark:text-blue-200">
+                  Cross-role comparison requires responses from multiple participants. 
+                  The results above show individual scores and insights only.
+                </p>
+              </div>
+            </div>
+          </div>
+        )}
+
+        {/* Text Responses - Show for single respondent or when available */}
+        {results.textResponses && results.textResponses.length > 0 && (
+          <div className="bg-white dark:bg-gray-900 rounded-xl border border-gray-200 dark:border-gray-800 p-6 mb-8">
+            <h2 className="text-lg font-semibold mb-4">
+              {results.participantCount === 1 ? 'Key Insights from Responses' : 'Open Text Responses'}
+            </h2>
+            <div className="space-y-4">
+              {results.textResponses.map((textResp, i) => (
+                <div key={i} className="p-4 bg-gray-50 dark:bg-gray-800 rounded-lg">
+                  <div className="flex items-start gap-3">
+                    <div className="flex-shrink-0 w-6 h-6 bg-clarity-100 dark:bg-clarity-900 rounded-full flex items-center justify-center">
+                      <span className="text-xs font-medium text-clarity-600">Q</span>
+                    </div>
+                    <div className="flex-1">
+                      <p className="text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">
+                        {textResp.questionText}
+                      </p>
+                      <blockquote className="text-sm text-gray-600 dark:text-gray-400 italic border-l-2 border-gray-300 pl-3">
+                        "{textResp.response}"
+                      </blockquote>
+                      <div className="mt-2 text-xs text-gray-500">
+                        Role: {ROLE_LABELS[textResp.participantRole] || textResp.participantRole}
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              ))}
+            </div>
+          </div>
         )}
 
         {/* Checklist - Always visible */}
