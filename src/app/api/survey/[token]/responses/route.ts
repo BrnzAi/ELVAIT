@@ -20,6 +20,7 @@ interface RouteParams {
 interface ResponseInput {
   questionId: string;
   value: number | string;
+  processId?: string;
 }
 
 // POST - Submit responses
@@ -34,7 +35,14 @@ export async function POST(
     // Find participant
     const participant = await prisma.participant.findUnique({
       where: { token: params.token },
-      include: { case: true }
+      include: { 
+        case: true,
+        assignedProcesses: {
+          select: {
+            processId: true
+          }
+        }
+      }
     });
     
     if (!participant) {
@@ -55,6 +63,11 @@ export async function POST(
     const roleQuestions = getQuestionsForRole(participant.role as Role);
     const validQuestionIds = new Set(roleQuestions.map(q => q.question_id));
     
+    // Get valid process IDs for this participant
+    const validProcessIds = new Set(
+      participant.assignedProcesses.map(ap => ap.processId)
+    );
+    
     // Validate and process responses
     const processedResponses: Array<{
       questionId: string;
@@ -62,6 +75,7 @@ export async function POST(
       rawValue: string;
       adjustedValue: number | null;
       score0100: number | null;
+      processId: string | null;
     }> = [];
     
     const errors: Array<{ questionId: string; error: string }> = [];
@@ -83,6 +97,19 @@ export async function POST(
           error: 'Question not found'
         });
         continue;
+      }
+      
+      // Validate processId if provided
+      let processId: string | null = null;
+      if (resp.processId) {
+        if (!validProcessIds.has(resp.processId)) {
+          errors.push({
+            questionId: resp.questionId,
+            error: 'Process not assigned to this participant'
+          });
+          continue;
+        }
+        processId = resp.processId;
       }
       
       // Process based on answer type
@@ -132,7 +159,8 @@ export async function POST(
         answerType: question.answer_type,
         rawValue,
         adjustedValue,
-        score0100
+        score0100,
+        processId
       });
     }
     
@@ -162,12 +190,14 @@ export async function POST(
             caseId: participant.case.id,
             participantId: participant.id,
             questionId: resp.questionId,
+            processId: resp.processId,
             answerType: resp.answerType,
             rawValue: resp.rawValue,
             adjustedValue: resp.adjustedValue,
             score0100: resp.score0100
           },
           update: {
+            processId: resp.processId,
             rawValue: resp.rawValue,
             adjustedValue: resp.adjustedValue,
             score0100: resp.score0100

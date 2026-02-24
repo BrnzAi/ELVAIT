@@ -48,7 +48,20 @@ export async function GET(
         responses: {
           select: {
             questionId: true,
-            rawValue: true
+            rawValue: true,
+            processId: true
+          }
+        },
+        assignedProcesses: {
+          include: {
+            process: {
+              select: {
+                id: true,
+                name: true,
+                description: true,
+                sortOrder: true
+              }
+            }
           }
         }
       }
@@ -84,8 +97,13 @@ export async function GET(
     const questions = getQuestionsForRole(role);
     const safeQuestions = getSafeQuestionsForRole(questions);
     
-    // Build response (participant-safe)
-    const response = {
+    // Get assigned processes (sorted by sortOrder)
+    const assignedProcesses = participant.assignedProcesses
+      .map(ap => ap.process)
+      .sort((a, b) => a.sortOrder - b.sortOrder);
+    
+    // Build response structure
+    let responseStructure: any = {
       participant: {
         id: participant.id,
         role: participant.role,
@@ -105,14 +123,37 @@ export async function GET(
       },
       questions: safeQuestions,
       responses: Object.fromEntries(
-        participant.responses.map(r => [r.questionId, r.rawValue])
-      ),
-      progress: {
-        total: questions.length,
-        completed: participant.responses.length,
-        percentage: Math.round((participant.responses.length / questions.length) * 100)
-      }
+        participant.responses.map(r => {
+          const key = r.processId ? `${r.questionId}_${r.processId}` : r.questionId;
+          return [key, r.rawValue];
+        })
+      )
     };
+    
+    // For PROCESS_OWNER and USER roles with multiple processes, add processGroups
+    if ((role === 'PROCESS_OWNER' || role === 'USER') && assignedProcesses.length > 1) {
+      responseStructure.processGroups = assignedProcesses.map(process => ({
+        processId: process.id,
+        processName: process.name,
+        processDescription: process.description,
+        questions: safeQuestions
+      }));
+    }
+    
+    // Calculate progress
+    let totalQuestionCount = questions.length;
+    if ((role === 'PROCESS_OWNER' || role === 'USER') && assignedProcesses.length > 1) {
+      // For multi-process roles, count questions per process
+      totalQuestionCount = questions.length * assignedProcesses.length;
+    }
+    
+    responseStructure.progress = {
+      total: totalQuestionCount,
+      completed: participant.responses.length,
+      percentage: Math.round((participant.responses.length / totalQuestionCount) * 100)
+    };
+    
+    const response = responseStructure;
     
     return NextResponse.json(response);
   } catch (error) {

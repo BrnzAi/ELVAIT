@@ -31,6 +31,12 @@ interface SurveyData {
     timeHorizon: string;
   };
   questions: Question[];
+  processGroups?: Array<{
+    processId: string;
+    processName: string;
+    processDescription: string | null;
+    questions: Question[];
+  }>;
   responses: Record<string, string | number>;
   progress: {
     total: number;
@@ -53,6 +59,7 @@ export default function SurveyPage() {
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
   const [currentIndex, setCurrentIndex] = useState(0);
+  const [currentProcessIndex, setCurrentProcessIndex] = useState(0);
   const [responses, setResponses] = useState<Record<string, string | number>>({});
   const [saving, setSaving] = useState(false);
   const [showContext, setShowContext] = useState(true);
@@ -83,15 +90,21 @@ export default function SurveyPage() {
     fetchSurvey();
   }, [params.token]);
 
-  const saveResponse = async (questionId: string, value: string | number) => {
-    setResponses(prev => ({ ...prev, [questionId]: value }));
+  const saveResponse = async (questionId: string, value: string | number, processId?: string) => {
+    const responseKey = processId ? `${questionId}_${processId}` : questionId;
+    setResponses(prev => ({ ...prev, [responseKey]: value }));
     
     setSaving(true);
     try {
+      const payload: any = { questionId, value };
+      if (processId) {
+        payload.processId = processId;
+      }
+      
       const response = await fetch(`/api/survey/${params.token}/responses`, {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ questionId, value })
+        body: JSON.stringify(payload)
       });
       
       if (!response.ok) throw new Error('Failed to save response');
@@ -143,8 +156,32 @@ export default function SurveyPage() {
 
   if (!surveyData) return null;
 
-  const currentQuestion = surveyData.questions[currentIndex];
-  const totalQuestions = surveyData.questions.length;
+  // Helper functions for process group logic
+  const hasProcessGroups = surveyData.processGroups && surveyData.processGroups.length > 0;
+  const isInProcessSection = hasProcessGroups && currentIndex >= surveyData.questions.length;
+  
+  // Current question calculation
+  let currentQuestion: Question;
+  let currentProcess: any = null;
+  let questionIndexInProcess = 0;
+  
+  if (isInProcessSection) {
+    const processGroups = surveyData.processGroups!;
+    const adjustedIndex = currentIndex - surveyData.questions.length;
+    const questionsPerProcess = processGroups[0].questions.length;
+    const processIndex = Math.floor(adjustedIndex / questionsPerProcess);
+    questionIndexInProcess = adjustedIndex % questionsPerProcess;
+    
+    currentProcess = processGroups[processIndex];
+    currentQuestion = currentProcess.questions[questionIndexInProcess];
+  } else {
+    currentQuestion = surveyData.questions[currentIndex];
+  }
+  
+  // Progress calculation
+  const totalQuestions = hasProcessGroups 
+    ? surveyData.questions.length + (surveyData.processGroups!.length * surveyData.processGroups![0].questions.length)
+    : surveyData.questions.length;
   const answeredCount = Object.keys(responses).length;
   const progress = Math.round((answeredCount / totalQuestions) * 100);
 
@@ -224,6 +261,23 @@ export default function SurveyPage() {
 
       <main className="max-w-3xl mx-auto px-6 py-12">
         <div className="bg-white dark:bg-gray-900 rounded-xl border border-gray-200 dark:border-gray-800 p-8">
+          {/* Process Header */}
+          {currentProcess && (
+            <div className="mb-6 p-4 bg-blue-50 dark:bg-blue-900/20 rounded-lg">
+              <div className="flex items-center justify-between mb-2">
+                <h3 className="text-lg font-semibold text-blue-900 dark:text-blue-100">
+                  Regarding: <strong>{currentProcess.processName}</strong>
+                </h3>
+                <span className="text-sm text-blue-700 dark:text-blue-300">
+                  Process {Math.floor((currentIndex - surveyData.questions.length) / currentProcess.questions.length) + 1} of {surveyData.processGroups!.length}
+                </span>
+              </div>
+              {currentProcess.processDescription && (
+                <p className="text-sm text-blue-800 dark:text-blue-200">{currentProcess.processDescription}</p>
+              )}
+            </div>
+          )}
+          
           <div className="mb-8">
             <span className="text-sm text-clarity-600 font-medium">Question {currentIndex + 1}</span>
             <h2 className="text-xl font-semibold mt-2">{currentQuestion.text}</h2>
@@ -235,21 +289,36 @@ export default function SurveyPage() {
               {LIKERT_OPTIONS.map(option => (
                 <button
                   key={option.value}
-                  onClick={() => saveResponse(currentQuestion.question_id, option.value)}
+                  onClick={() => saveResponse(currentQuestion.question_id, option.value, currentProcess?.processId)}
                   className={`w-full p-4 rounded-lg border text-left transition-all flex items-center gap-4 ${
-                    responses[currentQuestion.question_id] === option.value
-                      ? 'border-clarity-600 bg-clarity-50 dark:bg-clarity-900/20'
-                      : 'border-gray-200 dark:border-gray-700 hover:border-gray-300 dark:hover:border-gray-600'
+                    (() => {
+                      const responseKey = currentProcess?.processId 
+                        ? `${currentQuestion.question_id}_${currentProcess.processId}` 
+                        : currentQuestion.question_id;
+                      return responses[responseKey] === option.value
+                        ? 'border-clarity-600 bg-clarity-50 dark:bg-clarity-900/20'
+                        : 'border-gray-200 dark:border-gray-700 hover:border-gray-300 dark:hover:border-gray-600';
+                    })()
                   }`}
                 >
                   <div className={`w-6 h-6 rounded-full border-2 flex items-center justify-center ${
-                    responses[currentQuestion.question_id] === option.value
-                      ? 'border-clarity-600 bg-clarity-600'
-                      : 'border-gray-300 dark:border-gray-600'
+                    (() => {
+                      const responseKey = currentProcess?.processId 
+                        ? `${currentQuestion.question_id}_${currentProcess.processId}` 
+                        : currentQuestion.question_id;
+                      return responses[responseKey] === option.value
+                        ? 'border-clarity-600 bg-clarity-600'
+                        : 'border-gray-300 dark:border-gray-600';
+                    })()
                   }`}>
-                    {responses[currentQuestion.question_id] === option.value && (
-                      <div className="w-2 h-2 bg-white rounded-full" />
-                    )}
+                    {(() => {
+                      const responseKey = currentProcess?.processId 
+                        ? `${currentQuestion.question_id}_${currentProcess.processId}` 
+                        : currentQuestion.question_id;
+                      return responses[responseKey] === option.value && (
+                        <div className="w-2 h-2 bg-white rounded-full" />
+                      );
+                    })()}
                   </div>
                   <div>
                     <span className="font-medium">{option.value}</span>
@@ -266,11 +335,16 @@ export default function SurveyPage() {
               {currentQuestion.options.map(option => (
                 <button
                   key={option}
-                  onClick={() => saveResponse(currentQuestion.question_id, option)}
+                  onClick={() => saveResponse(currentQuestion.question_id, option, currentProcess?.processId)}
                   className={`w-full p-4 rounded-lg border text-left transition-all ${
-                    responses[currentQuestion.question_id] === option
-                      ? 'border-clarity-600 bg-clarity-50 dark:bg-clarity-900/20'
-                      : 'border-gray-200 dark:border-gray-700 hover:border-gray-300 dark:hover:border-gray-600'
+                    (() => {
+                      const responseKey = currentProcess?.processId 
+                        ? `${currentQuestion.question_id}_${currentProcess.processId}` 
+                        : currentQuestion.question_id;
+                      return responses[responseKey] === option
+                        ? 'border-clarity-600 bg-clarity-50 dark:bg-clarity-900/20'
+                        : 'border-gray-200 dark:border-gray-700 hover:border-gray-300 dark:hover:border-gray-600';
+                    })()
                   }`}
                 >
                   {option}
@@ -283,11 +357,24 @@ export default function SurveyPage() {
           {currentQuestion.answer_type === 'TEXT' && (
             <div>
               <Textarea
-                value={responses[currentQuestion.question_id] as string || ''}
-                onChange={e => setResponses(prev => ({ ...prev, [currentQuestion.question_id]: e.target.value }))}
+                value={(() => {
+                  const responseKey = currentProcess?.processId 
+                    ? `${currentQuestion.question_id}_${currentProcess.processId}` 
+                    : currentQuestion.question_id;
+                  return responses[responseKey] as string || '';
+                })()}
+                onChange={e => {
+                  const responseKey = currentProcess?.processId 
+                    ? `${currentQuestion.question_id}_${currentProcess.processId}` 
+                    : currentQuestion.question_id;
+                  setResponses(prev => ({ ...prev, [responseKey]: e.target.value }));
+                }}
                 onBlur={() => {
-                  if (responses[currentQuestion.question_id]) {
-                    saveResponse(currentQuestion.question_id, responses[currentQuestion.question_id]);
+                  const responseKey = currentProcess?.processId 
+                    ? `${currentQuestion.question_id}_${currentProcess.processId}` 
+                    : currentQuestion.question_id;
+                  if (responses[responseKey]) {
+                    saveResponse(currentQuestion.question_id, responses[responseKey], currentProcess?.processId);
                   }
                 }}
                 rows={5}
@@ -314,7 +401,12 @@ export default function SurveyPage() {
             {currentIndex < totalQuestions - 1 ? (
               <Button
                 onClick={() => setCurrentIndex(i => i + 1)}
-                disabled={!responses[currentQuestion.question_id]}
+                disabled={(() => {
+                  const responseKey = currentProcess?.processId 
+                    ? `${currentQuestion.question_id}_${currentProcess.processId}` 
+                    : currentQuestion.question_id;
+                  return !responses[responseKey];
+                })()}
               >
                 Next
                 <ArrowRight className="w-4 h-4 ml-2" />
@@ -322,11 +414,19 @@ export default function SurveyPage() {
             ) : (
               <Button
                 onClick={() => {
-                  if (responses[currentQuestion.question_id]) {
-                    saveResponse(currentQuestion.question_id, responses[currentQuestion.question_id]);
+                  const responseKey = currentProcess?.processId 
+                    ? `${currentQuestion.question_id}_${currentProcess.processId}` 
+                    : currentQuestion.question_id;
+                  if (responses[responseKey]) {
+                    saveResponse(currentQuestion.question_id, responses[responseKey], currentProcess?.processId);
                   }
                 }}
-                disabled={!responses[currentQuestion.question_id] || saving}
+                disabled={(() => {
+                  const responseKey = currentProcess?.processId 
+                    ? `${currentQuestion.question_id}_${currentProcess.processId}` 
+                    : currentQuestion.question_id;
+                  return !responses[responseKey] || saving;
+                })()}
               >
                 {saving ? 'Saving...' : 'Complete Survey'}
                 {!saving && <CheckCircle className="w-4 h-4 ml-2" />}
