@@ -32,7 +32,7 @@ export async function POST(
 ) {
   try {
     const body = await request.json();
-    const { role, email, name } = body;
+    const { role, email, name, processIds } = body;
     
     // Validate role
     if (!role || !ALL_ROLES.includes(role)) {
@@ -42,9 +42,15 @@ export async function POST(
       );
     }
     
-    // Get case to check variant
+    // Get case to check variant and processes
     const caseData = await prisma.decisionCase.findUnique({
-      where: { id: params.id }
+      where: { id: params.id },
+      include: {
+        processes: {
+          select: { id: true, name: true },
+          orderBy: { sortOrder: 'asc' }
+        }
+      }
     });
     
     if (!caseData) {
@@ -62,19 +68,61 @@ export async function POST(
       );
     }
     
+    // Handle process assignments for PROCESS_OWNER and USER roles
+    const needsProcessAssignment = role === 'PROCESS_OWNER' || role === 'USER';
+    const hasProcesses = caseData.processes.length > 0;
+    
+    let assignedProcessIds: string[] = [];
+    if (needsProcessAssignment && hasProcesses) {
+      if (processIds && processIds.length > 0) {
+        // Validate provided processIds
+        const validProcessIds = caseData.processes.map(p => p.id);
+        const invalidIds = processIds.filter((id: string) => !validProcessIds.includes(id));
+        if (invalidIds.length > 0) {
+          return NextResponse.json(
+            { error: `Invalid process IDs: ${invalidIds.join(', ')}` },
+            { status: 400 }
+          );
+        }
+        assignedProcessIds = processIds;
+      } else {
+        // Default: assign to all processes
+        assignedProcessIds = caseData.processes.map(p => p.id);
+      }
+    }
+    
     // Generate unique token
     const token = nanoid(24);
     
-    // Create participant
-    const participant = await prisma.participant.create({
-      data: {
-        caseId: params.id,
-        role,
-        email: email ?? null,
-        name: name ?? null,
-        token,
-        status: 'INVITED'
+    // Create participant with process assignments in transaction
+    const result = await prisma.$transaction(async (tx) => {
+      // Create participant
+      const participant = await tx.participant.create({
+        data: {
+          caseId: params.id,
+          role,
+          email: email ?? null,
+          name: name ?? null,
+          token,
+          status: 'INVITED'
+        }
+      });
+      
+      // Create process assignments if needed
+      const processAssignments = [];
+      if (assignedProcessIds.length > 0) {
+        for (const processId of assignedProcessIds) {
+          const assignment = await tx.participantProcess.create({
+            data: {
+              participantId: participant.id,
+              processId: processId
+            }
+          });
+          processAssignments.push(assignment);
+        }
       }
+      
+      return { participant, processAssignments };
     });
     
     // Generate survey URL using proper host detection

@@ -186,6 +186,7 @@
     <h3>📋 Version History</h3>
     <table>
       <tr><th>Version</th><th>Date</th><th>Changes</th></tr>
+      <tr><td>2.3</td><td>2026-02-24</td><td>Process Naming feature, updated assessment type descriptions &amp; roles, Process Check → Process Readiness Scan</td></tr>
       <tr><td>2.2</td><td>2026-02-24</td><td>Custom Roles feature, pricing updates (removed Free from /pricing), SMTP fix</td></tr>
       <tr><td>2.1</td><td>2026-02-23</td><td>New pricing structure, Results Gate tiers, email verification required</td></tr>
       <tr><td>2.0</td><td>2026-02-20</td><td>Results Gate, tiered access, case limits, admin panel</td></tr>
@@ -212,7 +213,8 @@
       <li><a href="#technical">13. Technical Architecture</a></li>
       <li><a href="#security">14. Security</a></li>
       <li><a href="#deployment">15. Deployment</a></li>
-      <li><a href="#roadmap">16. Roadmap</a></li>
+      <li><a href="#process-naming">16. Process Naming (NEW)</a></li>
+      <li><a href="#roadmap">17. Roadmap</a></li>
     </ul>
   </div>
 
@@ -372,33 +374,47 @@
     <tr>
       <th>Variant</th>
       <th>Roles</th>
+      <th>Lenses</th>
       <th>Duration</th>
-      <th>Use Case</th>
+      <th>Description</th>
     </tr>
     <tr>
       <td><strong>Quick Check</strong></td>
-      <td>Executive only</td>
+      <td>Decision Owners</td>
+      <td>Strategy</td>
       <td>15 min</td>
-      <td>Fast executive signal</td>
+      <td>Rapid executive clarity signal focused on strategic intent. Tests whether the initiative is conceptually sound before involving the wider organization.</td>
     </tr>
     <tr>
-      <td><strong>Core (Decision Clarity)</strong></td>
-      <td>Exec + Business + Technical</td>
+      <td><strong>Decision Clarity</strong></td>
+      <td>Decision Owners, Business Owners, Technical Owners</td>
+      <td>Strategy, Business Value, Technical Feasibility</td>
       <td>45 min</td>
-      <td>Investment-grade assessment</td>
+      <td>Cross-functional alignment assessment. Identifies contradictions between intent, value expectations, and implementation reality — before investment commitment.</td>
     </tr>
     <tr>
       <td><strong>Full Assessment</strong></td>
-      <td>All 4 roles + Process</td>
+      <td>Decision Owners, Business Owners, Technical Owners, Process Owners, User Representatives</td>
+      <td>Strategy, Business Value, Technical Feasibility, Process Readiness, Operational Reality</td>
       <td>60+ min</td>
-      <td>Automation-safe with process check</td>
+      <td>The 360° Clarity Before Automation assessment. Evaluates strategic intent, value logic, technical feasibility, process stability, and operational reality. Supports <strong>process naming</strong> — multiple named processes can be evaluated separately.</td>
     </tr>
     <tr>
-      <td><strong>Process Standalone</strong></td>
-      <td>Process Owner only</td>
+      <td><strong>Process Readiness Scan</strong></td>
+      <td>Process Owners</td>
+      <td>Process Readiness</td>
       <td>20 min</td>
-      <td>Process readiness audit</td>
+      <td>Focused assessment of process maturity and operational stability before digitization or automation. Supports <strong>process naming</strong> — multiple named processes can be evaluated separately.</td>
     </tr>
+  </table>
+
+  <h3>5.1 ICS Weight Distribution</h3>
+  <table>
+    <tr><th>Variant</th><th>Exec</th><th>Business</th><th>Tech</th><th>Process</th><th>User</th></tr>
+    <tr><td>Quick Check</td><td>100%</td><td>—</td><td>—</td><td>—</td><td>—</td></tr>
+    <tr><td>Decision Clarity</td><td>50%</td><td>25%</td><td>25%</td><td>—</td><td>—</td></tr>
+    <tr><td>Full Assessment</td><td>30%</td><td>20%</td><td>20%</td><td>15% (gate)</td><td>15%</td></tr>
+    <tr><td>Process Readiness Scan</td><td>—</td><td>—</td><td>—</td><td>100%</td><td>—</td></tr>
   </table>
 
   <h2 id="auth" class="section-new">6. Authentication</h2>
@@ -1106,17 +1122,99 @@ DecisionCase (1) ──┬── Participants (N)
   <ol>
     <li>Push to <code>main</code> triggers Vercel deployment</li>
     <li>Build runs (<code>prisma generate && next build</code>)</li>
-    <li>622 automated tests run via Vitest</li>
+    <li>678 automated tests run via Vitest</li>
     <li>Zero-downtime deployment on success</li>
   </ol>
 
-  <h2 id="roadmap">16. Roadmap</h2>
+  <h2 id="process-naming" class="section-new">16. Process Naming <span class="tag new">NEW in v2.3</span></h2>
+
+  <div class="highlight">
+    <strong>Purpose:</strong> Some IT solutions or AI initiatives affect multiple business processes. Process Naming allows users to add and name specific processes within an assessment, enabling per-process evaluation rather than a single blended score.
+  </div>
+
+  <h3>16.1 Scope</h3>
+  <table>
+    <tr><th>Variant</th><th>Process Naming</th><th>Reason</th></tr>
+    <tr><td>Quick Check</td><td>❌</td><td>No process lens</td></tr>
+    <tr><td>Decision Clarity</td><td>❌</td><td>No process lens</td></tr>
+    <tr><td><strong>Full Assessment</strong></td><td>✅</td><td>Includes Process Readiness lens</td></tr>
+    <tr><td><strong>Process Readiness Scan</strong></td><td>✅</td><td>Entirely process-focused</td></tr>
+  </table>
+
+  <h3>16.2 Assessment Creation</h3>
+  <p>When creating a Full Assessment or Process Readiness Scan, a new <strong>"Impacted Processes"</strong> section appears in Step 2 (Decision Context):</p>
+  <ul>
+    <li>Default: 1 process entry ("Main Process"), editable</li>
+    <li>User can add up to <strong>5 processes</strong></li>
+    <li>Each process has: <strong>Name</strong> (required, max 80 chars), <strong>Description</strong> (optional, max 200 chars), <strong>Weight</strong> (importance %, must sum to 100%)</li>
+    <li>Processes can be reordered and removed (minimum 1)</li>
+    <li>No template suggestions — companies have specific naming conventions</li>
+  </ul>
+
+  <h3>16.3 Participant Assignment</h3>
+  <ul>
+    <li>Different Process Owners can be <strong>assigned to different processes</strong></li>
+    <li>When adding a PROCESS_OWNER or USER participant, a process selector appears</li>
+    <li>At least one process must be selected; default: all processes</li>
+    <li>Participants only evaluate their assigned processes</li>
+  </ul>
+
+  <h3>16.4 Survey Experience</h3>
+  <ul>
+    <li><strong>Single process:</strong> No change to current UX</li>
+    <li><strong>Multiple processes:</strong> Process Readiness questions repeat per assigned process, with process name shown prominently: <em>"Regarding: <strong>[Process Name]</strong>"</em></li>
+    <li>Progress indicator shows which process they're evaluating (e.g. "Process 2 of 3")</li>
+    <li>Non-process roles (Executive, Business, Technical) are unaffected — answer once as today</li>
+  </ul>
+
+  <h3>16.5 Scoring &amp; Results</h3>
+  <ul>
+    <li><strong>Per-process Process Readiness Score</strong> (0–100) for each named process</li>
+    <li><strong>Aggregate score:</strong> Weighted average using user-defined importance weights</li>
+    <li><strong>Process Gate:</strong> Uses the <strong>lowest</strong> individual process score (weakest link principle)</li>
+    <li>Results page shows per-process comparison table, individual flags, and lowest-scoring process highlighted</li>
+    <li>Per-process breakdown included in <strong>PDF reports</strong></li>
+  </ul>
+
+  <h3>16.6 Data Model</h3>
+  <pre><code>model AssessmentProcess {
+  id          String   @id @default(cuid())
+  caseId      String
+  name        String   // max 80 chars
+  description String?  // max 200 chars
+  weight      Int      @default(100)  // percentage, sum to 100
+  sortOrder   Int      @default(0)
+}
+
+model ParticipantProcess {
+  id            String  @id @default(cuid())
+  participantId String
+  processId     String
+  // Links participants to their assigned processes
+}
+
+// SurveyResponse gains optional processId
+// for process-specific answers</code></pre>
+
+  <h3>16.7 Migration</h3>
+  <ul>
+    <li>Existing assessments have no processes → treated as single unnamed process (backward compatible)</li>
+    <li><code>processId</code> is nullable — no data migration needed</li>
+    <li>Scoring logic falls back gracefully when no AssessmentProcess records exist</li>
+  </ul>
+
+  <p><strong>Full specification:</strong> <a href="/md/feature-process-naming.md">feature-process-naming.md</a></p>
+
+  <h2 id="roadmap">17. Roadmap</h2>
 
   <h3>Completed ✅</h3>
   <ul>
     <li>Multi-role survey with ICS scoring</li>
     <li>8 Thinking Maturity flags (TM-1 to TM-8)</li>
-    <li>4 kit variants (Quick Check, Core, Full, Process)</li>
+    <li>4 kit variants (Quick Check, Decision Clarity, Full Assessment, Process Readiness Scan)</li>
+    <li>Process Naming — multi-process evaluation with weights and per-owner assignment</li>
+    <li>Updated assessment descriptions with lenses (Strategy, Business Value, Technical Feasibility, Process Readiness, Operational Reality)</li>
+    <li>User Representatives role added to Full Assessment (5 roles)</li>
     <li>Demo system with 6 personas</li>
     <li>User authentication (signup, signin, password reset, email verification)</li>
     <li>Subscription tiers (Free, Try Out, Core, Advanced, Enterprise)</li>
@@ -1146,7 +1244,7 @@ DecisionCase (1) ──┬── Participants (N)
   </ul>
 
   <div class="footer">
-    <p><strong>ELVAIT PRD v2.2</strong> — February 2026</p>
+    <p><strong>ELVAIT PRD v2.3</strong> — February 2026</p>
     <p>Document maintained by ELVAIT development team</p>
     <p><a href="/md/index.html">← Back to Documentation</a></p>
   </div>

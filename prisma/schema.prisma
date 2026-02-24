@@ -116,6 +116,7 @@ model DecisionCase {
   participants         Participant[]
   responses            SurveyResponse[]
   summary              CaseSummary?
+  processes            AssessmentProcess[]
   
   @@index([status])
   @@index([createdAt])
@@ -144,7 +145,8 @@ model Participant {
   completedAt DateTime?
   
   // Relations
-  responses   SurveyResponse[]
+  responses         SurveyResponse[]
+  assignedProcesses ParticipantProcess[]
   
   @@index([caseId])
   @@index([token])
@@ -161,6 +163,8 @@ model SurveyResponse {
   case          DecisionCase @relation(fields: [caseId], references: [id], onDelete: Cascade)
   participantId String
   participant   Participant @relation(fields: [participantId], references: [id], onDelete: Cascade)
+  processId     String?
+  process       AssessmentProcess? @relation(fields: [processId], references: [id])
   
   // Question reference
   questionId    String   // e.g., E1, B3, T6, P9
@@ -181,6 +185,43 @@ model SurveyResponse {
   @@index([caseId])
   @@index([participantId])
   @@index([questionId])
+  @@index([processId])
+}
+
+// =============================================================================
+// ASSESSMENT PROCESS - Named processes within a case
+// =============================================================================
+
+model AssessmentProcess {
+  id          String       @id @default(cuid())
+  caseId      String
+  case        DecisionCase @relation(fields: [caseId], references: [id], onDelete: Cascade)
+  
+  name        String       // max 80 chars
+  description String?      // max 200 chars
+  weight      Int          @default(100) // percentage, all must sum to 100
+  sortOrder   Int          @default(0)
+  
+  createdAt   DateTime     @default(now())
+  updatedAt   DateTime     @updatedAt
+  
+  responses   SurveyResponse[]
+  participants ParticipantProcess[]
+  
+  @@index([caseId])
+  @@unique([caseId, sortOrder])
+}
+
+model ParticipantProcess {
+  id            String            @id @default(cuid())
+  participantId String
+  participant   Participant       @relation(fields: [participantId], references: [id], onDelete: Cascade)
+  processId     String
+  process       AssessmentProcess @relation(fields: [processId], references: [id], onDelete: Cascade)
+  
+  @@unique([participantId, processId])
+  @@index([participantId])
+  @@index([processId])
 }
 
 // =============================================================================

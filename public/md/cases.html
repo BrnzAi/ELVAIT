@@ -533,6 +533,39 @@
     <tr><td>RD06</td><td>Recommendation</td><td>NO_GO</td><td>Red banner</td><td>✅</td></tr>
   </table>
 
+  <h3>12.3 Process Naming <span class="tag new">NEW in v2.3</span></h3>
+  <table>
+    <tr><th>#</th><th>Component</th><th>Data</th><th>Expected</th><th>Status</th></tr>
+    <tr><td>PN01</td><td>Create Flow</td><td>FULL variant selected</td><td>Process editor appears in Step 2</td><td>🔲</td></tr>
+    <tr><td>PN02</td><td>Create Flow</td><td>PROCESS_STANDALONE selected</td><td>Process editor appears in Step 2</td><td>🔲</td></tr>
+    <tr><td>PN03</td><td>Create Flow</td><td>QUICK_CHECK selected</td><td>No process editor</td><td>🔲</td></tr>
+    <tr><td>PN04</td><td>Process Editor</td><td>Default state</td><td>1 process "Main Process", weight 100%</td><td>🔲</td></tr>
+    <tr><td>PN05</td><td>Process Editor</td><td>Add process</td><td>New row added, weights auto-rebalance</td><td>🔲</td></tr>
+    <tr><td>PN06</td><td>Process Editor</td><td>6th process</td><td>Add button disabled (max 5)</td><td>🔲</td></tr>
+    <tr><td>PN07</td><td>Process Editor</td><td>Remove last process</td><td>Remove button disabled (min 1)</td><td>🔲</td></tr>
+    <tr><td>PN08</td><td>Process Editor</td><td>Weights 40+60</td><td>Sum shows 100%, valid</td><td>🔲</td></tr>
+    <tr><td>PN09</td><td>Process Editor</td><td>Weights 40+40</td><td>Sum shows 80%, validation error</td><td>🔲</td></tr>
+    <tr><td>PN10</td><td>Process Editor</td><td>Empty name</td><td>Validation error, submit blocked</td><td>🔲</td></tr>
+    <tr><td>PN11</td><td>Process Editor</td><td>Duplicate names</td><td>Validation error</td><td>🔲</td></tr>
+    <tr><td>PN12</td><td>API Create</td><td>FULL + 2 processes</td><td>Case created with 2 AssessmentProcess records</td><td>🔲</td></tr>
+    <tr><td>PN13</td><td>API Create</td><td>FULL + no processes</td><td>Auto-creates "Main Process" weight 100</td><td>🔲</td></tr>
+    <tr><td>PN14</td><td>API Create</td><td>CORE + processes</td><td>Processes ignored (not applicable)</td><td>🔲</td></tr>
+    <tr><td>PN15</td><td>API Create</td><td>6 processes</td><td>400 error: max 5</td><td>🔲</td></tr>
+    <tr><td>PN16</td><td>API Create</td><td>Weights sum ≠ 100</td><td>400 error: weights must sum to 100</td><td>🔲</td></tr>
+    <tr><td>PN17</td><td>API GET</td><td>Case with processes</td><td>Processes included in response</td><td>🔲</td></tr>
+    <tr><td>PN18</td><td>Participant</td><td>Add PROCESS_OWNER</td><td>Process selector appears</td><td>🔲</td></tr>
+    <tr><td>PN19</td><td>Participant</td><td>Add PROCESS_OWNER, no process selected</td><td>Defaults to all processes</td><td>🔲</td></tr>
+    <tr><td>PN20</td><td>Participant</td><td>Add EXEC</td><td>No process selector</td><td>🔲</td></tr>
+    <tr><td>PN21</td><td>Survey</td><td>1 process assigned</td><td>Normal survey flow, no change</td><td>🔲</td></tr>
+    <tr><td>PN22</td><td>Survey</td><td>3 processes assigned</td><td>Questions repeat per process with header</td><td>🔲</td></tr>
+    <tr><td>PN23</td><td>Survey</td><td>Multi-process progress</td><td>Shows "Process 2 of 3" indicator</td><td>🔲</td></tr>
+    <tr><td>PN24</td><td>Scoring</td><td>2 processes, weights 60/40</td><td>Weighted aggregate correct</td><td>🔲</td></tr>
+    <tr><td>PN25</td><td>Scoring</td><td>Process gate</td><td>Lowest individual score used for gate</td><td>🔲</td></tr>
+    <tr><td>PN26</td><td>Results</td><td>Multi-process case</td><td>Per-process comparison table shown</td><td>🔲</td></tr>
+    <tr><td>PN27</td><td>Results</td><td>Single-process case</td><td>No comparison table (same as before)</td><td>🔲</td></tr>
+    <tr><td>PN28</td><td>Migration</td><td>Existing case (no processes)</td><td>Backward compatible, scores unchanged</td><td>🔲</td></tr>
+  </table>
+
   <h2>Test Coverage Summary</h2>
 
   <table>
@@ -555,7 +588,8 @@
     <tr><td>Case Limits</td><td>12</td><td>4</td><td>16</td></tr>
     <tr><td>Admin Panel</td><td>18</td><td>6</td><td>24</td></tr>
     <tr><td>PRD Requirements</td><td>102</td><td>—</td><td>102</td></tr>
-    <tr><td><strong>Total</strong></td><td><strong>667</strong></td><td><strong>60</strong></td><td><strong>727</strong></td></tr>
+    <tr><td>Process Naming</td><td>—</td><td>28</td><td>28</td></tr>
+    <tr><td><strong>Total</strong></td><td><strong>678</strong></td><td><strong>88</strong></td><td><strong>766</strong></td></tr>
   </table>
 
   <h2>Running Tests</h2>

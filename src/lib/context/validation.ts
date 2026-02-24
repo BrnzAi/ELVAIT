@@ -10,6 +10,12 @@ import { KitVariant, ALL_VARIANTS } from '../variants/types';
 // TYPES
 // =============================================================================
 
+export interface ProcessInput {
+  name: string;
+  description?: string;
+  weight?: number;
+}
+
 export interface CreateCaseInput {
   decisionTitle: string;
   variant: KitVariant;
@@ -22,6 +28,7 @@ export interface CreateCaseInput {
   dCtx2: string;
   dCtx3: string;
   dCtx4: string;
+  processes?: ProcessInput[];
 }
 
 export interface ValidationError {
@@ -41,6 +48,12 @@ export interface ValidationResult {
 export const MAX_TITLE_LENGTH = 120;
 export const MAX_DESCRIPTION_LENGTH = 500;
 export const MAX_DCTX_LENGTH = 1000;
+
+// Process validation constants
+export const MAX_PROCESS_NAME_LENGTH = 80;
+export const MAX_PROCESS_DESCRIPTION_LENGTH = 200;
+export const MIN_PROCESSES = 1;
+export const MAX_PROCESSES = 5;
 
 export const INVESTMENT_TYPES = [
   'AI solution / automation',
@@ -147,6 +160,12 @@ export function validateCreateCase(input: Partial<CreateCaseInput>): ValidationR
     errors.push({ field: 'dCtx4', message: `D-CTX-4 must be ${MAX_DCTX_LENGTH} characters or less` });
   }
   
+  // Validate processes (if variant supports it)
+  if (input.variant) {
+    const processValidation = validateProcesses(input.processes, input.variant);
+    errors.push(...processValidation.errors);
+  }
+  
   return {
     valid: errors.length === 0,
     errors
@@ -202,6 +221,159 @@ export function validateTitleModification(
     valid: errors.length === 0,
     errors
   };
+}
+
+/**
+ * Validate processes array for variants that support process naming.
+ */
+export function validateProcesses(processes: ProcessInput[] | undefined, variant: KitVariant): ValidationResult {
+  const errors: ValidationError[] = [];
+  
+  // Check if variant supports process naming
+  const supportsProcessNaming = variant === 'FULL' || variant === 'PROCESS_STANDALONE';
+  
+  if (!supportsProcessNaming) {
+    // For variants that don't support process naming, processes should not be provided
+    if (processes && processes.length > 0) {
+      errors.push({ 
+        field: 'processes', 
+        message: `Process naming is not supported for variant ${variant}` 
+      });
+    }
+    return { valid: errors.length === 0, errors };
+  }
+  
+  // If no processes provided for supported variants, we'll auto-create a default one
+  if (!processes || processes.length === 0) {
+    return { valid: true, errors: [] };
+  }
+  
+  // Validate process count
+  if (processes.length < MIN_PROCESSES) {
+    errors.push({ 
+      field: 'processes', 
+      message: `At least ${MIN_PROCESSES} process is required` 
+    });
+  }
+  
+  if (processes.length > MAX_PROCESSES) {
+    errors.push({ 
+      field: 'processes', 
+      message: `Maximum ${MAX_PROCESSES} processes allowed` 
+    });
+  }
+  
+  // Track process names for uniqueness check
+  const processNames = new Set<string>();
+  let totalWeight = 0;
+  
+  // Validate each process
+  processes.forEach((process, index) => {
+    const prefix = `processes[${index}]`;
+    
+    // Validate name
+    if (!process.name) {
+      errors.push({ 
+        field: `${prefix}.name`, 
+        message: 'Process name is required' 
+      });
+    } else {
+      // Check length
+      if (process.name.length > MAX_PROCESS_NAME_LENGTH) {
+        errors.push({ 
+          field: `${prefix}.name`, 
+          message: `Process name must be ${MAX_PROCESS_NAME_LENGTH} characters or less` 
+        });
+      }
+      
+      // Check uniqueness
+      const lowercaseName = process.name.toLowerCase();
+      if (processNames.has(lowercaseName)) {
+        errors.push({ 
+          field: `${prefix}.name`, 
+          message: 'Process names must be unique within the case' 
+        });
+      } else {
+        processNames.add(lowercaseName);
+      }
+    }
+    
+    // Validate description (optional)
+    if (process.description && process.description.length > MAX_PROCESS_DESCRIPTION_LENGTH) {
+      errors.push({ 
+        field: `${prefix}.description`, 
+        message: `Process description must be ${MAX_PROCESS_DESCRIPTION_LENGTH} characters or less` 
+      });
+    }
+    
+    // Validate weight (optional, defaults to equal distribution)
+    if (process.weight !== undefined) {
+      if (typeof process.weight !== 'number' || process.weight < 1 || process.weight > 100) {
+        errors.push({ 
+          field: `${prefix}.weight`, 
+          message: 'Process weight must be a number between 1 and 100' 
+        });
+      } else {
+        totalWeight += process.weight;
+      }
+    }
+  });
+  
+  // If any weights are provided, validate they sum to 100
+  const hasWeights = processes.some(p => p.weight !== undefined);
+  if (hasWeights) {
+    // Check if all processes have weights
+    const allHaveWeights = processes.every(p => p.weight !== undefined);
+    if (!allHaveWeights) {
+      errors.push({ 
+        field: 'processes', 
+        message: 'If any process has a weight, all processes must have weights' 
+      });
+    } else if (totalWeight !== 100) {
+      errors.push({ 
+        field: 'processes', 
+        message: `Process weights must sum to 100 (currently: ${totalWeight})` 
+      });
+    }
+  }
+  
+  return {
+    valid: errors.length === 0,
+    errors
+  };
+}
+
+/**
+ * Normalize processes array - auto-distribute weights if not provided.
+ */
+export function normalizeProcesses(processes: ProcessInput[] | undefined, variant: KitVariant): ProcessInput[] {
+  const supportsProcessNaming = variant === 'FULL' || variant === 'PROCESS_STANDALONE';
+  
+  if (!supportsProcessNaming) {
+    return [];
+  }
+  
+  // If no processes provided, create default
+  if (!processes || processes.length === 0) {
+    return [{
+      name: 'Main Process',
+      weight: 100
+    }];
+  }
+  
+  // If no weights provided, distribute equally
+  const hasWeights = processes.some(p => p.weight !== undefined);
+  if (!hasWeights) {
+    const equalWeight = Math.floor(100 / processes.length);
+    const remainder = 100 - (equalWeight * processes.length);
+    
+    return processes.map((process, index) => ({
+      ...process,
+      weight: index === 0 ? equalWeight + remainder : equalWeight
+    }));
+  }
+  
+  return processes;
 }
 
 export default validateCreateCase;

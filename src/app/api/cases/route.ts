@@ -8,7 +8,7 @@
 
 import { NextRequest, NextResponse } from 'next/server';
 import { prisma } from '@/lib/db';
-import { validateCreateCase } from '@/lib/context/validation';
+import { validateCreateCase, normalizeProcesses } from '@/lib/context/validation';
 import { auth } from '@/lib/auth';
 import { TIER_LIMITS, Tier } from '@/lib/tiers';
 
@@ -54,26 +54,55 @@ export async function POST(request: NextRequest) {
       }
     }
     
-    // Create case
-    const newCase = await prisma.decisionCase.create({
-      data: {
-        variant: body.variant,
-        status: 'DRAFT',
-        decisionTitle: body.decisionTitle,
-        investmentType: body.investmentType,
-        decisionDescription: body.decisionDescription,
-        impactedAreas: JSON.stringify(body.impactedAreas),
-        timeHorizon: body.timeHorizon,
-        estimatedInvestment: body.estimatedInvestment ?? null,
-        dCtx1: body.dCtx1,
-        dCtx2: body.dCtx2,
-        dCtx3: body.dCtx3,
-        dCtx4: body.dCtx4,
-        createdBy: userId
+    // Normalize processes for variants that support them
+    const normalizedProcesses = normalizeProcesses(body.processes, body.variant);
+    
+    // Create case with processes in transaction
+    const result = await prisma.$transaction(async (tx) => {
+      // Create the case
+      const newCase = await tx.decisionCase.create({
+        data: {
+          variant: body.variant,
+          status: 'DRAFT',
+          decisionTitle: body.decisionTitle,
+          investmentType: body.investmentType,
+          decisionDescription: body.decisionDescription,
+          impactedAreas: JSON.stringify(body.impactedAreas),
+          timeHorizon: body.timeHorizon,
+          estimatedInvestment: body.estimatedInvestment ?? null,
+          dCtx1: body.dCtx1,
+          dCtx2: body.dCtx2,
+          dCtx3: body.dCtx3,
+          dCtx4: body.dCtx4,
+          createdBy: userId
+        }
+      });
+      
+      // Create processes if any
+      const processes = [];
+      if (normalizedProcesses.length > 0) {
+        for (let i = 0; i < normalizedProcesses.length; i++) {
+          const process = normalizedProcesses[i];
+          const createdProcess = await tx.assessmentProcess.create({
+            data: {
+              caseId: newCase.id,
+              name: process.name,
+              description: process.description || null,
+              weight: process.weight!,
+              sortOrder: i
+            }
+          });
+          processes.push(createdProcess);
+        }
       }
+      
+      return { case: newCase, processes };
     });
     
-    return NextResponse.json(newCase, { status: 201 });
+    return NextResponse.json({
+      ...result.case,
+      processes: result.processes
+    }, { status: 201 });
   } catch (error) {
     console.error('Error creating case:', error);
     return NextResponse.json(

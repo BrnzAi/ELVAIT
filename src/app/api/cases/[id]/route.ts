@@ -8,7 +8,7 @@
 
 import { NextRequest, NextResponse } from 'next/server';
 import { prisma } from '@/lib/db';
-import { validateTitleModification, canModifyTitle, canChangeVariant } from '@/lib/context/validation';
+import { validateTitleModification, canModifyTitle, canChangeVariant, validateProcesses, normalizeProcesses } from '@/lib/context/validation';
 
 interface RouteParams {
   params: { id: string };
@@ -34,6 +34,16 @@ export async function GET(
             status: true,
             token: true
           }
+        },
+        processes: {
+          select: {
+            id: true,
+            name: true,
+            description: true,
+            weight: true,
+            sortOrder: true
+          },
+          orderBy: { sortOrder: 'asc' }
         },
         summary: true,
         _count: {
@@ -180,14 +190,70 @@ export async function PATCH(
       updateData.variant = body.variant;
     }
     
-    const updated = await prisma.decisionCase.update({
-      where: { id: params.id },
-      data: updateData
+    // Handle process updates (only allowed in DRAFT status)
+    if (body.processes !== undefined) {
+      if (existing.status !== 'DRAFT') {
+        errors.push({
+          field: 'processes',
+          message: 'Processes can only be modified while case is in DRAFT status'
+        });
+      } else {
+        // Validate processes for the variant
+        const variant = (body.variant ?? existing.variant) as any;
+        const processValidation = validateProcesses(body.processes, variant);
+        errors.push(...processValidation.errors);
+      }
+    }
+    
+    // Return early if we have validation errors
+    if (errors.length > 0) {
+      return NextResponse.json(
+        { error: 'Validation failed', details: errors },
+        { status: 400 }
+      );
+    }
+    
+    // Perform updates in transaction
+    const result = await prisma.$transaction(async (tx) => {
+      // Update the case
+      const updated = await tx.decisionCase.update({
+        where: { id: params.id },
+        data: updateData
+      });
+      
+      // Update processes if provided
+      let processes = undefined;
+      if (body.processes !== undefined) {
+        // Delete existing processes
+        await tx.assessmentProcess.deleteMany({
+          where: { caseId: params.id }
+        });
+        
+        // Create new processes
+        const normalizedProcesses = normalizeProcesses(body.processes, updated.variant as any);
+        processes = [];
+        for (let i = 0; i < normalizedProcesses.length; i++) {
+          const process = normalizedProcesses[i];
+          const createdProcess = await tx.assessmentProcess.create({
+            data: {
+              caseId: params.id,
+              name: process.name,
+              description: process.description || null,
+              weight: process.weight!,
+              sortOrder: i
+            }
+          });
+          processes.push(createdProcess);
+        }
+      }
+      
+      return { case: updated, processes };
     });
     
     return NextResponse.json({
-      ...updated,
-      impactedAreas: JSON.parse(updated.impactedAreas)
+      ...result.case,
+      impactedAreas: JSON.parse(result.case.impactedAreas),
+      ...(result.processes && { processes: result.processes })
     });
   } catch (error) {
     console.error('Error updating case:', error);
