@@ -61,7 +61,7 @@ const FLAG_LABELS: Record<string, string> = {
   'CAPACITY_ILLUSION_TECH': 'Technical team underestimates impact',
   'CAPACITY_ILLUSION_CONFIRMED': 'Organization-wide capacity illusion',
   'COMPLEXITY_DENIAL': 'Complexity is being downplayed',
-  'WITHIN_ROLE_CONTRADICTION': 'Internal inconsistency detected',
+  'WITHIN_ROLE_CONTRADICTION': 'Contradictory responses detected',
   'ADOPTION_RISK': 'Adoption barriers underestimated',
   'AUTOMATION_PREMATURITY': 'Process not ready for automation',
   'LOW_DIMENSION_SCORE_D1': 'Strategic intent unclear',

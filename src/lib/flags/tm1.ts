@@ -67,6 +67,10 @@ export function detectTm1Flags(answers: AnswerLookup): Flag[] {
     
     // Check for contradiction: both adjusted >= 4
     if (posNorm.adjusted >= 4 && revNorm.adjusted >= 4) {
+      // Generate human-readable description using actual question text
+      const posTextShort = posQ.text.length > 60 ? posQ.text.slice(0, 57) + '...' : posQ.text;
+      const revTextShort = revQ.text.length > 60 ? revQ.text.slice(0, 57) + '...' : revQ.text;
+      
       flags.push({
         flag_id: 'WITHIN_ROLE_CONTRADICTION',
         severity: 'WARN',
@@ -77,7 +81,7 @@ export function detectTm1Flags(answers: AnswerLookup): Flag[] {
             [revQ.question_id]: revAnswer.rawValue
           },
           roles: [posAnswer.role],
-          description: `Both "${posQ.question_id}" (adjusted=${posNorm.adjusted}) and "${revQ.question_id}" (adjusted=${revNorm.adjusted}) indicate strong agreement, but they should be inversely related.`
+          description: `The ${posAnswer.role.replace('_', ' ').toLowerCase()} strongly agreed with both "${posTextShort}" AND "${revTextShort}" — these statements contradict each other.`
         }
       });
     }
@@ -130,6 +134,10 @@ export function detectContradictionGroupFlags(
         const revNorm = normalise(revAnswer.rawValue, revQ.is_reverse);
         
         if (posNorm.adjusted >= 4 && revNorm.adjusted >= 4) {
+          // Generate human-readable description using actual question text
+          const posTextShort = posQ.text.length > 60 ? posQ.text.slice(0, 57) + '...' : posQ.text;
+          const revTextShort = revQ.text.length > 60 ? revQ.text.slice(0, 57) + '...' : revQ.text;
+          
           flags.push({
             flag_id: 'WITHIN_ROLE_CONTRADICTION',
             severity: 'WARN',
@@ -141,7 +149,7 @@ export function detectContradictionGroupFlags(
               },
               roles: [role],
               group: groupId,
-              description: `Contradiction in ${groupId}: both questions indicate strong agreement but have opposing meanings.`
+              description: `The ${role.replace('_', ' ').toLowerCase()} gave contradictory responses: agreed with both "${posTextShort}" AND "${revTextShort}".`
             }
           });
         }
