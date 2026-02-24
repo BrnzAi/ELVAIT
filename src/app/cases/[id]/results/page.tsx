@@ -47,6 +47,13 @@ interface Flag {
   };
 }
 
+interface ProcessScore {
+  processId: string;
+  processName: string;
+  score: number;
+  weight: number;
+}
+
 interface ResultsData {
   caseId: string;
   variant: string;
@@ -87,6 +94,9 @@ interface ResultsData {
     score: number;
     readiness: string;
   } | null;
+  processScores: ProcessScore[] | null;
+  aggregateProcessScore: number | null;
+  lowestProcessScore: ProcessScore | null;
   generatedAt: string;
   responseCount: number;
   participantCount: number;
@@ -517,6 +527,109 @@ export default function ResultsPage() {
             })}
           </div>
         </div>
+
+        {/* Per-Process Breakdown - Only for multi-process cases */}
+        {results.processScores && results.processScores.length > 1 && (
+          <div className="bg-white dark:bg-gray-900 rounded-xl border border-gray-200 dark:border-gray-800 p-6 mb-8">
+            <h2 className="text-lg font-semibold mb-4">Process Readiness by Process</h2>
+            
+            {/* Aggregate Score Summary */}
+            <div className="mb-6 p-4 bg-blue-50 dark:bg-blue-900/20 rounded-lg">
+              <div className="flex items-center justify-between">
+                <div>
+                  <h3 className="font-medium text-blue-900 dark:text-blue-100">Aggregate Process Score</h3>
+                  <p className="text-sm text-blue-700 dark:text-blue-300">
+                    Weighted average across {results.processScores.length} processes
+                  </p>
+                </div>
+                <div className="text-2xl font-bold text-blue-600">
+                  {results.aggregateProcessScore?.toFixed(1) ?? 'N/A'}
+                </div>
+              </div>
+            </div>
+
+            {/* Process Comparison Table */}
+            <div className="overflow-x-auto">
+              <table className="w-full">
+                <thead>
+                  <tr className="border-b dark:border-gray-700">
+                    <th className="text-left py-3 pr-4 font-medium">Process Name</th>
+                    <th className="text-center py-3 px-4 font-medium">Score</th>
+                    <th className="text-center py-3 px-4 font-medium">Weight</th>
+                    <th className="text-center py-3 pl-4 font-medium">Status</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  {results.processScores.map((processScore, i) => {
+                    const isLowest = results.lowestProcessScore?.processId === processScore.processId;
+                    const scoreColor = processScore.score >= 75 ? 'green' : 
+                                     processScore.score >= 60 ? 'amber' : 'red';
+                    
+                    return (
+                      <tr 
+                        key={processScore.processId} 
+                        className={`border-b dark:border-gray-800 ${
+                          isLowest ? 'bg-red-50 dark:bg-red-900/10' : ''
+                        }`}
+                      >
+                        <td className="py-4 pr-4">
+                          <div className="flex items-center gap-2">
+                            {isLowest && (
+                              <AlertTriangle className="w-4 h-4 text-red-500" />
+                            )}
+                            <span className="font-medium">{processScore.processName}</span>
+                            {isLowest && (
+                              <span className="text-xs bg-red-100 dark:bg-red-900/30 text-red-700 dark:text-red-400 px-2 py-1 rounded">
+                                Weakest Link
+                              </span>
+                            )}
+                          </div>
+                        </td>
+                        <td className="text-center py-4 px-4">
+                          <span className="text-lg font-bold">{processScore.score.toFixed(1)}</span>
+                        </td>
+                        <td className="text-center py-4 px-4 text-gray-600 dark:text-gray-400">
+                          {processScore.weight}%
+                        </td>
+                        <td className="text-center py-4 pl-4">
+                          <span className={`inline-block px-3 py-1 rounded-full text-sm font-medium ${
+                            scoreColor === 'green' 
+                              ? 'bg-green-100 text-green-700 dark:bg-green-900/30 dark:text-green-400' 
+                              : scoreColor === 'amber'
+                                ? 'bg-amber-100 text-amber-700 dark:bg-amber-900/30 dark:text-amber-400'
+                                : 'bg-red-100 text-red-700 dark:bg-red-900/30 dark:text-red-400'
+                          }`}>
+                            {scoreColor === 'green' ? 'Ready' : 
+                             scoreColor === 'amber' ? 'Improve First' : 'High Risk'}
+                          </span>
+                        </td>
+                      </tr>
+                    );
+                  })}
+                </tbody>
+              </table>
+            </div>
+
+            {/* Lowest Process Warning */}
+            {results.lowestProcessScore && (
+              <div className="mt-4 p-4 bg-red-50 dark:bg-red-900/20 rounded-lg border-l-4 border-red-500">
+                <div className="flex items-start gap-3">
+                  <AlertTriangle className="w-5 h-5 text-red-500 flex-shrink-0 mt-0.5" />
+                  <div>
+                    <h4 className="font-medium text-red-900 dark:text-red-100">
+                      Gate Evaluation Uses Weakest Process
+                    </h4>
+                    <p className="text-sm text-red-800 dark:text-red-200 mt-1">
+                      <strong>{results.lowestProcessScore.processName}</strong> scored lowest at{' '}
+                      <strong>{results.lowestProcessScore.score.toFixed(1)}</strong> and determines the overall 
+                      Process Gate result. One weak process can block the entire initiative.
+                    </p>
+                  </div>
+                </div>
+              </div>
+            )}
+          </div>
+        )}
 
         {/* Blind Spots - Locked for anonymous, Hidden for single respondent */}
         {results.blindSpots.length > 0 && results.participantCount > 1 && (

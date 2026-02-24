@@ -21,6 +21,7 @@ import { getActiveRoles } from '@/lib/variants/config';
 // Scoring
 import { calculateCaseScores, Answer } from '@/lib/scoring/dimensions';
 import { computeIcs } from '@/lib/scoring/ics';
+import { calculateCompleteProcessScores, getGateProcessScore } from '@/lib/scoring/process-scores';
 
 // Flags
 import { runFlagEngine, FlagEngineResult } from '@/lib/flags/engine';
@@ -51,7 +52,10 @@ export async function GET(
       where: { id: params.id },
       include: {
         participants: true,
-        responses: true
+        responses: true,
+        processes: {
+          orderBy: { sortOrder: 'asc' }
+        }
       }
     });
     
@@ -92,15 +96,19 @@ export async function GET(
     // 1. Calculate scores
     const { roleScores, caseScores } = calculateCaseScores(answers, variant);
     
+    // 1.5. Calculate per-process scores (if processes exist)
+    const processScoring = calculateCompleteProcessScores(caseData.responses, caseData.processes);
+    
     // 2. Calculate ICS
     const icsResult = computeIcs(caseScores, variant);
     
     // 3. Run flag engine
     const flagResult = await runFlagEngine(answerLookup);
     
-    // 4. Evaluate gates
+    // 4. Evaluate gates (use weakest process score for gating)
+    const gateProcessScore = getGateProcessScore(caseScores.P, processScoring);
     const gateResult = evaluateAllGates({
-      caseDimScores: caseScores,
+      caseDimScores: { ...caseScores, P: gateProcessScore },
       variant,
       flagResult,
       userFrictionScore: roleScores['USER']?.['D3'] ?? null,
@@ -192,7 +200,7 @@ export async function GET(
         aiSummary: aiSummary.boardNarrative,
         blindSpots: JSON.stringify(blindSpots),
         checklistItems: JSON.stringify(checklistItems),
-        processScore: caseScores.P,
+        processScore: gateProcessScore,
         processReadiness: summary.processReadiness
       },
       update: {
@@ -206,7 +214,7 @@ export async function GET(
         aiSummary: aiSummary.boardNarrative,
         blindSpots: JSON.stringify(blindSpots),
         checklistItems: JSON.stringify(checklistItems),
-        processScore: caseScores.P,
+        processScore: gateProcessScore,
         processReadiness: summary.processReadiness
       }
     });
@@ -266,6 +274,11 @@ export async function GET(
         score: caseScores.P,
         readiness: summary.processReadiness
       } : null,
+      
+      // Per-process scores (only for multi-process cases)
+      processScores: processScoring?.processScores || null,
+      aggregateProcessScore: processScoring?.aggregateProcessScore || null,
+      lowestProcessScore: processScoring?.lowestProcessScore || null,
       
       // Meta
       generatedAt: new Date().toISOString(),
