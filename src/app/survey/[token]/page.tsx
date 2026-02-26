@@ -66,6 +66,7 @@ export default function SurveyPage() {
   const [saving, setSaving] = useState(false);
   const [showContext, setShowContext] = useState(true);
   const [completed, setCompleted] = useState(false);
+  const [consentGiven, setConsentGiven] = useState(false);
 
   useEffect(() => {
     const fetchSurvey = async () => {
@@ -234,7 +235,25 @@ export default function SurveyPage() {
               </p>
             </div>
 
-            <Button onClick={() => setShowContext(false)} size="lg" className="w-full">
+            <div className="p-4 bg-gray-50 dark:bg-gray-800 rounded-lg mb-6 border border-gray-200 dark:border-gray-700">
+              <h3 className="text-sm font-semibold mb-2 text-gray-900 dark:text-gray-100">🔒 Data Privacy &amp; GDPR Consent</h3>
+              <p className="text-xs text-gray-600 dark:text-gray-400 leading-relaxed mb-3">
+                By participating in this survey, you consent to the processing of your responses for the purpose of organizational decision assessment. Your data is stored on EU servers (Google Cloud, Frankfurt, europe-west1), encrypted in transit and at rest, and processed in accordance with GDPR. Only your name, email, and survey responses are collected — no IP addresses or tracking data. Your responses are pseudonymised and analysed in aggregate across roles. You may request access to, correction, or deletion of your data at any time by contacting <a href="mailto:system@elvait.ai" className="text-clarity-600 underline">system@elvait.ai</a>.
+              </p>
+              <label className="flex items-start gap-2 cursor-pointer">
+                <input
+                  type="checkbox"
+                  checked={consentGiven}
+                  onChange={(e) => setConsentGiven(e.target.checked)}
+                  className="mt-0.5 w-4 h-4 rounded border-gray-300 text-clarity-600 focus:ring-clarity-500"
+                />
+                <span className="text-sm text-gray-700 dark:text-gray-300">
+                  I have read and agree to the processing of my data as described above.
+                </span>
+              </label>
+            </div>
+
+            <Button onClick={() => setShowContext(false)} size="lg" className="w-full" disabled={!consentGiven}>
               Start Survey ({totalQuestions} questions)
               <ArrowRight className="w-5 h-5 ml-2" />
             </Button>
