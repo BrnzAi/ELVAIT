@@ -368,38 +368,73 @@ export default function LandingPage() {
                   <Download className="w-6 h-6 text-amber-600" />
                 </div>
                 <div>
-                  <h3 className="text-xl font-bold">Full Plans</h3>
+                  <h3 className="text-xl font-bold">All Decision Clarity Plans</h3>
                   <p className="text-sm text-gray-500">Core to Enterprise</p>
                 </div>
               </div>
-              <ul className="space-y-3">
-                <li className="flex items-center gap-2 text-gray-700 dark:text-gray-300">
-                  <Check className="w-5 h-5 text-amber-500 flex-shrink-0" />
-                  <span>10–Unlimited Full Assessments + customized</span>
+              <ul className="space-y-4">
+                <li className="text-gray-700 dark:text-gray-300">
+                  <div className="flex items-start gap-2">
+                    <Check className="w-5 h-5 text-amber-500 flex-shrink-0 mt-0.5" />
+                    <div>
+                      <span className="font-medium">Run 10 Assessments — or Scale Without Limits</span>
+                      <p className="text-sm text-gray-500 dark:text-gray-400">Built for growing decision complexity</p>
+                    </div>
+                  </div>
                 </li>
-                <li className="flex items-center gap-2 text-gray-700 dark:text-gray-300">
-                  <Check className="w-5 h-5 text-amber-500 flex-shrink-0" />
-                  <span>All 5 roles + customized</span>
+                <li className="text-gray-700 dark:text-gray-300">
+                  <div className="flex items-start gap-2">
+                    <Check className="w-5 h-5 text-amber-500 flex-shrink-0 mt-0.5" />
+                    <div>
+                      <span className="font-medium">5 Built-In Stakeholder Roles &amp; Lenses — Expand &amp; Customize Anytime</span>
+                      <p className="text-sm text-gray-500 dark:text-gray-400">Because misalignment lives between functions</p>
+                    </div>
+                  </div>
                 </li>
-                <li className="flex items-center gap-2 text-gray-700 dark:text-gray-300">
-                  <Check className="w-5 h-5 text-amber-500 flex-shrink-0" />
-                  <span>50–Unlimited Respondents</span>
+                <li className="text-gray-700 dark:text-gray-300">
+                  <div className="flex items-start gap-2">
+                    <Check className="w-5 h-5 text-amber-500 flex-shrink-0 mt-0.5" />
+                    <div>
+                      <span className="font-medium">50 to Unlimited Respondents</span>
+                      <p className="text-sm text-gray-500 dark:text-gray-400">Capture the full structural picture</p>
+                    </div>
+                  </div>
                 </li>
-                <li className="flex items-center gap-2 text-gray-700 dark:text-gray-300">
-                  <Check className="w-5 h-5 text-amber-500 flex-shrink-0" />
-                  <span>Full results & insights</span>
+                <li className="text-gray-700 dark:text-gray-300">
+                  <div className="flex items-start gap-2">
+                    <Check className="w-5 h-5 text-amber-500 flex-shrink-0 mt-0.5" />
+                    <div>
+                      <span className="font-medium">AI Detects Contradictions, Blind Spots &amp; False Confidence</span>
+                      <p className="text-sm text-gray-500 dark:text-gray-400">We surface risk before it scales</p>
+                    </div>
+                  </div>
                 </li>
-                <li className="flex items-center gap-2 text-gray-700 dark:text-gray-300">
-                  <Check className="w-5 h-5 text-amber-500 flex-shrink-0" />
-                  <span>Executive summary</span>
+                <li className="text-gray-700 dark:text-gray-300">
+                  <div className="flex items-start gap-2">
+                    <Check className="w-5 h-5 text-amber-500 flex-shrink-0 mt-0.5" />
+                    <div>
+                      <span className="font-medium">Clear Go / Fix / No-Go Signal</span>
+                      <p className="text-sm text-gray-500 dark:text-gray-400">Confidence you can defend</p>
+                    </div>
+                  </div>
                 </li>
-                <li className="flex items-center gap-2 text-gray-700 dark:text-gray-300">
-                  <Check className="w-5 h-5 text-amber-500 flex-shrink-0" />
-                  <span>PDF reports</span>
+                <li className="text-gray-700 dark:text-gray-300">
+                  <div className="flex items-start gap-2">
+                    <Check className="w-5 h-5 text-amber-500 flex-shrink-0 mt-0.5" />
+                    <div>
+                      <span className="font-medium">Executive Summary &amp; Decision-Grade Reports</span>
+                      <p className="text-sm text-gray-500 dark:text-gray-400">Board-ready clarity</p>
+                    </div>
+                  </div>
                 </li>
-                <li className="flex items-center gap-2 text-gray-700 dark:text-gray-300">
-                  <Check className="w-5 h-5 text-amber-500 flex-shrink-0" />
-                  <span>API access</span>
+                <li className="text-gray-700 dark:text-gray-300">
+                  <div className="flex items-start gap-2">
+                    <Check className="w-5 h-5 text-amber-500 flex-shrink-0 mt-0.5" />
+                    <div>
+                      <span className="font-medium">API Access</span>
+                      <p className="text-sm text-gray-500 dark:text-gray-400">Integrate clarity into your governance</p>
+                    </div>
+                  </div>
                 </li>
               </ul>
               <Link
