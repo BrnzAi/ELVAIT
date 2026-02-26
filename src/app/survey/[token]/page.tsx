@@ -5,6 +5,8 @@ import { useParams } from 'next/navigation';
 import { Brain, CheckCircle, ArrowRight, ArrowLeft, Loader2, AlertCircle } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import { Textarea } from '@/components/ui/textarea';
+import { ThemeToggle } from '@/components/survey/ThemeToggle';
+import { ElvaitLogo } from '@/components/survey/ElvaitLogo';
 
 interface Question {
   question_id: string;
@@ -190,9 +192,15 @@ export default function SurveyPage() {
     return (
       <div className="min-h-screen bg-gray-50 dark:bg-gray-950">
         <header className="bg-white dark:bg-gray-900 border-b border-gray-200 dark:border-gray-800">
-          <div className="max-w-3xl mx-auto px-6 py-4 flex items-center gap-2">
-            <Brain className="w-6 h-6 text-clarity-600" />
-            <span className="font-semibold">Clarity Assessment</span>
+          <div className="max-w-3xl mx-auto px-6 py-4 flex items-center justify-between">
+            <div className="flex items-center gap-2">
+              <Brain className="w-6 h-6 text-clarity-600" />
+              <span className="font-semibold">Clarity Assessment</span>
+            </div>
+            <div className="flex items-center gap-3">
+              <ThemeToggle />
+              <ElvaitLogo />
+            </div>
           </div>
         </header>
 
@@ -246,9 +254,12 @@ export default function SurveyPage() {
               <Brain className="w-5 h-5 text-clarity-600" />
               <span className="text-sm font-medium">{surveyData.context.title}</span>
             </div>
-            <span className="text-sm text-gray-500">
-              {currentIndex + 1} of {totalQuestions}
-            </span>
+            <div className="flex items-center gap-3">
+              <span className="text-sm text-gray-500">
+                {currentIndex + 1} of {totalQuestions}
+              </span>
+              <ThemeToggle />
+            </div>
           </div>
           <div className="h-1 bg-gray-200 dark:bg-gray-800 rounded-full overflow-hidden">
             <div 

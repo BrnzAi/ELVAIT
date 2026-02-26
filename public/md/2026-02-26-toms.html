@@ -1,0 +1,199 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Technical and Organisational Measures — ELVAIT</title>
+<style>
+:root { --primary: #1a1a2e; --accent: #4f46e5; --text: #334155; --light: #f8fafc; --border: #e2e8f0; }
+* { margin: 0; padding: 0; box-sizing: border-box; }
+body { font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif; color: var(--text); line-height: 1.7; max-width: 860px; margin: 0 auto; padding: 40px 24px 80px; background: #fff; }
+.header { border-bottom: 3px solid var(--accent); padding-bottom: 24px; margin-bottom: 40px; }
+.header h1 { font-size: 28px; color: var(--primary); margin-bottom: 4px; }
+.header .subtitle { color: #64748b; font-size: 14px; }
+.meta { background: var(--light); border-left: 4px solid var(--accent); padding: 16px 20px; margin-bottom: 36px; font-size: 14px; }
+.meta p { margin-bottom: 4px; }
+h2 { color: var(--primary); font-size: 18px; margin: 32px 0 12px; padding-bottom: 6px; border-bottom: 1px solid var(--border); }
+h3 { font-size: 15px; color: var(--primary); margin: 20px 0 8px; }
+p, li { font-size: 15px; margin-bottom: 8px; }
+ul { padding-left: 24px; list-style: disc; }
+.measure { background: var(--light); border-radius: 8px; padding: 20px 24px; margin: 16px 0; }
+.measure h3 { margin-top: 0; }
+.footer { margin-top: 60px; padding-top: 20px; border-top: 1px solid var(--border); font-size: 13px; color: #94a3b8; }
+a { color: var(--accent); }
+</style>
+</head>
+<body>
+
+<div class="header">
+<h1>Technical and Organisational Measures</h1>
+<p class="subtitle">ELVAIT — elvait.ai · Annex to the Data Processing Agreement</p>
+</div>
+
+<div class="meta">
+<p><strong>Effective Date:</strong> 26 February 2026</p>
+<p><strong>Version:</strong> 1.0</p>
+<p><strong>Applies to:</strong> All personal data processed by ELVAIT on behalf of Controllers</p>
+<p><strong>Reference:</strong> Article 32 GDPR — Security of Processing</p>
+</div>
+
+<p>The following technical and organisational measures are implemented by BRNZ AI, operating as ELVAIT, to ensure a level of security appropriate to the risk of processing personal data through the ELVAIT platform.</p>
+
+<h2>1. Encryption</h2>
+
+<div class="measure">
+<h3>1.1 Encryption in Transit</h3>
+<ul>
+<li>All connections to elvait.ai are encrypted using <strong>TLS 1.2 or higher</strong>.</li>
+<li>HTTP requests are automatically redirected to HTTPS.</li>
+<li>API endpoints enforce TLS; unencrypted connections are rejected.</li>
+<li>Internal service-to-service communication within the cloud environment uses encrypted channels.</li>
+</ul>
+</div>
+
+<div class="measure">
+<h3>1.2 Encryption at Rest</h3>
+<ul>
+<li>All data stored in Google Cloud SQL (PostgreSQL) is encrypted at rest using <strong>AES-256</strong> encryption, managed by Google Cloud's default encryption.</li>
+<li>Database backups are encrypted using the same mechanism.</li>
+<li>User passwords are hashed using industry-standard algorithms (bcrypt) and are never stored in plaintext.</li>
+</ul>
+</div>
+
+<h2>2. Access Control</h2>
+
+<div class="measure">
+<h3>2.1 Authentication</h3>
+<ul>
+<li>Access to the platform requires authentication via <strong>email and password</strong>.</li>
+<li>Passwords must meet minimum complexity requirements.</li>
+<li>Session tokens are cryptographically generated and have defined expiration periods.</li>
+<li>No IP addresses are collected or stored as part of standard platform operation.</li>
+</ul>
+</div>
+
+<div class="measure">
+<h3>2.2 Role-Based Access Control (RBAC)</h3>
+<ul>
+<li>The platform implements role-based access control, ensuring users can only access data and functions relevant to their role.</li>
+<li>Survey participants can only access surveys they have been invited to.</li>
+<li>Administrative functions are restricted to authorised Controller administrators.</li>
+<li>Principle of least privilege is applied throughout the application.</li>
+</ul>
+</div>
+
+<div class="measure">
+<h3>2.3 Administrative Access</h3>
+<ul>
+<li>Access to production infrastructure is restricted to authorised BRNZ AI personnel.</li>
+<li>Administrative access requires multi-factor authentication (MFA).</li>
+<li>Access rights are reviewed periodically and revoked promptly upon role changes.</li>
+</ul>
+</div>
+
+<h2>3. Database Security</h2>
+
+<div class="measure">
+<ul>
+<li>The production database runs on <strong>Google Cloud SQL for PostgreSQL</strong> in the <strong>europe-west1</strong> (Belgium) region.</li>
+<li>The database instance is configured with a <strong>private IP address only</strong> — it is not accessible from the public internet.</li>
+<li>Database connections are restricted to authorised application services within the Virtual Private Cloud (VPC).</li>
+<li><strong>Automated daily backups</strong> are enabled with a retention period of up to 30 days.</li>
+<li>Point-in-time recovery is available for the backup retention window.</li>
+<li>Database patches and updates are applied in accordance with Google Cloud's managed service schedule.</li>
+</ul>
+</div>
+
+<h2>4. Pseudonymisation</h2>
+
+<div class="measure">
+<ul>
+<li>Survey responses are stored linked to <strong>internal identifiers (IDs)</strong>, not directly to personally identifiable information such as name or email.</li>
+<li>The mapping between user identity and survey responses is maintained separately from response data where technically feasible.</li>
+<li>Aggregated and anonymised reporting is used wherever possible to minimise exposure of individual data.</li>
+</ul>
+</div>
+
+<h2>5. Logging and Monitoring</h2>
+
+<div class="measure">
+<ul>
+<li>Application and infrastructure logs are maintained using Google Cloud's logging services.</li>
+<li>Logs capture access events, errors, and security-relevant actions.</li>
+<li>Logs do not contain plaintext passwords or full personal data.</li>
+<li>Monitoring alerts are configured for anomalous activity, error spikes, and resource thresholds.</li>
+<li>Log retention follows Google Cloud defaults and operational requirements.</li>
+</ul>
+</div>
+
+<h2>6. Physical Security</h2>
+
+<div class="measure">
+<ul>
+<li>All infrastructure is hosted in <strong>Google Cloud data centres</strong>, which maintain comprehensive physical security measures including:</li>
+<li>24/7 on-site security personnel and video surveillance;</li>
+<li>Biometric and multi-factor access controls;</li>
+<li>Redundant power supplies and environmental controls;</li>
+<li>Compliance with ISO 27001, SOC 2 Type II, and other industry certifications.</li>
+<li>For details, see <a href="https://cloud.google.com/security" target="_blank">Google Cloud Security</a>.</li>
+</ul>
+</div>
+
+<h2>7. Incident Response</h2>
+
+<div class="measure">
+<ul>
+<li>BRNZ AI maintains an incident response process for security incidents affecting personal data.</li>
+<li>Upon detection of a personal data breach, the following steps are taken:
+  <ul>
+    <li><strong>Identification and containment</strong> — immediate assessment of scope and impact;</li>
+    <li><strong>Notification</strong> — the affected Controller is notified within <strong>72 hours</strong> as per the DPA;</li>
+    <li><strong>Investigation</strong> — root cause analysis is conducted;</li>
+    <li><strong>Remediation</strong> — corrective measures are implemented to prevent recurrence;</li>
+    <li><strong>Documentation</strong> — all incidents and responses are documented.</li>
+  </ul>
+</li>
+<li>Contact for security incidents: the email address provided in the ELVAIT Terms of Service.</li>
+</ul>
+</div>
+
+<h2>8. Availability and Resilience</h2>
+
+<div class="measure">
+<ul>
+<li>The Service is deployed on Google Cloud infrastructure with built-in redundancy.</li>
+<li>Automated database backups ensure data can be restored in the event of failure.</li>
+<li>The application is designed for rapid recovery and redeployment.</li>
+</ul>
+</div>
+
+<h2>9. Regular Security Reviews</h2>
+
+<div class="measure">
+<ul>
+<li>Technical and organisational measures are <strong>reviewed at least annually</strong> and updated as necessary to reflect changes in technology, threats, or the Service.</li>
+<li>Dependency and vulnerability scanning is performed as part of the development lifecycle.</li>
+<li>Infrastructure configurations are reviewed for security best practices.</li>
+<li>This document is updated to reflect any material changes to security measures.</li>
+</ul>
+</div>
+
+<h2>10. Data Minimisation</h2>
+
+<div class="measure">
+<ul>
+<li>The platform collects only the personal data necessary to provide the Service: business email, name, and survey responses.</li>
+<li><strong>No IP addresses</strong> are collected or stored.</li>
+<li>No special categories of personal data (Article 9 GDPR) are processed.</li>
+<li>Data retention is limited to the duration of the Controller's subscription, with deletion upon request or termination.</li>
+</ul>
+</div>
+
+<div class="footer">
+<p>ELVAIT — operated by BRNZ AI · <a href="https://elvait.ai">elvait.ai</a></p>
+<p>This document is an annex to the <a href="2026-02-26-dpa.html">Data Processing Agreement</a>.</p>
+<p>Last updated: 26 February 2026</p>
+</div>
+
+</body>
+</html>
