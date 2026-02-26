@@ -732,10 +732,14 @@ export default function LandingPage() {
               <Brain className="w-6 h-6 text-clarity-400" />
               <span className="text-white font-semibold">ELVAIT</span>
             </div>
-            <div className="flex items-center gap-6 text-sm">
+            <div className="flex flex-wrap items-center justify-center gap-x-6 gap-y-2 text-sm">
               <Link href="/pricing" className="hover:text-white transition">Pricing</Link>
               <Link href="/demo" className="hover:text-white transition">Demo</Link>
               <Link href="/contact" className="hover:text-white transition">Contact</Link>
+              <Link href="/md/2026-02-26-mandatory-gate.html" className="hover:text-white transition">Mandatory Gate</Link>
+              <Link href="/md/2026-02-26-executive-summary.html" className="hover:text-white transition">Executive Summary</Link>
+              <Link href="/md/2026-02-26-ai-productivity-paradox.html" className="hover:text-white transition">AI Paradox</Link>
+              <Link href="/md/2026-02-26-ai-investment-productivity.html" className="hover:text-white transition">AI &amp; Productivity</Link>
             </div>
             <div className="text-sm">
               © 2026 ELVAIT. All rights reserved.
