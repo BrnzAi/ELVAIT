@@ -208,22 +208,17 @@ export default function LandingPage() {
             <span>Try free — no signup required</span>
           </div>
           
-          <h1 className="text-5xl md:text-7xl font-extrabold text-white mb-6 leading-tight">
+          <p className="text-lg md:text-xl text-white/50 mb-4 italic tracking-wide">
+            Don&apos;t automate confusion.
+          </p>
+
+          <h1 className="text-5xl md:text-7xl font-extrabold text-white mb-8 leading-tight">
             Clarity Before<br />
             <span className="text-clarity-200">Automation</span>
           </h1>
-
-          <p className="text-lg md:text-xl text-white/60 mb-6 italic">
-            Don&apos;t automate confusion.
-          </p>
           
-          <p className="text-xl md:text-2xl text-white/80 max-w-3xl mx-auto mb-6">
-            Get clear Go / Fix / No-Go recommendations for your AI &amp; IT investments —<br />
-            exposing hidden contradictions, structural blind spots, and false confidence.
-          </p>
-
-          <p className="text-lg md:text-xl text-white font-medium max-w-3xl mx-auto mb-10">
-            Make Elvait the mandatory clarity gate before every AI &amp; IT initiative.
+          <p className="text-lg md:text-xl text-white/70 max-w-2xl mx-auto mb-10 leading-relaxed">
+            Get clear <span className="text-white font-semibold">Go / Fix / No-Go</span> recommendations for your AI &amp; IT investments — exposing hidden contradictions, structural blind spots, and false confidence.
           </p>
 
           <div className="flex flex-col sm:flex-row items-center justify-center gap-4">
