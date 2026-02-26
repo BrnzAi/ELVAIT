@@ -53,19 +53,19 @@ const faqData = [
   },
   {
     question: "Why should Elvait be mandatory before IT and AI investments?",
-    answer: "Elvait prevents capital lock-in by exposing structural misalignment, unrealistic ROI, and process gaps before budgets are committed. It introduces measurable stop-criteria and creates a standardized clarity gate for governance. Read more: https://elvait.ai/md/2026-02-26-mandatory-gate.html"
+    answer: "Elvait prevents capital lock-in by exposing structural misalignment, unrealistic ROI, and process gaps before budgets are committed. It introduces measurable stop-criteria and creates a standardized clarity gate for governance."
   },
   {
     question: "What value does Elvait provide for executives?",
-    answer: "For CEOs: strategic alignment and execution confidence. For CFOs: capital allocation discipline and ROI credibility. For Owners and Boards: structurally defensible investments with audit-ready clarity. Read more: https://elvait.ai/md/2026-02-26-executive-summary.html"
+    answer: "For CEOs: strategic alignment and execution confidence. For CFOs: capital allocation discipline and ROI credibility. For Owners and Boards: structurally defensible investments with audit-ready clarity."
   },
   {
     question: "How does Elvait solve the AI productivity paradox?",
-    answer: "Elvait addresses the seven root causes of failed AI productivity — from structural misalignment and poor process readiness to governance gaps — by evaluating the clarity of the decision behind the technology, not the technology itself. Read more: https://elvait.ai/md/2026-02-26-ai-productivity-paradox.html"
+    answer: "Elvait addresses the seven root causes of failed AI productivity — from structural misalignment and poor process readiness to governance gaps — by evaluating the clarity of the decision behind the technology, not the technology itself."
   },
   {
     question: "Why don't AI investments automatically lead to productivity gains?",
-    answer: "Massive AI spending fails to deliver when organizations lack structural alignment, process readiness, data quality, adoption strategies, and governance frameworks. The gap is not technological — it is structural. Read more: https://elvait.ai/md/2026-02-26-ai-investment-productivity.html"
+    answer: "Massive AI spending fails to deliver when organizations lack structural alignment, process readiness, data quality, adoption strategies, and governance frameworks. The gap is not technological — it is structural."
   }
 ];
 
@@ -736,10 +736,6 @@ export default function LandingPage() {
               <Link href="/pricing" className="hover:text-white transition">Pricing</Link>
               <Link href="/demo" className="hover:text-white transition">Demo</Link>
               <Link href="/contact" className="hover:text-white transition">Contact</Link>
-              <Link href="/md/2026-02-26-mandatory-gate.html" className="hover:text-white transition">Mandatory Gate</Link>
-              <Link href="/md/2026-02-26-executive-summary.html" className="hover:text-white transition">Executive Summary</Link>
-              <Link href="/md/2026-02-26-ai-productivity-paradox.html" className="hover:text-white transition">AI Paradox</Link>
-              <Link href="/md/2026-02-26-ai-investment-productivity.html" className="hover:text-white transition">AI &amp; Productivity</Link>
             </div>
             <div className="text-sm">
               © 2026 ELVAIT. All rights reserved.
