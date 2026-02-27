@@ -1,9 +1,10 @@
 'use client';
+import Image from 'next/image';
 
 import { useState, useEffect } from 'react';
 import Link from 'next/link';
 import { 
-  Brain, ArrowLeft, ArrowRight, CheckCircle, Clock,
+  ArrowLeft, ArrowRight, CheckCircle, Clock,
   AlertCircle, Loader2
 } from 'lucide-react';
 import { Button } from '@/components/ui/button';
@@ -157,11 +158,11 @@ export default function DemoSurveyPage() {
   // Context View
   if (showContext) {
     return (
-      <div className="min-h-screen bg-gray-50 dark:bg-gray-950 text-gray-900 dark:text-white">
+      <div className="min-h-screen bg-gray-50 dark:bg-elvait-black text-gray-900 dark:text-white">
         <header className="bg-white dark:bg-gray-900 border-b border-gray-200 dark:border-gray-800">
           <div className="max-w-3xl mx-auto px-6 py-4 flex items-center justify-between">
             <div className="flex items-center gap-2">
-              <Brain className="w-6 h-6 text-clarity-600" />
+              <Image src="/logo-grey.jpg" alt="ELVAIT" width={24} height={24} className="h-6 w-auto" />
               <span className="font-semibold">Clarity Assessment Survey</span>
             </div>
             <div className="flex items-center gap-3">
@@ -199,8 +200,8 @@ export default function DemoSurveyPage() {
               </div>
             </div>
 
-            <div className="p-4 bg-blue-50 dark:bg-blue-900/20 border border-blue-200 dark:border-blue-500/30 rounded-lg mb-8">
-              <p className="text-sm text-blue-800 dark:text-blue-300">
+            <div className="p-4 bg-elvait-green/5 dark:bg-elvait-green/10 border border-elvait-green/20 dark:border-blue-500/30 rounded-lg mb-8">
+              <p className="text-sm text-elvait-grey-dark dark:text-elvait-green">
                 <strong>How your answers will be used:</strong> Your responses will be compared across roles to identify alignment, contradictions, and blind spots. This is not a performance evaluation — differences in perspective are signals, not errors.
               </p>
             </div>
@@ -212,7 +213,7 @@ export default function DemoSurveyPage() {
           </div>
 
           <div className="mt-4 text-center">
-            <Link href="/demo/login" className="text-clarity-600 hover:text-clarity-500 dark:text-clarity-400 dark:hover:text-clarity-300 text-sm">
+            <Link href="/demo/login" className="text-elvait-green hover:text-elvait-green dark:text-elvait-green dark:hover:text-elvait-green text-sm">
               ← Switch demo user
             </Link>
           </div>
@@ -224,7 +225,7 @@ export default function DemoSurveyPage() {
   // Completed View
   if (isComplete) {
     return (
-      <div className="min-h-screen bg-gray-50 dark:bg-gray-950 text-gray-900 dark:text-white flex items-center justify-center">
+      <div className="min-h-screen bg-gray-50 dark:bg-elvait-black text-gray-900 dark:text-white flex items-center justify-center">
         <div className="text-center max-w-md px-6">
           <div className="w-16 h-16 bg-green-500 rounded-full flex items-center justify-center mx-auto mb-6">
             <CheckCircle className="w-8 h-8 text-white" />
@@ -248,12 +249,12 @@ export default function DemoSurveyPage() {
 
   // Survey Questions View
   return (
-    <div className="min-h-screen bg-gray-50 dark:bg-gray-950 text-gray-900 dark:text-white">
+    <div className="min-h-screen bg-gray-50 dark:bg-elvait-black text-gray-900 dark:text-white">
       <header className="bg-white dark:bg-gray-900 border-b border-gray-200 dark:border-gray-800 sticky top-0 z-10">
         <div className="max-w-3xl mx-auto px-6 py-4">
           <div className="flex items-center justify-between mb-2">
             <div className="flex items-center gap-2">
-              <Brain className="w-5 h-5 text-clarity-600" />
+              <Image src="/logo-grey.jpg" alt="ELVAIT" width={20} height={20} className="h-5 w-auto" />
               <span className="text-sm font-medium">Marketing Automation Platform</span>
             </div>
             <div className="flex items-center gap-3">
@@ -264,7 +265,7 @@ export default function DemoSurveyPage() {
           </div>
           <div className="h-1 bg-gray-200 dark:bg-gray-800 rounded-full overflow-hidden">
             <div 
-              className="h-full bg-clarity-600 transition-all duration-300"
+              className="h-full bg-elvait-red transition-all duration-300"
               style={{ width: `${progress}%` }}
             />
           </div>
@@ -274,7 +275,7 @@ export default function DemoSurveyPage() {
       <main className="max-w-3xl mx-auto px-6 py-12">
         <div className="bg-white dark:bg-gray-900 rounded-xl border border-gray-200 dark:border-gray-800 p-8">
           <div className="mb-8">
-            <span className="text-sm text-clarity-600 dark:text-clarity-400 font-medium">Question {currentIndex + 1}</span>
+            <span className="text-sm text-elvait-green dark:text-elvait-green font-medium">Question {currentIndex + 1}</span>
             <h2 className="text-xl font-semibold mt-2">{currentQuestion.text}</h2>
           </div>
 
@@ -287,13 +288,13 @@ export default function DemoSurveyPage() {
                   onClick={() => saveResponse(currentQuestion.id, option.value)}
                   className={`w-full p-4 rounded-lg border text-left transition-all flex items-center gap-4 ${
                     responses[currentQuestion.id] === option.value
-                      ? 'border-clarity-600 bg-clarity-50 dark:bg-clarity-900/20'
+                      ? 'border-elvait-green bg-elvait-green/5 dark:bg-elvait-black/20'
                       : 'border-gray-200 dark:border-gray-700 hover:border-gray-300 dark:hover:border-gray-600'
                   }`}
                 >
                   <div className={`w-6 h-6 rounded-full border-2 flex items-center justify-center ${
                     responses[currentQuestion.id] === option.value
-                      ? 'border-clarity-600 bg-clarity-600'
+                      ? 'border-elvait-green bg-elvait-red'
                       : 'border-gray-300 dark:border-gray-600'
                   }`}>
                     {responses[currentQuestion.id] === option.value && (
@@ -318,7 +319,7 @@ export default function DemoSurveyPage() {
                   onClick={() => saveResponse(currentQuestion.id, option)}
                   className={`w-full p-4 rounded-lg border text-left transition-all ${
                     responses[currentQuestion.id] === option
-                      ? 'border-clarity-600 bg-clarity-50 dark:bg-clarity-900/20'
+                      ? 'border-elvait-green bg-elvait-green/5 dark:bg-elvait-black/20'
                       : 'border-gray-200 dark:border-gray-700 hover:border-gray-300 dark:hover:border-gray-600'
                   }`}
                 >
@@ -373,9 +374,9 @@ export default function DemoSurveyPage() {
               onClick={() => setCurrentIndex(i)}
               className={`w-2 h-2 rounded-full transition-all ${
                 i === currentIndex
-                  ? 'w-6 bg-clarity-500'
+                  ? 'w-6 bg-elvait-red'
                   : responses[q.id]
-                    ? 'bg-clarity-400'
+                    ? 'bg-elvait-green'
                     : 'bg-gray-300 dark:bg-gray-700'
               }`}
             />

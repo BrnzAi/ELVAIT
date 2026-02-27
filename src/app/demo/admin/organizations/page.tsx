@@ -53,11 +53,11 @@ function Sidebar({ isOpen, onClose }: { isOpen: boolean; onClose: () => void }) 
       <div className="flex h-full flex-col">
         <div className="flex h-20 items-center justify-between px-6 border-b border-white/[0.06]">
           <Link href="/demo/admin" className="flex items-center gap-3">
-            <div className="w-10 h-10 rounded-xl bg-gradient-to-br from-clarity-500 to-teal-500 flex items-center justify-center shadow-lg shadow-clarity-500/25">
+            <div className="w-10 h-10 rounded-xl bg-elvait-green flex items-center justify-center shadow-lg shadow-elvait-green/20">
               <Settings className="h-6 w-6 text-white" />
             </div>
             <div className="flex flex-col">
-              <span className="text-lg font-bold bg-gradient-to-r from-clarity-400 to-teal-400 bg-clip-text text-transparent">Admin Panel</span>
+              <span className="text-lg font-bold text-elvait-green">Admin Panel</span>
               <span className="text-[10px] text-gray-500 font-medium tracking-wider uppercase">ELVAIT</span>
             </div>
           </Link>
@@ -69,9 +69,9 @@ function Sidebar({ isOpen, onClose }: { isOpen: boolean; onClose: () => void }) 
           <p className="px-3 text-[10px] font-semibold text-gray-500 uppercase tracking-wider mb-2">Management</p>
           {NAV_ITEMS.map(item => (
             <Link key={item.label} href={item.href} className={`group flex items-center gap-3 px-4 py-3 rounded-xl text-sm font-medium transition-all duration-200 ${item.active ? 'bg-white/[0.08] text-white shadow-sm' : 'text-gray-400 hover:bg-white/[0.04] hover:text-white'}`}>
-              <item.icon className={`h-5 w-5 transition-colors ${item.active ? 'text-clarity-400' : 'text-gray-500 group-hover:text-clarity-400'}`} />
+              <item.icon className={`h-5 w-5 transition-colors ${item.active ? 'text-elvait-green' : 'text-gray-500 group-hover:text-elvait-green'}`} />
               {item.label}
-              {item.active && <ChevronRight className="ml-auto h-4 w-4 text-clarity-400" />}
+              {item.active && <ChevronRight className="ml-auto h-4 w-4 text-elvait-green" />}
             </Link>
           ))}
         </nav>
@@ -99,7 +99,7 @@ export default function AdminOrganizationsPage() {
   );
 
   return (
-    <div className="min-h-screen bg-gray-950 text-white">
+    <div className="min-h-screen bg-elvait-black text-white">
       <div className="fixed inset-0 bg-[radial-gradient(ellipse_at_top,rgba(20,184,166,0.1),transparent_50%)]" />
       <div className="fixed inset-0 bg-[radial-gradient(ellipse_at_bottom_right,rgba(13,148,136,0.08),transparent_50%)]" />
       <Sidebar isOpen={sidebarOpen} onClose={() => setSidebarOpen(false)} />
@@ -116,7 +116,7 @@ export default function AdminOrganizationsPage() {
         <div className="hidden lg:block border-b border-white/[0.06] bg-white/[0.01]">
           <div className="px-8 py-4 flex items-center justify-between">
             <div className="flex items-center gap-2 text-sm">
-              <Link href="/demo/admin" className="text-clarity-400 hover:text-clarity-300 font-medium">Admin</Link>
+              <Link href="/demo/admin" className="text-elvait-green hover:text-elvait-green font-medium">Admin</Link>
               <ChevronRight className="w-4 h-4 text-gray-600" />
               <span className="text-white">Organizations</span>
             </div>
@@ -141,9 +141,9 @@ export default function AdminOrganizationsPage() {
 
           <div className="grid gap-4 md:grid-cols-2 lg:grid-cols-3">
             {filteredOrgs.map(org => (
-              <div key={org.id} className="bg-white/[0.02] backdrop-blur-sm rounded-xl border border-white/[0.06] p-5 hover:border-clarity-500/30 transition-colors">
+              <div key={org.id} className="bg-white/[0.02] backdrop-blur-sm rounded-xl border border-white/[0.06] p-5 hover:border-elvait-green/30 transition-colors">
                 <div className="flex items-start justify-between mb-4">
-                  <div className="w-12 h-12 rounded-xl bg-gradient-to-br from-clarity-500 to-teal-500 flex items-center justify-center text-white font-bold text-lg">
+                  <div className="w-12 h-12 rounded-xl bg-elvait-green flex items-center justify-center text-white font-bold text-lg">
                     {org.name.charAt(0)}
                   </div>
                   <span className={`px-2 py-1 rounded text-xs font-medium ${

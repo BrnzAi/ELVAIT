@@ -77,7 +77,7 @@ export default function DashboardPage() {
     }
     if (hasResponses) {
       return (
-        <span className="inline-flex items-center gap-1 px-2 py-1 bg-blue-100 text-blue-700 rounded-full text-sm">
+        <span className="inline-flex items-center gap-1 px-2 py-1 bg-elvait-green/10 text-elvait-green-dark rounded-full text-sm">
           <Clock className="w-4 h-4" />
           In Progress
         </span>
@@ -92,7 +92,7 @@ export default function DashboardPage() {
   };
 
   return (
-    <div className="min-h-screen bg-gray-50 dark:bg-gray-950">
+    <div className="min-h-screen bg-gray-50 dark:bg-elvait-black">
       {/* Header */}
       <header className="bg-white dark:bg-gray-900 border-b border-gray-200 dark:border-gray-800">
         <div className="max-w-6xl mx-auto px-6 py-4">
@@ -105,7 +105,7 @@ export default function DashboardPage() {
             </div>
             <Link
               href="/create"
-              className="inline-flex items-center gap-2 px-4 py-2 bg-clarity-600 text-white rounded-lg hover:bg-clarity-700 transition"
+              className="inline-flex items-center gap-2 px-4 py-2 bg-elvait-red text-white rounded-lg hover:bg-elvait-red-dark transition"
             >
               <Plus className="w-5 h-5" />
               New Assessment
@@ -118,7 +118,7 @@ export default function DashboardPage() {
       <main className="max-w-6xl mx-auto px-6 py-8">
         {loading ? (
           <div className="text-center py-12">
-            <div className="animate-spin w-8 h-8 border-4 border-clarity-600 border-t-transparent rounded-full mx-auto"></div>
+            <div className="animate-spin w-8 h-8 border-4 border-elvait-green border-t-transparent rounded-full mx-auto"></div>
             <p className="mt-4 text-gray-500">Loading assessments...</p>
           </div>
         ) : error ? (
@@ -132,7 +132,7 @@ export default function DashboardPage() {
             <p className="text-gray-500 mb-6">Create your first assessment to get started</p>
             <Link
               href="/create"
-              className="inline-flex items-center gap-2 px-6 py-3 bg-clarity-600 text-white rounded-lg hover:bg-clarity-700 transition"
+              className="inline-flex items-center gap-2 px-6 py-3 bg-elvait-red text-white rounded-lg hover:bg-elvait-red-dark transition"
             >
               <Plus className="w-5 h-5" />
               Create Assessment
@@ -190,7 +190,7 @@ export default function DashboardPage() {
                     {assessment._count.responses > 0 && (
                       <Link
                         href={`/cases/${assessment.id}/results`}
-                        className="inline-flex items-center gap-2 px-4 py-2 bg-clarity-600 text-white rounded-lg hover:bg-clarity-700 transition font-medium"
+                        className="inline-flex items-center gap-2 px-4 py-2 bg-elvait-red text-white rounded-lg hover:bg-elvait-red-dark transition font-medium"
                       >
                         <Eye className="w-4 h-4" />
                         View Results
@@ -204,9 +204,9 @@ export default function DashboardPage() {
         )}
         
         {/* Help Section */}
-        <div className="mt-12 bg-blue-50 dark:bg-blue-900/20 rounded-xl p-6 border border-blue-200 dark:border-blue-800">
-          <h3 className="font-semibold text-blue-900 dark:text-blue-100 mb-2">How it works</h3>
-          <ol className="text-sm text-blue-800 dark:text-blue-200 space-y-2">
+        <div className="mt-12 bg-elvait-green/5 dark:bg-elvait-green/10 rounded-xl p-6 border border-elvait-green/20 dark:border-elvait-green/20">
+          <h3 className="font-semibold text-elvait-black dark:text-elvait-green mb-2">How it works</h3>
+          <ol className="text-sm text-elvait-grey-dark dark:text-elvait-green space-y-2">
             <li><strong>1. Create</strong> — Set up your assessment with decision context</li>
             <li><strong>2. Invite</strong> — Add participants and share their unique survey links</li>
             <li><strong>3. Collect</strong> — Wait for participants to complete their surveys</li>

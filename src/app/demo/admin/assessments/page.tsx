@@ -52,11 +52,11 @@ function Sidebar({ isOpen, onClose }: { isOpen: boolean; onClose: () => void }) 
       <div className="flex h-full flex-col">
         <div className="flex h-20 items-center justify-between px-6 border-b border-white/[0.06]">
           <Link href="/demo/admin" className="flex items-center gap-3">
-            <div className="w-10 h-10 rounded-xl bg-gradient-to-br from-clarity-500 to-teal-500 flex items-center justify-center shadow-lg shadow-clarity-500/25">
+            <div className="w-10 h-10 rounded-xl bg-elvait-green flex items-center justify-center shadow-lg shadow-elvait-green/20">
               <Settings className="h-6 w-6 text-white" />
             </div>
             <div className="flex flex-col">
-              <span className="text-lg font-bold bg-gradient-to-r from-clarity-400 to-teal-400 bg-clip-text text-transparent">Admin Panel</span>
+              <span className="text-lg font-bold text-elvait-green">Admin Panel</span>
               <span className="text-[10px] text-gray-500 font-medium tracking-wider uppercase">ELVAIT</span>
             </div>
           </Link>
@@ -66,9 +66,9 @@ function Sidebar({ isOpen, onClose }: { isOpen: boolean; onClose: () => void }) 
           <p className="px-3 text-[10px] font-semibold text-gray-500 uppercase tracking-wider mb-2">Management</p>
           {NAV_ITEMS.map(item => (
             <Link key={item.label} href={item.href} className={`group flex items-center gap-3 px-4 py-3 rounded-xl text-sm font-medium transition-all ${item.active ? 'bg-white/[0.08] text-white shadow-sm' : 'text-gray-400 hover:bg-white/[0.04] hover:text-white'}`}>
-              <item.icon className={`h-5 w-5 ${item.active ? 'text-clarity-400' : 'text-gray-500 group-hover:text-clarity-400'}`} />
+              <item.icon className={`h-5 w-5 ${item.active ? 'text-elvait-green' : 'text-gray-500 group-hover:text-elvait-green'}`} />
               {item.label}
-              {item.active && <ChevronRight className="ml-auto h-4 w-4 text-clarity-400" />}
+              {item.active && <ChevronRight className="ml-auto h-4 w-4 text-elvait-green" />}
             </Link>
           ))}
         </nav>
@@ -95,7 +95,7 @@ export default function AdminAssessmentsPage() {
   });
 
   return (
-    <div className="min-h-screen bg-gray-950 text-white">
+    <div className="min-h-screen bg-elvait-black text-white">
       <div className="fixed inset-0 bg-[radial-gradient(ellipse_at_top,rgba(20,184,166,0.1),transparent_50%)]" />
       <div className="fixed inset-0 bg-[radial-gradient(ellipse_at_bottom_right,rgba(13,148,136,0.08),transparent_50%)]" />
       <Sidebar isOpen={sidebarOpen} onClose={() => setSidebarOpen(false)} />
@@ -111,7 +111,7 @@ export default function AdminAssessmentsPage() {
       <main className="lg:pl-72 pt-16 lg:pt-0 relative z-10 min-h-screen">
         <div className="hidden lg:block border-b border-white/[0.06] bg-white/[0.01]">
           <div className="px-8 py-4 flex items-center gap-2 text-sm">
-            <Link href="/demo/admin" className="text-clarity-400 hover:text-clarity-300 font-medium">Admin</Link>
+            <Link href="/demo/admin" className="text-elvait-green hover:text-elvait-green font-medium">Admin</Link>
             <ChevronRight className="w-4 h-4 text-gray-600" />
             <span className="text-white">Assessments</span>
           </div>
@@ -152,7 +152,7 @@ export default function AdminAssessmentsPage() {
             </div>
             <div className="flex gap-2">
               {['all', 'DRAFT', 'ACTIVE', 'COMPLETED'].map(status => (
-                <button key={status} onClick={() => setStatusFilter(status)} className={`px-4 py-2 rounded-lg text-sm font-medium transition-colors ${statusFilter === status ? 'bg-clarity-500/20 text-clarity-400 border border-clarity-500/30' : 'bg-white/5 text-gray-400 border border-white/10 hover:bg-white/10'}`}>
+                <button key={status} onClick={() => setStatusFilter(status)} className={`px-4 py-2 rounded-lg text-sm font-medium transition-colors ${statusFilter === status ? 'bg-elvait-red/20 text-elvait-green border border-elvait-green/30' : 'bg-white/5 text-gray-400 border border-white/10 hover:bg-white/10'}`}>
                   {status === 'all' ? 'All' : status}
                 </button>
               ))}
@@ -181,8 +181,8 @@ export default function AdminAssessmentsPage() {
                     </td>
                     <td className="p-4">
                       <span className={`px-2 py-1 rounded text-xs font-medium ${
-                        assessment.variant === 'QUICK' ? 'bg-blue-500/20 text-blue-400' :
-                        assessment.variant === 'CORE' ? 'bg-purple-500/20 text-purple-400' :
+                        assessment.variant === 'QUICK' ? 'bg-elvait-green/10 text-elvait-green' :
+                        assessment.variant === 'CORE' ? 'bg-elvait-grey/20 text-purple-400' :
                         assessment.variant === 'FULL' ? 'bg-teal-500/20 text-teal-400' :
                         'bg-amber-500/20 text-amber-400'
                       }`}>{assessment.variant}</span>
@@ -190,7 +190,7 @@ export default function AdminAssessmentsPage() {
                     <td className="p-4">
                       <span className={`inline-flex items-center gap-1 px-2 py-1 rounded text-xs font-medium ${
                         assessment.status === 'COMPLETED' ? 'bg-green-500/20 text-green-400' :
-                        assessment.status === 'ACTIVE' ? 'bg-blue-500/20 text-blue-400' :
+                        assessment.status === 'ACTIVE' ? 'bg-elvait-green/10 text-elvait-green' :
                         'bg-gray-500/20 text-gray-400'
                       }`}>
                         {assessment.status === 'COMPLETED' && <CheckCircle className="w-3 h-3" />}

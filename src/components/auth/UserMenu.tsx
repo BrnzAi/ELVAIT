@@ -40,7 +40,7 @@ export function UserMenu() {
         </Link>
         <Link
           href="/signup"
-          className="px-3 py-1.5 text-sm bg-clarity-600 hover:bg-clarity-500 text-white rounded-lg transition-colors"
+          className="px-3 py-1.5 text-sm bg-elvait-red hover:bg-elvait-red text-white rounded-lg transition-colors"
         >
           Sign up
         </Link>
@@ -67,7 +67,7 @@ export function UserMenu() {
         onClick={() => setIsOpen(!isOpen)}
         className="flex items-center gap-2 px-3 py-1.5 bg-gray-800 hover:bg-gray-700 rounded-lg transition-colors"
       >
-        <div className="w-6 h-6 rounded-full bg-clarity-600 flex items-center justify-center text-xs font-medium">
+        <div className="w-6 h-6 rounded-full bg-elvait-red flex items-center justify-center text-xs font-medium">
           {session.user.name?.[0]?.toUpperCase() || session.user.email?.[0]?.toUpperCase() || 'U'}
         </div>
         <span className="text-sm text-gray-200 max-w-[120px] truncate">

@@ -46,7 +46,7 @@ function ContactForm() {
 
   if (isSubmitted) {
     return (
-      <div className="min-h-screen bg-gray-950 text-white flex items-center justify-center">
+      <div className="min-h-screen bg-elvait-black text-white flex items-center justify-center">
         <div className="text-center max-w-md mx-auto px-4">
           <div className="w-16 h-16 rounded-full bg-green-500/20 flex items-center justify-center mx-auto mb-6">
             <Check className="w-8 h-8 text-green-400" />
@@ -68,7 +68,7 @@ function ContactForm() {
   }
 
   return (
-    <div className="min-h-screen bg-gray-950 text-white">
+    <div className="min-h-screen bg-elvait-black text-white">
       {/* Header */}
       <div className="border-b border-gray-800">
         <div className="max-w-3xl mx-auto px-4 py-4">
@@ -101,7 +101,7 @@ function ContactForm() {
                   <h3 className="font-medium mb-1">Email us directly</h3>
                   <a 
                     href="mailto:hello@elvait.ai" 
-                    className="text-blue-400 hover:underline"
+                    className="text-elvait-green hover:underline"
                   >
                     hello@elvait.ai
                   </a>
@@ -197,7 +197,7 @@ function ContactForm() {
               <button
                 type="submit"
                 disabled={isSubmitting}
-                className="w-full py-3 px-4 bg-blue-600 hover:bg-blue-700 disabled:bg-blue-600/50 disabled:cursor-not-allowed text-white font-medium rounded-lg transition-colors flex items-center justify-center gap-2"
+                className="w-full py-3 px-4 bg-elvait-red hover:bg-elvait-red-dark disabled:bg-elvait-red/50 disabled:cursor-not-allowed text-white font-medium rounded-lg transition-colors flex items-center justify-center gap-2"
               >
                 {isSubmitting ? (
                   <>
@@ -222,7 +222,7 @@ function ContactForm() {
 export default function ContactPage() {
   return (
     <Suspense fallback={
-      <div className="min-h-screen bg-gray-950 text-white flex items-center justify-center">
+      <div className="min-h-screen bg-elvait-black text-white flex items-center justify-center">
         <div className="text-center">
           <div className="w-8 h-8 border-2 border-blue-500 border-t-transparent rounded-full animate-spin mx-auto mb-4" />
           <p className="text-gray-400">Loading...</p>

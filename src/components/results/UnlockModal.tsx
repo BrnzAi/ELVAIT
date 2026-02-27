@@ -82,8 +82,8 @@ export function UnlockModal({
           // Tier 1 unlock - Free registration
           <>
             <div className="flex items-center gap-3 mb-4">
-              <div className="w-12 h-12 rounded-full bg-blue-500/20 flex items-center justify-center">
-                <Unlock className="w-6 h-6 text-blue-400" />
+              <div className="w-12 h-12 rounded-full bg-elvait-green/10 flex items-center justify-center">
+                <Unlock className="w-6 h-6 text-elvait-green" />
               </div>
               <h2 id="unlock-modal-title" className="text-xl font-semibold text-white">
                 Unlock {featureName}
@@ -112,7 +112,7 @@ export function UnlockModal({
             <div className="space-y-3">
               <Link
                 href={`/signup${returnUrl}`}
-                className="block w-full py-3 px-4 bg-blue-600 hover:bg-blue-700 text-white font-medium rounded-lg text-center transition-colors"
+                className="block w-full py-3 px-4 bg-elvait-red hover:bg-elvait-red-dark text-white font-medium rounded-lg text-center transition-colors"
               >
                 Create free account
               </Link>
@@ -128,7 +128,7 @@ export function UnlockModal({
           // Tier 2+ unlock - Paid feature
           <>
             <div className="flex items-center gap-3 mb-4">
-              <div className="w-12 h-12 rounded-full bg-purple-500/20 flex items-center justify-center">
+              <div className="w-12 h-12 rounded-full bg-elvait-grey/20 flex items-center justify-center">
                 <FileDown className="w-6 h-6 text-purple-400" />
               </div>
               <h2 id="unlock-modal-title" className="text-xl font-semibold text-white">

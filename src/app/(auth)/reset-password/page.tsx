@@ -119,7 +119,7 @@ function ResetPasswordContent() {
               required
               value={formData.password}
               onChange={(e) => setFormData({ ...formData, password: e.target.value })}
-              className="w-full pl-10 pr-4 py-2.5 bg-gray-800 border border-gray-700 rounded-lg focus:outline-none focus:ring-2 focus:ring-clarity-500 focus:border-transparent"
+              className="w-full pl-10 pr-4 py-2.5 bg-gray-800 border border-gray-700 rounded-lg focus:outline-none focus:ring-2 focus:ring-elvait-green focus:border-transparent"
               placeholder="••••••••"
             />
           </div>
@@ -139,7 +139,7 @@ function ResetPasswordContent() {
               required
               value={formData.confirmPassword}
               onChange={(e) => setFormData({ ...formData, confirmPassword: e.target.value })}
-              className="w-full pl-10 pr-4 py-2.5 bg-gray-800 border border-gray-700 rounded-lg focus:outline-none focus:ring-2 focus:ring-clarity-500 focus:border-transparent"
+              className="w-full pl-10 pr-4 py-2.5 bg-gray-800 border border-gray-700 rounded-lg focus:outline-none focus:ring-2 focus:ring-elvait-green focus:border-transparent"
               placeholder="••••••••"
             />
           </div>
@@ -171,8 +171,8 @@ export default function ResetPasswordPage() {
   return (
     <Suspense fallback={
       <div className="bg-gray-900 rounded-2xl border border-gray-800 p-8 text-center">
-        <div className="w-16 h-16 bg-clarity-500/20 rounded-full flex items-center justify-center mx-auto mb-6">
-          <Loader2 className="w-8 h-8 text-clarity-500 animate-spin" />
+        <div className="w-16 h-16 bg-elvait-red/20 rounded-full flex items-center justify-center mx-auto mb-6">
+          <Loader2 className="w-8 h-8 text-elvait-green animate-spin" />
         </div>
         <h1 className="text-2xl font-bold mb-4">Loading...</h1>
       </div>

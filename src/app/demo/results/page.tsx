@@ -1,9 +1,10 @@
 'use client';
+import Image from 'next/image';
 
 import { useState, useEffect } from 'react';
 import Link from 'next/link';
 import { 
-  Brain, ArrowLeft, CheckCircle, AlertTriangle, XCircle,
+  ArrowLeft, CheckCircle, AlertTriangle, XCircle,
   TrendingUp, Users, Target, Shield, Lightbulb, FileText,
   ChevronDown, ChevronRight, Download
 } from 'lucide-react';
@@ -199,7 +200,7 @@ function DimensionBar({ dimension }: { dimension: DimensionScore }) {
           <ul className="space-y-1">
             {dimension.insights.map((insight, i) => (
               <li key={i} className="flex items-start gap-2 text-sm text-gray-300">
-                <Lightbulb className="w-4 h-4 text-clarity-400 mt-0.5 flex-shrink-0" />
+                <Lightbulb className="w-4 h-4 text-elvait-green mt-0.5 flex-shrink-0" />
                 {insight}
               </li>
             ))}
@@ -231,13 +232,13 @@ export default function DemoResultsPage() {
   }, []);
 
   return (
-    <div className="min-h-screen bg-gray-950 text-white">
+    <div className="min-h-screen bg-elvait-black text-white">
       <div className="fixed inset-0 bg-[radial-gradient(ellipse_at_top,rgba(20,184,166,0.1),transparent_50%)]" />
       
-      <header className="border-b border-gray-800 sticky top-0 bg-gray-950/80 backdrop-blur-xl z-10">
+      <header className="border-b border-gray-800 sticky top-0 bg-elvait-black/80 backdrop-blur-xl z-10">
         <div className="max-w-5xl mx-auto px-6 py-4 flex items-center justify-between">
           <div className="flex items-center gap-3">
-            <Brain className="w-6 h-6 text-clarity-500" />
+            <Image src="/logo-grey.jpg" alt="ELVAIT" width={24} height={24} className="h-6 w-auto" />
             <span className="font-semibold">Assessment Results</span>
           </div>
           <div className="flex items-center gap-4">
@@ -332,7 +333,7 @@ export default function DemoResultsPage() {
             {/* Dimension Scores */}
             <section>
               <h2 className="text-lg font-semibold mb-4 flex items-center gap-2">
-                <TrendingUp className="w-5 h-5 text-clarity-400" />
+                <TrendingUp className="w-5 h-5 text-elvait-green" />
                 Dimension Scores
               </h2>
               <div className="space-y-3">
@@ -346,13 +347,13 @@ export default function DemoResultsPage() {
             {BLIND_SPOTS.length > 0 && (
               <section>
                 <h2 className="text-lg font-semibold mb-4 flex items-center gap-2">
-                  <Target className="w-5 h-5 text-clarity-400" />
+                  <Target className="w-5 h-5 text-elvait-green" />
                   Blind Spots Detected
                 </h2>
                 <div className="space-y-3">
                   {BLIND_SPOTS.map((spot, i) => (
                     <div key={i} className={`p-4 rounded-lg border ${
-                      spot.severity === 'warning' ? 'bg-amber-500/10 border-amber-500/30' : 'bg-blue-500/10 border-blue-500/30'
+                      spot.severity === 'warning' ? 'bg-amber-500/10 border-amber-500/30' : 'bg-elvait-green/50/10 border-blue-500/30'
                     }`}>
                       <h3 className="font-medium mb-1">{spot.title}</h3>
                       <p className="text-sm text-gray-300">{spot.description}</p>
@@ -368,7 +369,7 @@ export default function DemoResultsPage() {
             {/* Triggered Flags */}
             <section className="bg-gray-900 rounded-xl border border-gray-800 p-5">
               <h2 className="text-lg font-semibold mb-4 flex items-center gap-2">
-                <Shield className="w-5 h-5 text-clarity-400" />
+                <Shield className="w-5 h-5 text-elvait-green" />
                 Flags ({triggeredFlags.length})
               </h2>
               {triggeredFlags.length === 0 ? (
@@ -379,14 +380,14 @@ export default function DemoResultsPage() {
                     <div key={flag.code} className={`p-3 rounded-lg ${
                       flag.severity === 'critical' ? 'bg-red-500/10 border border-red-500/30' :
                       flag.severity === 'warning' ? 'bg-amber-500/10 border border-amber-500/30' :
-                      'bg-blue-500/10 border border-blue-500/30'
+                      'bg-elvait-green/50/10 border border-blue-500/30'
                     }`}>
                       <div className="flex items-center gap-2 mb-1">
                         <span className="text-xs font-mono text-gray-500">{flag.code}</span>
                         <span className={`text-xs px-1.5 py-0.5 rounded ${
                           flag.severity === 'critical' ? 'bg-red-500/20 text-red-400' :
                           flag.severity === 'warning' ? 'bg-amber-500/20 text-amber-400' :
-                          'bg-blue-500/20 text-blue-400'
+                          'bg-elvait-green/10 text-elvait-green'
                         }`}>{flag.severity}</span>
                       </div>
                       <p className="font-medium text-sm">{flag.name}</p>
@@ -400,7 +401,7 @@ export default function DemoResultsPage() {
             {/* Checklist */}
             <section className="bg-gray-900 rounded-xl border border-gray-800 p-5">
               <h2 className="text-lg font-semibold mb-4 flex items-center gap-2">
-                <FileText className="w-5 h-5 text-clarity-400" />
+                <FileText className="w-5 h-5 text-elvait-green" />
                 Action Checklist
               </h2>
               <div className="space-y-2">
@@ -427,7 +428,7 @@ export default function DemoResultsPage() {
             {/* Participant Summary */}
             <section className="bg-gray-900 rounded-xl border border-gray-800 p-5">
               <h2 className="text-lg font-semibold mb-4 flex items-center gap-2">
-                <Users className="w-5 h-5 text-clarity-400" />
+                <Users className="w-5 h-5 text-elvait-green" />
                 Participants
               </h2>
               <div className="space-y-2 text-sm">

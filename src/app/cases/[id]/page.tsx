@@ -1,10 +1,11 @@
 'use client';
+import Image from 'next/image';
 
 import { useState, useEffect } from 'react';
 import { useParams, useRouter } from 'next/navigation';
 import Link from 'next/link';
 import { 
-  ArrowLeft, Brain, Users, Plus, Copy, Check, 
+  ArrowLeft, Users, Plus, Copy, Check, 
   ExternalLink, BarChart3, Clock, AlertCircle,
   CheckCircle, Circle, Loader2
 } from 'lucide-react';
@@ -128,7 +129,7 @@ export default function CaseDetailPage() {
   if (loading) {
     return (
       <div className="min-h-screen flex items-center justify-center">
-        <Loader2 className="w-8 h-8 animate-spin text-clarity-600" />
+        <Loader2 className="w-8 h-8 animate-spin text-elvait-green" />
       </div>
     );
   }
@@ -139,7 +140,7 @@ export default function CaseDetailPage() {
         <div className="text-center">
           <AlertCircle className="w-12 h-12 text-red-500 mx-auto mb-4" />
           <p className="text-red-600">{error || 'Case not found'}</p>
-          <Link href="/" className="text-clarity-600 hover:underline mt-4 block">
+          <Link href="/" className="text-elvait-green hover:underline mt-4 block">
             Go back home
           </Link>
         </div>
@@ -158,7 +159,7 @@ export default function CaseDetailPage() {
   const totalParticipants = caseData.participants.length;
 
   return (
-    <div className="min-h-screen bg-gray-50 dark:bg-gray-950">
+    <div className="min-h-screen bg-gray-50 dark:bg-elvait-black">
       {/* Header */}
       <header className="bg-white dark:bg-gray-900 border-b border-gray-200 dark:border-gray-800">
         <div className="max-w-6xl mx-auto px-6 py-4 flex items-center justify-between">
@@ -167,12 +168,12 @@ export default function CaseDetailPage() {
             <span>My Assessments</span>
           </Link>
           <div className="flex items-center gap-2">
-            <Brain className="w-6 h-6 text-clarity-600" />
+            <Image src="/logo-grey.jpg" alt="ELVAIT" width={24} height={24} className="h-6 w-auto" />
             <span className="font-semibold">Assessment</span>
           </div>
           <div className={`px-3 py-1 rounded-full text-sm font-medium ${
             caseData.status === 'DRAFT' ? 'bg-gray-100 text-gray-700' :
-            caseData.status === 'ACTIVE' ? 'bg-blue-100 text-blue-700' :
+            caseData.status === 'ACTIVE' ? 'bg-elvait-green/10 text-elvait-green-dark' :
             'bg-green-100 text-green-700'
           }`}>
             {caseData.status}
@@ -234,7 +235,7 @@ export default function CaseDetailPage() {
           
           <div className="h-2 bg-gray-100 dark:bg-gray-800 rounded-full overflow-hidden mb-6">
             <div 
-              className="h-full bg-clarity-600 transition-all"
+              className="h-full bg-elvait-red transition-all"
               style={{ width: `${totalParticipants > 0 ? (completedCount / totalParticipants) * 100 : 0}%` }}
             />
           </div>
@@ -364,7 +365,7 @@ export default function CaseDetailPage() {
                         <div className="flex items-center gap-2">
                           <button
                             onClick={() => copyLink(p.surveyUrl, p.token)}
-                            className="flex items-center gap-1 text-sm text-clarity-600 hover:text-clarity-700"
+                            className="flex items-center gap-1 text-sm text-elvait-green hover:text-elvait-green-dark"
                           >
                             {copiedToken === p.token ? (
                               <>

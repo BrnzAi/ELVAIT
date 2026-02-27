@@ -1,10 +1,11 @@
 'use client';
+import Image from 'next/image';
 
 import { useState } from 'react';
 import { useRouter } from 'next/navigation';
 import Link from 'next/link';
 import { 
-  Brain, Shield, Briefcase, Users, Code, UserCircle, 
+  Shield, Briefcase, Users, Code, UserCircle, 
   CheckCircle, ArrowRight, Info, Settings
 } from 'lucide-react';
 import { Button } from '@/components/ui/button';
@@ -128,8 +129,8 @@ const ROLE_GROUPS = [
 
 function UserCard({ user, isActive, onSelect }: { user: DemoUser; isActive: boolean; onSelect: () => void }) {
   const colorClasses: Record<string, string> = {
-    purple: 'bg-purple-500/10 border-purple-500/30 hover:border-purple-500',
-    blue: 'bg-blue-500/10 border-blue-500/30 hover:border-blue-500',
+    purple: 'bg-elvait-grey/10 border-purple-500/30 hover:border-purple-500',
+    blue: 'bg-elvait-green/50/10 border-blue-500/30 hover:border-blue-500',
     green: 'bg-green-500/10 border-green-500/30 hover:border-green-500',
     cyan: 'bg-cyan-500/10 border-cyan-500/30 hover:border-cyan-500',
     amber: 'bg-amber-500/10 border-amber-500/30 hover:border-amber-500',
@@ -137,8 +138,8 @@ function UserCard({ user, isActive, onSelect }: { user: DemoUser; isActive: bool
   };
 
   const badgeClasses: Record<string, string> = {
-    purple: 'bg-purple-500 text-white',
-    blue: 'bg-blue-500 text-white',
+    purple: 'bg-elvait-grey text-white',
+    blue: 'bg-elvait-green/50 text-white',
     green: 'bg-green-500 text-white',
     cyan: 'bg-cyan-500 text-white',
     amber: 'bg-amber-500 text-white',
@@ -146,7 +147,7 @@ function UserCard({ user, isActive, onSelect }: { user: DemoUser; isActive: bool
   };
 
   return (
-    <div className={`p-4 rounded-xl border-2 transition-all ${colorClasses[user.color]} ${isActive ? 'ring-2 ring-clarity-500' : ''}`}>
+    <div className={`p-4 rounded-xl border-2 transition-all ${colorClasses[user.color]} ${isActive ? 'ring-2 ring-elvait-green' : ''}`}>
       <div className="flex items-start gap-3 mb-3">
         <div className="w-12 h-12 rounded-xl bg-gray-800 flex items-center justify-center text-2xl">
           {user.avatar}
@@ -165,7 +166,7 @@ function UserCard({ user, isActive, onSelect }: { user: DemoUser; isActive: bool
         <p className="text-gray-300 font-medium">{user.organization}</p>
       </div>
       {isActive ? (
-        <div className="flex items-center justify-center gap-2 py-2 bg-clarity-600 text-white rounded-lg font-medium">
+        <div className="flex items-center justify-center gap-2 py-2 bg-elvait-red text-white rounded-lg font-medium">
           <CheckCircle className="w-4 h-4" />
           Currently Active
         </div>
@@ -214,14 +215,14 @@ export default function DemoLoginPage() {
   const currentUser = DEMO_USERS.find(u => u.id === activeUser);
 
   return (
-    <div className="min-h-screen bg-gray-950 text-white">
+    <div className="min-h-screen bg-elvait-black text-white">
       {/* Header */}
       <header className="border-b border-gray-800">
         <div className="max-w-6xl mx-auto px-6 py-4 flex items-center justify-between">
           <Link href="/" className="flex items-center gap-2">
-            <Brain className="w-8 h-8 text-clarity-500" />
+            <Image src="/logo-grey.jpg" alt="ELVAIT" width={32} height={32} className="h-8 w-auto" />
             <div>
-              <span className="font-bold text-lg text-clarity-400">ELVAIT</span>
+              <span className="font-bold text-lg text-elvait-green">ELVAIT</span>
               <span className="text-xs text-gray-500 block">DEMO LOGIN</span>
             </div>
           </Link>
@@ -253,7 +254,7 @@ export default function DemoLoginPage() {
           {ROLE_GROUPS.map((group, groupIndex) => (
             <div key={groupIndex}>
               <div className="flex items-center gap-3 mb-6">
-                <group.icon className="w-6 h-6 text-clarity-500" />
+                <group.icon className="w-6 h-6 text-elvait-green" />
                 <div>
                   <h2 className="text-xl font-semibold">{group.title}</h2>
                   <p className="text-sm text-gray-400">{group.subtitle}</p>
@@ -278,19 +279,19 @@ export default function DemoLoginPage() {
           <h3 className="font-semibold mb-4">How the demo works</h3>
           <div className="space-y-3 text-sm text-gray-400">
             <div className="flex items-start gap-2">
-              <CheckCircle className="w-4 h-4 text-clarity-500 mt-0.5" />
+              <CheckCircle className="w-4 h-4 text-elvait-green mt-0.5" />
               <span><strong className="text-white">Admin</strong> can access the admin panel, manage users, and view all assessments</span>
             </div>
             <div className="flex items-start gap-2">
-              <CheckCircle className="w-4 h-4 text-clarity-500 mt-0.5" />
+              <CheckCircle className="w-4 h-4 text-elvait-green mt-0.5" />
               <span><strong className="text-white">Executive Sponsor</strong> can create new assessments and invite participants</span>
             </div>
             <div className="flex items-start gap-2">
-              <CheckCircle className="w-4 h-4 text-clarity-500 mt-0.5" />
+              <CheckCircle className="w-4 h-4 text-elvait-green mt-0.5" />
               <span><strong className="text-white">Other roles</strong> see their assigned surveys and can complete them</span>
             </div>
             <div className="flex items-start gap-2">
-              <CheckCircle className="w-4 h-4 text-clarity-500 mt-0.5" />
+              <CheckCircle className="w-4 h-4 text-elvait-green mt-0.5" />
               <span>Switch between users anytime to see different perspectives</span>
             </div>
           </div>
@@ -298,7 +299,7 @@ export default function DemoLoginPage() {
 
         {/* Back to main demo */}
         <div className="mt-8 text-center">
-          <Link href="/demo" className="text-clarity-400 hover:text-clarity-300 text-sm">
+          <Link href="/demo" className="text-elvait-green hover:text-elvait-green text-sm">
             ← Back to scenario-based demo
           </Link>
         </div>
@@ -307,7 +308,7 @@ export default function DemoLoginPage() {
       {isLoading && (
         <div className="fixed inset-0 bg-black/50 flex items-center justify-center z-50">
           <div className="bg-gray-900 rounded-xl p-6 text-center">
-            <div className="w-8 h-8 border-2 border-clarity-500 border-t-transparent rounded-full animate-spin mx-auto mb-3" />
+            <div className="w-8 h-8 border-2 border-elvait-green border-t-transparent rounded-full animate-spin mx-auto mb-3" />
             <p>Switching to {currentUser?.name}...</p>
           </div>
         </div>
