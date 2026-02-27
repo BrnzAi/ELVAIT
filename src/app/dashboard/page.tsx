@@ -57,7 +57,7 @@ export default function DashboardPage() {
         setAssessments(prev => prev.filter(a => a.id !== id));
       } else {
         const data = await res.json();
-        alert(data.error || 'Failed to delete');
+        alert(data.error || 'Failed to delete assessment. Please try again.');
       }
     } catch (err) {
       alert('Failed to delete assessment');

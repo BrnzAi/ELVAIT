@@ -170,13 +170,17 @@ export default function CreateCasePage() {
       
       if (!response.ok) {
         const data = await response.json();
-        throw new Error(data.error || 'Failed to create case');
+        if (data.details && Array.isArray(data.details)) {
+          const messages = data.details.map((d: { message: string }) => d.message).join('. ');
+          throw new Error(messages || data.error || 'Failed to create assessment');
+        }
+        throw new Error(data.error || 'Failed to create assessment');
       }
       
       const newCase = await response.json();
       router.push(`/cases/${newCase.id}`);
     } catch (err) {
-      setError(err instanceof Error ? err.message : 'An error occurred');
+      setError(err instanceof Error ? err.message : 'Something went wrong. Please check all fields and try again.');
     } finally {
       setLoading(false);
     }
