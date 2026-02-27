@@ -47,12 +47,49 @@ const ROLE_QUESTIONS: Record<string, DemoQuestion[]> = {
     { id: 'T_OPEN', text: 'What technical challenge or dependency concerns you most?', type: 'TEXT', dimension: 'OPEN' },
   ],
   USER: [
-    { id: 'U1', text: 'I understand what this initiative is trying to achieve.', type: 'LIKERT', dimension: 'D1' },
-    { id: 'U2', text: 'This initiative will make my work easier or more effective.', type: 'LIKERT', dimension: 'D2' },
-    { id: 'U3', text: 'The current process we\'re trying to improve causes significant pain.', type: 'LIKERT', dimension: 'D3' },
-    { id: 'U4', text: 'I\'m confident I can adapt to the changes this will bring.', type: 'LIKERT', dimension: 'D3' },
-    { id: 'U5', text: 'My input has been considered in planning this initiative.', type: 'LIKERT', dimension: 'D5' },
-    { id: 'U_OPEN', text: 'What worries you most about this change?', type: 'TEXT', dimension: 'OPEN' },
+    // U1: Process Clarity & Stability
+    { id: 'U1', text: 'I clearly understand the end-to-end process this solution intends to support.', type: 'LIKERT', dimension: 'P' },
+    { id: 'U2', text: 'The current process is stable and consistently followed.', type: 'LIKERT', dimension: 'P' },
+    { id: 'U3', text: 'Exceptions in this process are rare and well-defined.', type: 'LIKERT', dimension: 'P' },
+    { id: 'U4', text: 'Most process steps are standardized across teams.', type: 'LIKERT', dimension: 'P' },
+    { id: 'U5', text: 'The process rarely depends on informal coordination or personal knowledge.', type: 'LIKERT', dimension: 'P' },
+    { id: 'U6', text: 'If someone new joins, the process can be learned without major confusion.', type: 'LIKERT', dimension: 'P' },
+    { id: 'U7', text: 'The process often works only because experienced individuals compensate for gaps.', type: 'LIKERT', dimension: 'P' },
+    // U2: Pain & Friction Reality
+    { id: 'U8', text: 'The current process causes significant inefficiencies.', type: 'LIKERT', dimension: 'D2' },
+    { id: 'U9', text: 'We lose measurable time due to system or workflow limitations.', type: 'LIKERT', dimension: 'D2' },
+    { id: 'U10', text: 'Manual workarounds are frequently required.', type: 'LIKERT', dimension: 'D2' },
+    { id: 'U11', text: 'We duplicate work across tools.', type: 'LIKERT', dimension: 'D2' },
+    { id: 'U12', text: 'The problem this initiative aims to solve is highly relevant in daily work.', type: 'LIKERT', dimension: 'D2' },
+    { id: 'U13', text: 'If this solution is not implemented, daily work would continue without major issues.', type: 'LIKERT', dimension: 'D2' },
+    // U3: Data & System Reality
+    { id: 'U14', text: 'Data needed for this process is complete and reliable.', type: 'LIKERT', dimension: 'D4' },
+    { id: 'U15', text: 'Data across systems is consistent.', type: 'LIKERT', dimension: 'D4' },
+    { id: 'U16', text: 'We trust the outputs of current systems.', type: 'LIKERT', dimension: 'D4' },
+    { id: 'U17', text: 'Manual corrections of system outputs are common.', type: 'LIKERT', dimension: 'D4' },
+    { id: 'U18', text: 'Important information exists outside official systems (Excel, email, chats).', type: 'LIKERT', dimension: 'D4' },
+    { id: 'U19', text: 'Automating this process would likely amplify existing data issues.', type: 'LIKERT', dimension: 'D4' },
+    // U4: Usability & Adoption Readiness
+    { id: 'U20', text: 'The proposed solution would clearly simplify daily work.', type: 'LIKERT', dimension: 'D3' },
+    { id: 'U21', text: 'The solution fits naturally into how we actually work.', type: 'LIKERT', dimension: 'D3' },
+    { id: 'U22', text: 'Additional training would be minimal.', type: 'LIKERT', dimension: 'D3' },
+    { id: 'U23', text: 'The team is open to changing current workflows.', type: 'LIKERT', dimension: 'D3' },
+    { id: 'U24', text: 'Previous system implementations were successfully adopted.', type: 'LIKERT', dimension: 'D3' },
+    { id: 'U25', text: 'If this solution increases complexity, users will create workarounds.', type: 'LIKERT', dimension: 'D3' },
+    // U5: Change Impact & Risk
+    { id: 'U26', text: 'This solution will significantly change how I perform my job.', type: 'LIKERT', dimension: 'D4' },
+    { id: 'U27', text: 'Responsibilities between teams may shift.', type: 'LIKERT', dimension: 'D4' },
+    { id: 'U28', text: 'There is clarity about who will own issues after implementation.', type: 'LIKERT', dimension: 'D5' },
+    { id: 'U29', text: 'There is a risk that decision accountability becomes unclear.', type: 'LIKERT', dimension: 'D5' },
+    { id: 'U30', text: 'This initiative may create new coordination complexity.', type: 'LIKERT', dimension: 'D4' },
+    { id: 'U31', text: 'What could realistically go wrong after implementation?', type: 'TEXT', dimension: 'OPEN' },
+    // U6: Automation Amplification Risk
+    { id: 'U32', text: 'Automating this process would likely amplify existing problems.', type: 'LIKERT', dimension: 'P' },
+    { id: 'U33', text: 'The process logic is mature enough to be encoded in a system.', type: 'LIKERT', dimension: 'P' },
+    { id: 'U34', text: 'Exceptions are manageable and predictable.', type: 'LIKERT', dimension: 'P' },
+    { id: 'U35', text: 'Important decisions require contextual judgment not easily systematized.', type: 'LIKERT', dimension: 'P' },
+    { id: 'U36', text: 'AI-based decisions would be trusted by users.', type: 'LIKERT', dimension: 'P' },
+    { id: 'U37', text: 'What would make this initiative a mistake in hindsight?', type: 'TEXT', dimension: 'OPEN' },
   ],
   PROCESS_OWNER: [
     { id: 'P1', text: 'The process is documented with clear steps and decision points.', type: 'LIKERT', dimension: 'P' },
@@ -77,7 +114,7 @@ const LIKERT_OPTIONS = [
 const ROLE_LABELS: Record<string, { name: string; emoji: string }> = {
   BUSINESS_OWNER: { name: 'Business Owner', emoji: '📊' },
   TECH_OWNER: { name: 'Technical Owner', emoji: '💻' },
-  USER: { name: 'End User', emoji: '👤' },
+  USER: { name: 'User Representative', emoji: '👤' },
   PROCESS_OWNER: { name: 'Process Owner', emoji: '⚙️' }
 };
 

@@ -1,19 +1,23 @@
-'use client';
-
-import { useEffect } from 'react';
-
 export default function DemoSurveyLayout({ children }: { children: React.ReactNode }) {
-  useEffect(() => {
-    const stored = localStorage.getItem('survey-theme');
-    if (stored === 'dark') {
-      document.documentElement.classList.add('dark');
-    } else {
-      document.documentElement.classList.remove('dark');
-    }
-    return () => {
-      document.documentElement.classList.add('dark');
-    };
-  }, []);
-
-  return <>{children}</>;
+  return (
+    <>
+      <script
+        dangerouslySetInnerHTML={{
+          __html: `
+            (function() {
+              try {
+                var stored = localStorage.getItem('survey-theme');
+                if (stored !== 'dark') {
+                  document.documentElement.classList.remove('dark');
+                }
+              } catch(e) {
+                document.documentElement.classList.remove('dark');
+              }
+            })();
+          `,
+        }}
+      />
+      {children}
+    </>
+  );
 }
