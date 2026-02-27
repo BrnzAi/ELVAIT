@@ -258,7 +258,7 @@ export default function LandingPage() {
       </section>
 
       {/* Results Gate Preview Section */}
-      <section className="py-24 bg-gray-50 dark:bg-elvait-black">
+      <section className="py-24 bg-gray-50 dark:bg-[#0a0a0a]">
         <div className="max-w-7xl mx-auto px-6">
           <div className="text-center mb-16">
             <h2 className="text-4xl font-bold mb-4">See Results Instantly</h2>
@@ -269,12 +269,12 @@ export default function LandingPage() {
 
           <div className="grid md:grid-cols-3 gap-8">
             {/* Tier 0 - Free (Quick Check) */}
-            <div className="relative bg-white dark:bg-gray-900 rounded-2xl p-8 shadow-lg border border-gray-200 dark:border-elvait-grey/20">
+            <div className="relative bg-white dark:bg-[#111111] rounded-2xl p-8 shadow-lg border border-gray-200 dark:border-elvait-grey/20">
               <div className="absolute -top-3 left-6 px-3 py-1 bg-elvait-grey text-white text-xs font-semibold rounded-full">
                 QUICK CHECK
               </div>
               <div className="flex items-center gap-3 mb-6">
-                <div className="w-12 h-12 bg-gray-100 dark:bg-gray-800 rounded-xl flex items-center justify-center">
+                <div className="w-12 h-12 bg-gray-100 dark:bg-elvait-black rounded-xl flex items-center justify-center">
                   <Eye className="w-6 h-6 text-elvait-grey" />
                 </div>
                 <div>
@@ -306,14 +306,14 @@ export default function LandingPage() {
               </ul>
               <Link
                 href="/signup"
-                className="mt-6 block w-full py-3 px-4 bg-gray-100 dark:bg-gray-800 text-gray-900 dark:text-white rounded-lg font-medium text-center hover:bg-gray-200 dark:hover:bg-gray-700 transition"
+                className="mt-6 block w-full py-3 px-4 bg-gray-100 dark:bg-elvait-black text-gray-900 dark:text-white rounded-lg font-medium text-center hover:bg-gray-200 dark:hover:bg-gray-700 transition"
               >
                 Get Started
               </Link>
             </div>
 
             {/* Try Out - €199 */}
-            <div className="relative bg-white dark:bg-gray-900 rounded-2xl p-8 shadow-xl border-2 border-elvait-green transform scale-105">
+            <div className="relative bg-white dark:bg-[#111111] rounded-2xl p-8 shadow-xl border-2 border-elvait-green transform scale-105">
               <div className="absolute -top-3 left-6 px-3 py-1 bg-elvait-green text-elvait-black text-xs font-semibold rounded-full">
                 TRY OUT · €199
               </div>
@@ -365,7 +365,7 @@ export default function LandingPage() {
             </div>
 
             {/* All Plans from €199 */}
-            <div className="relative bg-white dark:bg-gray-900 rounded-2xl p-8 shadow-lg border border-gray-200 dark:border-elvait-grey/20">
+            <div className="relative bg-white dark:bg-[#111111] rounded-2xl p-8 shadow-lg border border-gray-200 dark:border-elvait-grey/20">
               <div className="absolute -top-3 left-6 px-3 py-1 bg-amber-500 text-white text-xs font-semibold rounded-full">
                 ALL PLANS FROM €199
               </div>
@@ -445,7 +445,7 @@ export default function LandingPage() {
               </ul>
               <Link
                 href="/pricing"
-                className="mt-6 block w-full py-3 px-4 bg-gray-100 dark:bg-gray-800 text-gray-900 dark:text-white rounded-lg font-medium text-center hover:bg-gray-200 dark:hover:bg-gray-700 transition"
+                className="mt-6 block w-full py-3 px-4 bg-gray-100 dark:bg-elvait-black text-gray-900 dark:text-white rounded-lg font-medium text-center hover:bg-gray-200 dark:hover:bg-gray-700 transition"
               >
                 View Plans
               </Link>
@@ -455,7 +455,7 @@ export default function LandingPage() {
       </section>
 
       {/* How It Works */}
-      <section className="py-24 bg-white dark:bg-gray-900">
+      <section className="py-24 bg-white dark:bg-elvait-black">
         <div className="max-w-7xl mx-auto px-6">
           <div className="text-center mb-16">
             <h2 className="text-4xl font-bold mb-4">How It Works</h2>
@@ -487,7 +487,7 @@ export default function LandingPage() {
               },
             ].map((phase, i) => (
               <div key={i} className="relative">
-                <div className="bg-gray-50 dark:bg-elvait-black rounded-2xl p-8 shadow-lg border border-gray-200 dark:border-elvait-grey/20 h-full">
+                <div className="bg-gray-50 dark:bg-[#111111] rounded-2xl p-8 border border-gray-200 dark:border-elvait-grey/30 h-full">
                   <div className={`w-14 h-14 ${phase.color} rounded-xl flex items-center justify-center mb-6`}>
                     <phase.icon className="w-7 h-7 text-white" />
                   </div>
@@ -507,7 +507,7 @@ export default function LandingPage() {
       </section>
 
       {/* Outcomes Section */}
-      <section className="py-24 bg-gray-50 dark:bg-elvait-black">
+      <section className="py-24 bg-gray-50 dark:bg-[#0a0a0a]">
         <div className="max-w-7xl mx-auto px-6">
           <div className="text-center mb-16">
             <h2 className="text-4xl font-bold mb-4">Clear Outcomes</h2>
@@ -564,7 +564,7 @@ export default function LandingPage() {
       </section>
 
       {/* Trust Section */}
-      <section className="py-16 bg-white dark:bg-gray-900 border-y border-gray-200 dark:border-elvait-grey/20">
+      <section className="py-16 bg-white dark:bg-elvait-black border-y border-gray-200 dark:border-elvait-grey/20">
         <div className="max-w-7xl mx-auto px-6">
           <div className="grid md:grid-cols-3 gap-8 text-center">
             <div className="flex flex-col items-center">
@@ -599,7 +599,7 @@ export default function LandingPage() {
       </section>
 
       {/* Pricing Section */}
-      <section id="pricing" className="py-24 bg-gray-50 dark:bg-elvait-black">
+      <section id="pricing" className="py-24 bg-gray-50 dark:bg-[#0a0a0a]">
         <div className="max-w-7xl mx-auto px-6">
           <div className="text-center mb-16">
             <h2 className="text-4xl font-bold mb-4">Simple, Transparent Pricing</h2>
@@ -610,7 +610,7 @@ export default function LandingPage() {
             {pricingPlans.map((plan, i) => (
               <div 
                 key={i} 
-                className={`bg-white dark:bg-gray-900 rounded-2xl p-6 border-2 ${
+                className={`bg-white dark:bg-[#111111] rounded-2xl p-6 border-2 ${
                   plan.highlighted 
                     ? 'border-elvait-green shadow-lg shadow-elvait-green/20' 
                     : 'border-gray-200 dark:border-elvait-grey/20'
@@ -632,7 +632,7 @@ export default function LandingPage() {
                   className={`block w-full py-2.5 px-4 rounded-lg font-medium text-center transition mb-6 ${
                     plan.highlighted
                       ? 'bg-elvait-red text-white hover:bg-elvait-red-dark'
-                      : 'bg-gray-100 dark:bg-gray-800 text-gray-900 dark:text-white hover:bg-gray-200 dark:hover:bg-gray-700'
+                      : 'bg-gray-100 dark:bg-elvait-black text-gray-900 dark:text-white hover:bg-gray-200 dark:hover:bg-gray-700'
                   }`}
                 >
                   {plan.cta}
@@ -667,14 +667,14 @@ export default function LandingPage() {
       </section>
 
       {/* FAQ Section */}
-      <section className="py-24 bg-white dark:bg-gray-900">
+      <section className="py-24 bg-white dark:bg-elvait-black">
         <div className="max-w-3xl mx-auto px-6">
           <div className="text-center mb-12">
             <h2 className="text-4xl font-bold mb-4">Frequently Asked Questions</h2>
             <p className="text-xl text-elvait-grey">Everything you need to know about ELVAIT</p>
           </div>
 
-          <div className="bg-gray-50 dark:bg-elvait-black rounded-2xl shadow-lg border border-gray-200 dark:border-elvait-grey/20 overflow-hidden">
+          <div className="bg-gray-50 dark:bg-[#111111] rounded-2xl shadow-lg border border-gray-200 dark:border-elvait-grey/20 overflow-hidden">
             <div className="px-6">
               {faqData.map((faq, index) => (
                 <FAQItem
