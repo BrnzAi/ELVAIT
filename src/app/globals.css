@@ -20,7 +20,7 @@ html {
 
 body {
   min-height: 100vh;
-  font-family: 'PT Root UI', system-ui, sans-serif;
+  font-family: 'Inter', system-ui, sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
 }
