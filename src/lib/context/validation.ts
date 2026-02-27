@@ -98,14 +98,14 @@ export function validateCreateCase(input: Partial<CreateCaseInput>): ValidationR
   if (!input.variant) {
     errors.push({ field: 'variant', message: 'Kit variant is required' });
   } else if (!ALL_VARIANTS.includes(input.variant)) {
-    errors.push({ field: 'variant', message: 'Invalid kit variant' });
+    errors.push({ field: 'variant', message: 'Please select a valid assessment type' });
   }
   
   // Investment Type (required)
   if (!input.investmentType) {
     errors.push({ field: 'investmentType', message: 'Investment type is required' });
   } else if (!INVESTMENT_TYPES.includes(input.investmentType as any)) {
-    errors.push({ field: 'investmentType', message: 'Invalid investment type' });
+    errors.push({ field: 'investmentType', message: 'Please select a valid investment type' });
   }
   
   // Decision Description (required, max 500 chars)
@@ -127,37 +127,37 @@ export function validateCreateCase(input: Partial<CreateCaseInput>): ValidationR
   if (!input.timeHorizon) {
     errors.push({ field: 'timeHorizon', message: 'Time horizon is required' });
   } else if (!TIME_HORIZONS.includes(input.timeHorizon as any)) {
-    errors.push({ field: 'timeHorizon', message: 'Invalid time horizon' });
+    errors.push({ field: 'timeHorizon', message: 'Please select a valid time horizon' });
   }
   
   // Estimated Investment (optional, but if provided must be valid)
   if (input.estimatedInvestment && !ESTIMATED_INVESTMENTS.includes(input.estimatedInvestment as any)) {
-    errors.push({ field: 'estimatedInvestment', message: 'Invalid estimated investment' });
+    errors.push({ field: 'estimatedInvestment', message: 'Please select a valid estimated investment range' });
   }
   
   // D-CTX-1 through D-CTX-4 (all required)
   if (!input.dCtx1) {
-    errors.push({ field: 'dCtx1', message: 'D-CTX-1 is required: What decision are we actually trying to make?' });
+    errors.push({ field: 'dCtx1', message: 'Please answer: What decision are we actually trying to make?' });
   } else if (input.dCtx1.length > MAX_DCTX_LENGTH) {
-    errors.push({ field: 'dCtx1', message: `D-CTX-1 must be ${MAX_DCTX_LENGTH} characters or less` });
+    errors.push({ field: 'dCtx1', message: `Answer to 'What decision are we trying to make?' must be ${MAX_DCTX_LENGTH} characters or less` });
   }
   
   if (!input.dCtx2) {
-    errors.push({ field: 'dCtx2', message: 'D-CTX-2 is required: What will be different if this decision succeeds?' });
+    errors.push({ field: 'dCtx2', message: 'Please answer: What will be different if this decision succeeds?' });
   } else if (input.dCtx2.length > MAX_DCTX_LENGTH) {
-    errors.push({ field: 'dCtx2', message: `D-CTX-2 must be ${MAX_DCTX_LENGTH} characters or less` });
+    errors.push({ field: 'dCtx2', message: `Answer to 'What will be different?' must be ${MAX_DCTX_LENGTH} characters or less` });
   }
   
   if (!input.dCtx3) {
-    errors.push({ field: 'dCtx3', message: 'D-CTX-3 is required: What happens if we do nothing?' });
+    errors.push({ field: 'dCtx3', message: 'Please answer: What happens if we do nothing?' });
   } else if (input.dCtx3.length > MAX_DCTX_LENGTH) {
-    errors.push({ field: 'dCtx3', message: `D-CTX-3 must be ${MAX_DCTX_LENGTH} characters or less` });
+    errors.push({ field: 'dCtx3', message: `Answer to 'What happens if we do nothing?' must be ${MAX_DCTX_LENGTH} characters or less` });
   }
   
   if (!input.dCtx4) {
-    errors.push({ field: 'dCtx4', message: 'D-CTX-4 is required: What would make this decision a mistake in hindsight?' });
+    errors.push({ field: 'dCtx4', message: 'Please answer: What would make this decision a mistake in hindsight?' });
   } else if (input.dCtx4.length > MAX_DCTX_LENGTH) {
-    errors.push({ field: 'dCtx4', message: `D-CTX-4 must be ${MAX_DCTX_LENGTH} characters or less` });
+    errors.push({ field: 'dCtx4', message: `Answer to 'What would make this a mistake?' must be ${MAX_DCTX_LENGTH} characters or less` });
   }
   
   // Validate processes (if variant supports it)
@@ -233,14 +233,8 @@ export function validateProcesses(processes: ProcessInput[] | undefined, variant
   const supportsProcessNaming = variant === 'FULL' || variant === 'PROCESS_STANDALONE';
   
   if (!supportsProcessNaming) {
-    // For variants that don't support process naming, processes should not be provided
-    if (processes && processes.length > 0) {
-      errors.push({ 
-        field: 'processes', 
-        message: `Process naming is not supported for variant ${variant}` 
-      });
-    }
-    return { valid: errors.length === 0, errors };
+    // For variants that don't support process naming, silently ignore any processes
+    return { valid: true, errors: [] };
   }
   
   // If no processes provided for supported variants, we'll auto-create a default one
