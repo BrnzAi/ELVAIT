@@ -1,5 +1,4 @@
 'use client';
-import Image from 'next/image';
 
 import { useState, useEffect } from 'react';
 import { useParams } from 'next/navigation';
@@ -196,12 +195,11 @@ export default function SurveyPage() {
         <header className="bg-white dark:bg-gray-900 border-b border-gray-200 dark:border-gray-800">
           <div className="max-w-3xl mx-auto px-6 py-4 flex items-center justify-between">
             <div className="flex items-center gap-2">
-              <Image src="/logo-grey.jpg" alt="ELVAIT" width={24} height={24} className="h-6 w-auto" />
-              <span className="font-semibold">Clarity Assessment</span>
+              <ElvaitLogo />
+              <span className="text-elvait-grey dark:text-elvait-grey-light text-sm">Clarity Assessment</span>
             </div>
             <div className="flex items-center gap-3">
               <ThemeToggle />
-              <ElvaitLogo />
             </div>
           </div>
         </header>
@@ -271,8 +269,8 @@ export default function SurveyPage() {
         <div className="max-w-3xl mx-auto px-6 py-4">
           <div className="flex items-center justify-between mb-2">
             <div className="flex items-center gap-2">
-              <Image src="/logo-grey.jpg" alt="ELVAIT" width={20} height={20} className="h-5 w-auto" />
-              <span className="text-sm font-medium">{surveyData.context.title}</span>
+              <ElvaitLogo />
+              <span className="text-sm text-elvait-grey dark:text-elvait-grey-light">{surveyData.context.title}</span>
             </div>
             <div className="flex items-center gap-3">
               <span className="text-sm text-gray-500">

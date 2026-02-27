@@ -1,5 +1,5 @@
 'use client';
-import Image from 'next/image';
+import { ElvaitLogo } from "@/components/ElvaitLogo";
 
 import { useState } from 'react';
 import { useRouter } from 'next/navigation';
@@ -220,7 +220,7 @@ export default function DemoLoginPage() {
       <header className="border-b border-gray-800">
         <div className="max-w-6xl mx-auto px-6 py-4 flex items-center justify-between">
           <Link href="/" className="flex items-center gap-2">
-            <Image src="/logo-grey.jpg" alt="ELVAIT" width={32} height={32} className="h-8 w-auto" />
+            <ElvaitLogo size="md" />
             <div>
               <span className="font-bold text-lg text-elvait-green">ELVAIT</span>
               <span className="text-xs text-gray-500 block">DEMO LOGIN</span>

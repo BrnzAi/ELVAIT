@@ -1,5 +1,5 @@
 'use client';
-import Image from 'next/image';
+import { ElvaitLogo } from "@/components/ElvaitLogo";
 
 import { useState, useEffect } from 'react';
 import Link from 'next/link';
@@ -225,7 +225,7 @@ export default function DemoDashboardPage() {
       <header className="border-b border-gray-800 sticky top-0 bg-elvait-black z-10">
         <div className="max-w-7xl mx-auto px-6 py-4 flex items-center justify-between">
           <Link href="/" className="flex items-center gap-2">
-            <Image src="/logo-grey.jpg" alt="ELVAIT" width={32} height={32} className="h-8 w-auto" />
+            <ElvaitLogo size="md" />
             <span className="font-bold text-lg text-elvait-green">ELVAIT</span>
           </Link>
           <div className="flex items-center gap-4">

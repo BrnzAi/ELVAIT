@@ -1,5 +1,5 @@
 'use client';
-import Image from 'next/image';
+import { ElvaitLogo } from "@/components/ElvaitLogo";
 
 import { useState, useEffect } from 'react';
 import { useParams, usePathname } from 'next/navigation';
@@ -266,7 +266,7 @@ export default function ResultsPage() {
             <span>Back to Case</span>
           </Link>
           <div className="flex items-center gap-2">
-            <Image src="/logo-grey.jpg" alt="ELVAIT" width={24} height={24} className="h-6 w-auto" />
+            <ElvaitLogo size="sm" />
             <span className="font-semibold">Assessment Results</span>
           </div>
           {access.canDownloadPDF ? (

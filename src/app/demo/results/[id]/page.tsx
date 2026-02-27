@@ -1,5 +1,5 @@
 'use client';
-import Image from 'next/image';
+import { ElvaitLogo } from "@/components/ElvaitLogo";
 
 import { useState, useEffect } from 'react';
 import { useParams } from 'next/navigation';
@@ -220,7 +220,7 @@ export default function DemoResultsByIdPage() {
       <header className="border-b border-gray-800 sticky top-0 bg-elvait-black/80 backdrop-blur-xl z-10">
         <div className="max-w-5xl mx-auto px-6 py-4 flex items-center justify-between">
           <div className="flex items-center gap-3">
-            <Image src="/logo-grey.jpg" alt="ELVAIT" width={24} height={24} className="h-6 w-auto" />
+            <ElvaitLogo size="sm" />
             <span className="font-semibold">Assessment Results</span>
           </div>
           <div className="flex items-center gap-4">

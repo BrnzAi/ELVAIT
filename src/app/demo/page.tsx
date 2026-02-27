@@ -1,5 +1,5 @@
 'use client';
-import Image from 'next/image';
+import { ElvaitLogo } from "@/components/ElvaitLogo";
 
 import { useState } from 'react';
 import Link from 'next/link';
@@ -367,7 +367,7 @@ export default function DemoPage() {
               Back
             </Link>
             <div className="flex items-center gap-2">
-              <Image src="/logo-grey.jpg" alt="ELVAIT" width={24} height={24} className="h-6 w-auto" />
+              <ElvaitLogo size="sm" />
               <span className="font-semibold">Interactive Demo</span>
             </div>
             <div />
@@ -400,7 +400,7 @@ export default function DemoPage() {
               </div>
               <div className="text-center p-4">
                 <div className="w-12 h-12 bg-purple-100 dark:bg-purple-900/30 rounded-xl flex items-center justify-center mx-auto mb-3">
-                  <Image src="/logo-grey.jpg" alt="ELVAIT" width={24} height={24} className="h-6 w-auto" />
+                  <ElvaitLogo size="sm" />
                 </div>
                 <h3 className="font-semibold mb-2">2. Analyze</h3>
                 <p className="text-sm text-gray-600 dark:text-gray-400">

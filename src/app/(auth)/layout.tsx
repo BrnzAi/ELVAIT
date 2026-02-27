@@ -1,5 +1,5 @@
+import { ElvaitLogo } from "@/components/ElvaitLogo";
 import Link from 'next/link';
-import Image from 'next/image';
 
 export default function AuthLayout({
   children,
@@ -12,7 +12,7 @@ export default function AuthLayout({
       <header className="border-b border-elvait-grey/20">
         <div className="max-w-6xl mx-auto px-6 py-4">
           <Link href="/" className="flex items-center gap-2 w-fit">
-            <Image src="/logo-full.jpg" alt="ELVAIT" width={120} height={32} className="h-8 w-auto" />
+            <ElvaitLogo size="md" />
           </Link>
         </div>
       </header>

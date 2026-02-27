@@ -1,5 +1,5 @@
 'use client';
-import Image from 'next/image';
+import { ElvaitLogo } from "@/components/ElvaitLogo";
 
 import { useState, useEffect } from 'react';
 import { useParams, useRouter } from 'next/navigation';
@@ -168,7 +168,7 @@ export default function CaseDetailPage() {
             <span>My Assessments</span>
           </Link>
           <div className="flex items-center gap-2">
-            <Image src="/logo-grey.jpg" alt="ELVAIT" width={24} height={24} className="h-6 w-auto" />
+            <ElvaitLogo size="sm" />
             <span className="font-semibold">Assessment</span>
           </div>
           <div className={`px-3 py-1 rounded-full text-sm font-medium ${

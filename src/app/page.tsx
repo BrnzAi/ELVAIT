@@ -1,5 +1,5 @@
 'use client';
-import Image from 'next/image';
+import { ElvaitLogo } from "@/components/ElvaitLogo";
 
 import { useState } from 'react';
 import Link from 'next/link';
@@ -175,7 +175,7 @@ export default function LandingPage() {
       <header className="relative overflow-hidden bg-elvait-black">
         <nav className="relative z-10 max-w-7xl mx-auto px-6 py-6 flex items-center justify-between">
           <div className="flex items-center gap-3">
-            <Image src="/logo-full.jpg" alt="ELVAIT" width={140} height={40} className="h-10 w-auto" />
+            <ElvaitLogo size="lg" />
           </div>
           <div className="flex items-center gap-4">
             <Link href="/demo" className="text-elvait-grey-light hover:text-white transition">
@@ -724,7 +724,7 @@ export default function LandingPage() {
         <div className="max-w-7xl mx-auto px-6">
           <div className="flex flex-col md:flex-row items-center justify-between gap-4">
             <div className="flex items-center gap-2">
-              <Image src="/logo-grey.jpg" alt="ELVAIT" width={32} height={32} className="h-8 w-auto rounded" />
+              <ElvaitLogo size="md" />
               <span className="text-elvait-green font-semibold">ELVAIT</span>
             </div>
             <div className="flex flex-wrap items-center justify-center gap-x-6 gap-y-2 text-sm">

@@ -1,5 +1,4 @@
 'use client';
-import Image from 'next/image';
 
 import { useState, useEffect } from 'react';
 import Link from 'next/link';
@@ -10,7 +9,7 @@ import {
 import { Button } from '@/components/ui/button';
 import { Textarea } from '@/components/ui/textarea';
 import { ThemeToggle } from '@/components/survey/ThemeToggle';
-import { ElvaitLogo } from '@/components/survey/ElvaitLogo';
+import { ElvaitLogo } from "@/components/ElvaitLogo";
 
 // =============================================================================
 // DEMO DATA
@@ -162,7 +161,7 @@ export default function DemoSurveyPage() {
         <header className="bg-white dark:bg-gray-900 border-b border-gray-200 dark:border-gray-800">
           <div className="max-w-3xl mx-auto px-6 py-4 flex items-center justify-between">
             <div className="flex items-center gap-2">
-              <Image src="/logo-grey.jpg" alt="ELVAIT" width={24} height={24} className="h-6 w-auto" />
+              <ElvaitLogo size="sm" />
               <span className="font-semibold">Clarity Assessment Survey</span>
             </div>
             <div className="flex items-center gap-3">
@@ -254,7 +253,7 @@ export default function DemoSurveyPage() {
         <div className="max-w-3xl mx-auto px-6 py-4">
           <div className="flex items-center justify-between mb-2">
             <div className="flex items-center gap-2">
-              <Image src="/logo-grey.jpg" alt="ELVAIT" width={20} height={20} className="h-5 w-auto" />
+              <ElvaitLogo size="sm" />
               <span className="text-sm font-medium">Marketing Automation Platform</span>
             </div>
             <div className="flex items-center gap-3">
