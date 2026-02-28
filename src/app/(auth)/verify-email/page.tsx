@@ -49,8 +49,8 @@ function VerifyEmailContent() {
     <div className="bg-gray-900 rounded-2xl border border-gray-800 p-8 text-center">
       {status === 'loading' && (
         <>
-          <div className="w-16 h-16 bg-elvait-red/20 rounded-full flex items-center justify-center mx-auto mb-6">
-            <Loader2 className="w-8 h-8 text-elvait-green animate-spin" />
+          <div className="w-16 h-16 bg-clarity-500/20 rounded-full flex items-center justify-center mx-auto mb-6">
+            <Loader2 className="w-8 h-8 text-clarity-500 animate-spin" />
           </div>
           <h1 className="text-2xl font-bold mb-4">Verifying your email...</h1>
           <p className="text-gray-400">Please wait while we verify your email address.</p>
@@ -101,8 +101,8 @@ export default function VerifyEmailPage() {
   return (
     <Suspense fallback={
       <div className="bg-gray-900 rounded-2xl border border-gray-800 p-8 text-center">
-        <div className="w-16 h-16 bg-elvait-red/20 rounded-full flex items-center justify-center mx-auto mb-6">
-          <Loader2 className="w-8 h-8 text-elvait-green animate-spin" />
+        <div className="w-16 h-16 bg-clarity-500/20 rounded-full flex items-center justify-center mx-auto mb-6">
+          <Loader2 className="w-8 h-8 text-clarity-500 animate-spin" />
         </div>
         <h1 className="text-2xl font-bold mb-4">Loading...</h1>
       </div>

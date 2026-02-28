@@ -1,11 +1,17 @@
 'use client';
 
-export function ElvaitLogo({ className = '' }: { className?: string }) {
+export function ElvaitLogo({ className = 'h-7' }: { className?: string }) {
   return (
-    <span className={`font-medium tracking-widest text-sm ${className}`}>
-      <span className="text-elvait-grey-dark dark:text-elvait-green">ELV</span>
-      <span className="text-elvait-red">A</span>
-      <span className="text-elvait-grey-dark dark:text-elvait-green">IT</span>
-    </span>
+    <div className={`flex items-center gap-2 ${className}`}>
+      <svg xmlns="http://www.w3.org/2000/svg" width="28" height="28" viewBox="0 0 32 32" fill="none" className="shrink-0">
+        <rect width="32" height="32" rx="8" fill="#0ea5e9"/>
+        <path d="M16 6C12.5 6 10 8.5 10 11.5C10 13 10.5 14 11 15C10.5 15.5 10 16.5 10 18C10 20.5 12 22 14 22.5V24C14 25.1 14.9 26 16 26C17.1 26 18 25.1 18 24V22.5C20 22 22 20.5 22 18C22 16.5 21.5 15.5 21 15C21.5 14 22 13 22 11.5C22 8.5 19.5 6 16 6Z" stroke="white" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" fill="none"/>
+        <path d="M13 11C13 11 14 12 16 12C18 12 19 11 19 11" stroke="white" strokeWidth="1.5" strokeLinecap="round"/>
+        <path d="M13 15C13 15 14 16 16 16C18 16 19 15 19 15" stroke="white" strokeWidth="1.5" strokeLinecap="round"/>
+        <circle cx="13.5" cy="13" r="1" fill="white"/>
+        <circle cx="18.5" cy="13" r="1" fill="white"/>
+      </svg>
+      <span className="font-semibold text-sm text-gray-400 dark:text-gray-500 tracking-wide">ELVAIT</span>
+    </div>
   );
 }

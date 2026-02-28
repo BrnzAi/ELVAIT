@@ -1,10 +1,9 @@
 'use client';
-import Image from 'next/image';
 
 import { useState } from 'react';
 import Link from 'next/link';
 import { 
-  Settings, Users, Building2, ClipboardList, Factory,
+  Brain, Settings, Users, Building2, ClipboardList, Factory,
   Workflow, Shield, HelpCircle, LayoutDashboard, ChevronRight,
   LogOut, Bell, Menu, X, TrendingUp, FileText, CheckCircle,
   AlertTriangle, XCircle, Search, Plus, MoreVertical, Eye
@@ -93,11 +92,11 @@ function Sidebar({ isOpen, onClose }: { isOpen: boolean; onClose: () => void }) 
         {/* Logo */}
         <div className="flex h-20 items-center justify-between px-6 border-b border-white/[0.06]">
           <Link href="/demo/admin" className="flex items-center gap-3">
-            <div className="w-10 h-10 rounded-xl bg-elvait-green flex items-center justify-center shadow-lg shadow-elvait-green/20">
+            <div className="w-10 h-10 rounded-xl bg-gradient-to-br from-clarity-500 to-teal-500 flex items-center justify-center shadow-lg shadow-clarity-500/25">
               <Settings className="h-6 w-6 text-white" />
             </div>
             <div className="flex flex-col">
-              <span className="text-lg font-bold text-elvait-green">Admin Panel</span>
+              <span className="text-lg font-bold bg-gradient-to-r from-clarity-400 to-teal-400 bg-clip-text text-transparent">Admin Panel</span>
               <span className="text-[10px] text-gray-500 font-medium tracking-wider uppercase">ELVAIT</span>
             </div>
           </Link>
@@ -119,9 +118,9 @@ function Sidebar({ isOpen, onClose }: { isOpen: boolean; onClose: () => void }) 
                   : 'text-gray-400 hover:bg-white/[0.04] hover:text-white'
               }`}
             >
-              <item.icon className={`h-5 w-5 transition-colors ${item.active ? 'text-elvait-green' : 'text-gray-500 group-hover:text-elvait-green'}`} />
+              <item.icon className={`h-5 w-5 transition-colors ${item.active ? 'text-clarity-400' : 'text-gray-500 group-hover:text-clarity-400'}`} />
               {item.label}
-              {item.active && <ChevronRight className="ml-auto h-4 w-4 text-elvait-green" />}
+              {item.active && <ChevronRight className="ml-auto h-4 w-4 text-clarity-400" />}
             </Link>
           ))}
         </nav>
@@ -188,7 +187,7 @@ export default function AdminDashboardPage() {
   const [sidebarOpen, setSidebarOpen] = useState(false);
 
   return (
-    <div className="min-h-screen bg-elvait-black text-white">
+    <div className="min-h-screen bg-gray-950 text-white">
       {/* Background effects */}
       <div className="fixed inset-0 bg-[radial-gradient(ellipse_at_top,rgba(20,184,166,0.1),transparent_50%)]" />
       <div className="fixed inset-0 bg-[radial-gradient(ellipse_at_bottom_right,rgba(13,148,136,0.08),transparent_50%)]" />
@@ -203,10 +202,10 @@ export default function AdminDashboardPage() {
             <Menu className="h-6 w-6" />
           </button>
           <Link href="/demo/admin" className="flex items-center gap-2">
-            <div className="w-8 h-8 rounded-lg bg-elvait-green flex items-center justify-center">
+            <div className="w-8 h-8 rounded-lg bg-gradient-to-br from-clarity-500 to-teal-500 flex items-center justify-center">
               <Settings className="h-4 w-4 text-white" />
             </div>
-            <span className="text-lg font-bold text-elvait-green">Admin</span>
+            <span className="text-lg font-bold bg-gradient-to-r from-clarity-400 to-teal-400 bg-clip-text text-transparent">Admin</span>
           </Link>
           <button className="p-2 text-gray-400 hover:text-white rounded-lg hover:bg-white/5">
             <Bell className="h-5 w-5" />
@@ -220,7 +219,7 @@ export default function AdminDashboardPage() {
         <div className="hidden lg:block border-b border-white/[0.06] bg-white/[0.01]">
           <div className="px-8 py-4 flex items-center justify-between">
             <div className="flex items-center gap-2 text-sm">
-              <Link href="/demo/admin" className="text-elvait-green font-medium">Admin</Link>
+              <Link href="/demo/admin" className="text-clarity-400 font-medium">Admin</Link>
               <ChevronRight className="w-4 h-4 text-gray-600" />
               <span className="text-gray-400">Dashboard</span>
             </div>
@@ -293,14 +292,14 @@ export default function AdminDashboardPage() {
             <h2 className="text-lg font-semibold mb-4">Admin Sections</h2>
             <div className="grid grid-cols-2 lg:grid-cols-4 gap-4">
               <Link href="/demo/admin/users" className="bg-white/[0.02] hover:bg-white/[0.05] border border-white/[0.06] rounded-xl p-4 transition-all group">
-                <div className="w-10 h-10 rounded-lg bg-elvait-green/10 flex items-center justify-center mb-3 group-hover:scale-110 transition-transform">
-                  <Users className="w-5 h-5 text-elvait-green" />
+                <div className="w-10 h-10 rounded-lg bg-blue-500/20 flex items-center justify-center mb-3 group-hover:scale-110 transition-transform">
+                  <Users className="w-5 h-5 text-blue-400" />
                 </div>
                 <h3 className="font-medium text-white">Users</h3>
                 <p className="text-xs text-gray-500 mt-1">Manage platform users</p>
               </Link>
               <Link href="/demo/admin/organizations" className="bg-white/[0.02] hover:bg-white/[0.05] border border-white/[0.06] rounded-xl p-4 transition-all group">
-                <div className="w-10 h-10 rounded-lg bg-elvait-grey/20 flex items-center justify-center mb-3 group-hover:scale-110 transition-transform">
+                <div className="w-10 h-10 rounded-lg bg-purple-500/20 flex items-center justify-center mb-3 group-hover:scale-110 transition-transform">
                   <Building2 className="w-5 h-5 text-purple-400" />
                 </div>
                 <h3 className="font-medium text-white">Organizations</h3>
@@ -356,7 +355,7 @@ export default function AdminDashboardPage() {
             <div className="bg-white/[0.02] backdrop-blur-sm rounded-xl border border-white/[0.06]">
               <div className="flex items-center justify-between p-4 border-b border-white/[0.06]">
                 <h2 className="font-semibold">Recent Users</h2>
-                <Link href="/demo/admin/users" className="text-sm text-elvait-green hover:text-elvait-green">
+                <Link href="/demo/admin/users" className="text-sm text-clarity-400 hover:text-clarity-300">
                   View all →
                 </Link>
               </div>
@@ -364,7 +363,7 @@ export default function AdminDashboardPage() {
                 {RECENT_USERS.map(user => (
                   <div key={user.id} className="p-4 flex items-center justify-between hover:bg-white/[0.02]">
                     <div className="flex items-center gap-3">
-                      <div className="w-10 h-10 rounded-full bg-elvait-green flex items-center justify-center text-white font-medium">
+                      <div className="w-10 h-10 rounded-full bg-gradient-to-br from-clarity-500 to-teal-500 flex items-center justify-center text-white font-medium">
                         {user.name.charAt(0)}
                       </div>
                       <div>
@@ -391,7 +390,7 @@ export default function AdminDashboardPage() {
             <div className="bg-white/[0.02] backdrop-blur-sm rounded-xl border border-white/[0.06]">
               <div className="flex items-center justify-between p-4 border-b border-white/[0.06]">
                 <h2 className="font-semibold">Recent Assessments</h2>
-                <Link href="/demo/admin/assessments" className="text-sm text-elvait-green hover:text-elvait-green">
+                <Link href="/demo/admin/assessments" className="text-sm text-clarity-400 hover:text-clarity-300">
                   View all →
                 </Link>
               </div>
@@ -442,7 +441,7 @@ export default function AdminDashboardPage() {
 
           {/* Back to demo */}
           <div className="mt-8 text-center">
-            <Link href="/demo/login" className="text-elvait-green hover:text-elvait-green text-sm">
+            <Link href="/demo/login" className="text-clarity-400 hover:text-clarity-300 text-sm">
               ← Switch demo user
             </Link>
           </div>

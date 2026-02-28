@@ -50,11 +50,11 @@ function Sidebar({ isOpen, onClose }: { isOpen: boolean; onClose: () => void }) 
       <div className="flex h-full flex-col">
         <div className="flex h-20 items-center justify-between px-6 border-b border-white/[0.06]">
           <Link href="/demo/admin" className="flex items-center gap-3">
-            <div className="w-10 h-10 rounded-xl bg-elvait-green flex items-center justify-center shadow-lg shadow-elvait-green/20">
+            <div className="w-10 h-10 rounded-xl bg-gradient-to-br from-clarity-500 to-teal-500 flex items-center justify-center shadow-lg shadow-clarity-500/25">
               <Settings className="h-6 w-6 text-white" />
             </div>
             <div className="flex flex-col">
-              <span className="text-lg font-bold text-elvait-green">Admin Panel</span>
+              <span className="text-lg font-bold bg-gradient-to-r from-clarity-400 to-teal-400 bg-clip-text text-transparent">Admin Panel</span>
               <span className="text-[10px] text-gray-500 font-medium tracking-wider uppercase">ELVAIT</span>
             </div>
           </Link>
@@ -64,9 +64,9 @@ function Sidebar({ isOpen, onClose }: { isOpen: boolean; onClose: () => void }) 
           <p className="px-3 text-[10px] font-semibold text-gray-500 uppercase tracking-wider mb-2">Management</p>
           {NAV_ITEMS.map(item => (
             <Link key={item.label} href={item.href} className={`group flex items-center gap-3 px-4 py-3 rounded-xl text-sm font-medium transition-all ${item.active ? 'bg-white/[0.08] text-white shadow-sm' : 'text-gray-400 hover:bg-white/[0.04] hover:text-white'}`}>
-              <item.icon className={`h-5 w-5 ${item.active ? 'text-elvait-green' : 'text-gray-500 group-hover:text-elvait-green'}`} />
+              <item.icon className={`h-5 w-5 ${item.active ? 'text-clarity-400' : 'text-gray-500 group-hover:text-clarity-400'}`} />
               {item.label}
-              {item.active && <ChevronRight className="ml-auto h-4 w-4 text-elvait-green" />}
+              {item.active && <ChevronRight className="ml-auto h-4 w-4 text-clarity-400" />}
             </Link>
           ))}
         </nav>
@@ -97,7 +97,7 @@ export default function AdminQuestionsPage() {
   })).filter(d => d.questions.length > 0);
 
   return (
-    <div className="min-h-screen bg-elvait-black text-white">
+    <div className="min-h-screen bg-gray-950 text-white">
       <div className="fixed inset-0 bg-[radial-gradient(ellipse_at_top,rgba(20,184,166,0.1),transparent_50%)]" />
       <div className="fixed inset-0 bg-[radial-gradient(ellipse_at_bottom_right,rgba(13,148,136,0.08),transparent_50%)]" />
       <Sidebar isOpen={sidebarOpen} onClose={() => setSidebarOpen(false)} />
@@ -113,7 +113,7 @@ export default function AdminQuestionsPage() {
       <main className="lg:pl-72 pt-16 lg:pt-0 relative z-10 min-h-screen">
         <div className="hidden lg:block border-b border-white/[0.06] bg-white/[0.01]">
           <div className="px-8 py-4 flex items-center gap-2 text-sm">
-            <Link href="/demo/admin" className="text-elvait-green hover:text-elvait-green font-medium">Admin</Link>
+            <Link href="/demo/admin" className="text-clarity-400 hover:text-clarity-300 font-medium">Admin</Link>
             <ChevronRight className="w-4 h-4 text-gray-600" />
             <span className="text-white">Questions</span>
           </div>
@@ -160,8 +160,8 @@ export default function AdminQuestionsPage() {
                   className="w-full flex items-center justify-between p-4 hover:bg-white/[0.02] transition-colors"
                 >
                   <div className="flex items-center gap-3">
-                    <div className="w-8 h-8 rounded-lg bg-elvait-red/20 flex items-center justify-center">
-                      <HelpCircle className="w-4 h-4 text-elvait-green" />
+                    <div className="w-8 h-8 rounded-lg bg-clarity-500/20 flex items-center justify-center">
+                      <HelpCircle className="w-4 h-4 text-clarity-400" />
                     </div>
                     <div className="text-left">
                       <h3 className="font-semibold">{dimension}</h3>
@@ -178,7 +178,7 @@ export default function AdminQuestionsPage() {
                         <div className="flex-1">
                           <div className="flex items-center gap-2 mb-1">
                             <span className="px-2 py-0.5 rounded bg-white/5 text-xs font-mono text-gray-400">{q.code}</span>
-                            <span className="px-2 py-0.5 rounded bg-elvait-green/10 text-xs text-elvait-green">{q.role}</span>
+                            <span className="px-2 py-0.5 rounded bg-blue-500/20 text-xs text-blue-400">{q.role}</span>
                             {q.isReverse && <span className="px-2 py-0.5 rounded bg-amber-500/20 text-xs text-amber-400">Reverse</span>}
                           </div>
                           <p className="text-gray-200">{q.text}</p>

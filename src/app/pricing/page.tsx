@@ -105,7 +105,7 @@ const plans = [
 
 export default function PricingPage() {
   return (
-    <div className="min-h-screen bg-elvait-black text-white">
+    <div className="min-h-screen bg-gray-950 text-white">
       {/* Header */}
       <div className="border-b border-gray-800">
         <div className="max-w-7xl mx-auto px-4 py-4">
@@ -138,14 +138,14 @@ export default function PricingPage() {
               key={plan.name}
               className={`rounded-2xl p-5 ${
                 plan.highlight
-                  ? 'bg-elvait-red ring-2 ring-elvait-green'
+                  ? 'bg-blue-600 ring-2 ring-blue-400'
                   : 'bg-gray-900 border border-gray-800'
               }`}
             >
               {/* Plan Header */}
               <div className="mb-4">
                 <h2 className="text-lg font-semibold mb-1">{plan.name}</h2>
-                <p className={`text-xs ${plan.highlight ? 'text-elvait-green' : 'text-gray-400'}`}>
+                <p className={`text-xs ${plan.highlight ? 'text-blue-200' : 'text-gray-400'}`}>
                   {plan.description}
                 </p>
               </div>
@@ -153,7 +153,7 @@ export default function PricingPage() {
               {/* Price */}
               <div className="mb-4">
                 <span className="text-3xl font-bold">{plan.price}</span>
-                <span className={`text-xs ml-1 ${plan.highlight ? 'text-elvait-green' : 'text-gray-400'}`}>
+                <span className={`text-xs ml-1 ${plan.highlight ? 'text-blue-200' : 'text-gray-400'}`}>
                   {plan.priceDetail}
                 </span>
               </div>
@@ -163,7 +163,7 @@ export default function PricingPage() {
                 href={plan.ctaLink}
                 className={`block w-full py-2.5 px-4 rounded-lg text-center font-medium transition-colors mb-4 text-sm ${
                   plan.highlight
-                    ? 'bg-white text-elvait-green hover:bg-gray-100'
+                    ? 'bg-white text-blue-600 hover:bg-gray-100'
                     : 'bg-gray-800 text-white hover:bg-gray-700'
                 }`}
               >
@@ -172,7 +172,7 @@ export default function PricingPage() {
 
               {/* Note */}
               {plan.note && (
-                <p className={`text-xs mb-4 ${plan.highlight ? 'text-elvait-green' : 'text-gray-500'}`}>
+                <p className={`text-xs mb-4 ${plan.highlight ? 'text-blue-200' : 'text-gray-500'}`}>
                   {plan.note}
                 </p>
               )}
@@ -188,17 +188,17 @@ export default function PricingPage() {
                   >
                     {feature.included ? (
                       <Check className={`w-3.5 h-3.5 mt-0.5 flex-shrink-0 ${
-                        plan.highlight ? 'text-elvait-green' : 'text-green-400'
+                        plan.highlight ? 'text-blue-200' : 'text-green-400'
                       }`} />
                     ) : (
                       <X className={`w-3.5 h-3.5 mt-0.5 flex-shrink-0 ${
-                        plan.highlight ? 'text-elvait-green' : 'text-gray-600'
+                        plan.highlight ? 'text-blue-300' : 'text-gray-600'
                       }`} />
                     )}
                     <span>
                       {feature.name}
                       {typeof feature.value === 'string' && feature.included && (
-                        <span className={`ml-1 ${plan.highlight ? 'text-elvait-green' : 'text-gray-400'}`}>
+                        <span className={`ml-1 ${plan.highlight ? 'text-blue-200' : 'text-gray-400'}`}>
                           ({feature.value})
                         </span>
                       )}

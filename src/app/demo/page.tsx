@@ -1,11 +1,10 @@
 'use client';
-import { ElvaitLogo } from "@/components/ElvaitLogo";
 
 import { useState } from 'react';
 import Link from 'next/link';
 import { 
   ArrowLeft, ArrowRight, CheckCircle, AlertTriangle, XCircle, 
-  Users, BarChart3, FileText, Zap, Target, TrendingUp,
+  Brain, Users, BarChart3, FileText, Zap, Target, TrendingUp,
   Shield, Briefcase, Settings, ChevronRight, Play, Eye
 } from 'lucide-react';
 import { Button } from '@/components/ui/button';
@@ -337,8 +336,8 @@ function StepIndicator({ currentStep, totalSteps }: { currentStep: number; total
         <div
           key={i}
           className={`h-2 rounded-full transition-all ${
-            i === currentStep ? 'w-8 bg-elvait-red' : 
-            i < currentStep ? 'w-2 bg-elvait-green' : 'w-2 bg-gray-300 dark:bg-gray-700'
+            i === currentStep ? 'w-8 bg-clarity-600' : 
+            i < currentStep ? 'w-2 bg-clarity-400' : 'w-2 bg-gray-300 dark:bg-gray-700'
           }`}
         />
       ))}
@@ -359,7 +358,7 @@ export default function DemoPage() {
   // Step 0: Intro
   if (step === 0) {
     return (
-      <div className="min-h-screen bg-gray-50 dark:bg-elvait-black">
+      <div className="min-h-screen bg-gray-50 dark:bg-gray-950">
         <header className="bg-white dark:bg-gray-900 border-b border-gray-200 dark:border-gray-800">
           <div className="max-w-4xl mx-auto px-6 py-4 flex items-center justify-between">
             <Link href="/" className="flex items-center gap-2 text-gray-600 hover:text-gray-900">
@@ -367,7 +366,7 @@ export default function DemoPage() {
               Back
             </Link>
             <div className="flex items-center gap-2">
-              <ElvaitLogo size="sm" />
+              <Brain className="w-6 h-6 text-clarity-600" />
               <span className="font-semibold">Interactive Demo</span>
             </div>
             <div />
@@ -376,7 +375,7 @@ export default function DemoPage() {
 
         <main className="max-w-4xl mx-auto px-6 py-16">
           <div className="text-center mb-12">
-            <div className="inline-flex items-center gap-2 px-4 py-2 bg-elvait-green/10 dark:bg-elvait-green/10 rounded-full text-elvait-green-dark dark:text-elvait-green mb-6">
+            <div className="inline-flex items-center gap-2 px-4 py-2 bg-clarity-100 dark:bg-clarity-900/30 rounded-full text-clarity-700 dark:text-clarity-300 mb-6">
               <Play className="w-4 h-4" />
               Demo Mode
             </div>
@@ -390,8 +389,8 @@ export default function DemoPage() {
             <h2 className="text-xl font-semibold mb-6">How It Works</h2>
             <div className="grid md:grid-cols-3 gap-6">
               <div className="text-center p-4">
-                <div className="w-12 h-12 bg-elvait-green/10 dark:bg-blue-900/30 rounded-xl flex items-center justify-center mx-auto mb-3">
-                  <Users className="w-6 h-6 text-elvait-green" />
+                <div className="w-12 h-12 bg-blue-100 dark:bg-blue-900/30 rounded-xl flex items-center justify-center mx-auto mb-3">
+                  <Users className="w-6 h-6 text-blue-600" />
                 </div>
                 <h3 className="font-semibold mb-2">1. Collect</h3>
                 <p className="text-sm text-gray-600 dark:text-gray-400">
@@ -400,7 +399,7 @@ export default function DemoPage() {
               </div>
               <div className="text-center p-4">
                 <div className="w-12 h-12 bg-purple-100 dark:bg-purple-900/30 rounded-xl flex items-center justify-center mx-auto mb-3">
-                  <ElvaitLogo size="sm" />
+                  <Brain className="w-6 h-6 text-purple-600" />
                 </div>
                 <h3 className="font-semibold mb-2">2. Analyze</h3>
                 <p className="text-sm text-gray-600 dark:text-gray-400">
@@ -444,7 +443,7 @@ export default function DemoPage() {
   // Step 1: Select Scenario
   if (step === 1) {
     return (
-      <div className="min-h-screen bg-gray-50 dark:bg-elvait-black">
+      <div className="min-h-screen bg-gray-50 dark:bg-gray-950">
         <header className="bg-white dark:bg-gray-900 border-b border-gray-200 dark:border-gray-800">
           <div className="max-w-5xl mx-auto px-6 py-4 flex items-center justify-between">
             <button onClick={() => setStep(0)} className="flex items-center gap-2 text-gray-600 hover:text-gray-900">
@@ -472,7 +471,7 @@ export default function DemoPage() {
                   setSelectedScenario(scenario);
                   setStep(2);
                 }}
-                className={`p-5 rounded-xl border-2 text-left transition-all hover:border-elvait-green ${
+                className={`p-5 rounded-xl border-2 text-left transition-all hover:border-clarity-400 ${
                   scenario.recommendation === 'GO' 
                     ? 'border-green-200 dark:border-green-800 bg-green-50/50 dark:bg-green-900/10' 
                     : scenario.recommendation === 'CLARIFY'
@@ -491,7 +490,7 @@ export default function DemoPage() {
                     <span className="text-red-600">{scenario.flags.length} flag(s)</span>
                   )}
                 </div>
-                <div className="mt-3 text-sm font-medium text-elvait-green flex items-center gap-1">
+                <div className="mt-3 text-sm font-medium text-clarity-600 flex items-center gap-1">
                   View results <ChevronRight className="w-4 h-4" />
                 </div>
               </button>
@@ -507,7 +506,7 @@ export default function DemoPage() {
   // Step 2: Context
   if (step === 2) {
     return (
-      <div className="min-h-screen bg-gray-50 dark:bg-elvait-black">
+      <div className="min-h-screen bg-gray-50 dark:bg-gray-950">
         <header className="bg-white dark:bg-gray-900 border-b border-gray-200 dark:border-gray-800">
           <div className="max-w-4xl mx-auto px-6 py-4 flex items-center justify-between">
             <button onClick={() => setStep(1)} className="flex items-center gap-2 text-gray-600 hover:text-gray-900">
@@ -576,7 +575,7 @@ export default function DemoPage() {
   // Step 3: Dimensions
   if (step === 3) {
     return (
-      <div className="min-h-screen bg-gray-50 dark:bg-elvait-black">
+      <div className="min-h-screen bg-gray-50 dark:bg-gray-950">
         <header className="bg-white dark:bg-gray-900 border-b border-gray-200 dark:border-gray-800">
           <div className="max-w-4xl mx-auto px-6 py-4 flex items-center justify-between">
             <button onClick={() => setStep(2)} className="flex items-center gap-2 text-gray-600 hover:text-gray-900">
@@ -603,7 +602,7 @@ export default function DemoPage() {
                   <div key={dim} className="p-4 bg-gray-50 dark:bg-gray-800 rounded-lg">
                     <div className="flex items-center justify-between mb-2">
                       <div className="flex items-center gap-2">
-                        <Icon className="w-5 h-5 text-elvait-green" />
+                        <Icon className="w-5 h-5 text-clarity-600" />
                         <span className="font-medium">{config.label}</span>
                       </div>
                       <span className={`font-bold ${
@@ -641,7 +640,7 @@ export default function DemoPage() {
   // Step 4: Flags & Gates
   if (step === 4) {
     return (
-      <div className="min-h-screen bg-gray-50 dark:bg-elvait-black">
+      <div className="min-h-screen bg-gray-50 dark:bg-gray-950">
         <header className="bg-white dark:bg-gray-900 border-b border-gray-200 dark:border-gray-800">
           <div className="max-w-4xl mx-auto px-6 py-4 flex items-center justify-between">
             <button onClick={() => setStep(3)} className="flex items-center gap-2 text-gray-600 hover:text-gray-900">
@@ -741,7 +740,7 @@ export default function DemoPage() {
 
   // Step 5: Final Result
   return (
-    <div className="min-h-screen bg-gray-50 dark:bg-elvait-black">
+    <div className="min-h-screen bg-gray-50 dark:bg-gray-950">
       <header className="bg-white dark:bg-gray-900 border-b border-gray-200 dark:border-gray-800">
         <div className="max-w-4xl mx-auto px-6 py-4 flex items-center justify-between">
           <button onClick={() => setStep(4)} className="flex items-center gap-2 text-gray-600 hover:text-gray-900">
@@ -798,8 +797,8 @@ export default function DemoPage() {
             <h2 className="text-xl font-bold mb-4">Action Checklist</h2>
             <div className="space-y-3">
               {selectedScenario.checklistItems.map((item, i) => (
-                <div key={i} className="flex items-start gap-3 p-3 bg-elvait-green/5 dark:bg-elvait-black/20 rounded-lg">
-                  <div className="w-6 h-6 rounded-full bg-elvait-red text-white flex items-center justify-center text-sm font-medium flex-shrink-0">
+                <div key={i} className="flex items-start gap-3 p-3 bg-clarity-50 dark:bg-clarity-900/20 rounded-lg">
+                  <div className="w-6 h-6 rounded-full bg-clarity-500 text-white flex items-center justify-center text-sm font-medium flex-shrink-0">
                     {i + 1}
                   </div>
                   <p className="text-sm">{item}</p>

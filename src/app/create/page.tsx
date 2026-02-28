@@ -1,11 +1,10 @@
 'use client';
-import { ElvaitLogo } from "@/components/ElvaitLogo";
 
 import { useState, useEffect } from 'react';
 import { useRouter } from 'next/navigation';
 import Link from 'next/link';
 import { useSession } from 'next-auth/react';
-import { ArrowLeft, ArrowRight, Check, Users, Zap, FileText, AlertCircle, Lock, Sparkles } from 'lucide-react';
+import { ArrowLeft, ArrowRight, Brain, Check, Users, Zap, FileText, AlertCircle, Lock, Sparkles } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
 import { Textarea } from '@/components/ui/textarea';
@@ -47,7 +46,7 @@ const VARIANTS = [
     time: '45 min',
     roles: ['Decision Owners', 'Business Owners', 'Technical Owners'],
     lenses: ['Strategy', 'Business Value', 'Technical Feasibility'],
-    icon: Zap,
+    icon: Brain,
     color: 'purple'
   },
   {
@@ -226,9 +225,9 @@ export default function CreateCasePage() {
   // Show loading while checking limit
   if (checkingLimit && sessionStatus !== 'unauthenticated') {
     return (
-      <div className="min-h-screen bg-gray-50 dark:bg-elvait-black flex items-center justify-center">
+      <div className="min-h-screen bg-gray-50 dark:bg-gray-950 flex items-center justify-center">
         <div className="text-center">
-          <div className="w-8 h-8 border-2 border-elvait-green border-t-transparent rounded-full animate-spin mx-auto mb-4" />
+          <div className="w-8 h-8 border-2 border-clarity-600 border-t-transparent rounded-full animate-spin mx-auto mb-4" />
           <p className="text-gray-600">Loading...</p>
         </div>
       </div>
@@ -240,7 +239,7 @@ export default function CreateCasePage() {
     const maxCases = TIER_LIMITS[userTier]?.maxCases || 1;
     
     return (
-      <div className="min-h-screen bg-gray-50 dark:bg-elvait-black">
+      <div className="min-h-screen bg-gray-50 dark:bg-gray-950">
         <header className="bg-white dark:bg-gray-900 border-b border-gray-200 dark:border-gray-800">
           <div className="max-w-4xl mx-auto px-6 py-4 flex items-center justify-between">
             <Link href="/dashboard" className="flex items-center gap-2 text-gray-600 hover:text-gray-900 dark:text-gray-400 dark:hover:text-white">
@@ -248,7 +247,7 @@ export default function CreateCasePage() {
               <span>Back to Dashboard</span>
             </Link>
             <div className="flex items-center gap-2">
-              <ElvaitLogo size="sm" />
+              <Brain className="w-6 h-6 text-clarity-600" />
               <span className="font-semibold">New Assessment</span>
             </div>
             <div />
@@ -315,7 +314,7 @@ export default function CreateCasePage() {
   }
 
   return (
-    <div className="min-h-screen bg-gray-50 dark:bg-elvait-black">
+    <div className="min-h-screen bg-gray-50 dark:bg-gray-950">
       {/* Header */}
       <header className="bg-white dark:bg-gray-900 border-b border-gray-200 dark:border-gray-800">
         <div className="max-w-4xl mx-auto px-6 py-4 flex items-center justify-between">
@@ -324,7 +323,7 @@ export default function CreateCasePage() {
             <span>Back</span>
           </Link>
           <div className="flex items-center gap-2">
-            <ElvaitLogo size="sm" />
+            <Brain className="w-6 h-6 text-clarity-600" />
             <span className="font-semibold">New Assessment</span>
           </div>
           <div className="text-sm text-gray-500">Step {step} of 3</div>
@@ -336,7 +335,7 @@ export default function CreateCasePage() {
         <div className="max-w-4xl mx-auto px-6">
           <div className="h-1 bg-gray-200 dark:bg-gray-800 rounded-full overflow-hidden">
             <div 
-              className="h-full bg-elvait-red transition-all duration-300"
+              className="h-full bg-clarity-600 transition-all duration-300"
               style={{ width: `${(step / 3) * 100}%` }}
             />
           </div>
@@ -367,7 +366,7 @@ export default function CreateCasePage() {
                   onClick={() => updateField('variant', variant.id)}
                   className={`p-6 rounded-xl border-2 text-left transition-all ${
                     formData.variant === variant.id
-                      ? 'border-elvait-green bg-elvait-green/5 dark:bg-elvait-black/20'
+                      ? 'border-clarity-600 bg-clarity-50 dark:bg-clarity-900/20'
                       : 'border-gray-200 dark:border-gray-800 hover:border-gray-300 dark:hover:border-gray-700'
                   }`}
                 >
@@ -376,7 +375,7 @@ export default function CreateCasePage() {
                       <variant.icon className={`w-6 h-6 text-${variant.color}-600`} />
                     </div>
                     {formData.variant === variant.id && (
-                      <div className="w-6 h-6 rounded-full bg-elvait-red flex items-center justify-center">
+                      <div className="w-6 h-6 rounded-full bg-clarity-600 flex items-center justify-center">
                         <Check className="w-4 h-4 text-white" />
                       </div>
                     )}
@@ -396,7 +395,7 @@ export default function CreateCasePage() {
                   </div>
                   <div className="mt-2 flex flex-wrap gap-1">
                     {variant.lenses.map(lens => (
-                      <span key={lens} className="px-2 py-0.5 bg-elvait-green/10 dark:bg-elvait-green/10 text-elvait-green-dark dark:text-elvait-green rounded text-xs">
+                      <span key={lens} className="px-2 py-0.5 bg-clarity-100 dark:bg-clarity-900/30 text-clarity-700 dark:text-clarity-300 rounded text-xs">
                         🔍 {lens}
                       </span>
                     ))}
@@ -441,7 +440,7 @@ export default function CreateCasePage() {
                       onClick={() => updateField('investmentType', type)}
                       className={`p-3 rounded-lg border text-left text-sm transition-all ${
                         formData.investmentType === type
-                          ? 'border-elvait-green bg-elvait-green/5 dark:bg-elvait-black/20'
+                          ? 'border-clarity-600 bg-clarity-50 dark:bg-clarity-900/20'
                           : 'border-gray-200 dark:border-gray-700 hover:border-gray-300'
                       }`}
                     >
@@ -482,7 +481,7 @@ export default function CreateCasePage() {
                       }}
                       className={`px-3 py-1.5 rounded-lg border text-sm transition-all ${
                         formData.impactedAreas.includes(area)
-                          ? 'border-elvait-green bg-elvait-green/5 dark:bg-elvait-black/20'
+                          ? 'border-clarity-600 bg-clarity-50 dark:bg-clarity-900/20'
                           : 'border-gray-200 dark:border-gray-700 hover:border-gray-300'
                       }`}
                     >
@@ -504,7 +503,7 @@ export default function CreateCasePage() {
                       onClick={() => updateField('timeHorizon', horizon)}
                       className={`px-4 py-2 rounded-lg border text-sm transition-all ${
                         formData.timeHorizon === horizon
-                          ? 'border-elvait-green bg-elvait-green/5 dark:bg-elvait-black/20'
+                          ? 'border-clarity-600 bg-clarity-50 dark:bg-clarity-900/20'
                           : 'border-gray-200 dark:border-gray-700 hover:border-gray-300'
                       }`}
                     >
@@ -525,7 +524,7 @@ export default function CreateCasePage() {
                       onClick={() => updateField('estimatedInvestment', formData.estimatedInvestment === size ? '' : size)}
                       className={`px-4 py-2 rounded-lg border text-sm transition-all ${
                         formData.estimatedInvestment === size
-                          ? 'border-elvait-green bg-elvait-green/5 dark:bg-elvait-black/20'
+                          ? 'border-clarity-600 bg-clarity-50 dark:bg-clarity-900/20'
                           : 'border-gray-200 dark:border-gray-700 hover:border-gray-300'
                       }`}
                     >

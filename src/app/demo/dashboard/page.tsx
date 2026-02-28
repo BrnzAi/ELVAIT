@@ -1,10 +1,9 @@
 'use client';
-import { ElvaitLogo } from "@/components/ElvaitLogo";
 
 import { useState, useEffect } from 'react';
 import Link from 'next/link';
 import { 
-  Plus, Users, BarChart3, Clock, CheckCircle, 
+  Brain, Plus, Users, BarChart3, Clock, CheckCircle, 
   AlertTriangle, XCircle, ArrowRight, Eye, MoreVertical,
   FileText, TrendingUp, Calendar
 } from 'lucide-react';
@@ -104,7 +103,7 @@ function StatCard({ icon: Icon, label, value, trend }: {
     <div className="bg-gray-900 rounded-xl p-5 border border-gray-800">
       <div className="flex items-start justify-between mb-3">
         <div className="p-2 bg-gray-800 rounded-lg">
-          <Icon className="w-5 h-5 text-elvait-green" />
+          <Icon className="w-5 h-5 text-clarity-400" />
         </div>
         {trend && (
           <span className={`text-xs font-medium ${trend.positive ? 'text-green-400' : 'text-red-400'}`}>
@@ -124,7 +123,7 @@ function AssessmentRow({ assessment }: { assessment: DemoAssessment }) {
       case 'COMPLETED':
         return <span className="px-2 py-0.5 bg-green-500/20 text-green-400 rounded text-xs">Completed</span>;
       case 'ACTIVE':
-        return <span className="px-2 py-0.5 bg-elvait-green/10 text-elvait-green rounded text-xs">Active</span>;
+        return <span className="px-2 py-0.5 bg-blue-500/20 text-blue-400 rounded text-xs">Active</span>;
       default:
         return <span className="px-2 py-0.5 bg-gray-500/20 text-gray-400 rounded text-xs">Draft</span>;
     }
@@ -220,13 +219,13 @@ export default function DemoDashboardPage() {
   const nogoCount = DEMO_ASSESSMENTS.filter(a => a.recommendation === 'NO_GO').length;
 
   return (
-    <div className="min-h-screen bg-elvait-black text-white">
+    <div className="min-h-screen bg-gray-950 text-white">
       {/* Header */}
-      <header className="border-b border-gray-800 sticky top-0 bg-elvait-black z-10">
+      <header className="border-b border-gray-800 sticky top-0 bg-gray-950 z-10">
         <div className="max-w-7xl mx-auto px-6 py-4 flex items-center justify-between">
           <Link href="/" className="flex items-center gap-2">
-            <ElvaitLogo size="md" />
-            <span className="font-bold text-lg text-elvait-green">ELVAIT</span>
+            <Brain className="w-8 h-8 text-clarity-500" />
+            <span className="font-bold text-lg text-clarity-400">ELVAIT</span>
           </Link>
           <div className="flex items-center gap-4">
             <Link href="/demo/login">
@@ -309,8 +308,8 @@ export default function DemoDashboardPage() {
               </div>
             </div>
             <div className="p-4 flex items-center gap-4">
-              <div className="w-8 h-8 rounded-full bg-elvait-green/10 flex items-center justify-center">
-                <Users className="w-4 h-4 text-elvait-green" />
+              <div className="w-8 h-8 rounded-full bg-blue-500/20 flex items-center justify-center">
+                <Users className="w-4 h-4 text-blue-400" />
               </div>
               <div className="flex-1">
                 <p className="text-sm"><strong>Brian Business</strong> completed their survey for Marketing Automation</p>
@@ -331,7 +330,7 @@ export default function DemoDashboardPage() {
 
         {/* Back to demo */}
         <div className="mt-8 text-center">
-          <Link href="/demo/login" className="text-elvait-green hover:text-elvait-green text-sm">
+          <Link href="/demo/login" className="text-clarity-400 hover:text-clarity-300 text-sm">
             ← Switch demo user
           </Link>
         </div>

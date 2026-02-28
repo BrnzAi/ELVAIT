@@ -206,7 +206,7 @@ export default function ProcessEditor({ processes, onChange }: ProcessEditorProp
                   <span className="text-sm text-gray-600">%</span>
                   <div className="flex-1 h-2 bg-gray-200 dark:bg-gray-700 rounded-full overflow-hidden">
                     <div 
-                      className="h-full bg-elvait-red transition-all"
+                      className="h-full bg-clarity-600 transition-all"
                       style={{ width: `${process.weight}%` }}
                     />
                   </div>
