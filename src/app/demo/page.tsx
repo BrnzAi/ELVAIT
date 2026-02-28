@@ -269,7 +269,7 @@ function ICSGauge({ score }: { score: number }) {
           fill="none"
           stroke="currentColor"
           strokeWidth="8"
-          className="text-gray-200 dark:text-gray-700"
+          className="text-gray-200"
         />
         <circle
           cx="50" cy="50" r="40"
@@ -292,12 +292,12 @@ function ICSGauge({ score }: { score: number }) {
 function RecommendationBadge({ recommendation }: { recommendation: 'GO' | 'CLARIFY' | 'NO_GO' | null }) {
   if (recommendation === 'GO') {
     return (
-      <div className="flex items-center gap-3 p-4 bg-green-50 dark:bg-green-900/20 rounded-xl border-2 border-green-200 dark:border-green-800">
+      <div className="flex items-center gap-3 p-4 bg-green-50 rounded-xl border-2 border-green-200">
         <div className="w-12 h-12 bg-green-500 rounded-full flex items-center justify-center">
           <CheckCircle className="w-7 h-7 text-white" />
         </div>
         <div>
-          <h3 className="text-xl font-bold text-green-700 dark:text-green-400">GO</h3>
+          <h3 className="text-xl font-bold text-green-700">GO</h3>
           <p className="text-sm text-green-600">Ready to Proceed</p>
         </div>
       </div>
@@ -305,24 +305,24 @@ function RecommendationBadge({ recommendation }: { recommendation: 'GO' | 'CLARI
   }
   if (recommendation === 'CLARIFY') {
     return (
-      <div className="flex items-center gap-3 p-4 bg-amber-50 dark:bg-amber-900/20 rounded-xl border-2 border-amber-200 dark:border-amber-800">
+      <div className="flex items-center gap-3 p-4 bg-amber-50 rounded-xl border-2 border-amber-200">
         <div className="w-12 h-12 bg-amber-500 rounded-full flex items-center justify-center">
           <AlertTriangle className="w-7 h-7 text-white" />
         </div>
         <div>
-          <h3 className="text-xl font-bold text-amber-700 dark:text-amber-400">CLARIFY</h3>
+          <h3 className="text-xl font-bold text-amber-700">CLARIFY</h3>
           <p className="text-sm text-amber-600">Action Required</p>
         </div>
       </div>
     );
   }
   return (
-    <div className="flex items-center gap-3 p-4 bg-red-50 dark:bg-red-900/20 rounded-xl border-2 border-red-200 dark:border-red-800">
+    <div className="flex items-center gap-3 p-4 bg-red-50 rounded-xl border-2 border-red-200">
       <div className="w-12 h-12 bg-red-500 rounded-full flex items-center justify-center">
         <XCircle className="w-7 h-7 text-white" />
       </div>
       <div>
-        <h3 className="text-xl font-bold text-red-700 dark:text-red-400">NO-GO</h3>
+        <h3 className="text-xl font-bold text-red-700">NO-GO</h3>
         <p className="text-sm text-red-600">Do Not Proceed</p>
       </div>
     </div>
@@ -337,7 +337,7 @@ function StepIndicator({ currentStep, totalSteps }: { currentStep: number; total
           key={i}
           className={`h-2 rounded-full transition-all ${
             i === currentStep ? 'w-8 bg-brand-green' : 
-            i < currentStep ? 'w-2 bg-brand-green' : 'w-2 bg-gray-300 dark:bg-gray-700'
+            i < currentStep ? 'w-2 bg-brand-green' : 'w-2 bg-gray-300'
           }`}
         />
       ))}
@@ -358,8 +358,8 @@ export default function DemoPage() {
   // Step 0: Intro
   if (step === 0) {
     return (
-      <div className="min-h-screen bg-gray-50 dark:bg-black">
-        <header className="bg-white dark:bg-[#111] border-b border-gray-200 dark:border-[#333]">
+      <div className="min-h-screen bg-gray-50">
+        <header className="bg-white border-b border-gray-200">
           <div className="max-w-4xl mx-auto px-6 py-4 flex items-center justify-between">
             <Link href="/" className="flex items-center gap-2 text-gray-600 hover:text-gray-900">
               <ArrowLeft className="w-5 h-5" />
@@ -380,12 +380,12 @@ export default function DemoPage() {
               Demo Mode
             </div>
             <h1 className="text-4xl font-bold mb-4">See How Clarity Kit Works</h1>
-            <p className="text-xl text-gray-600 dark:text-brand-grey max-w-2xl mx-auto">
+            <p className="text-xl text-gray-600 max-w-2xl mx-auto">
               Walk through the assessment process and see how different scenarios lead to GO, CLARIFY, or NO-GO recommendations.
             </p>
           </div>
 
-          <div className="bg-white dark:bg-[#111] rounded-2xl p-8 border border-gray-200 dark:border-[#333] mb-8">
+          <div className="bg-white rounded-2xl p-8 border border-gray-200 mb-8">
             <h2 className="text-xl font-semibold mb-6">How It Works</h2>
             <div className="grid md:grid-cols-3 gap-6">
               <div className="text-center p-4">
@@ -393,25 +393,25 @@ export default function DemoPage() {
                   <Users className="w-6 h-6 text-brand-green" />
                 </div>
                 <h3 className="font-semibold mb-2">1. Collect</h3>
-                <p className="text-sm text-gray-600 dark:text-brand-grey">
+                <p className="text-sm text-gray-600">
                   Gather structured input from executives, business owners, and technical leads
                 </p>
               </div>
               <div className="text-center p-4">
-                <div className="w-12 h-12 bg-purple-100 dark:bg-purple-900/30 rounded-xl flex items-center justify-center mx-auto mb-3">
+                <div className="w-12 h-12 bg-purple-100 rounded-xl flex items-center justify-center mx-auto mb-3">
                   <Brain className="w-6 h-6 text-purple-600" />
                 </div>
                 <h3 className="font-semibold mb-2">2. Analyze</h3>
-                <p className="text-sm text-gray-600 dark:text-brand-grey">
+                <p className="text-sm text-gray-600">
                   Detect contradictions, score dimensions, identify blind spots automatically
                 </p>
               </div>
               <div className="text-center p-4">
-                <div className="w-12 h-12 bg-green-100 dark:bg-green-900/30 rounded-xl flex items-center justify-center mx-auto mb-3">
+                <div className="w-12 h-12 bg-green-100 rounded-xl flex items-center justify-center mx-auto mb-3">
                   <FileText className="w-6 h-6 text-green-600" />
                 </div>
                 <h3 className="font-semibold mb-2">3. Decide</h3>
-                <p className="text-sm text-gray-600 dark:text-brand-grey">
+                <p className="text-sm text-gray-600">
                   Get a clear GO, CLARIFY, or NO-GO with specific action items
                 </p>
               </div>
@@ -431,7 +431,7 @@ export default function DemoPage() {
             </Link>
           </div>
 
-          <p className="text-center text-sm text-brand-grey dark:text-brand-grey mt-4">
+          <p className="text-center text-sm text-brand-grey mt-4">
             <strong>Scenarios:</strong> See pre-built results for GO, CLARIFY, and NO-GO outcomes<br />
             <strong>Roles:</strong> Experience the survey from Executive, Business Owner, or Tech perspectives
           </p>
@@ -443,8 +443,8 @@ export default function DemoPage() {
   // Step 1: Select Scenario
   if (step === 1) {
     return (
-      <div className="min-h-screen bg-gray-50 dark:bg-black">
-        <header className="bg-white dark:bg-[#111] border-b border-gray-200 dark:border-[#333]">
+      <div className="min-h-screen bg-gray-50">
+        <header className="bg-white border-b border-gray-200">
           <div className="max-w-5xl mx-auto px-6 py-4 flex items-center justify-between">
             <button onClick={() => setStep(0)} className="flex items-center gap-2 text-gray-600 hover:text-gray-900">
               <ArrowLeft className="w-5 h-5" />
@@ -459,7 +459,7 @@ export default function DemoPage() {
           <StepIndicator currentStep={0} totalSteps={totalSteps} />
           
           <h1 className="text-2xl font-bold text-center mb-2">Select a Demo Scenario</h1>
-          <p className="text-center text-gray-600 dark:text-brand-grey mb-8">
+          <p className="text-center text-gray-600 mb-8">
             Each scenario demonstrates different outcomes based on stakeholder responses
           </p>
 
@@ -473,17 +473,17 @@ export default function DemoPage() {
                 }}
                 className={`p-5 rounded-xl border-2 text-left transition-all hover:border-brand-green ${
                   scenario.recommendation === 'GO' 
-                    ? 'border-green-200 dark:border-green-800 bg-green-50/50 dark:bg-green-900/10' 
+                    ? 'border-green-200 bg-green-50/50' 
                     : scenario.recommendation === 'CLARIFY'
-                      ? 'border-amber-200 dark:border-amber-800 bg-amber-50/50 dark:bg-amber-900/10'
-                      : 'border-red-200 dark:border-red-800 bg-red-50/50 dark:bg-red-900/10'
+                      ? 'border-amber-200 bg-amber-50/50'
+                      : 'border-red-200 bg-red-50/50'
                 }`}
               >
                 <div className="flex items-start justify-between mb-2">
                   <h3 className="text-lg font-semibold">{scenario.name}</h3>
                   <span className="text-sm text-brand-grey">{scenario.variant}</span>
                 </div>
-                <p className="text-sm text-gray-600 dark:text-brand-grey mb-3">{scenario.description}</p>
+                <p className="text-sm text-gray-600 mb-3">{scenario.description}</p>
                 <div className="flex items-center gap-4 text-sm">
                   <span className="text-brand-grey">ICS: {scenario.ics ?? 'N/A'}</span>
                   {scenario.flags.length > 0 && (
@@ -506,8 +506,8 @@ export default function DemoPage() {
   // Step 2: Context
   if (step === 2) {
     return (
-      <div className="min-h-screen bg-gray-50 dark:bg-black">
-        <header className="bg-white dark:bg-[#111] border-b border-gray-200 dark:border-[#333]">
+      <div className="min-h-screen bg-gray-50">
+        <header className="bg-white border-b border-gray-200">
           <div className="max-w-4xl mx-auto px-6 py-4 flex items-center justify-between">
             <button onClick={() => setStep(1)} className="flex items-center gap-2 text-gray-600 hover:text-gray-900">
               <ArrowLeft className="w-5 h-5" />
@@ -521,35 +521,35 @@ export default function DemoPage() {
         <main className="max-w-4xl mx-auto px-6 py-8">
           <StepIndicator currentStep={1} totalSteps={totalSteps} />
 
-          <div className="bg-white dark:bg-[#111] rounded-xl border border-gray-200 dark:border-[#333] p-6 mb-6">
+          <div className="bg-white rounded-xl border border-gray-200 p-6 mb-6">
             <h1 className="text-2xl font-bold mb-2">{selectedScenario.context.title}</h1>
-            <p className="text-gray-600 dark:text-brand-grey mb-6">{selectedScenario.context.description}</p>
+            <p className="text-gray-600 mb-6">{selectedScenario.context.description}</p>
 
             <div className="space-y-4">
-              <div className="p-4 bg-gray-50 dark:bg-[#222] rounded-lg">
+              <div className="p-4 bg-gray-50 rounded-lg">
                 <p className="text-sm text-brand-grey mb-1">What decision are we making?</p>
                 <p className="font-medium">{selectedScenario.context.dCtx1}</p>
               </div>
-              <div className="p-4 bg-gray-50 dark:bg-[#222] rounded-lg">
+              <div className="p-4 bg-gray-50 rounded-lg">
                 <p className="text-sm text-brand-grey mb-1">What does success look like?</p>
                 <p className="font-medium">{selectedScenario.context.dCtx2}</p>
               </div>
-              <div className="p-4 bg-gray-50 dark:bg-[#222] rounded-lg">
+              <div className="p-4 bg-gray-50 rounded-lg">
                 <p className="text-sm text-brand-grey mb-1">What if we do nothing?</p>
                 <p className="font-medium">{selectedScenario.context.dCtx3}</p>
               </div>
-              <div className="p-4 bg-gray-50 dark:bg-[#222] rounded-lg">
+              <div className="p-4 bg-gray-50 rounded-lg">
                 <p className="text-sm text-brand-grey mb-1">What could make this a mistake?</p>
                 <p className="font-medium">{selectedScenario.context.dCtx4}</p>
               </div>
             </div>
           </div>
 
-          <div className="bg-white dark:bg-[#111] rounded-xl border border-gray-200 dark:border-[#333] p-6 mb-6">
+          <div className="bg-white rounded-xl border border-gray-200 p-6 mb-6">
             <h2 className="text-lg font-semibold mb-4">Participants</h2>
             <div className="space-y-3">
               {selectedScenario.participants.map((p, i) => (
-                <div key={i} className="flex items-center justify-between p-3 bg-gray-50 dark:bg-[#222] rounded-lg">
+                <div key={i} className="flex items-center justify-between p-3 bg-gray-50 rounded-lg">
                   <div className="flex items-center gap-3">
                     <CheckCircle className="w-5 h-5 text-green-500" />
                     <div>
@@ -575,8 +575,8 @@ export default function DemoPage() {
   // Step 3: Dimensions
   if (step === 3) {
     return (
-      <div className="min-h-screen bg-gray-50 dark:bg-black">
-        <header className="bg-white dark:bg-[#111] border-b border-gray-200 dark:border-[#333]">
+      <div className="min-h-screen bg-gray-50">
+        <header className="bg-white border-b border-gray-200">
           <div className="max-w-4xl mx-auto px-6 py-4 flex items-center justify-between">
             <button onClick={() => setStep(2)} className="flex items-center gap-2 text-gray-600 hover:text-gray-900">
               <ArrowLeft className="w-5 h-5" />
@@ -590,7 +590,7 @@ export default function DemoPage() {
         <main className="max-w-4xl mx-auto px-6 py-8">
           <StepIndicator currentStep={2} totalSteps={totalSteps} />
 
-          <div className="bg-white dark:bg-[#111] rounded-xl border border-gray-200 dark:border-[#333] p-6 mb-6">
+          <div className="bg-white rounded-xl border border-gray-200 p-6 mb-6">
             <h2 className="text-xl font-bold mb-6">Clarity Dimensions</h2>
             <div className="space-y-4">
               {Object.entries(selectedScenario.dimensions).map(([dim, score]) => {
@@ -599,7 +599,7 @@ export default function DemoPage() {
                 const Icon = config.icon;
                 
                 return (
-                  <div key={dim} className="p-4 bg-gray-50 dark:bg-[#222] rounded-lg">
+                  <div key={dim} className="p-4 bg-gray-50 rounded-lg">
                     <div className="flex items-center justify-between mb-2">
                       <div className="flex items-center gap-2">
                         <Icon className="w-5 h-5 text-brand-green" />
@@ -611,7 +611,7 @@ export default function DemoPage() {
                         {score}/100
                       </span>
                     </div>
-                    <div className="h-2 bg-gray-200 dark:bg-gray-700 rounded-full overflow-hidden">
+                    <div className="h-2 bg-gray-200 rounded-full overflow-hidden">
                       <div 
                         className={`h-full rounded-full transition-all ${
                           score >= 75 ? 'bg-green-500' : score >= 50 ? 'bg-amber-500' : 'bg-red-500'
@@ -640,8 +640,8 @@ export default function DemoPage() {
   // Step 4: Flags & Gates
   if (step === 4) {
     return (
-      <div className="min-h-screen bg-gray-50 dark:bg-black">
-        <header className="bg-white dark:bg-[#111] border-b border-gray-200 dark:border-[#333]">
+      <div className="min-h-screen bg-gray-50">
+        <header className="bg-white border-b border-gray-200">
           <div className="max-w-4xl mx-auto px-6 py-4 flex items-center justify-between">
             <button onClick={() => setStep(3)} className="flex items-center gap-2 text-gray-600 hover:text-gray-900">
               <ArrowLeft className="w-5 h-5" />
@@ -656,12 +656,12 @@ export default function DemoPage() {
           <StepIndicator currentStep={3} totalSteps={totalSteps} />
 
           {/* Flags */}
-          <div className="bg-white dark:bg-[#111] rounded-xl border border-gray-200 dark:border-[#333] p-6 mb-6">
+          <div className="bg-white rounded-xl border border-gray-200 p-6 mb-6">
             <h2 className="text-xl font-bold mb-4">Detected Flags</h2>
             {selectedScenario.flags.length === 0 ? (
-              <div className="p-4 bg-green-50 dark:bg-green-900/20 rounded-lg text-center">
+              <div className="p-4 bg-green-50 rounded-lg text-center">
                 <CheckCircle className="w-8 h-8 text-green-500 mx-auto mb-2" />
-                <p className="text-green-700 dark:text-green-400">No flags detected - clean signal!</p>
+                <p className="text-green-700">No flags detected - clean signal!</p>
               </div>
             ) : (
               <div className="space-y-3">
@@ -670,8 +670,8 @@ export default function DemoPage() {
                     key={i}
                     className={`p-4 rounded-lg border-l-4 ${
                       flag.severity === 'CRITICAL' 
-                        ? 'bg-red-50 dark:bg-red-900/20 border-red-500'
-                        : 'bg-amber-50 dark:bg-amber-900/20 border-amber-500'
+                        ? 'bg-red-50 border-red-500'
+                        : 'bg-amber-50 border-amber-500'
                     }`}
                   >
                     <div className="flex items-center gap-2 mb-1">
@@ -682,7 +682,7 @@ export default function DemoPage() {
                       </span>
                       <span className="font-mono text-sm">{flag.id}</span>
                     </div>
-                    <p className="text-sm text-gray-700 dark:text-gray-300">{flag.description}</p>
+                    <p className="text-sm text-gray-700">{flag.description}</p>
                   </div>
                 ))}
               </div>
@@ -690,24 +690,24 @@ export default function DemoPage() {
           </div>
 
           {/* Gates */}
-          <div className="bg-white dark:bg-[#111] rounded-xl border border-gray-200 dark:border-[#333] p-6 mb-6">
+          <div className="bg-white rounded-xl border border-gray-200 p-6 mb-6">
             <h2 className="text-xl font-bold mb-4">Gating Rules</h2>
             {selectedScenario.gates.length === 0 ? (
-              <div className="p-4 bg-green-50 dark:bg-green-900/20 rounded-lg text-center">
+              <div className="p-4 bg-green-50 rounded-lg text-center">
                 <CheckCircle className="w-8 h-8 text-green-500 mx-auto mb-2" />
-                <p className="text-green-700 dark:text-green-400">All gates passed!</p>
+                <p className="text-green-700">All gates passed!</p>
               </div>
             ) : (
               <div className="space-y-3">
                 {selectedScenario.gates.map((gate, i) => (
-                  <div key={i} className="p-4 bg-amber-50 dark:bg-amber-900/20 rounded-lg border-l-4 border-amber-500">
+                  <div key={i} className="p-4 bg-amber-50 rounded-lg border-l-4 border-amber-500">
                     <div className="flex items-center gap-2 mb-1">
                       <span className="font-mono font-bold">{gate.gate}</span>
                       <span className="px-2 py-0.5 bg-amber-100 text-amber-700 rounded text-xs">
                         → {gate.action}
                       </span>
                     </div>
-                    <p className="text-sm text-gray-700 dark:text-gray-300">{gate.reason}</p>
+                    <p className="text-sm text-gray-700">{gate.reason}</p>
                   </div>
                 ))}
               </div>
@@ -716,13 +716,13 @@ export default function DemoPage() {
 
           {/* Blind Spots */}
           {selectedScenario.blindSpots.length > 0 && (
-            <div className="bg-white dark:bg-[#111] rounded-xl border border-gray-200 dark:border-[#333] p-6 mb-6">
+            <div className="bg-white rounded-xl border border-gray-200 p-6 mb-6">
               <h2 className="text-xl font-bold mb-4">Blind Spots</h2>
               <div className="space-y-3">
                 {selectedScenario.blindSpots.map((spot, i) => (
-                  <div key={i} className="p-4 bg-gray-50 dark:bg-[#222] rounded-lg">
+                  <div key={i} className="p-4 bg-gray-50 rounded-lg">
                     <h3 className="font-semibold mb-1">{spot.label}</h3>
-                    <p className="text-sm text-gray-600 dark:text-brand-grey">{spot.explanation}</p>
+                    <p className="text-sm text-gray-600">{spot.explanation}</p>
                   </div>
                 ))}
               </div>
@@ -740,8 +740,8 @@ export default function DemoPage() {
 
   // Step 5: Final Result
   return (
-    <div className="min-h-screen bg-gray-50 dark:bg-black">
-      <header className="bg-white dark:bg-[#111] border-b border-gray-200 dark:border-[#333]">
+    <div className="min-h-screen bg-gray-50">
+      <header className="bg-white border-b border-gray-200">
         <div className="max-w-4xl mx-auto px-6 py-4 flex items-center justify-between">
           <button onClick={() => setStep(4)} className="flex items-center gap-2 text-gray-600 hover:text-gray-900">
             <ArrowLeft className="w-5 h-5" />
@@ -756,22 +756,22 @@ export default function DemoPage() {
         <StepIndicator currentStep={4} totalSteps={totalSteps} />
 
         {/* Result Summary */}
-        <div className="bg-white dark:bg-[#111] rounded-xl border border-gray-200 dark:border-[#333] p-8 mb-6">
+        <div className="bg-white rounded-xl border border-gray-200 p-8 mb-6">
           <div className="flex flex-col md:flex-row items-center gap-8">
             {selectedScenario.ics !== null && (
               <ICSGauge score={selectedScenario.ics} />
             )}
             <div className="flex-1">
               <RecommendationBadge recommendation={selectedScenario.recommendation} />
-              <div className="mt-4 p-4 bg-gray-50 dark:bg-[#222] rounded-lg">
+              <div className="mt-4 p-4 bg-gray-50 rounded-lg">
                 <h3 className="font-medium mb-2">Why this recommendation?</h3>
                 {selectedScenario.recommendation === 'GO' && (
-                  <p className="text-sm text-gray-600 dark:text-brand-grey">
+                  <p className="text-sm text-gray-600">
                     ICS ≥ 75, no critical flags, all gates passed. High clarity exists across all dimensions with strong stakeholder alignment.
                   </p>
                 )}
                 {selectedScenario.recommendation === 'CLARIFY' && (
-                  <p className="text-sm text-gray-600 dark:text-brand-grey">
+                  <p className="text-sm text-gray-600">
                     {selectedScenario.gates.length > 0 
                       ? `Gate ${selectedScenario.gates[0].gate} triggered: ${selectedScenario.gates[0].reason}`
                       : 'ICS in 55-74 range - partial clarity exists but gaps need addressing before proceeding.'
@@ -779,7 +779,7 @@ export default function DemoPage() {
                   </p>
                 )}
                 {selectedScenario.recommendation === 'NO_GO' && (
-                  <p className="text-sm text-gray-600 dark:text-brand-grey">
+                  <p className="text-sm text-gray-600">
                     {selectedScenario.flags.filter(f => f.severity === 'CRITICAL').length > 0
                       ? `Critical flag detected: ${selectedScenario.flags.find(f => f.severity === 'CRITICAL')?.id}. Must be resolved before proceeding.`
                       : 'ICS below 55 - fundamental clarity gaps exist that would jeopardize success.'
@@ -793,7 +793,7 @@ export default function DemoPage() {
 
         {/* Checklist */}
         {selectedScenario.checklistItems.length > 0 && (
-          <div className="bg-white dark:bg-[#111] rounded-xl border border-gray-200 dark:border-[#333] p-6 mb-6">
+          <div className="bg-white rounded-xl border border-gray-200 p-6 mb-6">
             <h2 className="text-xl font-bold mb-4">Action Checklist</h2>
             <div className="space-y-3">
               {selectedScenario.checklistItems.map((item, i) => (

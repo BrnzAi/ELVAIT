@@ -198,7 +198,7 @@ export default function AdminAssessmentsPage() {
                         {assessment.status}
                       </span>
                     </td>
-                    <td className="p-4 text-gray-300">{assessment.responses}/{assessment.participants}</td>
+                    <td className="p-4 text-brand-grey">{assessment.responses}/{assessment.participants}</td>
                     <td className="p-4">
                       {assessment.ics !== null ? (
                         <span className={`font-bold ${assessment.ics >= 75 ? 'text-green-400' : assessment.ics >= 50 ? 'text-amber-400' : 'text-red-400'}`}>{assessment.ics}</span>

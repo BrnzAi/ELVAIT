@@ -143,7 +143,7 @@ export default function AdminRolesPage() {
                     <p className="text-xs text-brand-grey mb-2">Permissions</p>
                     <div className="flex flex-wrap gap-1">
                       {role.permissions.slice(0, 3).map(perm => (
-                        <span key={perm} className="inline-flex items-center gap-1 px-2 py-0.5 rounded bg-white/5 text-xs text-gray-300">
+                        <span key={perm} className="inline-flex items-center gap-1 px-2 py-0.5 rounded bg-white/5 text-xs text-brand-grey">
                           <Check className="w-3 h-3 text-green-400" />
                           {perm.replace(/_/g, ' ')}
                         </span>

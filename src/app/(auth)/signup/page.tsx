@@ -61,12 +61,12 @@ function SignUpForm() {
 
   if (success) {
     return (
-      <div className="bg-gray-900 rounded-2xl border border-gray-800 p-8 text-center">
+      <div className="bg-white rounded-2xl border border-brand-grey-medium p-8 text-center">
         <div className="w-16 h-16 bg-green-500/20 rounded-full flex items-center justify-center mx-auto mb-6">
           <CheckCircle className="w-8 h-8 text-green-500" />
         </div>
         <h1 className="text-2xl font-bold mb-4">Check your email</h1>
-        <p className="text-gray-400 mb-6">
+        <p className="text-brand-grey mb-6">
           We've sent a verification link to <strong className="text-white">{formData.email}</strong>.
           Click the link in the email to verify your account.
         </p>
@@ -80,7 +80,7 @@ function SignUpForm() {
   }
 
   return (
-    <div className="bg-gray-900 rounded-2xl border border-gray-800 p-8">
+    <div className="bg-white rounded-2xl border border-brand-grey-medium p-8">
       {/* Show benefit banner when coming from results */}
       {returnTo?.includes('/results') && (
         <div className="mb-6 p-4 bg-brand-green/10 border border-brand-green/20 rounded-lg">
@@ -98,7 +98,7 @@ function SignUpForm() {
 
       <div className="text-center mb-8">
         <h1 className="text-2xl font-bold mb-2">Create your account</h1>
-        <p className="text-gray-400">
+        <p className="text-brand-grey">
           {returnTo?.includes('/results') 
             ? 'Free account • Takes 30 seconds'
             : 'Save your assessments and track your clarity journey'
@@ -115,7 +115,7 @@ function SignUpForm() {
         )}
 
         <div>
-          <label className="block text-sm font-medium text-gray-300 mb-1.5">
+          <label className="block text-sm font-medium text-brand-grey mb-1.5">
             Name (optional)
           </label>
           <div className="relative">
@@ -124,14 +124,14 @@ function SignUpForm() {
               type="text"
               value={formData.name}
               onChange={(e) => setFormData({ ...formData, name: e.target.value })}
-              className="w-full pl-10 pr-4 py-2.5 bg-[#111] border border-[#333] rounded-lg focus:outline-none focus:ring-2 focus:ring-brand-green focus:border-transparent"
+              className="w-full pl-10 pr-4 py-2.5 bg-white border border-brand-grey-medium rounded-lg focus:outline-none focus:ring-2 focus:ring-brand-green focus:border-transparent"
               placeholder="Your name"
             />
           </div>
         </div>
 
         <div>
-          <label className="block text-sm font-medium text-gray-300 mb-1.5">
+          <label className="block text-sm font-medium text-brand-grey mb-1.5">
             Email
           </label>
           <div className="relative">
@@ -141,14 +141,14 @@ function SignUpForm() {
               required
               value={formData.email}
               onChange={(e) => setFormData({ ...formData, email: e.target.value })}
-              className="w-full pl-10 pr-4 py-2.5 bg-[#111] border border-[#333] rounded-lg focus:outline-none focus:ring-2 focus:ring-brand-green focus:border-transparent"
+              className="w-full pl-10 pr-4 py-2.5 bg-white border border-brand-grey-medium rounded-lg focus:outline-none focus:ring-2 focus:ring-brand-green focus:border-transparent"
               placeholder="you@example.com"
             />
           </div>
         </div>
 
         <div>
-          <label className="block text-sm font-medium text-gray-300 mb-1.5">
+          <label className="block text-sm font-medium text-brand-grey mb-1.5">
             Password
           </label>
           <div className="relative">
@@ -158,7 +158,7 @@ function SignUpForm() {
               required
               value={formData.password}
               onChange={(e) => setFormData({ ...formData, password: e.target.value })}
-              className="w-full pl-10 pr-4 py-2.5 bg-[#111] border border-[#333] rounded-lg focus:outline-none focus:ring-2 focus:ring-brand-green focus:border-transparent"
+              className="w-full pl-10 pr-4 py-2.5 bg-white border border-brand-grey-medium rounded-lg focus:outline-none focus:ring-2 focus:ring-brand-green focus:border-transparent"
               placeholder="••••••••"
             />
           </div>
@@ -168,7 +168,7 @@ function SignUpForm() {
         </div>
 
         <div>
-          <label className="block text-sm font-medium text-gray-300 mb-1.5">
+          <label className="block text-sm font-medium text-brand-grey mb-1.5">
             Confirm Password
           </label>
           <div className="relative">
@@ -178,7 +178,7 @@ function SignUpForm() {
               required
               value={formData.confirmPassword}
               onChange={(e) => setFormData({ ...formData, confirmPassword: e.target.value })}
-              className="w-full pl-10 pr-4 py-2.5 bg-[#111] border border-[#333] rounded-lg focus:outline-none focus:ring-2 focus:ring-brand-green focus:border-transparent"
+              className="w-full pl-10 pr-4 py-2.5 bg-white border border-brand-grey-medium rounded-lg focus:outline-none focus:ring-2 focus:ring-brand-green focus:border-transparent"
               placeholder="••••••••"
             />
           </div>
@@ -204,13 +204,13 @@ function SignUpForm() {
 
         <p className="text-xs text-gray-500 text-center">
           By registering you agree to our{' '}
-          <Link href="/terms" className="text-gray-400 hover:text-white">Terms</Link>
+          <Link href="/terms" className="text-brand-grey hover:text-white">Terms</Link>
           {' · '}
-          <Link href="/privacy" className="text-gray-400 hover:text-white">Privacy Policy</Link>
+          <Link href="/privacy" className="text-brand-grey hover:text-white">Privacy Policy</Link>
         </p>
       </form>
 
-      <div className="mt-6 text-center text-sm text-gray-400">
+      <div className="mt-6 text-center text-sm text-brand-grey">
         Already have an account?{' '}
         <Link 
           href={returnTo ? `/signin?returnTo=${encodeURIComponent(returnTo)}` : '/signin'} 
@@ -226,9 +226,9 @@ function SignUpForm() {
 export default function SignUpPage() {
   return (
     <Suspense fallback={
-      <div className="bg-gray-900 rounded-2xl border border-gray-800 p-8 animate-pulse">
-        <div className="h-8 bg-[#111] rounded w-1/2 mx-auto mb-4" />
-        <div className="h-4 bg-[#111] rounded w-3/4 mx-auto" />
+      <div className="bg-white rounded-2xl border border-brand-grey-medium p-8 animate-pulse">
+        <div className="h-8 bg-white rounded w-1/2 mx-auto mb-4" />
+        <div className="h-4 bg-white rounded w-3/4 mx-auto" />
       </div>
     }>
       <SignUpForm />

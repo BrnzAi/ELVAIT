@@ -67,12 +67,12 @@ export function UnlockModal({
     >
       <div 
         ref={dialogRef}
-        className="w-full max-w-md transform overflow-hidden rounded-2xl bg-gray-900 border border-gray-700 p-6 shadow-xl animate-in zoom-in-95 duration-200"
+        className="w-full max-w-md transform overflow-hidden rounded-2xl bg-white border border-brand-grey-medium p-6 shadow-xl animate-in zoom-in-95 duration-200"
       >
         {/* Close button */}
         <button
           onClick={onClose}
-          className="absolute top-4 right-4 text-gray-400 hover:text-white transition-colors"
+          className="absolute top-4 right-4 text-brand-grey hover:text-black transition-colors"
           aria-label="Close"
         >
           <X className="w-5 h-5" />
@@ -85,25 +85,25 @@ export function UnlockModal({
               <div className="w-12 h-12 rounded-full bg-brand-green/10 flex items-center justify-center">
                 <Unlock className="w-6 h-6 text-brand-green" />
               </div>
-              <h2 id="unlock-modal-title" className="text-xl font-semibold text-white">
+              <h2 id="unlock-modal-title" className="text-xl font-semibold text-black">
                 Unlock {featureName}
               </h2>
             </div>
 
-            <p className="text-gray-300 mb-6">
+            <p className="text-brand-grey mb-6">
               See how each stakeholder group scored and where they disagree.
             </p>
 
             <div className="space-y-2 mb-6">
-              <div className="flex items-center gap-2 text-sm text-gray-300">
+              <div className="flex items-center gap-2 text-sm text-brand-grey">
                 <Check className="w-4 h-4 text-green-400 flex-shrink-0" />
                 <span>Free with account</span>
               </div>
-              <div className="flex items-center gap-2 text-sm text-gray-300">
+              <div className="flex items-center gap-2 text-sm text-brand-grey">
                 <Check className="w-4 h-4 text-green-400 flex-shrink-0" />
                 <span>Takes 30 seconds to register</span>
               </div>
-              <div className="flex items-center gap-2 text-sm text-gray-300">
+              <div className="flex items-center gap-2 text-sm text-brand-grey">
                 <Check className="w-4 h-4 text-green-400 flex-shrink-0" />
                 <span>Results saved automatically</span>
               </div>
@@ -118,7 +118,7 @@ export function UnlockModal({
               </Link>
               <Link
                 href={`/signin${returnUrl}`}
-                className="block w-full py-3 px-4 bg-gray-700 hover:bg-gray-600 text-white font-medium rounded-lg text-center transition-colors"
+                className="block w-full py-3 px-4 bg-brand-grey-medium hover:bg-brand-grey text-black font-medium rounded-lg text-center transition-colors"
               >
                 Already have account? Sign in
               </Link>
@@ -131,27 +131,27 @@ export function UnlockModal({
               <div className="w-12 h-12 rounded-full bg-purple-500/20 flex items-center justify-center">
                 <FileDown className="w-6 h-6 text-purple-400" />
               </div>
-              <h2 id="unlock-modal-title" className="text-xl font-semibold text-white">
+              <h2 id="unlock-modal-title" className="text-xl font-semibold text-black">
                 {featureName}
               </h2>
             </div>
 
-            <p className="text-gray-300 mb-6">
+            <p className="text-brand-grey mb-6">
               Available on Try Out and above plans.
             </p>
 
-            <div className="bg-gray-800 rounded-lg p-4 mb-6 space-y-3">
+            <div className="bg-brand-grey-light rounded-lg p-4 mb-6 space-y-3">
               <div className="flex justify-between items-center">
-                <span className="text-gray-300">Try Out</span>
-                <span className="text-white font-medium">€199 for 3 months</span>
+                <span className="text-brand-grey">Try Out</span>
+                <span className="text-black font-medium">€199 for 3 months</span>
               </div>
               <div className="flex justify-between items-center">
-                <span className="text-gray-300">Core</span>
-                <span className="text-white font-medium">€1,900/year</span>
+                <span className="text-brand-grey">Core</span>
+                <span className="text-black font-medium">€1,900/year</span>
               </div>
               <div className="flex justify-between items-center">
-                <span className="text-gray-300">Advanced</span>
-                <span className="text-white font-medium">€3,500/year</span>
+                <span className="text-brand-grey">Advanced</span>
+                <span className="text-black font-medium">€3,500/year</span>
               </div>
             </div>
 
@@ -164,7 +164,7 @@ export function UnlockModal({
               </Link>
               <Link
                 href="/contact"
-                className="block w-full py-3 px-4 bg-gray-700 hover:bg-gray-600 text-white font-medium rounded-lg text-center transition-colors"
+                className="block w-full py-3 px-4 bg-brand-grey-medium hover:bg-brand-grey text-black font-medium rounded-lg text-center transition-colors"
               >
                 Contact us to get started
               </Link>

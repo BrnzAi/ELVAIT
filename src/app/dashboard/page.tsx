@@ -92,9 +92,9 @@ export default function DashboardPage() {
   };
 
   return (
-    <div className="min-h-screen bg-gray-50 dark:bg-gray-950">
+    <div className="min-h-screen bg-gray-50">
       {/* Header */}
-      <header className="bg-white dark:bg-gray-900 border-b border-gray-200 dark:border-gray-800">
+      <header className="bg-white border-b border-gray-200">
         <div className="max-w-6xl mx-auto px-6 py-4">
           <div className="flex items-center justify-between">
             <div className="flex items-center gap-4">
@@ -126,8 +126,8 @@ export default function DashboardPage() {
             <p className="text-red-500">{error}</p>
           </div>
         ) : assessments.length === 0 ? (
-          <div className="text-center py-12 bg-white dark:bg-gray-900 rounded-2xl border border-gray-200 dark:border-gray-800">
-            <FileText className="w-12 h-12 text-gray-400 mx-auto mb-4" />
+          <div className="text-center py-12 bg-white rounded-2xl border border-gray-200">
+            <FileText className="w-12 h-12 text-brand-grey mx-auto mb-4" />
             <h2 className="text-xl font-semibold mb-2">No assessments yet</h2>
             <p className="text-gray-500 mb-6">Create your first assessment to get started</p>
             <Link
@@ -143,7 +143,7 @@ export default function DashboardPage() {
             {assessments.map((assessment) => (
               <div
                 key={assessment.id}
-                className="bg-white dark:bg-gray-900 rounded-xl border border-gray-200 dark:border-gray-800 p-6"
+                className="bg-white rounded-xl border border-gray-200 p-6"
               >
                 <div className="flex flex-col md:flex-row md:items-center justify-between gap-4">
                   <div className="flex-1">
@@ -168,7 +168,7 @@ export default function DashboardPage() {
                   <div className="flex items-center gap-3">
                     <Link
                       href={`/cases/${assessment.id}`}
-                      className="inline-flex items-center gap-2 px-4 py-2 border border-gray-300 dark:border-gray-700 rounded-lg hover:bg-gray-50 dark:hover:bg-gray-800 transition"
+                      className="inline-flex items-center gap-2 px-4 py-2 border border-gray-300 rounded-lg hover:bg-gray-50 transition"
                     >
                       <Users className="w-4 h-4" />
                       Manage
@@ -177,7 +177,7 @@ export default function DashboardPage() {
                     <button
                       onClick={() => handleDelete(assessment.id, assessment.decisionTitle, assessment._count.responses > 0)}
                       disabled={deleting === assessment.id}
-                      className="inline-flex items-center gap-2 px-3 py-2 text-red-500 hover:text-red-600 hover:bg-red-50 dark:hover:bg-red-900/20 rounded-lg transition disabled:opacity-50"
+                      className="inline-flex items-center gap-2 px-3 py-2 text-red-500 hover:text-red-600 hover:bg-red-50 rounded-lg transition disabled:opacity-50"
                       title="Delete assessment"
                     >
                       {deleting === assessment.id ? (

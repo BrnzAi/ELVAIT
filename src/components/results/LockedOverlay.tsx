@@ -40,7 +40,7 @@ export function LockedOverlay({
       
       {/* Lock overlay */}
       <div
-        className="absolute inset-0 flex flex-col items-center justify-center bg-gray-900/30 backdrop-blur-[1px] cursor-pointer transition-all hover:bg-gray-900/40 rounded-lg"
+        className="absolute inset-0 flex flex-col items-center justify-center bg-brand-grey-light/60 backdrop-blur-[1px] cursor-pointer transition-all hover:bg-brand-grey-light/70 rounded-lg"
         onClick={onClick}
         role="button"
         tabIndex={0}
@@ -52,10 +52,10 @@ export function LockedOverlay({
         aria-label={label}
       >
         <div className="flex flex-col items-center gap-2 p-4 text-center">
-          <div className="w-10 h-10 rounded-full bg-gray-800/80 flex items-center justify-center">
-            <Lock className="w-5 h-5 text-gray-300" />
+          <div className="w-10 h-10 rounded-full bg-brand-grey-medium flex items-center justify-center">
+            <Lock className="w-5 h-5 text-brand-grey" />
           </div>
-          <span className="text-sm font-medium text-gray-200">{label}</span>
+          <span className="text-sm font-medium text-gray-700">{label}</span>
         </div>
       </div>
     </div>

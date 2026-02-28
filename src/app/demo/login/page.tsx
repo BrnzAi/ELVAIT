@@ -148,7 +148,7 @@ function UserCard({ user, isActive, onSelect }: { user: DemoUser; isActive: bool
   return (
     <div className={`p-4 rounded-xl border-2 transition-all ${colorClasses[user.color]} ${isActive ? 'ring-2 ring-brand-green' : ''}`}>
       <div className="flex items-start gap-3 mb-3">
-        <div className="w-12 h-12 rounded-xl bg-[#222] flex items-center justify-center text-2xl">
+        <div className="w-12 h-12 rounded-xl bg-brand-grey-light flex items-center justify-center text-2xl">
           {user.avatar}
         </div>
         <div className="flex-1">
@@ -162,7 +162,7 @@ function UserCard({ user, isActive, onSelect }: { user: DemoUser; isActive: bool
       <p className="text-sm text-brand-grey mb-3">{user.description}</p>
       <div className="text-xs text-brand-grey mb-3">
         <span className="uppercase tracking-wide">Organization</span>
-        <p className="text-gray-300 font-medium">{user.organization}</p>
+        <p className="text-brand-grey font-medium">{user.organization}</p>
       </div>
       {isActive ? (
         <div className="flex items-center justify-center gap-2 py-2 bg-brand-green text-white rounded-lg font-medium">
@@ -172,7 +172,7 @@ function UserCard({ user, isActive, onSelect }: { user: DemoUser; isActive: bool
       ) : (
         <button 
           onClick={onSelect}
-          className="w-full flex items-center justify-center gap-2 py-2 bg-gray-700 hover:bg-gray-600 rounded-lg text-sm transition-colors"
+          className="w-full flex items-center justify-center gap-2 py-2 bg-brand-grey-medium hover:bg-brand-grey rounded-lg text-sm transition-colors"
         >
           Login as {user.name.split(' ')[0]}
           <ArrowRight className="w-4 h-4" />
@@ -216,7 +216,7 @@ export default function DemoLoginPage() {
   return (
     <div className="min-h-screen bg-black text-white">
       {/* Header */}
-      <header className="border-b border-[#333]">
+      <header className="border-b border-brand-grey-medium">
         <div className="max-w-6xl mx-auto px-6 py-4 flex items-center justify-between">
           <Link href="/" className="flex items-center gap-2">
             <Brain className="w-8 h-8 text-brand-green" />
@@ -226,7 +226,7 @@ export default function DemoLoginPage() {
             </div>
           </Link>
           {currentUser && (
-            <div className="flex items-center gap-2 px-3 py-1.5 bg-[#222] rounded-lg">
+            <div className="flex items-center gap-2 px-3 py-1.5 bg-brand-grey-light rounded-lg">
               <span className="text-xs text-brand-grey">Currently logged in as</span>
               <span className="font-medium">{currentUser.name}</span>
             </div>
@@ -274,7 +274,7 @@ export default function DemoLoginPage() {
         </div>
 
         {/* How it works */}
-        <div className="mt-16 p-6 bg-[#111] rounded-2xl border border-[#333]">
+        <div className="mt-16 p-6 bg-white rounded-2xl border border-brand-grey-medium">
           <h3 className="font-semibold mb-4">How the demo works</h3>
           <div className="space-y-3 text-sm text-brand-grey">
             <div className="flex items-start gap-2">
@@ -306,7 +306,7 @@ export default function DemoLoginPage() {
 
       {isLoading && (
         <div className="fixed inset-0 bg-black/50 flex items-center justify-center z-50">
-          <div className="bg-[#111] rounded-xl p-6 text-center">
+          <div className="bg-white rounded-xl p-6 text-center">
             <div className="w-8 h-8 border-2 border-brand-green border-t-transparent rounded-full animate-spin mx-auto mb-3" />
             <p>Switching to {currentUser?.name}...</p>
           </div>

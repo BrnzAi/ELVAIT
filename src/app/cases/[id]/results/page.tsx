@@ -173,7 +173,7 @@ export default function ResultsPage() {
 
   if (loading) {
     return (
-      <div className="min-h-screen flex items-center justify-center bg-gray-50 dark:bg-gray-950">
+      <div className="min-h-screen flex items-center justify-center bg-gray-50">
         <div className="text-center">
           <Loader2 className="w-8 h-8 animate-spin text-brand-green mx-auto mb-4" />
           <p className="text-gray-600">Analyzing responses...</p>
@@ -184,11 +184,11 @@ export default function ResultsPage() {
 
   if (error || !results) {
     return (
-      <div className="min-h-screen flex items-center justify-center bg-gray-50 dark:bg-gray-950">
+      <div className="min-h-screen flex items-center justify-center bg-gray-50">
         <div className="text-center max-w-md px-6">
           <AlertCircle className="w-16 h-16 text-red-500 mx-auto mb-4" />
           <h1 className="text-xl font-bold mb-2">Unable to Generate Results</h1>
-          <p className="text-gray-600 dark:text-gray-400 mb-4">{error}</p>
+          <p className="text-gray-600 mb-4">{error}</p>
           <Link href={`/cases/${params.id}`}>
             <Button variant="outline">Back to Case</Button>
           </Link>
@@ -209,45 +209,45 @@ export default function ResultsPage() {
   const RecommendationBadge = () => {
     if (rec === 'GO') {
       return (
-        <div className="flex items-center gap-3 p-4 bg-green-50 dark:bg-green-900/20 rounded-xl border-2 border-green-200 dark:border-green-800">
+        <div className="flex items-center gap-3 p-4 bg-green-50 rounded-xl border-2 border-green-200">
           <div className="w-14 h-14 bg-green-500 rounded-full flex items-center justify-center">
             <CheckCircle className="w-8 h-8 text-white" />
           </div>
           <div>
-            <h2 className="text-2xl font-bold text-green-700 dark:text-green-400">GO</h2>
-            <p className="text-green-600 dark:text-green-500">Ready to Proceed</p>
+            <h2 className="text-2xl font-bold text-green-700">GO</h2>
+            <p className="text-green-600">Ready to Proceed</p>
           </div>
         </div>
       );
     }
     if (rec === 'CLARIFY') {
       return (
-        <div className="flex items-center gap-3 p-4 bg-amber-50 dark:bg-amber-900/20 rounded-xl border-2 border-amber-200 dark:border-amber-800">
+        <div className="flex items-center gap-3 p-4 bg-amber-50 rounded-xl border-2 border-amber-200">
           <div className="w-14 h-14 bg-amber-500 rounded-full flex items-center justify-center">
             <AlertTriangle className="w-8 h-8 text-white" />
           </div>
           <div>
-            <h2 className="text-2xl font-bold text-amber-700 dark:text-amber-400">FIX FIRST</h2>
-            <p className="text-amber-600 dark:text-amber-500">Action Required</p>
+            <h2 className="text-2xl font-bold text-amber-700">FIX FIRST</h2>
+            <p className="text-amber-600">Action Required</p>
           </div>
         </div>
       );
     }
     return (
-      <div className="flex items-center gap-3 p-4 bg-red-50 dark:bg-red-900/20 rounded-xl border-2 border-red-200 dark:border-red-800">
+      <div className="flex items-center gap-3 p-4 bg-red-50 rounded-xl border-2 border-red-200">
         <div className="w-14 h-14 bg-red-500 rounded-full flex items-center justify-center">
           <XCircle className="w-8 h-8 text-white" />
         </div>
         <div>
-          <h2 className="text-2xl font-bold text-red-700 dark:text-red-400">NO-GO</h2>
-          <p className="text-red-600 dark:text-red-500">Do Not Proceed</p>
+          <h2 className="text-2xl font-bold text-red-700">NO-GO</h2>
+          <p className="text-red-600">Do Not Proceed</p>
         </div>
       </div>
     );
   };
 
   return (
-    <div className="min-h-screen bg-gray-50 dark:bg-gray-950">
+    <div className="min-h-screen bg-gray-50">
       {/* Unlock Modal */}
       <UnlockModal
         isOpen={showUnlockModal}
@@ -258,9 +258,9 @@ export default function ResultsPage() {
       />
 
       {/* Header */}
-      <header className="bg-white dark:bg-gray-900 border-b border-gray-200 dark:border-gray-800">
+      <header className="bg-white border-b border-gray-200">
         <div className="max-w-6xl mx-auto px-6 py-4 flex items-center justify-between">
-          <Link href={`/cases/${params.id}`} className="flex items-center gap-2 text-gray-600 hover:text-gray-900 dark:text-gray-400 dark:hover:text-white">
+          <Link href={`/cases/${params.id}`} className="flex items-center gap-2 text-gray-600 hover:text-gray-900">
             <ArrowLeft className="w-5 h-5" />
             <span>Back to Case</span>
           </Link>
@@ -314,7 +314,7 @@ export default function ResultsPage() {
               variant="outline" 
               size="sm"
               onClick={() => openUnlockModal('tier2', 'Download PDF Report')}
-              className="text-gray-400"
+              className="text-brand-grey"
             >
               <Lock className="w-4 h-4 mr-2" />
               Export PDF
@@ -327,25 +327,25 @@ export default function ResultsPage() {
         {/* Top Summary - Always Visible (Tier 0) */}
         <div className="grid md:grid-cols-2 gap-6 mb-8">
           {/* Recommendation */}
-          <div className="bg-white dark:bg-gray-900 rounded-xl border border-gray-200 dark:border-gray-800 p-6">
+          <div className="bg-white rounded-xl border border-gray-200 p-6">
             <h2 className="text-sm font-medium text-gray-500 mb-4">RECOMMENDATION</h2>
             <RecommendationBadge />
-            <p className="mt-4 text-sm text-gray-600 dark:text-gray-400">{results.recommendation.reason}</p>
+            <p className="mt-4 text-sm text-gray-600">{results.recommendation.reason}</p>
           </div>
 
           {/* ICS Score */}
-          <div className="bg-white dark:bg-gray-900 rounded-xl border border-gray-200 dark:border-gray-800 p-6">
+          <div className="bg-white rounded-xl border border-gray-200 p-6">
             <h2 className="text-sm font-medium text-gray-500 mb-4">INVESTMENT CLARITY SCORE</h2>
             <div className="flex items-end gap-4">
               <div className="text-5xl font-bold text-brand-green">
                 {ics !== null ? ics.toFixed(0) : 'N/A'}
               </div>
               <div className="pb-2">
-                <span className="text-gray-400">/100</span>
-                <p className="text-sm text-gray-600 dark:text-gray-400">{results.ics.label}</p>
+                <span className="text-brand-grey">/100</span>
+                <p className="text-sm text-gray-600">{results.ics.label}</p>
               </div>
             </div>
-            <div className="mt-4 h-3 bg-gray-100 dark:bg-gray-800 rounded-full overflow-hidden">
+            <div className="mt-4 h-3 bg-gray-100 rounded-full overflow-hidden">
               <div 
                 className={`h-full transition-all ${
                   ics !== null && ics >= 75 ? 'bg-green-500' :
@@ -354,7 +354,7 @@ export default function ResultsPage() {
                 style={{ width: `${ics ?? 0}%` }}
               />
             </div>
-            <div className="flex justify-between text-xs text-gray-400 mt-1">
+            <div className="flex justify-between text-xs text-brand-grey mt-1">
               <span>0</span>
               <span>55</span>
               <span>75</span>
@@ -364,7 +364,7 @@ export default function ResultsPage() {
         </div>
 
         {/* Top Flags - Show 2 for anonymous, all for authenticated */}
-        <div className="bg-white dark:bg-gray-900 rounded-xl border border-gray-200 dark:border-gray-800 p-6 mb-8">
+        <div className="bg-white rounded-xl border border-gray-200 p-6 mb-8">
           <h2 className="text-lg font-semibold mb-4">
             Detected Signals 
             <span className="text-sm font-normal text-gray-500 ml-2">
@@ -380,7 +380,7 @@ export default function ResultsPage() {
                 }`} />
                 <span className="font-mono text-xs text-gray-500">{flag.flag_id}</span>
                 {flag.evidence.description && (
-                  <span className="text-gray-600 dark:text-gray-400 truncate">
+                  <span className="text-gray-600 truncate">
                     — {flag.evidence.description}
                   </span>
                 )}
@@ -391,7 +391,7 @@ export default function ResultsPage() {
           {/* Locked flags indicator */}
           {hiddenFlagsCount > 0 && (
             <div 
-              className="mt-4 p-4 bg-gray-100 dark:bg-gray-800 rounded-lg cursor-pointer hover:bg-gray-200 dark:hover:bg-gray-700 transition-colors"
+              className="mt-4 p-4 bg-gray-100 rounded-lg cursor-pointer hover:bg-gray-200 transition-colors"
               onClick={() => openUnlockModal('tier1', 'All Flags')}
             >
               <div className="flex items-center justify-center gap-2 text-gray-500">
@@ -408,12 +408,12 @@ export default function ResultsPage() {
           label="Register free to see role breakdown"
           onClick={() => openUnlockModal('tier1', 'Role Breakdown')}
         >
-          <div className="bg-white dark:bg-gray-900 rounded-xl border border-gray-200 dark:border-gray-800 p-6 mb-8">
+          <div className="bg-white rounded-xl border border-gray-200 p-6 mb-8">
             <h2 className="text-lg font-semibold mb-4">Dimension Scores by Role</h2>
             <div className="overflow-x-auto">
               <table className="w-full text-sm">
                 <thead>
-                  <tr className="border-b dark:border-gray-700">
+                  <tr className="border-b">
                     <th className="text-left py-2 pr-4">Dimension</th>
                     {Object.keys(results.dimensions.byRole).map(role => (
                       <th key={role} className="text-center py-2 px-2 whitespace-nowrap">
@@ -430,7 +430,7 @@ export default function ResultsPage() {
                     if (!config) return null;
                     
                     return (
-                      <tr key={dim} className="border-b dark:border-gray-800">
+                      <tr key={dim} className="border-b">
                         <td className="py-3 pr-4">
                           <span className="font-medium">{config.label}</span>
                         </td>
@@ -439,10 +439,10 @@ export default function ResultsPage() {
                           return (
                             <td key={role} className="text-center py-3 px-2">
                               <span className={`inline-block px-2 py-1 rounded text-xs font-medium ${
-                                score === null ? 'text-gray-400' :
-                                score >= 75 ? 'bg-green-100 text-green-700 dark:bg-green-900/30 dark:text-green-400' :
-                                score >= 50 ? 'bg-amber-100 text-amber-700 dark:bg-amber-900/30 dark:text-amber-400' :
-                                'bg-red-100 text-red-700 dark:bg-red-900/30 dark:text-red-400'
+                                score === null ? 'text-brand-grey' :
+                                score >= 75 ? 'bg-green-100 text-green-700' :
+                                score >= 50 ? 'bg-amber-100 text-amber-700' :
+                                'bg-red-100 text-red-700'
                               }`}>
                                 {score?.toFixed(0) ?? '—'}
                               </span>
@@ -462,22 +462,22 @@ export default function ResultsPage() {
         </LockedOverlay>
 
         {/* Executive Summary - Always visible but generic for anonymous */}
-        <div className="bg-white dark:bg-gray-900 rounded-xl border border-gray-200 dark:border-gray-800 p-6 mb-8">
+        <div className="bg-white rounded-xl border border-gray-200 p-6 mb-8">
           <h2 className="text-lg font-semibold mb-4">Executive Summary</h2>
-          <p className="text-gray-700 dark:text-gray-300 mb-4">{results.narrative.executive}</p>
+          <p className="text-gray-700 mb-4">{results.narrative.executive}</p>
           <div className="grid md:grid-cols-2 gap-4">
             <div>
               <h3 className="font-medium mb-2">Key Findings</h3>
               <ul className="space-y-2">
                 {results.narrative.keyFindings.slice(0, access.canViewAllFlags ? undefined : 2).map((finding, i) => (
-                  <li key={i} className="flex items-start gap-2 text-sm text-gray-600 dark:text-gray-400">
+                  <li key={i} className="flex items-start gap-2 text-sm text-gray-600">
                     <span className="text-brand-green">•</span>
                     {finding}
                   </li>
                 ))}
                 {!access.canViewAllFlags && results.narrative.keyFindings.length > 2 && (
                   <li 
-                    className="flex items-center gap-2 text-sm text-gray-400 cursor-pointer hover:text-gray-600"
+                    className="flex items-center gap-2 text-sm text-brand-grey cursor-pointer hover:text-gray-600"
                     onClick={() => openUnlockModal('tier1', 'All Findings')}
                   >
                     <Lock className="w-3 h-3" />
@@ -488,13 +488,13 @@ export default function ResultsPage() {
             </div>
             <div>
               <h3 className="font-medium mb-2">Next Steps</h3>
-              <p className="text-sm text-gray-600 dark:text-gray-400">{results.narrative.nextSteps}</p>
+              <p className="text-sm text-gray-600">{results.narrative.nextSteps}</p>
             </div>
           </div>
         </div>
 
         {/* Dimension Scores - Visible */}
-        <div className="bg-white dark:bg-gray-900 rounded-xl border border-gray-200 dark:border-gray-800 p-6 mb-8">
+        <div className="bg-white rounded-xl border border-gray-200 p-6 mb-8">
           <h2 className="text-lg font-semibold mb-4">Dimension Scores</h2>
           <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-4">
             {Object.entries(results.dimensions.case).map(([dim, score]) => {
@@ -504,16 +504,16 @@ export default function ResultsPage() {
               const Icon = config.icon;
               
               return (
-                <div key={dim} className="p-4 bg-gray-50 dark:bg-gray-800 rounded-lg">
+                <div key={dim} className="p-4 bg-gray-50 rounded-lg">
                   <div className="flex items-center gap-2 mb-2">
                     <Icon className="w-4 h-4 text-brand-green" />
                     <span className="text-sm font-medium">{config.label}</span>
                   </div>
                   <div className="flex items-end gap-2">
                     <span className="text-2xl font-bold">{score?.toFixed(0) ?? 'N/A'}</span>
-                    <span className="text-gray-400 text-sm pb-1">/100</span>
+                    <span className="text-brand-grey text-sm pb-1">/100</span>
                   </div>
-                  <div className="mt-2 h-2 bg-gray-200 dark:bg-gray-700 rounded-full overflow-hidden">
+                  <div className="mt-2 h-2 bg-gray-200 rounded-full overflow-hidden">
                     <div 
                       className={`h-full ${
                         score !== null && score >= 75 ? 'bg-green-500' :
@@ -530,15 +530,15 @@ export default function ResultsPage() {
 
         {/* Per-Process Breakdown - Only for multi-process cases */}
         {results.processScores && results.processScores.length > 1 && (
-          <div className="bg-white dark:bg-gray-900 rounded-xl border border-gray-200 dark:border-gray-800 p-6 mb-8">
+          <div className="bg-white rounded-xl border border-gray-200 p-6 mb-8">
             <h2 className="text-lg font-semibold mb-4">Process Readiness by Process</h2>
             
             {/* Aggregate Score Summary */}
-            <div className="mb-6 p-4 bg-brand-green/10 dark:bg-brand-green/10 rounded-lg">
+            <div className="mb-6 p-4 bg-brand-green/10 rounded-lg">
               <div className="flex items-center justify-between">
                 <div>
-                  <h3 className="font-medium text-brand-green dark:text-brand-green">Aggregate Process Score</h3>
-                  <p className="text-sm text-brand-green dark:text-brand-green/80">
+                  <h3 className="font-medium text-brand-green">Aggregate Process Score</h3>
+                  <p className="text-sm text-brand-green">
                     Weighted average across {results.processScores.length} processes
                   </p>
                 </div>
@@ -552,7 +552,7 @@ export default function ResultsPage() {
             <div className="overflow-x-auto">
               <table className="w-full">
                 <thead>
-                  <tr className="border-b dark:border-gray-700">
+                  <tr className="border-b">
                     <th className="text-left py-3 pr-4 font-medium">Process Name</th>
                     <th className="text-center py-3 px-4 font-medium">Score</th>
                     <th className="text-center py-3 px-4 font-medium">Weight</th>
@@ -568,8 +568,8 @@ export default function ResultsPage() {
                     return (
                       <tr 
                         key={processScore.processId} 
-                        className={`border-b dark:border-gray-800 ${
-                          isLowest ? 'bg-red-50 dark:bg-red-900/10' : ''
+                        className={`border-b ${
+                          isLowest ? 'bg-red-50' : ''
                         }`}
                       >
                         <td className="py-4 pr-4">
@@ -579,7 +579,7 @@ export default function ResultsPage() {
                             )}
                             <span className="font-medium">{processScore.processName}</span>
                             {isLowest && (
-                              <span className="text-xs bg-red-100 dark:bg-red-900/30 text-red-700 dark:text-red-400 px-2 py-1 rounded">
+                              <span className="text-xs bg-red-100 text-red-700 px-2 py-1 rounded">
                                 Weakest Link
                               </span>
                             )}
@@ -588,16 +588,16 @@ export default function ResultsPage() {
                         <td className="text-center py-4 px-4">
                           <span className="text-lg font-bold">{processScore.score.toFixed(1)}</span>
                         </td>
-                        <td className="text-center py-4 px-4 text-gray-600 dark:text-gray-400">
+                        <td className="text-center py-4 px-4 text-gray-600">
                           {processScore.weight}%
                         </td>
                         <td className="text-center py-4 pl-4">
                           <span className={`inline-block px-3 py-1 rounded-full text-sm font-medium ${
                             scoreColor === 'green' 
-                              ? 'bg-green-100 text-green-700 dark:bg-green-900/30 dark:text-green-400' 
+                              ? 'bg-green-100 text-green-700' 
                               : scoreColor === 'amber'
-                                ? 'bg-amber-100 text-amber-700 dark:bg-amber-900/30 dark:text-amber-400'
-                                : 'bg-red-100 text-red-700 dark:bg-red-900/30 dark:text-red-400'
+                                ? 'bg-amber-100 text-amber-700'
+                                : 'bg-red-100 text-red-700'
                           }`}>
                             {scoreColor === 'green' ? 'Ready' : 
                              scoreColor === 'amber' ? 'Improve First' : 'High Risk'}
@@ -612,14 +612,14 @@ export default function ResultsPage() {
 
             {/* Lowest Process Warning */}
             {results.lowestProcessScore && (
-              <div className="mt-4 p-4 bg-red-50 dark:bg-red-900/20 rounded-lg border-l-4 border-red-500">
+              <div className="mt-4 p-4 bg-red-50 rounded-lg border-l-4 border-red-500">
                 <div className="flex items-start gap-3">
                   <AlertTriangle className="w-5 h-5 text-red-500 flex-shrink-0 mt-0.5" />
                   <div>
-                    <h4 className="font-medium text-red-900 dark:text-red-100">
+                    <h4 className="font-medium text-red-900">
                       Gate Evaluation Uses Weakest Process
                     </h4>
-                    <p className="text-sm text-red-800 dark:text-red-200 mt-1">
+                    <p className="text-sm text-red-800 mt-1">
                       <strong>{results.lowestProcessScore.processName}</strong> scored lowest at{' '}
                       <strong>{results.lowestProcessScore.score.toFixed(1)}</strong> and determines the overall 
                       Process Gate result. One weak process can block the entire initiative.
@@ -638,7 +638,7 @@ export default function ResultsPage() {
             label="Register free to see blind spots"
             onClick={() => openUnlockModal('tier1', 'Blind Spots & Risks')}
           >
-            <div className="bg-white dark:bg-gray-900 rounded-xl border border-gray-200 dark:border-gray-800 p-6 mb-8">
+            <div className="bg-white rounded-xl border border-gray-200 p-6 mb-8">
               <h2 className="text-lg font-semibold mb-4">Blind Spots & Risks</h2>
               <div className="space-y-4">
                 {results.blindSpots.map((spot, i) => (
@@ -646,16 +646,16 @@ export default function ResultsPage() {
                     key={i} 
                     className={`p-4 rounded-lg border-l-4 ${
                       spot.severity === 'CRITICAL' 
-                        ? 'bg-red-50 dark:bg-red-900/20 border-red-500' 
+                        ? 'bg-red-50 border-red-500' 
                         : spot.severity === 'WARN'
-                          ? 'bg-amber-50 dark:bg-amber-900/20 border-amber-500'
-                          : 'bg-brand-green/10 dark:bg-brand-green/10 border-blue-500'
+                          ? 'bg-amber-50 border-amber-500'
+                          : 'bg-brand-green/10 border-blue-500'
                     }`}
                   >
                     <div className="flex items-start justify-between">
                       <div>
                         <h3 className="font-medium">{spot.label}</h3>
-                        <p className="text-sm text-gray-600 dark:text-gray-400 mt-1">{spot.explanation}</p>
+                        <p className="text-sm text-gray-600 mt-1">{spot.explanation}</p>
                       </div>
                       <span className={`px-2 py-1 text-xs font-medium rounded ${
                         spot.severity === 'CRITICAL' ? 'bg-red-100 text-red-700' :
@@ -687,14 +687,14 @@ export default function ResultsPage() {
 
         {/* Single respondent note */}
         {results.participantCount === 1 && (
-          <div className="bg-brand-green/10 dark:bg-brand-green/10 rounded-xl border border-brand-green/30 dark:border-brand-green/30 p-6 mb-8">
+          <div className="bg-brand-green/10 rounded-xl border border-brand-green/30 p-6 mb-8">
             <div className="flex items-start gap-3">
               <div className="w-8 h-8 bg-brand-green/100 rounded-full flex items-center justify-center flex-shrink-0">
                 <Users className="w-4 h-4 text-white" />
               </div>
               <div>
-                <h3 className="font-medium text-brand-green dark:text-brand-green mb-1">Single Participant Assessment</h3>
-                <p className="text-sm text-brand-green dark:text-brand-green/70">
+                <h3 className="font-medium text-brand-green mb-1">Single Participant Assessment</h3>
+                <p className="text-sm text-brand-green">
                   Cross-role comparison requires responses from multiple participants. 
                   The results above show individual scores and insights only.
                 </p>
@@ -705,22 +705,22 @@ export default function ResultsPage() {
 
         {/* Text Responses - Show for single respondent or when available */}
         {results.textResponses && results.textResponses.length > 0 && (
-          <div className="bg-white dark:bg-gray-900 rounded-xl border border-gray-200 dark:border-gray-800 p-6 mb-8">
+          <div className="bg-white rounded-xl border border-gray-200 p-6 mb-8">
             <h2 className="text-lg font-semibold mb-4">
               {results.participantCount === 1 ? 'Key Insights from Responses' : 'Open Text Responses'}
             </h2>
             <div className="space-y-4">
               {results.textResponses.map((textResp, i) => (
-                <div key={i} className="p-4 bg-gray-50 dark:bg-gray-800 rounded-lg">
+                <div key={i} className="p-4 bg-gray-50 rounded-lg">
                   <div className="flex items-start gap-3">
-                    <div className="flex-shrink-0 w-6 h-6 bg-brand-green/10 dark:bg-clarity-900 rounded-full flex items-center justify-center">
+                    <div className="flex-shrink-0 w-6 h-6 bg-brand-green/10 rounded-full flex items-center justify-center">
                       <span className="text-xs font-medium text-brand-green">Q</span>
                     </div>
                     <div className="flex-1">
-                      <p className="text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">
+                      <p className="text-sm font-medium text-gray-700 mb-2">
                         {textResp.questionText}
                       </p>
-                      <blockquote className="text-sm text-gray-600 dark:text-gray-400 italic border-l-2 border-gray-300 pl-3">
+                      <blockquote className="text-sm text-gray-600 italic border-l-2 border-gray-300 pl-3">
                         "{textResp.response}"
                       </blockquote>
                       <div className="mt-2 text-xs text-gray-500">
@@ -736,12 +736,12 @@ export default function ResultsPage() {
 
         {/* Checklist - Always visible */}
         {results.checklistItems.length > 0 && (
-          <div className="bg-white dark:bg-gray-900 rounded-xl border border-gray-200 dark:border-gray-800 p-6 mb-8">
+          <div className="bg-white rounded-xl border border-gray-200 p-6 mb-8">
             <h2 className="text-lg font-semibold mb-4">Action Checklist</h2>
             <div className="space-y-3">
               {results.checklistItems.map((item, i) => (
-                <div key={item.id} className="flex items-start gap-3 p-3 bg-gray-50 dark:bg-gray-800 rounded-lg">
-                  <div className="w-6 h-6 rounded-full bg-brand-green/10 dark:bg-clarity-900 flex items-center justify-center text-sm font-medium text-brand-green">
+                <div key={item.id} className="flex items-start gap-3 p-3 bg-gray-50 rounded-lg">
+                  <div className="w-6 h-6 rounded-full bg-brand-green/10 flex items-center justify-center text-sm font-medium text-brand-green">
                     {i + 1}
                   </div>
                   <div className="flex-1">
@@ -788,7 +788,7 @@ export default function ResultsPage() {
         )}
 
         {/* Meta */}
-        <div className="mt-8 text-center text-sm text-gray-400">
+        <div className="mt-8 text-center text-sm text-brand-grey">
           Generated {new Date(results.generatedAt).toLocaleString()} • 
           {results.responseCount} responses from {results.participantCount} participants
         </div>

@@ -46,18 +46,18 @@ function ContactForm() {
 
   if (isSubmitted) {
     return (
-      <div className="min-h-screen bg-gray-950 text-white flex items-center justify-center">
+      <div className="min-h-screen bg-brand-grey-light text-black flex items-center justify-center">
         <div className="text-center max-w-md mx-auto px-4">
           <div className="w-16 h-16 rounded-full bg-green-500/20 flex items-center justify-center mx-auto mb-6">
             <Check className="w-8 h-8 text-green-400" />
           </div>
           <h1 className="text-2xl font-bold mb-4">Message sent!</h1>
-          <p className="text-gray-400 mb-8">
+          <p className="text-brand-grey mb-8">
             We'll get back to you within 24 hours. Check your email for confirmation.
           </p>
           <Link
             href="/"
-            className="inline-flex items-center gap-2 px-6 py-3 bg-gray-800 hover:bg-gray-700 rounded-lg transition-colors"
+            className="inline-flex items-center gap-2 px-6 py-3 bg-brand-grey-light hover:bg-brand-grey-medium rounded-lg transition-colors"
           >
             <ArrowLeft className="w-4 h-4" />
             Back to ELVAIT
@@ -68,13 +68,13 @@ function ContactForm() {
   }
 
   return (
-    <div className="min-h-screen bg-gray-950 text-white">
+    <div className="min-h-screen bg-brand-grey-light text-black">
       {/* Header */}
-      <div className="border-b border-gray-800">
+      <div className="border-b border-brand-grey-medium">
         <div className="max-w-3xl mx-auto px-4 py-4">
           <Link 
             href="/"
-            className="inline-flex items-center gap-2 text-gray-400 hover:text-white transition-colors"
+            className="inline-flex items-center gap-2 text-brand-grey hover:text-black transition-colors"
           >
             <ArrowLeft className="w-4 h-4" />
             <span>Back to ELVAIT</span>
@@ -88,14 +88,14 @@ function ContactForm() {
           {/* Left - Info */}
           <div>
             <h1 className="text-3xl font-bold mb-4">Get in touch</h1>
-            <p className="text-gray-400 mb-8">
+            <p className="text-brand-grey mb-8">
               Want to upgrade your plan, have questions about ELVAIT, or need help getting started? We're here to help.
             </p>
 
             <div className="space-y-6">
               <div className="flex items-start gap-4">
-                <div className="w-10 h-10 rounded-lg bg-gray-800 flex items-center justify-center flex-shrink-0">
-                  <Mail className="w-5 h-5 text-gray-400" />
+                <div className="w-10 h-10 rounded-lg bg-brand-grey-light flex items-center justify-center flex-shrink-0">
+                  <Mail className="w-5 h-5 text-brand-grey" />
                 </div>
                 <div>
                   <h3 className="font-medium mb-1">Email us directly</h3>
@@ -111,7 +111,7 @@ function ContactForm() {
           </div>
 
           {/* Right - Form */}
-          <div className="bg-gray-900 rounded-2xl p-6 border border-gray-800">
+          <div className="bg-white rounded-2xl p-6 border border-brand-grey-medium">
             <form onSubmit={handleSubmit} className="space-y-4">
               <div>
                 <label htmlFor="name" className="block text-sm font-medium mb-2">
@@ -123,7 +123,7 @@ function ContactForm() {
                   required
                   value={formData.name}
                   onChange={(e) => setFormData({ ...formData, name: e.target.value })}
-                  className="w-full px-4 py-3 bg-gray-800 border border-gray-700 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent"
+                  className="w-full px-4 py-3 bg-brand-grey-light border border-brand-grey-medium rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent"
                   placeholder="Your name"
                 />
               </div>
@@ -138,7 +138,7 @@ function ContactForm() {
                   required
                   value={formData.email}
                   onChange={(e) => setFormData({ ...formData, email: e.target.value })}
-                  className="w-full px-4 py-3 bg-gray-800 border border-gray-700 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent"
+                  className="w-full px-4 py-3 bg-brand-grey-light border border-brand-grey-medium rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent"
                   placeholder="you@company.com"
                 />
               </div>
@@ -152,7 +152,7 @@ function ContactForm() {
                   id="company"
                   value={formData.company}
                   onChange={(e) => setFormData({ ...formData, company: e.target.value })}
-                  className="w-full px-4 py-3 bg-gray-800 border border-gray-700 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent"
+                  className="w-full px-4 py-3 bg-brand-grey-light border border-brand-grey-medium rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent"
                   placeholder="Your company"
                 />
               </div>
@@ -165,7 +165,7 @@ function ContactForm() {
                   id="plan"
                   value={formData.plan}
                   onChange={(e) => setFormData({ ...formData, plan: e.target.value })}
-                  className="w-full px-4 py-3 bg-gray-800 border border-gray-700 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent"
+                  className="w-full px-4 py-3 bg-brand-grey-light border border-brand-grey-medium rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent"
                 >
                   <option value="">Select a plan (optional)</option>
                   <option value="tryout">Try Out — €199/3 months</option>
@@ -185,7 +185,7 @@ function ContactForm() {
                   rows={4}
                   value={formData.message}
                   onChange={(e) => setFormData({ ...formData, message: e.target.value })}
-                  className="w-full px-4 py-3 bg-gray-800 border border-gray-700 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent resize-none"
+                  className="w-full px-4 py-3 bg-brand-grey-light border border-brand-grey-medium rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent resize-none"
                   placeholder="Tell us about your needs..."
                 />
               </div>
@@ -222,10 +222,10 @@ function ContactForm() {
 export default function ContactPage() {
   return (
     <Suspense fallback={
-      <div className="min-h-screen bg-gray-950 text-white flex items-center justify-center">
+      <div className="min-h-screen bg-brand-grey-light text-black flex items-center justify-center">
         <div className="text-center">
           <div className="w-8 h-8 border-2 border-blue-500 border-t-transparent rounded-full animate-spin mx-auto mb-4" />
-          <p className="text-gray-400">Loading...</p>
+          <p className="text-brand-grey">Loading...</p>
         </div>
       </div>
     }>

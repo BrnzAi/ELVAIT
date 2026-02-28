@@ -3,15 +3,8 @@
 @tailwind utilities;
 
 :root {
-  --background: 250 250 250;
-  --foreground: 10 10 10;
-}
-
-@media (prefers-color-scheme: dark) {
-  :root {
-    --background: 10 10 10;
-    --foreground: 250 250 250;
-  }
+  --background: 240 240 240;
+  --foreground: 0 0 0;
 }
 
 html {
@@ -62,7 +55,7 @@ body {
 
 /* Glass effect */
 .glass {
-  @apply bg-black/80 backdrop-blur-xl;
+  @apply bg-white/80 backdrop-blur-xl;
 }
 
 /* Outcome badges */
@@ -80,7 +73,7 @@ body {
 
 /* Progress bar */
 .progress-bar {
-  @apply h-2 bg-gray-200 dark:bg-gray-700 rounded-full overflow-hidden;
+  @apply h-2 bg-gray-200 rounded-full overflow-hidden;
 }
 
 .progress-fill {
@@ -89,18 +82,18 @@ body {
 
 /* Survey form styles */
 .survey-option {
-  @apply p-4 border-2 border-gray-200 dark:border-gray-700 rounded-lg cursor-pointer
+  @apply p-4 border-2 border-gray-200 rounded-lg cursor-pointer
          transition-all duration-200 hover:border-brand-green hover:bg-brand-green/10
-         dark:hover:bg-brand-green/10;
+;
 }
 
 .survey-option.selected {
-  @apply border-brand-green bg-brand-green/10 dark:bg-brand-green/20;
+  @apply border-brand-green bg-brand-green/10;
 }
 
 /* Scale selector */
 .scale-option {
-  @apply w-12 h-12 rounded-full border-2 border-gray-300 dark:border-gray-600
+  @apply w-12 h-12 rounded-full border-2 border-gray-300
          flex items-center justify-center cursor-pointer transition-all duration-200
          hover:border-brand-green hover:bg-brand-green/10;
 }

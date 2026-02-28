@@ -158,11 +158,11 @@ export default function CaseDetailPage() {
   const totalParticipants = caseData.participants.length;
 
   return (
-    <div className="min-h-screen bg-gray-50 dark:bg-gray-950">
+    <div className="min-h-screen bg-gray-50">
       {/* Header */}
-      <header className="bg-white dark:bg-gray-900 border-b border-gray-200 dark:border-gray-800">
+      <header className="bg-white border-b border-gray-200">
         <div className="max-w-6xl mx-auto px-6 py-4 flex items-center justify-between">
-          <Link href="/dashboard" className="flex items-center gap-2 text-gray-600 hover:text-gray-900 dark:text-gray-400 dark:hover:text-white">
+          <Link href="/dashboard" className="flex items-center gap-2 text-gray-600 hover:text-gray-900">
             <ArrowLeft className="w-5 h-5" />
             <span>My Assessments</span>
           </Link>
@@ -182,25 +182,25 @@ export default function CaseDetailPage() {
 
       <main className="max-w-6xl mx-auto px-6 py-8">
         {/* Case Info */}
-        <div className="bg-white dark:bg-gray-900 rounded-xl border border-gray-200 dark:border-gray-800 p-6 mb-8">
+        <div className="bg-white rounded-xl border border-gray-200 p-6 mb-8">
           <div className="flex items-start justify-between mb-4">
             <div>
               <h1 className="text-2xl font-bold mb-2">{caseData.decisionTitle}</h1>
-              <p className="text-gray-600 dark:text-gray-400">{caseData.decisionDescription}</p>
+              <p className="text-gray-600">{caseData.decisionDescription}</p>
             </div>
           </div>
           
           {/* Prominent Results Banner */}
           {caseData.completedParticipants > 0 && (
-            <div className="mt-4 p-4 bg-green-50 dark:bg-green-900/20 border-2 border-green-200 dark:border-green-800 rounded-xl">
+            <div className="mt-4 p-4 bg-green-50 border-2 border-green-200 rounded-xl">
               <div className="flex flex-col sm:flex-row items-center justify-between gap-4">
                 <div className="flex items-center gap-3">
                   <div className="w-10 h-10 bg-green-500 rounded-full flex items-center justify-center">
                     <CheckCircle className="w-6 h-6 text-white" />
                   </div>
                   <div>
-                    <p className="font-semibold text-green-900 dark:text-green-100">Results Available!</p>
-                    <p className="text-sm text-green-700 dark:text-green-300">{caseData.completedParticipants} participant{caseData.completedParticipants !== 1 ? 's' : ''} completed</p>
+                    <p className="font-semibold text-green-900">Results Available!</p>
+                    <p className="text-sm text-green-700">{caseData.completedParticipants} participant{caseData.completedParticipants !== 1 ? 's' : ''} completed</p>
                   </div>
                 </div>
                 <Link href={`/cases/${caseData.id}/results`}>
@@ -226,13 +226,13 @@ export default function CaseDetailPage() {
         </div>
 
         {/* Progress */}
-        <div className="bg-white dark:bg-gray-900 rounded-xl border border-gray-200 dark:border-gray-800 p-6 mb-8">
+        <div className="bg-white rounded-xl border border-gray-200 p-6 mb-8">
           <h2 className="text-lg font-semibold mb-4 flex items-center gap-2">
             <Users className="w-5 h-5" />
             Participants ({completedCount}/{totalParticipants} completed)
           </h2>
           
-          <div className="h-2 bg-gray-100 dark:bg-gray-800 rounded-full overflow-hidden mb-6">
+          <div className="h-2 bg-gray-100 rounded-full overflow-hidden mb-6">
             <div 
               className="h-full bg-brand-green transition-all"
               style={{ width: `${totalParticipants > 0 ? (completedCount / totalParticipants) * 100 : 0}%` }}
@@ -241,7 +241,7 @@ export default function CaseDetailPage() {
 
           <div className="space-y-4">
             {participantsByRole.map(({ role, label, participants }) => (
-              <div key={role} className="border border-gray-200 dark:border-gray-800 rounded-lg p-4">
+              <div key={role} className="border border-gray-200 rounded-lg p-4">
                 <div className="flex items-center justify-between mb-3">
                   <h3 className="font-medium">{label}</h3>
                   <Button
@@ -268,7 +268,7 @@ export default function CaseDetailPage() {
                 </div>
 
                 {addingRole === role && (
-                  <div className="mb-4 p-4 bg-gray-50 dark:bg-gray-800 rounded-lg space-y-3">
+                  <div className="mb-4 p-4 bg-gray-50 rounded-lg space-y-3">
                     <Input
                       placeholder="Name (optional)"
                       value={newParticipant.name}
@@ -340,14 +340,14 @@ export default function CaseDetailPage() {
                 ) : (
                   <div className="space-y-2">
                     {participants.map(p => (
-                      <div key={p.id} className="flex items-center justify-between py-2 px-3 bg-gray-50 dark:bg-gray-800 rounded-lg">
+                      <div key={p.id} className="flex items-center justify-between py-2 px-3 bg-gray-50 rounded-lg">
                         <div className="flex items-center gap-3">
                           {p.status === 'COMPLETED' ? (
                             <CheckCircle className="w-5 h-5 text-green-500" />
                           ) : p.status === 'IN_PROGRESS' ? (
                             <Circle className="w-5 h-5 text-amber-500 fill-amber-500" />
                           ) : (
-                            <Circle className="w-5 h-5 text-gray-300" />
+                            <Circle className="w-5 h-5 text-brand-grey" />
                           )}
                           <div>
                             <p className="text-sm font-medium">
@@ -397,7 +397,7 @@ export default function CaseDetailPage() {
         </div>
 
         {/* Decision Context */}
-        <div className="bg-white dark:bg-gray-900 rounded-xl border border-gray-200 dark:border-gray-800 p-6">
+        <div className="bg-white rounded-xl border border-gray-200 p-6">
           <h2 className="text-lg font-semibold mb-4">Decision Context</h2>
           <div className="space-y-4">
             <div>

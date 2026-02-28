@@ -152,9 +152,9 @@ export default function AdminIndustriesPage() {
                         </div>
                       </div>
                     </td>
-                    <td className="p-4"><span className="px-2 py-1 rounded bg-white/5 text-sm font-mono text-gray-300">{industry.code}</span></td>
-                    <td className="p-4 text-gray-300">{industry.organizations}</td>
-                    <td className="p-4 text-gray-300">{industry.assessments}</td>
+                    <td className="p-4"><span className="px-2 py-1 rounded bg-white/5 text-sm font-mono text-brand-grey">{industry.code}</span></td>
+                    <td className="p-4 text-brand-grey">{industry.organizations}</td>
+                    <td className="p-4 text-brand-grey">{industry.assessments}</td>
                     <td className="p-4">
                       {industry.avgIcs !== null ? (
                         <span className={`font-bold ${industry.avgIcs >= 75 ? 'text-green-400' : industry.avgIcs >= 50 ? 'text-amber-400' : 'text-red-400'}`}>{industry.avgIcs}</span>

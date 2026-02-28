@@ -25,7 +25,7 @@ export function UserMenu() {
 
   if (status === 'loading') {
     return (
-      <div className="w-8 h-8 rounded-full bg-gray-800 animate-pulse" />
+      <div className="w-8 h-8 rounded-full bg-brand-grey-light animate-pulse" />
     );
   }
 
@@ -34,7 +34,7 @@ export function UserMenu() {
       <div className="flex items-center gap-2">
         <Link
           href="/signin"
-          className="px-3 py-1.5 text-sm text-gray-300 hover:text-white transition-colors"
+          className="px-3 py-1.5 text-sm text-white/80 hover:text-white transition-colors"
         >
           Sign in
         </Link>
@@ -65,24 +65,24 @@ export function UserMenu() {
     <div className="relative" ref={menuRef}>
       <button
         onClick={() => setIsOpen(!isOpen)}
-        className="flex items-center gap-2 px-3 py-1.5 bg-gray-800 hover:bg-gray-700 rounded-lg transition-colors"
+        className="flex items-center gap-2 px-3 py-1.5 bg-white/10 hover:bg-white/20 rounded-lg transition-colors"
       >
         <div className="w-6 h-6 rounded-full bg-brand-green flex items-center justify-center text-xs font-medium">
           {session.user.name?.[0]?.toUpperCase() || session.user.email?.[0]?.toUpperCase() || 'U'}
         </div>
-        <span className="text-sm text-gray-200 max-w-[120px] truncate">
+        <span className="text-sm text-white/80 max-w-[120px] truncate">
           {session.user.name || session.user.email}
         </span>
-        <ChevronDown className={`w-4 h-4 text-gray-400 transition-transform ${isOpen ? 'rotate-180' : ''}`} />
+        <ChevronDown className={`w-4 h-4 text-brand-grey transition-transform ${isOpen ? 'rotate-180' : ''}`} />
       </button>
 
       {isOpen && (
-        <div className="absolute right-0 mt-2 w-56 bg-gray-900 border border-gray-800 rounded-lg shadow-xl z-50">
-          <div className="p-3 border-b border-gray-800">
-            <p className="text-sm font-medium text-white truncate">
+        <div className="absolute right-0 mt-2 w-56 bg-white border border-brand-grey-medium rounded-lg shadow-xl z-50">
+          <div className="p-3 border-b border-brand-grey-medium">
+            <p className="text-sm font-medium text-black truncate">
               {session.user.name || 'User'}
             </p>
-            <p className="text-xs text-gray-400 truncate">
+            <p className="text-xs text-brand-grey truncate">
               {session.user.email}
             </p>
           </div>
@@ -95,14 +95,14 @@ export function UserMenu() {
                 setIsOpen(false);
                 router.push('/dashboard');
               }}
-              className="w-full flex items-center gap-2 px-3 py-2 text-sm text-gray-300 hover:text-white hover:bg-gray-800 rounded-md transition-colors text-left"
+              className="w-full flex items-center gap-2 px-3 py-2 text-sm text-gray-600 hover:text-black hover:bg-brand-grey-light rounded-md transition-colors text-left"
             >
               <LayoutDashboard className="w-4 h-4" />
               Dashboard
             </button>
             <button
               onClick={handleSignOut}
-              className="w-full flex items-center gap-2 px-3 py-2 text-sm text-gray-300 hover:text-white hover:bg-gray-800 rounded-md transition-colors text-left"
+              className="w-full flex items-center gap-2 px-3 py-2 text-sm text-gray-600 hover:text-black hover:bg-brand-grey-light rounded-md transition-colors text-left"
             >
               <LogOut className="w-4 h-4" />
               Sign out

@@ -252,9 +252,9 @@ export default function AdminUsersPage() {
                           </div>
                         </div>
                       </td>
-                      <td className="p-4 text-gray-300">{user.organization}</td>
+                      <td className="p-4 text-brand-grey">{user.organization}</td>
                       <td className="p-4">
-                        <span className="px-2 py-1 rounded bg-white/5 text-sm text-gray-300">{user.role}</span>
+                        <span className="px-2 py-1 rounded bg-white/5 text-sm text-brand-grey">{user.role}</span>
                       </td>
                       <td className="p-4">
                         <span className={`inline-flex items-center gap-1 px-2 py-1 rounded text-xs font-medium ${
@@ -266,7 +266,7 @@ export default function AdminUsersPage() {
                           {user.status}
                         </span>
                       </td>
-                      <td className="p-4 text-gray-300">{user.assessments}</td>
+                      <td className="p-4 text-brand-grey">{user.assessments}</td>
                       <td className="p-4 text-brand-grey text-sm">{user.lastActive}</td>
                       <td className="p-4">
                         <div className="flex items-center justify-end gap-2">

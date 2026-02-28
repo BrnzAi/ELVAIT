@@ -157,8 +157,8 @@ export default function DemoSurveyPage() {
   // Context View
   if (showContext) {
     return (
-      <div className="min-h-screen bg-gray-50 dark:bg-black text-gray-900 dark:text-white">
-        <header className="bg-white dark:bg-[#111] border-b border-gray-200 dark:border-[#333]">
+      <div className="min-h-screen bg-gray-50 text-gray-900">
+        <header className="bg-white border-b border-gray-200">
           <div className="max-w-3xl mx-auto px-6 py-4 flex items-center justify-between">
             <div className="flex items-center gap-2">
               <Brain className="w-6 h-6 text-brand-green" />
@@ -172,29 +172,29 @@ export default function DemoSurveyPage() {
         </header>
 
         <main className="max-w-3xl mx-auto px-6 py-12">
-          <div className="bg-white dark:bg-[#111] rounded-xl border border-gray-200 dark:border-[#333] p-8">
+          <div className="bg-white rounded-xl border border-gray-200 p-8">
             <div className="flex items-center gap-3 mb-6">
               <span className="text-3xl">{roleInfo.emoji}</span>
               <div>
-                <p className="text-sm text-brand-grey dark:text-brand-grey">You're responding as</p>
+                <p className="text-sm text-brand-grey">You're responding as</p>
                 <p className="font-semibold text-lg">{roleInfo.name}</p>
               </div>
             </div>
 
             <h1 className="text-2xl font-bold mb-2">Marketing Automation Platform</h1>
-            <p className="text-gray-600 dark:text-brand-grey mb-6">Implement marketing automation for lead nurturing and campaign management</p>
+            <p className="text-gray-600 mb-6">Implement marketing automation for lead nurturing and campaign management</p>
             
             <div className="space-y-4 mb-8">
-              <div className="p-4 bg-gray-50 dark:bg-[#222] rounded-lg">
-                <p className="text-sm text-brand-grey dark:text-brand-grey mb-1">What decision are we making?</p>
+              <div className="p-4 bg-gray-50 rounded-lg">
+                <p className="text-sm text-brand-grey mb-1">What decision are we making?</p>
                 <p className="font-medium">Whether to invest in HubSpot Marketing Hub Enterprise</p>
               </div>
-              <div className="p-4 bg-gray-50 dark:bg-[#222] rounded-lg">
-                <p className="text-sm text-brand-grey dark:text-brand-grey mb-1">What does success look like?</p>
+              <div className="p-4 bg-gray-50 rounded-lg">
+                <p className="text-sm text-brand-grey mb-1">What does success look like?</p>
                 <p className="font-medium">30% increase in qualified leads, better attribution</p>
               </div>
-              <div className="p-4 bg-gray-50 dark:bg-[#222] rounded-lg">
-                <p className="text-sm text-brand-grey dark:text-brand-grey mb-1">What if we do nothing?</p>
+              <div className="p-4 bg-gray-50 rounded-lg">
+                <p className="text-sm text-brand-grey mb-1">What if we do nothing?</p>
                 <p className="font-medium">Manual email campaigns continue, inconsistent follow-up</p>
               </div>
             </div>
@@ -212,7 +212,7 @@ export default function DemoSurveyPage() {
           </div>
 
           <div className="mt-4 text-center">
-            <Link href="/demo/login" className="text-brand-green hover:text-brand-green text-brand-green dark:hover:text-brand-green/80 text-sm">
+            <Link href="/demo/login" className="text-brand-green hover:text-brand-green text-brand-green text-sm">
               ← Switch demo user
             </Link>
           </div>
@@ -224,13 +224,13 @@ export default function DemoSurveyPage() {
   // Completed View
   if (isComplete) {
     return (
-      <div className="min-h-screen bg-gray-50 dark:bg-black text-gray-900 dark:text-white flex items-center justify-center">
+      <div className="min-h-screen bg-gray-50 text-gray-900 flex items-center justify-center">
         <div className="text-center max-w-md px-6">
           <div className="w-16 h-16 bg-green-500 rounded-full flex items-center justify-center mx-auto mb-6">
             <CheckCircle className="w-8 h-8 text-white" />
           </div>
           <h1 className="text-2xl font-bold mb-2">Survey Complete!</h1>
-          <p className="text-gray-600 dark:text-brand-grey mb-8">
+          <p className="text-gray-600 mb-8">
             Thank you for completing your assessment. Your responses have been recorded and will be analyzed with other participants' input.
           </p>
           <div className="space-y-3">
@@ -248,8 +248,8 @@ export default function DemoSurveyPage() {
 
   // Survey Questions View
   return (
-    <div className="min-h-screen bg-gray-50 dark:bg-black text-gray-900 dark:text-white">
-      <header className="bg-white dark:bg-[#111] border-b border-gray-200 dark:border-[#333] sticky top-0 z-10">
+    <div className="min-h-screen bg-gray-50 text-gray-900">
+      <header className="bg-white border-b border-gray-200 sticky top-0 z-10">
         <div className="max-w-3xl mx-auto px-6 py-4">
           <div className="flex items-center justify-between mb-2">
             <div className="flex items-center gap-2">
@@ -258,11 +258,11 @@ export default function DemoSurveyPage() {
             </div>
             <div className="flex items-center gap-3">
               <span className="text-2xl">{roleInfo.emoji}</span>
-              <span className="text-sm text-brand-grey dark:text-brand-grey">{currentIndex + 1} of {questions.length}</span>
+              <span className="text-sm text-brand-grey">{currentIndex + 1} of {questions.length}</span>
               <ThemeToggle />
             </div>
           </div>
-          <div className="h-1 bg-gray-200 dark:bg-[#222] rounded-full overflow-hidden">
+          <div className="h-1 bg-gray-200 rounded-full overflow-hidden">
             <div 
               className="h-full bg-brand-green transition-all duration-300"
               style={{ width: `${progress}%` }}
@@ -272,7 +272,7 @@ export default function DemoSurveyPage() {
       </header>
 
       <main className="max-w-3xl mx-auto px-6 py-12">
-        <div className="bg-white dark:bg-[#111] rounded-xl border border-gray-200 dark:border-[#333] p-8">
+        <div className="bg-white rounded-xl border border-gray-200 p-8">
           <div className="mb-8">
             <span className="text-sm text-brand-green text-brand-green font-medium">Question {currentIndex + 1}</span>
             <h2 className="text-xl font-semibold mt-2">{currentQuestion.text}</h2>
@@ -288,13 +288,13 @@ export default function DemoSurveyPage() {
                   className={`w-full p-4 rounded-lg border text-left transition-all flex items-center gap-4 ${
                     responses[currentQuestion.id] === option.value
                       ? 'border-brand-green bg-brand-green/10'
-                      : 'border-gray-200 dark:border-[#333] hover:border-gray-300 dark:hover:border-gray-600'
+                      : 'border-gray-200 hover:border-gray-300'
                   }`}
                 >
                   <div className={`w-6 h-6 rounded-full border-2 flex items-center justify-center ${
                     responses[currentQuestion.id] === option.value
                       ? 'border-brand-green bg-brand-green'
-                      : 'border-gray-300 dark:border-gray-600'
+                      : 'border-gray-300'
                   }`}>
                     {responses[currentQuestion.id] === option.value && (
                       <div className="w-2 h-2 bg-white rounded-full" />
@@ -302,7 +302,7 @@ export default function DemoSurveyPage() {
                   </div>
                   <div>
                     <span className="font-medium">{option.value}</span>
-                    <span className="text-brand-grey dark:text-brand-grey ml-2">— {option.label}</span>
+                    <span className="text-brand-grey ml-2">— {option.label}</span>
                   </div>
                 </button>
               ))}
@@ -319,7 +319,7 @@ export default function DemoSurveyPage() {
                   className={`w-full p-4 rounded-lg border text-left transition-all ${
                     responses[currentQuestion.id] === option
                       ? 'border-brand-green bg-brand-green/10'
-                      : 'border-gray-200 dark:border-[#333] hover:border-gray-300 dark:hover:border-gray-600'
+                      : 'border-gray-200 hover:border-gray-300'
                   }`}
                 >
                   {option}
@@ -336,7 +336,7 @@ export default function DemoSurveyPage() {
                 onChange={e => setResponses(prev => ({ ...prev, [currentQuestion.id]: e.target.value }))}
                 rows={5}
                 placeholder="Enter your response..."
-                className="bg-gray-50 dark:bg-[#222] border-gray-200 dark:border-[#333] text-gray-900 dark:text-white"
+                className="bg-gray-50 border-gray-200 text-gray-900"
               />
               <p className="text-sm text-brand-grey mt-2">
                 Your response will be classified into themes — it will not be shown to other participants.
@@ -345,7 +345,7 @@ export default function DemoSurveyPage() {
           )}
 
           {/* Navigation */}
-          <div className="flex items-center justify-between mt-8 pt-6 border-t border-gray-200 dark:border-[#333]">
+          <div className="flex items-center justify-between mt-8 pt-6 border-t border-gray-200">
             <Button
               variant="outline"
               onClick={() => setCurrentIndex(i => i - 1)}
@@ -376,7 +376,7 @@ export default function DemoSurveyPage() {
                   ? 'w-6 bg-brand-green'
                   : responses[q.id]
                     ? 'bg-brand-green'
-                    : 'bg-gray-300 dark:bg-gray-700'
+                    : 'bg-gray-300'
               }`}
             />
           ))}

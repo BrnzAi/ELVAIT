@@ -51,7 +51,7 @@ function SignInForm() {
   };
 
   return (
-    <div className="bg-gray-900 rounded-2xl border border-gray-800 p-8">
+    <div className="bg-white rounded-2xl border border-brand-grey-medium p-8">
       {/* Show benefit banner when coming from results */}
       {returnTo?.includes('/results') && (
         <div className="mb-6 p-4 bg-brand-green/10 border border-brand-green/20 rounded-lg">
@@ -69,7 +69,7 @@ function SignInForm() {
 
       <div className="text-center mb-8">
         <h1 className="text-2xl font-bold mb-2">Welcome back</h1>
-        <p className="text-gray-400">
+        <p className="text-brand-grey">
           Sign in to access your assessments
         </p>
       </div>
@@ -83,7 +83,7 @@ function SignInForm() {
         )}
 
         <div>
-          <label className="block text-sm font-medium text-gray-300 mb-1.5">
+          <label className="block text-sm font-medium text-brand-grey mb-1.5">
             Email
           </label>
           <div className="relative">
@@ -93,7 +93,7 @@ function SignInForm() {
               required
               value={formData.email}
               onChange={(e) => setFormData({ ...formData, email: e.target.value })}
-              className="w-full pl-10 pr-4 py-2.5 bg-[#111] border border-[#333] rounded-lg focus:outline-none focus:ring-2 focus:ring-brand-green focus:border-transparent"
+              className="w-full pl-10 pr-4 py-2.5 bg-white border border-brand-grey-medium rounded-lg focus:outline-none focus:ring-2 focus:ring-brand-green focus:border-transparent"
               placeholder="you@example.com"
             />
           </div>
@@ -101,7 +101,7 @@ function SignInForm() {
 
         <div>
           <div className="flex items-center justify-between mb-1.5">
-            <label className="block text-sm font-medium text-gray-300">
+            <label className="block text-sm font-medium text-brand-grey">
               Password
             </label>
             <Link 
@@ -118,7 +118,7 @@ function SignInForm() {
               required
               value={formData.password}
               onChange={(e) => setFormData({ ...formData, password: e.target.value })}
-              className="w-full pl-10 pr-4 py-2.5 bg-[#111] border border-[#333] rounded-lg focus:outline-none focus:ring-2 focus:ring-brand-green focus:border-transparent"
+              className="w-full pl-10 pr-4 py-2.5 bg-white border border-brand-grey-medium rounded-lg focus:outline-none focus:ring-2 focus:ring-brand-green focus:border-transparent"
               placeholder="••••••••"
             />
           </div>
@@ -143,7 +143,7 @@ function SignInForm() {
         </Button>
       </form>
 
-      <div className="mt-6 text-center text-sm text-gray-400">
+      <div className="mt-6 text-center text-sm text-brand-grey">
         Don't have an account?{' '}
         <Link 
           href={returnTo ? `/signup?returnTo=${encodeURIComponent(returnTo)}` : '/signup'} 
@@ -159,9 +159,9 @@ function SignInForm() {
 export default function SignInPage() {
   return (
     <Suspense fallback={
-      <div className="bg-gray-900 rounded-2xl border border-gray-800 p-8 animate-pulse">
-        <div className="h-8 bg-[#111] rounded w-1/2 mx-auto mb-4" />
-        <div className="h-4 bg-[#111] rounded w-3/4 mx-auto" />
+      <div className="bg-white rounded-2xl border border-brand-grey-medium p-8 animate-pulse">
+        <div className="h-8 bg-white rounded w-1/2 mx-auto mb-4" />
+        <div className="h-4 bg-white rounded w-3/4 mx-auto" />
       </div>
     }>
       <SignInForm />

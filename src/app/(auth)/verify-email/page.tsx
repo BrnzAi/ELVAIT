@@ -46,14 +46,14 @@ function VerifyEmailContent() {
   }, [token]);
 
   return (
-    <div className="bg-gray-900 rounded-2xl border border-gray-800 p-8 text-center">
+    <div className="bg-white rounded-2xl border border-brand-grey-medium p-8 text-center">
       {status === 'loading' && (
         <>
           <div className="w-16 h-16 bg-brand-green/20 rounded-full flex items-center justify-center mx-auto mb-6">
             <Loader2 className="w-8 h-8 text-brand-green animate-spin" />
           </div>
           <h1 className="text-2xl font-bold mb-4">Verifying your email...</h1>
-          <p className="text-gray-400">Please wait while we verify your email address.</p>
+          <p className="text-brand-grey">Please wait while we verify your email address.</p>
         </>
       )}
 
@@ -63,7 +63,7 @@ function VerifyEmailContent() {
             <CheckCircle className="w-8 h-8 text-green-500" />
           </div>
           <h1 className="text-2xl font-bold mb-4">Email Verified!</h1>
-          <p className="text-gray-400 mb-6">{message}</p>
+          <p className="text-brand-grey mb-6">{message}</p>
           <Link href="/signin">
             <Button className="w-full">
               Continue to Sign In
@@ -78,7 +78,7 @@ function VerifyEmailContent() {
             <XCircle className="w-8 h-8 text-red-500" />
           </div>
           <h1 className="text-2xl font-bold mb-4">Verification Failed</h1>
-          <p className="text-gray-400 mb-6">{message}</p>
+          <p className="text-brand-grey mb-6">{message}</p>
           <div className="space-y-3">
             <Link href="/signup">
               <Button variant="outline" className="w-full">
@@ -100,7 +100,7 @@ function VerifyEmailContent() {
 export default function VerifyEmailPage() {
   return (
     <Suspense fallback={
-      <div className="bg-gray-900 rounded-2xl border border-gray-800 p-8 text-center">
+      <div className="bg-white rounded-2xl border border-brand-grey-medium p-8 text-center">
         <div className="w-16 h-16 bg-brand-green/20 rounded-full flex items-center justify-center mx-auto mb-6">
           <Loader2 className="w-8 h-8 text-brand-green animate-spin" />
         </div>

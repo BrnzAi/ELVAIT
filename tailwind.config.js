@@ -1,6 +1,6 @@
 /** @type {import('tailwindcss').Config} */
 module.exports = {
-  darkMode: 'class',
+  // darkMode removed — site is light-first
   content: [
     './src/**/*.{js,ts,jsx,tsx,mdx}',
   ],
@@ -11,6 +11,8 @@ module.exports = {
           green: '#D2FFB8',
           red: '#FF4C4C',
           grey: '#777777',
+          'grey-medium': '#B4B4B4',
+          'grey-light': '#F0F0F0',
           black: '#000000',
           white: '#FFFFFF',
         },

@@ -225,7 +225,7 @@ export default function CreateCasePage() {
   // Show loading while checking limit
   if (checkingLimit && sessionStatus !== 'unauthenticated') {
     return (
-      <div className="min-h-screen bg-gray-50 dark:bg-gray-950 flex items-center justify-center">
+      <div className="min-h-screen bg-gray-50 flex items-center justify-center">
         <div className="text-center">
           <div className="w-8 h-8 border-2 border-brand-green border-t-transparent rounded-full animate-spin mx-auto mb-4" />
           <p className="text-gray-600">Loading...</p>
@@ -239,10 +239,10 @@ export default function CreateCasePage() {
     const maxCases = TIER_LIMITS[userTier]?.maxCases || 1;
     
     return (
-      <div className="min-h-screen bg-gray-50 dark:bg-gray-950">
-        <header className="bg-white dark:bg-gray-900 border-b border-gray-200 dark:border-gray-800">
+      <div className="min-h-screen bg-gray-50">
+        <header className="bg-white border-b border-gray-200">
           <div className="max-w-4xl mx-auto px-6 py-4 flex items-center justify-between">
-            <Link href="/dashboard" className="flex items-center gap-2 text-gray-600 hover:text-gray-900 dark:text-gray-400 dark:hover:text-white">
+            <Link href="/dashboard" className="flex items-center gap-2 text-gray-600 hover:text-gray-900">
               <ArrowLeft className="w-5 h-5" />
               <span>Back to Dashboard</span>
             </Link>
@@ -256,35 +256,35 @@ export default function CreateCasePage() {
 
         <main className="max-w-2xl mx-auto px-6 py-16">
           <div className="text-center">
-            <div className="w-20 h-20 rounded-full bg-amber-100 dark:bg-amber-900/30 flex items-center justify-center mx-auto mb-6">
+            <div className="w-20 h-20 rounded-full bg-amber-100 flex items-center justify-center mx-auto mb-6">
               <Lock className="w-10 h-10 text-amber-600" />
             </div>
             <h1 className="text-3xl font-bold mb-4">You've used your free assessment</h1>
-            <p className="text-gray-600 dark:text-gray-400 mb-2">
+            <p className="text-gray-600 mb-2">
               Your {userTier} plan includes {maxCases} active assessment{maxCases > 1 ? 's' : ''}.
             </p>
-            <p className="text-gray-600 dark:text-gray-400 mb-8">
+            <p className="text-gray-600 mb-8">
               You currently have <strong>{caseCount}</strong> assessment{caseCount > 1 ? 's' : ''}.
             </p>
 
-            <div className="bg-white dark:bg-gray-900 rounded-xl border border-gray-200 dark:border-gray-800 p-6 mb-8">
+            <div className="bg-white rounded-xl border border-gray-200 p-6 mb-8">
               <h2 className="font-semibold mb-4">Upgrade to create more assessments</h2>
               <div className="grid gap-4 text-left">
-                <div className="flex items-start gap-3 p-3 bg-gray-50 dark:bg-gray-800 rounded-lg">
+                <div className="flex items-start gap-3 p-3 bg-gray-50 rounded-lg">
                   <Sparkles className="w-5 h-5 text-blue-500 mt-0.5" />
                   <div>
                     <p className="font-medium">Try Out — €199/3 months</p>
                     <p className="text-sm text-gray-500">1 full assessment + PDF report (credited to Core)</p>
                   </div>
                 </div>
-                <div className="flex items-start gap-3 p-3 bg-gray-50 dark:bg-gray-800 rounded-lg">
+                <div className="flex items-start gap-3 p-3 bg-gray-50 rounded-lg">
                   <Sparkles className="w-5 h-5 text-purple-500 mt-0.5" />
                   <div>
                     <p className="font-medium">Core — €1,900/year</p>
                     <p className="text-sm text-gray-500">Up to 10 assessments + PDF reports</p>
                   </div>
                 </div>
-                <div className="flex items-start gap-3 p-3 bg-gray-50 dark:bg-gray-800 rounded-lg">
+                <div className="flex items-start gap-3 p-3 bg-gray-50 rounded-lg">
                   <Sparkles className="w-5 h-5 text-green-500 mt-0.5" />
                   <div>
                     <p className="font-medium">Advanced — €3,500/year</p>
@@ -314,11 +314,11 @@ export default function CreateCasePage() {
   }
 
   return (
-    <div className="min-h-screen bg-gray-50 dark:bg-gray-950">
+    <div className="min-h-screen bg-gray-50">
       {/* Header */}
-      <header className="bg-white dark:bg-gray-900 border-b border-gray-200 dark:border-gray-800">
+      <header className="bg-white border-b border-gray-200">
         <div className="max-w-4xl mx-auto px-6 py-4 flex items-center justify-between">
-          <Link href="/" className="flex items-center gap-2 text-gray-600 hover:text-gray-900 dark:text-gray-400 dark:hover:text-white">
+          <Link href="/" className="flex items-center gap-2 text-gray-600 hover:text-gray-900">
             <ArrowLeft className="w-5 h-5" />
             <span>Back</span>
           </Link>
@@ -331,9 +331,9 @@ export default function CreateCasePage() {
       </header>
 
       {/* Progress Bar */}
-      <div className="bg-white dark:bg-gray-900 border-b border-gray-200 dark:border-gray-800">
+      <div className="bg-white border-b border-gray-200">
         <div className="max-w-4xl mx-auto px-6">
-          <div className="h-1 bg-gray-200 dark:bg-gray-800 rounded-full overflow-hidden">
+          <div className="h-1 bg-gray-200 rounded-full overflow-hidden">
             <div 
               className="h-full bg-brand-green transition-all duration-300"
               style={{ width: `${(step / 3) * 100}%` }}
@@ -345,7 +345,7 @@ export default function CreateCasePage() {
       {/* Content */}
       <main className="max-w-4xl mx-auto px-6 py-12">
         {error && (
-          <div className="mb-6 p-4 bg-red-50 dark:bg-red-900/20 border border-red-200 dark:border-red-800 rounded-lg flex items-center gap-3 text-red-700 dark:text-red-400">
+          <div className="mb-6 p-4 bg-red-50 border border-red-200 rounded-lg flex items-center gap-3 text-red-700">
             <AlertCircle className="w-5 h-5" />
             {error}
           </div>
@@ -355,7 +355,7 @@ export default function CreateCasePage() {
         {step === 1 && (
           <div>
             <h1 className="text-3xl font-bold mb-2">Select Assessment Type</h1>
-            <p className="text-gray-600 dark:text-gray-400 mb-8">
+            <p className="text-gray-600 mb-8">
               Choose the assessment depth based on your decision complexity and available participants.
             </p>
             
@@ -366,12 +366,12 @@ export default function CreateCasePage() {
                   onClick={() => updateField('variant', variant.id)}
                   className={`p-6 rounded-xl border-2 text-left transition-all ${
                     formData.variant === variant.id
-                      ? 'border-brand-green bg-brand-green/10 dark:bg-brand-green/10'
-                      : 'border-gray-200 dark:border-gray-800 hover:border-gray-300 dark:hover:border-gray-700'
+                      ? 'border-brand-green bg-brand-green/10'
+                      : 'border-gray-200 hover:border-gray-300'
                   }`}
                 >
                   <div className="flex items-start justify-between mb-4">
-                    <div className={`w-12 h-12 rounded-xl bg-${variant.color}-100 dark:bg-${variant.color}-900/30 flex items-center justify-center`}>
+                    <div className={`w-12 h-12 rounded-xl bg-${variant.color}-100 flex items-center justify-center`}>
                       <variant.icon className={`w-6 h-6 text-${variant.color}-600`} />
                     </div>
                     {formData.variant === variant.id && (
@@ -381,21 +381,21 @@ export default function CreateCasePage() {
                     )}
                   </div>
                   <h3 className="text-lg font-semibold mb-1">{variant.name}</h3>
-                  <p className="text-sm text-gray-600 dark:text-gray-400 mb-3">{variant.description}</p>
+                  <p className="text-sm text-gray-600 mb-3">{variant.description}</p>
                   <div className="flex items-center gap-4 text-sm">
                     <span className="text-gray-500">⏱️ {variant.time}</span>
                     <span className="text-gray-500">👥 {variant.roles.length} role(s)</span>
                   </div>
                   <div className="mt-3 flex flex-wrap gap-1">
                     {variant.roles.map(role => (
-                      <span key={role} className="px-2 py-0.5 bg-gray-100 dark:bg-gray-800 rounded text-xs">
+                      <span key={role} className="px-2 py-0.5 bg-gray-100 rounded text-xs">
                         {role}
                       </span>
                     ))}
                   </div>
                   <div className="mt-2 flex flex-wrap gap-1">
                     {variant.lenses.map(lens => (
-                      <span key={lens} className="px-2 py-0.5 bg-brand-green/10 dark:bg-brand-green/10 text-black dark:text-brand-green/80 rounded text-xs">
+                      <span key={lens} className="px-2 py-0.5 bg-brand-green/10 text-black rounded text-xs">
                         🔍 {lens}
                       </span>
                     ))}
@@ -410,7 +410,7 @@ export default function CreateCasePage() {
         {step === 2 && (
           <div>
             <h1 className="text-3xl font-bold mb-2">Decision Context</h1>
-            <p className="text-gray-600 dark:text-gray-400 mb-8">
+            <p className="text-gray-600 mb-8">
               Describe the decision you're evaluating. This context will be shown to all participants.
             </p>
             
@@ -418,7 +418,7 @@ export default function CreateCasePage() {
               <div>
                 <label className="block text-sm font-medium mb-2">
                   Decision Title <span className="text-red-500">*</span>
-                  <span className="text-gray-400 font-normal ml-2">({formData.decisionTitle.length}/120)</span>
+                  <span className="text-brand-grey font-normal ml-2">({formData.decisionTitle.length}/120)</span>
                 </label>
                 <Input
                   value={formData.decisionTitle}
@@ -440,8 +440,8 @@ export default function CreateCasePage() {
                       onClick={() => updateField('investmentType', type)}
                       className={`p-3 rounded-lg border text-left text-sm transition-all ${
                         formData.investmentType === type
-                          ? 'border-brand-green bg-brand-green/10 dark:bg-brand-green/10'
-                          : 'border-gray-200 dark:border-gray-700 hover:border-gray-300'
+                          ? 'border-brand-green bg-brand-green/10'
+                          : 'border-gray-200 hover:border-gray-300'
                       }`}
                     >
                       {type}
@@ -453,7 +453,7 @@ export default function CreateCasePage() {
               <div>
                 <label className="block text-sm font-medium mb-2">
                   Decision Description <span className="text-red-500">*</span>
-                  <span className="text-gray-400 font-normal ml-2">({formData.decisionDescription.length}/500)</span>
+                  <span className="text-brand-grey font-normal ml-2">({formData.decisionDescription.length}/500)</span>
                 </label>
                 <Textarea
                   value={formData.decisionDescription}
@@ -481,8 +481,8 @@ export default function CreateCasePage() {
                       }}
                       className={`px-3 py-1.5 rounded-lg border text-sm transition-all ${
                         formData.impactedAreas.includes(area)
-                          ? 'border-brand-green bg-brand-green/10 dark:bg-brand-green/10'
-                          : 'border-gray-200 dark:border-gray-700 hover:border-gray-300'
+                          ? 'border-brand-green bg-brand-green/10'
+                          : 'border-gray-200 hover:border-gray-300'
                       }`}
                     >
                       {area}
@@ -503,8 +503,8 @@ export default function CreateCasePage() {
                       onClick={() => updateField('timeHorizon', horizon)}
                       className={`px-4 py-2 rounded-lg border text-sm transition-all ${
                         formData.timeHorizon === horizon
-                          ? 'border-brand-green bg-brand-green/10 dark:bg-brand-green/10'
-                          : 'border-gray-200 dark:border-gray-700 hover:border-gray-300'
+                          ? 'border-brand-green bg-brand-green/10'
+                          : 'border-gray-200 hover:border-gray-300'
                       }`}
                     >
                       {horizon}
@@ -515,7 +515,7 @@ export default function CreateCasePage() {
 
               <div>
                 <label className="block text-sm font-medium mb-2">
-                  Estimated Investment Size <span className="text-gray-400 font-normal">(Optional)</span>
+                  Estimated Investment Size <span className="text-brand-grey font-normal">(Optional)</span>
                 </label>
                 <div className="flex flex-wrap gap-3">
                   {INVESTMENT_SIZES.map(size => (
@@ -524,8 +524,8 @@ export default function CreateCasePage() {
                       onClick={() => updateField('estimatedInvestment', formData.estimatedInvestment === size ? '' : size)}
                       className={`px-4 py-2 rounded-lg border text-sm transition-all ${
                         formData.estimatedInvestment === size
-                          ? 'border-brand-green bg-brand-green/10 dark:bg-brand-green/10'
-                          : 'border-gray-200 dark:border-gray-700 hover:border-gray-300'
+                          ? 'border-brand-green bg-brand-green/10'
+                          : 'border-gray-200 hover:border-gray-300'
                       }`}
                     >
                       {size}
@@ -536,7 +536,7 @@ export default function CreateCasePage() {
 
               {/* Process Editor - only for variants that include Process Readiness */}
               {(formData.variant === 'FULL' || formData.variant === 'PROCESS_STANDALONE') && (
-                <div className="p-6 bg-white dark:bg-gray-900 rounded-xl border border-gray-200 dark:border-gray-800">
+                <div className="p-6 bg-white rounded-xl border border-gray-200">
                   <ProcessEditor
                     processes={formData.processes}
                     onChange={(processes) => updateField('processes', processes)}
@@ -551,12 +551,12 @@ export default function CreateCasePage() {
         {step === 3 && (
           <div>
             <h1 className="text-3xl font-bold mb-2">Decision Framing</h1>
-            <p className="text-gray-600 dark:text-gray-400 mb-8">
+            <p className="text-gray-600 mb-8">
               Answer these questions to establish clear decision context. Your answers will be shown to all participants.
             </p>
             
             <div className="space-y-6">
-              <div className="p-6 bg-white dark:bg-gray-900 rounded-xl border border-gray-200 dark:border-gray-800">
+              <div className="p-6 bg-white rounded-xl border border-gray-200">
                 <label className="block text-sm font-medium mb-2">
                   D-CTX-1: What decision are we actually trying to make? <span className="text-red-500">*</span>
                 </label>
@@ -568,7 +568,7 @@ export default function CreateCasePage() {
                 />
               </div>
 
-              <div className="p-6 bg-white dark:bg-gray-900 rounded-xl border border-gray-200 dark:border-gray-800">
+              <div className="p-6 bg-white rounded-xl border border-gray-200">
                 <label className="block text-sm font-medium mb-2">
                   D-CTX-2: What will be different if this decision succeeds? <span className="text-red-500">*</span>
                 </label>
@@ -580,7 +580,7 @@ export default function CreateCasePage() {
                 />
               </div>
 
-              <div className="p-6 bg-white dark:bg-gray-900 rounded-xl border border-gray-200 dark:border-gray-800">
+              <div className="p-6 bg-white rounded-xl border border-gray-200">
                 <label className="block text-sm font-medium mb-2">
                   D-CTX-3: What happens if we do nothing? <span className="text-red-500">*</span>
                 </label>
@@ -592,7 +592,7 @@ export default function CreateCasePage() {
                 />
               </div>
 
-              <div className="p-6 bg-white dark:bg-gray-900 rounded-xl border border-gray-200 dark:border-gray-800">
+              <div className="p-6 bg-white rounded-xl border border-gray-200">
                 <label className="block text-sm font-medium mb-2">
                   D-CTX-4: What would make this decision a mistake in hindsight? <span className="text-red-500">*</span>
                 </label>
@@ -608,7 +608,7 @@ export default function CreateCasePage() {
         )}
 
         {/* Navigation */}
-        <div className="flex items-center justify-between mt-12 pt-6 border-t border-gray-200 dark:border-gray-800">
+        <div className="flex items-center justify-between mt-12 pt-6 border-t border-gray-200">
           <Button
             variant="outline"
             onClick={() => setStep(s => s - 1)}

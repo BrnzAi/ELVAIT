@@ -111,7 +111,7 @@ export default function AdminUsersPage() {
 
   if (status === 'loading' || loading) {
     return (
-      <div className="min-h-screen bg-gray-50 dark:bg-gray-950 flex items-center justify-center">
+      <div className="min-h-screen bg-gray-50 flex items-center justify-center">
         <div className="text-center">
           <div className="w-8 h-8 border-2 border-brand-green border-t-transparent rounded-full animate-spin mx-auto mb-4" />
           <p className="text-gray-600">Loading...</p>
@@ -121,12 +121,12 @@ export default function AdminUsersPage() {
   }
 
   return (
-    <div className="min-h-screen bg-gray-50 dark:bg-gray-950">
+    <div className="min-h-screen bg-gray-50">
       {/* Header */}
-      <header className="bg-white dark:bg-gray-900 border-b border-gray-200 dark:border-gray-800">
+      <header className="bg-white border-b border-gray-200">
         <div className="max-w-6xl mx-auto px-6 py-4 flex items-center justify-between">
           <div className="flex items-center gap-4">
-            <Link href="/dashboard" className="flex items-center gap-2 text-gray-600 hover:text-gray-900 dark:text-gray-400 dark:hover:text-white">
+            <Link href="/dashboard" className="flex items-center gap-2 text-gray-600 hover:text-gray-900">
               <ArrowLeft className="w-5 h-5" />
               <span>Dashboard</span>
             </Link>
@@ -140,7 +140,7 @@ export default function AdminUsersPage() {
 
       <main className="max-w-6xl mx-auto px-6 py-8">
         {error && (
-          <div className="mb-6 p-4 bg-red-50 dark:bg-red-900/20 border border-red-200 dark:border-red-800 rounded-lg text-red-700 dark:text-red-400">
+          <div className="mb-6 p-4 bg-red-50 border border-red-200 rounded-lg text-red-700">
             {error}
           </div>
         )}
@@ -148,7 +148,7 @@ export default function AdminUsersPage() {
         {/* Search */}
         <div className="mb-6">
           <div className="relative max-w-md">
-            <Search className="absolute left-3 top-1/2 -translate-y-1/2 w-5 h-5 text-gray-400" />
+            <Search className="absolute left-3 top-1/2 -translate-y-1/2 w-5 h-5 text-brand-grey" />
             <Input
               value={searchQuery}
               onChange={(e) => setSearchQuery(e.target.value)}
@@ -159,10 +159,10 @@ export default function AdminUsersPage() {
         </div>
 
         {/* Users Table */}
-        <div className="bg-white dark:bg-gray-900 rounded-xl border border-gray-200 dark:border-gray-800 overflow-hidden">
+        <div className="bg-white rounded-xl border border-gray-200 overflow-hidden">
           <table className="w-full">
             <thead>
-              <tr className="border-b border-gray-200 dark:border-gray-800">
+              <tr className="border-b border-gray-200">
                 <th className="px-6 py-4 text-left text-sm font-medium text-gray-500">User</th>
                 <th className="px-6 py-4 text-left text-sm font-medium text-gray-500">Tier</th>
                 <th className="px-6 py-4 text-left text-sm font-medium text-gray-500">Cases</th>
@@ -170,9 +170,9 @@ export default function AdminUsersPage() {
                 <th className="px-6 py-4 text-right text-sm font-medium text-gray-500">Actions</th>
               </tr>
             </thead>
-            <tbody className="divide-y divide-gray-200 dark:divide-gray-800">
+            <tbody className="divide-y divide-gray-200">
               {filteredUsers.map(user => (
-                <tr key={user.id} className="hover:bg-gray-50 dark:hover:bg-gray-800/50">
+                <tr key={user.id} className="hover:bg-gray-50">
                   <td className="px-6 py-4">
                     <div>
                       <p className="font-medium">{user.name || 'No name'}</p>
@@ -181,17 +181,17 @@ export default function AdminUsersPage() {
                   </td>
                   <td className="px-6 py-4">
                     <span className={`inline-flex items-center gap-1.5 px-2.5 py-1 rounded-full text-sm font-medium ${
-                      user.tier === 'enterprise' ? 'bg-purple-100 text-purple-800 dark:bg-purple-900/30 dark:text-purple-300' :
-                      user.tier === 'advanced' ? 'bg-amber-100 text-amber-800 dark:bg-amber-900/30 dark:text-amber-300' :
-                      user.tier === 'core' ? 'bg-brand-green/10 text-brand-green dark:bg-brand-green/10 dark:text-brand-green/80' :
-                      user.tier === 'tryout' ? 'bg-green-100 text-green-800 dark:bg-green-900/30 dark:text-green-300' :
-                      'bg-gray-100 text-gray-800 dark:bg-gray-800 dark:text-gray-300'
+                      user.tier === 'enterprise' ? 'bg-purple-100 text-purple-800' :
+                      user.tier === 'advanced' ? 'bg-amber-100 text-amber-800' :
+                      user.tier === 'core' ? 'bg-brand-green/10 text-brand-green' :
+                      user.tier === 'tryout' ? 'bg-green-100 text-green-800' :
+                      'bg-gray-100 text-gray-800'
                     }`}>
                       {user.tier === 'tryout' ? 'Try Out' : user.tier.charAt(0).toUpperCase() + user.tier.slice(1)}
                     </span>
                   </td>
                   <td className="px-6 py-4">
-                    <span className="text-gray-600 dark:text-gray-400">
+                    <span className="text-gray-600">
                       {user._count.cases} / {TIER_LIMITS[user.tier]?.maxCases || '∞'}
                     </span>
                   </td>
@@ -234,9 +234,9 @@ export default function AdminUsersPage() {
         </div>
 
         {/* Legend */}
-        <div className="mt-6 p-4 bg-gray-100 dark:bg-gray-800 rounded-lg">
-          <p className="text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">Tier Limits</p>
-          <div className="grid grid-cols-2 md:grid-cols-4 gap-4 text-sm text-gray-600 dark:text-gray-400">
+        <div className="mt-6 p-4 bg-gray-100 rounded-lg">
+          <p className="text-sm font-medium text-gray-700 mb-2">Tier Limits</p>
+          <div className="grid grid-cols-2 md:grid-cols-4 gap-4 text-sm text-gray-600">
             {TIERS.map(tier => (
               <div key={tier.id} className="flex items-center gap-2">
                 <tier.icon className="w-4 h-4" />

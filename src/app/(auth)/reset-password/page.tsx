@@ -20,12 +20,12 @@ function ResetPasswordContent() {
 
   if (!token) {
     return (
-      <div className="bg-gray-900 rounded-2xl border border-gray-800 p-8 text-center">
+      <div className="bg-white rounded-2xl border border-brand-grey-medium p-8 text-center">
         <div className="w-16 h-16 bg-red-500/20 rounded-full flex items-center justify-center mx-auto mb-6">
           <XCircle className="w-8 h-8 text-red-500" />
         </div>
         <h1 className="text-2xl font-bold mb-4">Invalid Reset Link</h1>
-        <p className="text-gray-400 mb-6">
+        <p className="text-brand-grey mb-6">
           This password reset link is invalid or has expired.
         </p>
         <Link href="/forgot-password">
@@ -74,12 +74,12 @@ function ResetPasswordContent() {
 
   if (success) {
     return (
-      <div className="bg-gray-900 rounded-2xl border border-gray-800 p-8 text-center">
+      <div className="bg-white rounded-2xl border border-brand-grey-medium p-8 text-center">
         <div className="w-16 h-16 bg-green-500/20 rounded-full flex items-center justify-center mx-auto mb-6">
           <CheckCircle className="w-8 h-8 text-green-500" />
         </div>
         <h1 className="text-2xl font-bold mb-4">Password Reset!</h1>
-        <p className="text-gray-400 mb-6">
+        <p className="text-brand-grey mb-6">
           Your password has been reset successfully. You can now sign in with your new password.
         </p>
         <Link href="/signin">
@@ -92,10 +92,10 @@ function ResetPasswordContent() {
   }
 
   return (
-    <div className="bg-gray-900 rounded-2xl border border-gray-800 p-8">
+    <div className="bg-white rounded-2xl border border-brand-grey-medium p-8">
       <div className="text-center mb-8">
         <h1 className="text-2xl font-bold mb-2">Set new password</h1>
-        <p className="text-gray-400">
+        <p className="text-brand-grey">
           Enter your new password below
         </p>
       </div>
@@ -109,7 +109,7 @@ function ResetPasswordContent() {
         )}
 
         <div>
-          <label className="block text-sm font-medium text-gray-300 mb-1.5">
+          <label className="block text-sm font-medium text-brand-grey mb-1.5">
             New Password
           </label>
           <div className="relative">
@@ -119,7 +119,7 @@ function ResetPasswordContent() {
               required
               value={formData.password}
               onChange={(e) => setFormData({ ...formData, password: e.target.value })}
-              className="w-full pl-10 pr-4 py-2.5 bg-[#111] border border-[#333] rounded-lg focus:outline-none focus:ring-2 focus:ring-brand-green focus:border-transparent"
+              className="w-full pl-10 pr-4 py-2.5 bg-white border border-brand-grey-medium rounded-lg focus:outline-none focus:ring-2 focus:ring-brand-green focus:border-transparent"
               placeholder="••••••••"
             />
           </div>
@@ -129,7 +129,7 @@ function ResetPasswordContent() {
         </div>
 
         <div>
-          <label className="block text-sm font-medium text-gray-300 mb-1.5">
+          <label className="block text-sm font-medium text-brand-grey mb-1.5">
             Confirm New Password
           </label>
           <div className="relative">
@@ -139,7 +139,7 @@ function ResetPasswordContent() {
               required
               value={formData.confirmPassword}
               onChange={(e) => setFormData({ ...formData, confirmPassword: e.target.value })}
-              className="w-full pl-10 pr-4 py-2.5 bg-[#111] border border-[#333] rounded-lg focus:outline-none focus:ring-2 focus:ring-brand-green focus:border-transparent"
+              className="w-full pl-10 pr-4 py-2.5 bg-white border border-brand-grey-medium rounded-lg focus:outline-none focus:ring-2 focus:ring-brand-green focus:border-transparent"
               placeholder="••••••••"
             />
           </div>
@@ -170,7 +170,7 @@ function ResetPasswordContent() {
 export default function ResetPasswordPage() {
   return (
     <Suspense fallback={
-      <div className="bg-gray-900 rounded-2xl border border-gray-800 p-8 text-center">
+      <div className="bg-white rounded-2xl border border-brand-grey-medium p-8 text-center">
         <div className="w-16 h-16 bg-brand-green/20 rounded-full flex items-center justify-center mx-auto mb-6">
           <Loader2 className="w-8 h-8 text-brand-green animate-spin" />
         </div>

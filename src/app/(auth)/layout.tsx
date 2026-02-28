@@ -7,9 +7,9 @@ export default function AuthLayout({
   children: React.ReactNode;
 }) {
   return (
-    <div className="min-h-screen bg-black text-white flex flex-col">
+    <div className="min-h-screen bg-brand-grey-light text-black flex flex-col">
       {/* Header */}
-      <header className="border-b border-[#333]">
+      <header className="border-b border-brand-grey-medium">
         <div className="max-w-6xl mx-auto px-6 py-4">
           <Link href="/" className="w-fit">
             <ElvaitLogo className="h-8" />
@@ -25,7 +25,7 @@ export default function AuthLayout({
       </main>
 
       {/* Footer */}
-      <footer className="border-t border-[#333] py-4">
+      <footer className="border-t border-brand-grey-medium py-4">
         <div className="max-w-6xl mx-auto px-6 text-center text-sm text-brand-grey">
           © {new Date().getFullYear()} ELVAIT. All rights reserved.
         </div>

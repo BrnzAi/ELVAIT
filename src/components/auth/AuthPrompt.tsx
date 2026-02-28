@@ -34,8 +34,8 @@ export function AuthPrompt({
           <Shield className="w-6 h-6 text-brand-green" />
         </div>
         <div className="flex-1">
-          <h3 className="text-lg font-semibold text-white mb-1">{title}</h3>
-          <p className="text-gray-400 text-sm mb-4">{description}</p>
+          <h3 className="text-lg font-semibold text-black mb-1">{title}</h3>
+          <p className="text-brand-grey text-sm mb-4">{description}</p>
           <div className="flex flex-wrap gap-3">
             <Link href={`/signup?callbackUrl=${encodeURIComponent(callbackUrl)}`}>
               <Button size="sm">

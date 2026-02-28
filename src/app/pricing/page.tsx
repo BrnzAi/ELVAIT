@@ -105,9 +105,9 @@ const plans = [
 
 export default function PricingPage() {
   return (
-    <div className="min-h-screen bg-gray-950 text-white">
+    <div className="min-h-screen bg-brand-grey-light text-black">
       {/* Header */}
-      <div className="border-b border-[#333]">
+      <div className="border-b border-brand-grey-medium">
         <div className="max-w-7xl mx-auto px-4 py-4">
           <Link 
             href="/"
@@ -139,7 +139,7 @@ export default function PricingPage() {
               className={`rounded-2xl p-5 ${
                 plan.highlight
                   ? 'bg-brand-green/20 ring-2 ring-brand-green'
-                  : 'bg-[#111] border border-[#333]'
+                  : 'bg-white border border-brand-grey-medium'
               }`}
             >
               {/* Plan Header */}
@@ -164,7 +164,7 @@ export default function PricingPage() {
                 className={`block w-full py-2.5 px-4 rounded-lg text-center font-medium transition-colors mb-4 text-sm ${
                   plan.highlight
                     ? 'bg-brand-green text-black hover:bg-brand-green/80'
-                    : 'bg-[#222] text-white hover:bg-[#333]'
+                    : 'bg-brand-grey-light text-black hover:bg-brand-grey-medium'
                 }`}
               >
                 {plan.cta}
@@ -216,7 +216,7 @@ export default function PricingPage() {
           <div className="overflow-x-auto">
             <table className="w-full text-sm">
               <thead>
-                <tr className="border-b border-[#333]">
+                <tr className="border-b border-brand-grey-medium">
                   <th className="text-left py-4 px-4 font-medium text-brand-grey">Feature</th>
                   {plans.map(plan => (
                     <th key={plan.name} className="text-center py-4 px-2 font-semibold">
@@ -309,7 +309,7 @@ export default function PricingPage() {
           </p>
           <Link
             href="/contact"
-            className="inline-flex items-center gap-2 px-6 py-3 bg-[#222] hover:bg-[#333] rounded-lg transition-colors"
+            className="inline-flex items-center gap-2 px-6 py-3 bg-brand-grey-light hover:bg-brand-grey-medium rounded-lg transition-colors"
           >
             Contact us
           </Link>

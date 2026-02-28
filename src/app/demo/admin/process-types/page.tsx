@@ -126,7 +126,7 @@ export default function AdminProcessTypesPage() {
           {/* Category pills */}
           <div className="flex flex-wrap gap-2 mb-6">
             {categories.map(cat => (
-              <span key={cat} className="px-3 py-1 rounded-full bg-white/5 border border-white/10 text-sm text-gray-300">
+              <span key={cat} className="px-3 py-1 rounded-full bg-white/5 border border-white/10 text-sm text-brand-grey">
                 {cat} ({PROCESS_TYPES.filter(p => p.category === cat).length})
               </span>
             ))}

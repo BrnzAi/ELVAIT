@@ -100,9 +100,9 @@ function StatCard({ icon: Icon, label, value, trend }: {
   trend?: { value: number; positive: boolean };
 }) {
   return (
-    <div className="bg-[#111] rounded-xl p-5 border border-[#333]">
+    <div className="bg-white rounded-xl p-5 border border-brand-grey-medium">
       <div className="flex items-start justify-between mb-3">
-        <div className="p-2 bg-[#222] rounded-lg">
+        <div className="p-2 bg-brand-grey-light rounded-lg">
           <Icon className="w-5 h-5 text-brand-green" />
         </div>
         {trend && (
@@ -154,13 +154,13 @@ function AssessmentRow({ assessment }: { assessment: DemoAssessment }) {
   };
 
   return (
-    <div className="flex items-center justify-between p-4 bg-[#111]/50 hover:bg-[#111] rounded-xl border border-[#333] transition-colors">
+    <div className="flex items-center justify-between p-4 bg-white/50 hover:bg-white rounded-xl border border-brand-grey-medium transition-colors">
       <div className="flex items-center gap-4">
         <div className={`w-10 h-10 rounded-lg flex items-center justify-center ${
           assessment.recommendation === 'GO' ? 'bg-green-500/20' :
           assessment.recommendation === 'CLARIFY' ? 'bg-amber-500/20' :
           assessment.recommendation === 'NO_GO' ? 'bg-red-500/20' :
-          'bg-[#222]'
+          'bg-brand-grey-light'
         }`}>
           <FileText className={`w-5 h-5 ${
             assessment.recommendation === 'GO' ? 'text-green-400' :
@@ -221,7 +221,7 @@ export default function DemoDashboardPage() {
   return (
     <div className="min-h-screen bg-black text-white">
       {/* Header */}
-      <header className="border-b border-[#333] sticky top-0 bg-black z-10">
+      <header className="border-b border-brand-grey-medium sticky top-0 bg-black z-10">
         <div className="max-w-7xl mx-auto px-6 py-4 flex items-center justify-between">
           <Link href="/" className="flex items-center gap-2">
             <Brain className="w-8 h-8 text-brand-green" />
@@ -233,7 +233,7 @@ export default function DemoDashboardPage() {
                 Switch User
               </Button>
             </Link>
-            <div className="flex items-center gap-2 px-3 py-1.5 bg-[#222] rounded-lg">
+            <div className="flex items-center gap-2 px-3 py-1.5 bg-brand-grey-light rounded-lg">
               <span className="text-2xl">👔</span>
               <div>
                 <p className="text-sm font-medium">{userName}</p>
@@ -297,7 +297,7 @@ export default function DemoDashboardPage() {
         {/* Recent Activity */}
         <div className="mt-12">
           <h2 className="text-xl font-semibold mb-4">Recent Activity</h2>
-          <div className="bg-[#111] rounded-xl border border-[#333] divide-y divide-gray-800">
+          <div className="bg-white rounded-xl border border-brand-grey-medium divide-y divide-gray-800">
             <div className="p-4 flex items-center gap-4">
               <div className="w-8 h-8 rounded-full bg-green-500/20 flex items-center justify-center">
                 <CheckCircle className="w-4 h-4 text-green-400" />

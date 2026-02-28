@@ -171,8 +171,8 @@ function DimensionBar({ dimension }: { dimension: Assessment['dimensions'][0] })
   const color = dimension.score >= 75 ? 'bg-green-500' : dimension.score >= 50 ? 'bg-amber-500' : 'bg-red-500';
   
   return (
-    <div className="bg-[#111] rounded-lg border border-[#333] overflow-hidden">
-      <button onClick={() => setExpanded(!expanded)} className="w-full p-4 flex items-center justify-between hover:bg-[#222]/50 transition-colors">
+    <div className="bg-white rounded-lg border border-brand-grey-medium overflow-hidden">
+      <button onClick={() => setExpanded(!expanded)} className="w-full p-4 flex items-center justify-between hover:bg-brand-grey-light/50 transition-colors">
         <div className="flex items-center gap-4 flex-1">
           <span className="text-sm font-mono text-brand-grey w-8">{dimension.code}</span>
           <div className="flex-1">
@@ -180,7 +180,7 @@ function DimensionBar({ dimension }: { dimension: Assessment['dimensions'][0] })
               <span className="font-medium">{dimension.name}</span>
               <span className={`font-bold ${dimension.score >= 75 ? 'text-green-400' : dimension.score >= 50 ? 'text-amber-400' : 'text-red-400'}`}>{dimension.score}</span>
             </div>
-            <div className="h-2 bg-[#222] rounded-full overflow-hidden">
+            <div className="h-2 bg-brand-grey-light rounded-full overflow-hidden">
               <div className={`h-full ${color} transition-all duration-500`} style={{ width: `${dimension.score}%` }} />
             </div>
           </div>
@@ -188,10 +188,10 @@ function DimensionBar({ dimension }: { dimension: Assessment['dimensions'][0] })
         <ChevronDown className={`w-5 h-5 text-brand-grey ml-4 transition-transform ${expanded ? 'rotate-180' : ''}`} />
       </button>
       {expanded && (
-        <div className="px-4 pb-4 border-t border-[#333]">
+        <div className="px-4 pb-4 border-t border-brand-grey-medium">
           <ul className="space-y-1 mt-3">
             {dimension.insights.map((insight, i) => (
-              <li key={i} className="flex items-start gap-2 text-sm text-gray-300">
+              <li key={i} className="flex items-start gap-2 text-sm text-brand-grey">
                 <Lightbulb className="w-4 h-4 text-brand-green mt-0.5 flex-shrink-0" />
                 {insight}
               </li>
@@ -216,7 +216,7 @@ export default function DemoResultsByIdPage() {
     <div className="min-h-screen bg-black text-white">
       <div className="fixed inset-0 bg-[radial-gradient(ellipse_at_top,rgba(20,184,166,0.1),transparent_50%)]" />
       
-      <header className="border-b border-[#333] sticky top-0 bg-black/80 backdrop-blur-xl z-10">
+      <header className="border-b border-brand-grey-medium sticky top-0 bg-black/80 backdrop-blur-xl z-10">
         <div className="max-w-5xl mx-auto px-6 py-4 flex items-center justify-between">
           <div className="flex items-center gap-3">
             <Brain className="w-6 h-6 text-brand-green" />
@@ -259,7 +259,7 @@ export default function DemoResultsByIdPage() {
 
       <main className="max-w-5xl mx-auto px-6 py-8 relative z-10">
         {/* Assessment Header */}
-        <div className="bg-[#111] rounded-xl border border-[#333] p-6 mb-6">
+        <div className="bg-white rounded-xl border border-brand-grey-medium p-6 mb-6">
           <div className="flex flex-col md:flex-row md:items-center justify-between gap-6">
             <div>
               <p className="text-sm text-brand-grey mb-1">Assessment Results</p>
@@ -292,7 +292,7 @@ export default function DemoResultsByIdPage() {
                 assessment.recommendation === 'CLARIFY' ? 'text-amber-400' :
                 'text-red-400'
               }`}>{assessment.recommendation.replace('_', '-')}</span>
-              <p className="text-gray-300 mt-1">
+              <p className="text-brand-grey mt-1">
                 {assessment.recommendation === 'GO' && 'This initiative shows strong alignment and readiness. Proceed with confidence.'}
                 {assessment.recommendation === 'CLARIFY' && 'Some items need attention before proceeding. Address the identified concerns.'}
                 {assessment.recommendation === 'NO_GO' && 'Critical blockers identified. Do not proceed until resolved.'}
@@ -328,7 +328,7 @@ export default function DemoResultsByIdPage() {
                   {assessment.blindSpots.map((spot, i) => (
                     <div key={i} className="p-4 rounded-lg border bg-amber-500/10 border-amber-500/30">
                       <h3 className="font-medium mb-1">{spot.title}</h3>
-                      <p className="text-sm text-gray-300">{spot.description}</p>
+                      <p className="text-sm text-brand-grey">{spot.description}</p>
                     </div>
                   ))}
                 </div>
@@ -339,7 +339,7 @@ export default function DemoResultsByIdPage() {
           {/* Sidebar */}
           <div className="space-y-6">
             {/* Triggered Flags */}
-            <section className="bg-[#111] rounded-xl border border-[#333] p-5">
+            <section className="bg-white rounded-xl border border-brand-grey-medium p-5">
               <h2 className="text-lg font-semibold mb-4 flex items-center gap-2">
                 <Shield className="w-5 h-5 text-brand-green" />
                 Flags ({assessment.flags.length})
@@ -371,7 +371,7 @@ export default function DemoResultsByIdPage() {
             </section>
 
             {/* Participants */}
-            <section className="bg-[#111] rounded-xl border border-[#333] p-5">
+            <section className="bg-white rounded-xl border border-brand-grey-medium p-5">
               <h2 className="text-lg font-semibold mb-4 flex items-center gap-2">
                 <Users className="w-5 h-5 text-brand-green" />
                 Participants

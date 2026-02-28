@@ -113,34 +113,34 @@ export default function ProcessEditor({ processes, onChange }: ProcessEditorProp
         </Button>
       </div>
       
-      <p className="text-sm text-gray-600 dark:text-gray-400">
+      <p className="text-sm text-gray-600">
         Which processes are affected by this initiative? Each process will be evaluated separately.
       </p>
 
       {/* Weight sum indicator */}
       <div className={`p-3 rounded-lg border ${
         weightError 
-          ? 'border-red-200 bg-red-50 dark:border-red-800 dark:bg-red-900/20' 
-          : 'border-green-200 bg-green-50 dark:border-green-800 dark:bg-green-900/20'
+          ? 'border-red-200 bg-red-50' 
+          : 'border-green-200 bg-green-50'
       }`}>
         <div className="flex items-center gap-2">
           {weightError && <AlertCircle className="w-4 h-4 text-red-500" />}
           <span className={`text-sm font-medium ${
-            weightError ? 'text-red-700 dark:text-red-300' : 'text-green-700 dark:text-green-300'
+            weightError ? 'text-red-700' : 'text-green-700'
           }`}>
             Total Weight: {totalWeight}%
           </span>
         </div>
         {errors[-1] && (
-          <p className="text-sm text-red-600 dark:text-red-400 mt-1">{errors[-1]}</p>
+          <p className="text-sm text-red-600 mt-1">{errors[-1]}</p>
         )}
       </div>
 
       <div className="space-y-4">
         {processes.map((process, index) => (
-          <div key={index} className="p-4 border border-gray-200 dark:border-gray-800 rounded-lg bg-white dark:bg-gray-900">
+          <div key={index} className="p-4 border border-gray-200 rounded-lg bg-white">
             <div className="flex items-start justify-between mb-3">
-              <div className="text-sm font-medium text-gray-700 dark:text-gray-300">
+              <div className="text-sm font-medium text-gray-700">
                 Process {index + 1}
               </div>
               <Button
@@ -149,7 +149,7 @@ export default function ProcessEditor({ processes, onChange }: ProcessEditorProp
                 size="sm"
                 onClick={() => removeProcess(index)}
                 disabled={processes.length <= 1}
-                className="text-red-600 hover:text-red-700 hover:bg-red-50 dark:hover:bg-red-900/20 p-1"
+                className="text-red-600 hover:text-red-700 hover:bg-red-50 p-1"
               >
                 <Trash2 className="w-4 h-4" />
               </Button>
@@ -160,7 +160,7 @@ export default function ProcessEditor({ processes, onChange }: ProcessEditorProp
               <div>
                 <label className="block text-sm font-medium mb-1">
                   Process Name <span className="text-red-500">*</span>
-                  <span className="text-gray-400 font-normal ml-2">({process.name.length}/80)</span>
+                  <span className="text-brand-grey font-normal ml-2">({process.name.length}/80)</span>
                 </label>
                 <Input
                   value={process.name}
@@ -170,15 +170,15 @@ export default function ProcessEditor({ processes, onChange }: ProcessEditorProp
                   className={errors[index] ? 'border-red-500' : ''}
                 />
                 {errors[index] && (
-                  <p className="mt-1 text-sm text-red-600 dark:text-red-400">{errors[index]}</p>
+                  <p className="mt-1 text-sm text-red-600">{errors[index]}</p>
                 )}
               </div>
 
               {/* Description input */}
               <div>
                 <label className="block text-sm font-medium mb-1">
-                  Description <span className="text-gray-400 font-normal">(Optional)</span>
-                  <span className="text-gray-400 font-normal ml-2">({process.description.length}/200)</span>
+                  Description <span className="text-brand-grey font-normal">(Optional)</span>
+                  <span className="text-brand-grey font-normal ml-2">({process.description.length}/200)</span>
                 </label>
                 <Textarea
                   value={process.description}
@@ -204,7 +204,7 @@ export default function ProcessEditor({ processes, onChange }: ProcessEditorProp
                     className="w-20"
                   />
                   <span className="text-sm text-gray-600">%</span>
-                  <div className="flex-1 h-2 bg-gray-200 dark:bg-gray-700 rounded-full overflow-hidden">
+                  <div className="flex-1 h-2 bg-gray-200 rounded-full overflow-hidden">
                     <div 
                       className="h-full bg-brand-green transition-all"
                       style={{ width: `${process.weight}%` }}
