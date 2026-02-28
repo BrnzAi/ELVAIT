@@ -7,18 +7,12 @@ module.exports = {
   theme: {
     extend: {
       colors: {
-        clarity: {
-          50: '#f0f9ff',
-          100: '#e0f2fe',
-          200: '#bae6fd',
-          300: '#7dd3fc',
-          400: '#38bdf8',
-          500: '#0ea5e9',
-          600: '#0284c7',
-          700: '#0369a1',
-          800: '#075985',
-          900: '#0c4a6e',
-          950: '#082f49',
+        brand: {
+          green: '#D2FFB8',
+          red: '#FF4C4C',
+          grey: '#777777',
+          black: '#000000',
+          white: '#FFFFFF',
         },
         go: {
           light: '#22c55e',
@@ -37,7 +31,7 @@ module.exports = {
         },
       },
       fontFamily: {
-        sans: ['Inter', 'system-ui', 'sans-serif'],
+        sans: ['"DM Sans"', 'system-ui', 'sans-serif'],
       },
       animation: {
         'pulse-slow': 'pulse 3s ease-in-out infinite',

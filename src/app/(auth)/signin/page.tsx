@@ -54,12 +54,12 @@ function SignInForm() {
     <div className="bg-gray-900 rounded-2xl border border-gray-800 p-8">
       {/* Show benefit banner when coming from results */}
       {returnTo?.includes('/results') && (
-        <div className="mb-6 p-4 bg-blue-500/10 border border-blue-500/30 rounded-lg">
+        <div className="mb-6 p-4 bg-brand-green/10 border border-brand-green/20 rounded-lg">
           <div className="flex items-start gap-3">
-            <Sparkles className="w-5 h-5 text-blue-400 flex-shrink-0 mt-0.5" />
+            <Sparkles className="w-5 h-5 text-brand-green flex-shrink-0 mt-0.5" />
             <div>
-              <p className="text-blue-300 font-medium">Sign in to see your full results</p>
-              <p className="text-blue-400/70 text-sm mt-1">
+              <p className="text-brand-green font-medium">Sign in to see your full results</p>
+              <p className="text-brand-green/70 text-sm mt-1">
                 Your assessment is waiting with all the details unlocked.
               </p>
             </div>
@@ -93,7 +93,7 @@ function SignInForm() {
               required
               value={formData.email}
               onChange={(e) => setFormData({ ...formData, email: e.target.value })}
-              className="w-full pl-10 pr-4 py-2.5 bg-gray-800 border border-gray-700 rounded-lg focus:outline-none focus:ring-2 focus:ring-clarity-500 focus:border-transparent"
+              className="w-full pl-10 pr-4 py-2.5 bg-[#111] border border-[#333] rounded-lg focus:outline-none focus:ring-2 focus:ring-brand-green focus:border-transparent"
               placeholder="you@example.com"
             />
           </div>
@@ -106,7 +106,7 @@ function SignInForm() {
             </label>
             <Link 
               href="/forgot-password" 
-              className="text-sm text-clarity-400 hover:text-clarity-300"
+              className="text-sm text-brand-green hover:text-brand-green"
             >
               Forgot password?
             </Link>
@@ -118,7 +118,7 @@ function SignInForm() {
               required
               value={formData.password}
               onChange={(e) => setFormData({ ...formData, password: e.target.value })}
-              className="w-full pl-10 pr-4 py-2.5 bg-gray-800 border border-gray-700 rounded-lg focus:outline-none focus:ring-2 focus:ring-clarity-500 focus:border-transparent"
+              className="w-full pl-10 pr-4 py-2.5 bg-[#111] border border-[#333] rounded-lg focus:outline-none focus:ring-2 focus:ring-brand-green focus:border-transparent"
               placeholder="••••••••"
             />
           </div>
@@ -147,7 +147,7 @@ function SignInForm() {
         Don't have an account?{' '}
         <Link 
           href={returnTo ? `/signup?returnTo=${encodeURIComponent(returnTo)}` : '/signup'} 
-          className="text-clarity-400 hover:text-clarity-300"
+          className="text-brand-green hover:text-brand-green"
         >
           Sign up
         </Link>
@@ -160,8 +160,8 @@ export default function SignInPage() {
   return (
     <Suspense fallback={
       <div className="bg-gray-900 rounded-2xl border border-gray-800 p-8 animate-pulse">
-        <div className="h-8 bg-gray-800 rounded w-1/2 mx-auto mb-4" />
-        <div className="h-4 bg-gray-800 rounded w-3/4 mx-auto" />
+        <div className="h-8 bg-[#111] rounded w-1/2 mx-auto mb-4" />
+        <div className="h-4 bg-[#111] rounded w-3/4 mx-auto" />
       </div>
     }>
       <SignInForm />

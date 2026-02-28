@@ -101,7 +101,7 @@ function ContactForm() {
                   <h3 className="font-medium mb-1">Email us directly</h3>
                   <a 
                     href="mailto:hello@elvait.ai" 
-                    className="text-blue-400 hover:underline"
+                    className="text-brand-green hover:underline"
                   >
                     hello@elvait.ai
                   </a>
@@ -197,7 +197,7 @@ function ContactForm() {
               <button
                 type="submit"
                 disabled={isSubmitting}
-                className="w-full py-3 px-4 bg-blue-600 hover:bg-blue-700 disabled:bg-blue-600/50 disabled:cursor-not-allowed text-white font-medium rounded-lg transition-colors flex items-center justify-center gap-2"
+                className="w-full py-3 px-4 bg-brand-green hover:bg-brand-green/80 disabled:bg-brand-green/50 disabled:cursor-not-allowed text-white font-medium rounded-lg transition-colors flex items-center justify-center gap-2"
               >
                 {isSubmitting ? (
                   <>

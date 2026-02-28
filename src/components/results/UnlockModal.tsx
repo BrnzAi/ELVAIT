@@ -82,8 +82,8 @@ export function UnlockModal({
           // Tier 1 unlock - Free registration
           <>
             <div className="flex items-center gap-3 mb-4">
-              <div className="w-12 h-12 rounded-full bg-blue-500/20 flex items-center justify-center">
-                <Unlock className="w-6 h-6 text-blue-400" />
+              <div className="w-12 h-12 rounded-full bg-brand-green/10 flex items-center justify-center">
+                <Unlock className="w-6 h-6 text-brand-green" />
               </div>
               <h2 id="unlock-modal-title" className="text-xl font-semibold text-white">
                 Unlock {featureName}
@@ -112,7 +112,7 @@ export function UnlockModal({
             <div className="space-y-3">
               <Link
                 href={`/signup${returnUrl}`}
-                className="block w-full py-3 px-4 bg-blue-600 hover:bg-blue-700 text-white font-medium rounded-lg text-center transition-colors"
+                className="block w-full py-3 px-4 bg-brand-green hover:bg-brand-green/80 text-white font-medium rounded-lg text-center transition-colors"
               >
                 Create free account
               </Link>

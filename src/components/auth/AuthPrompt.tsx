@@ -28,10 +28,10 @@ export function AuthPrompt({
     : '/dashboard';
 
   return (
-    <div className="bg-gradient-to-r from-clarity-600/20 to-purple-600/20 border border-clarity-500/30 rounded-xl p-6">
+    <div className="bg-brand-green/10 border border-brand-green/30 rounded-xl p-6">
       <div className="flex items-start gap-4">
-        <div className="w-12 h-12 rounded-xl bg-clarity-600/20 flex items-center justify-center flex-shrink-0">
-          <Shield className="w-6 h-6 text-clarity-400" />
+        <div className="w-12 h-12 rounded-xl bg-brand-green/20 flex items-center justify-center flex-shrink-0">
+          <Shield className="w-6 h-6 text-brand-green" />
         </div>
         <div className="flex-1">
           <h3 className="text-lg font-semibold text-white mb-1">{title}</h3>

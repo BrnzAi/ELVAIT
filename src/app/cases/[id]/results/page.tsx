@@ -175,7 +175,7 @@ export default function ResultsPage() {
     return (
       <div className="min-h-screen flex items-center justify-center bg-gray-50 dark:bg-gray-950">
         <div className="text-center">
-          <Loader2 className="w-8 h-8 animate-spin text-clarity-600 mx-auto mb-4" />
+          <Loader2 className="w-8 h-8 animate-spin text-brand-green mx-auto mb-4" />
           <p className="text-gray-600">Analyzing responses...</p>
         </div>
       </div>
@@ -265,7 +265,7 @@ export default function ResultsPage() {
             <span>Back to Case</span>
           </Link>
           <div className="flex items-center gap-2">
-            <Brain className="w-6 h-6 text-clarity-600" />
+            <Brain className="w-6 h-6 text-brand-green" />
             <span className="font-semibold">Assessment Results</span>
           </div>
           {access.canDownloadPDF ? (
@@ -337,7 +337,7 @@ export default function ResultsPage() {
           <div className="bg-white dark:bg-gray-900 rounded-xl border border-gray-200 dark:border-gray-800 p-6">
             <h2 className="text-sm font-medium text-gray-500 mb-4">INVESTMENT CLARITY SCORE</h2>
             <div className="flex items-end gap-4">
-              <div className="text-5xl font-bold text-clarity-600">
+              <div className="text-5xl font-bold text-brand-green">
                 {ics !== null ? ics.toFixed(0) : 'N/A'}
               </div>
               <div className="pb-2">
@@ -376,7 +376,7 @@ export default function ResultsPage() {
               <div key={i} className="flex items-center gap-3 p-2 text-sm">
                 <span className={`w-2 h-2 rounded-full ${
                   flag.severity === 'CRITICAL' ? 'bg-red-500' :
-                  flag.severity === 'WARN' ? 'bg-amber-500' : 'bg-blue-500'
+                  flag.severity === 'WARN' ? 'bg-amber-500' : 'bg-brand-green/100'
                 }`} />
                 <span className="font-mono text-xs text-gray-500">{flag.flag_id}</span>
                 {flag.evidence.description && (
@@ -471,7 +471,7 @@ export default function ResultsPage() {
               <ul className="space-y-2">
                 {results.narrative.keyFindings.slice(0, access.canViewAllFlags ? undefined : 2).map((finding, i) => (
                   <li key={i} className="flex items-start gap-2 text-sm text-gray-600 dark:text-gray-400">
-                    <span className="text-clarity-600">•</span>
+                    <span className="text-brand-green">•</span>
                     {finding}
                   </li>
                 ))}
@@ -506,7 +506,7 @@ export default function ResultsPage() {
               return (
                 <div key={dim} className="p-4 bg-gray-50 dark:bg-gray-800 rounded-lg">
                   <div className="flex items-center gap-2 mb-2">
-                    <Icon className="w-4 h-4 text-clarity-600" />
+                    <Icon className="w-4 h-4 text-brand-green" />
                     <span className="text-sm font-medium">{config.label}</span>
                   </div>
                   <div className="flex items-end gap-2">
@@ -534,15 +534,15 @@ export default function ResultsPage() {
             <h2 className="text-lg font-semibold mb-4">Process Readiness by Process</h2>
             
             {/* Aggregate Score Summary */}
-            <div className="mb-6 p-4 bg-blue-50 dark:bg-blue-900/20 rounded-lg">
+            <div className="mb-6 p-4 bg-brand-green/10 dark:bg-brand-green/10 rounded-lg">
               <div className="flex items-center justify-between">
                 <div>
-                  <h3 className="font-medium text-blue-900 dark:text-blue-100">Aggregate Process Score</h3>
-                  <p className="text-sm text-blue-700 dark:text-blue-300">
+                  <h3 className="font-medium text-brand-green dark:text-brand-green">Aggregate Process Score</h3>
+                  <p className="text-sm text-brand-green dark:text-brand-green/80">
                     Weighted average across {results.processScores.length} processes
                   </p>
                 </div>
-                <div className="text-2xl font-bold text-blue-600">
+                <div className="text-2xl font-bold text-brand-green">
                   {results.aggregateProcessScore?.toFixed(1) ?? 'N/A'}
                 </div>
               </div>
@@ -649,7 +649,7 @@ export default function ResultsPage() {
                         ? 'bg-red-50 dark:bg-red-900/20 border-red-500' 
                         : spot.severity === 'WARN'
                           ? 'bg-amber-50 dark:bg-amber-900/20 border-amber-500'
-                          : 'bg-blue-50 dark:bg-blue-900/20 border-blue-500'
+                          : 'bg-brand-green/10 dark:bg-brand-green/10 border-blue-500'
                     }`}
                   >
                     <div className="flex items-start justify-between">
@@ -659,7 +659,7 @@ export default function ResultsPage() {
                       </div>
                       <span className={`px-2 py-1 text-xs font-medium rounded ${
                         spot.severity === 'CRITICAL' ? 'bg-red-100 text-red-700' :
-                        spot.severity === 'WARN' ? 'bg-amber-100 text-amber-700' : 'bg-blue-100 text-blue-700'
+                        spot.severity === 'WARN' ? 'bg-amber-100 text-amber-700' : 'bg-brand-green/10 text-brand-green'
                       }`}>
                         {spot.severity}
                       </span>
@@ -687,14 +687,14 @@ export default function ResultsPage() {
 
         {/* Single respondent note */}
         {results.participantCount === 1 && (
-          <div className="bg-blue-50 dark:bg-blue-900/20 rounded-xl border border-blue-200 dark:border-blue-800 p-6 mb-8">
+          <div className="bg-brand-green/10 dark:bg-brand-green/10 rounded-xl border border-brand-green/30 dark:border-brand-green/30 p-6 mb-8">
             <div className="flex items-start gap-3">
-              <div className="w-8 h-8 bg-blue-500 rounded-full flex items-center justify-center flex-shrink-0">
+              <div className="w-8 h-8 bg-brand-green/100 rounded-full flex items-center justify-center flex-shrink-0">
                 <Users className="w-4 h-4 text-white" />
               </div>
               <div>
-                <h3 className="font-medium text-blue-900 dark:text-blue-100 mb-1">Single Participant Assessment</h3>
-                <p className="text-sm text-blue-800 dark:text-blue-200">
+                <h3 className="font-medium text-brand-green dark:text-brand-green mb-1">Single Participant Assessment</h3>
+                <p className="text-sm text-brand-green dark:text-brand-green/70">
                   Cross-role comparison requires responses from multiple participants. 
                   The results above show individual scores and insights only.
                 </p>
@@ -713,8 +713,8 @@ export default function ResultsPage() {
               {results.textResponses.map((textResp, i) => (
                 <div key={i} className="p-4 bg-gray-50 dark:bg-gray-800 rounded-lg">
                   <div className="flex items-start gap-3">
-                    <div className="flex-shrink-0 w-6 h-6 bg-clarity-100 dark:bg-clarity-900 rounded-full flex items-center justify-center">
-                      <span className="text-xs font-medium text-clarity-600">Q</span>
+                    <div className="flex-shrink-0 w-6 h-6 bg-brand-green/10 dark:bg-clarity-900 rounded-full flex items-center justify-center">
+                      <span className="text-xs font-medium text-brand-green">Q</span>
                     </div>
                     <div className="flex-1">
                       <p className="text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">
@@ -741,7 +741,7 @@ export default function ResultsPage() {
             <div className="space-y-3">
               {results.checklistItems.map((item, i) => (
                 <div key={item.id} className="flex items-start gap-3 p-3 bg-gray-50 dark:bg-gray-800 rounded-lg">
-                  <div className="w-6 h-6 rounded-full bg-clarity-100 dark:bg-clarity-900 flex items-center justify-center text-sm font-medium text-clarity-600">
+                  <div className="w-6 h-6 rounded-full bg-brand-green/10 dark:bg-clarity-900 flex items-center justify-center text-sm font-medium text-brand-green">
                     {i + 1}
                   </div>
                   <div className="flex-1">
@@ -765,19 +765,19 @@ export default function ResultsPage() {
               </div>
               <div className="flex-1">
                 <h3 className="text-lg font-semibold mb-1">Unlock full analysis — it's free</h3>
-                <p className="text-blue-100 mb-4">
+                <p className="text-brand-green mb-4">
                   Register to see role breakdowns, all flags, contradiction map, and save your results.
                 </p>
                 <div className="flex flex-wrap gap-3">
                   <Link
                     href={`/signup?returnTo=${encodeURIComponent(pathname)}`}
-                    className="inline-flex items-center gap-2 px-5 py-2.5 bg-white text-blue-600 font-medium rounded-lg hover:bg-blue-50 transition-colors"
+                    className="inline-flex items-center gap-2 px-5 py-2.5 bg-white text-brand-green font-medium rounded-lg hover:bg-brand-green/10 transition-colors"
                   >
                     Create free account
                   </Link>
                   <Link
                     href="/pricing"
-                    className="inline-flex items-center gap-2 px-5 py-2.5 bg-blue-500/30 text-white font-medium rounded-lg hover:bg-blue-500/40 transition-colors"
+                    className="inline-flex items-center gap-2 px-5 py-2.5 bg-brand-green/100/30 text-white font-medium rounded-lg hover:bg-brand-green/100/40 transition-colors"
                   >
                     See what's included →
                   </Link>

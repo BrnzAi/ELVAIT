@@ -97,17 +97,17 @@ function Sidebar({ isOpen, onClose }: { isOpen: boolean; onClose: () => void }) 
             </div>
             <div className="flex flex-col">
               <span className="text-lg font-bold bg-gradient-to-r from-clarity-400 to-teal-400 bg-clip-text text-transparent">Admin Panel</span>
-              <span className="text-[10px] text-gray-500 font-medium tracking-wider uppercase">ELVAIT</span>
+              <span className="text-[10px] text-brand-grey font-medium tracking-wider uppercase">ELVAIT</span>
             </div>
           </Link>
-          <button onClick={onClose} className="lg:hidden p-2 text-gray-400 hover:text-white rounded-lg hover:bg-white/5">
+          <button onClick={onClose} className="lg:hidden p-2 text-brand-grey hover:text-white rounded-lg hover:bg-white/5">
             <X className="h-5 w-5" />
           </button>
         </div>
 
         {/* Navigation */}
         <nav className="flex-1 p-4 space-y-1 overflow-y-auto">
-          <p className="px-3 text-[10px] font-semibold text-gray-500 uppercase tracking-wider mb-2">Management</p>
+          <p className="px-3 text-[10px] font-semibold text-brand-grey uppercase tracking-wider mb-2">Management</p>
           {NAV_ITEMS.map(item => (
             <Link
               key={item.label}
@@ -115,12 +115,12 @@ function Sidebar({ isOpen, onClose }: { isOpen: boolean; onClose: () => void }) 
               className={`group flex items-center gap-3 px-4 py-3 rounded-xl text-sm font-medium transition-all duration-200 ${
                 item.active 
                   ? 'bg-white/[0.08] text-white shadow-sm' 
-                  : 'text-gray-400 hover:bg-white/[0.04] hover:text-white'
+                  : 'text-brand-grey hover:bg-white/[0.04] hover:text-white'
               }`}
             >
-              <item.icon className={`h-5 w-5 transition-colors ${item.active ? 'text-clarity-400' : 'text-gray-500 group-hover:text-clarity-400'}`} />
+              <item.icon className={`h-5 w-5 transition-colors ${item.active ? 'text-brand-green' : 'text-brand-grey group-hover:text-brand-green'}`} />
               {item.label}
-              {item.active && <ChevronRight className="ml-auto h-4 w-4 text-clarity-400" />}
+              {item.active && <ChevronRight className="ml-auto h-4 w-4 text-brand-green" />}
             </Link>
           ))}
         </nav>
@@ -133,7 +133,7 @@ function Sidebar({ isOpen, onClose }: { isOpen: boolean; onClose: () => void }) 
             </div>
             <div className="flex-1">
               <p className="text-sm font-medium text-white">Switch User</p>
-              <p className="text-xs text-gray-500">Back to role selection</p>
+              <p className="text-xs text-brand-grey">Back to role selection</p>
             </div>
           </Link>
           <p className="text-xs text-gray-600 text-center">Admin v1.0 • ELVAIT Demo</p>
@@ -174,7 +174,7 @@ function StatCard({ icon: Icon, label, value, color, trend }: {
         )}
       </div>
       <p className="text-3xl font-bold text-white">{value}</p>
-      <p className="text-sm text-gray-400 mt-1">{label}</p>
+      <p className="text-sm text-brand-grey mt-1">{label}</p>
     </div>
   );
 }
@@ -187,7 +187,7 @@ export default function AdminDashboardPage() {
   const [sidebarOpen, setSidebarOpen] = useState(false);
 
   return (
-    <div className="min-h-screen bg-gray-950 text-white">
+    <div className="min-h-screen bg-black text-white">
       {/* Background effects */}
       <div className="fixed inset-0 bg-[radial-gradient(ellipse_at_top,rgba(20,184,166,0.1),transparent_50%)]" />
       <div className="fixed inset-0 bg-[radial-gradient(ellipse_at_bottom_right,rgba(13,148,136,0.08),transparent_50%)]" />
@@ -198,7 +198,7 @@ export default function AdminDashboardPage() {
       {/* Mobile header */}
       <div className="fixed top-0 left-0 right-0 z-30 lg:hidden bg-white/[0.02] backdrop-blur-xl border-b border-white/[0.06]">
         <div className="flex items-center justify-between h-16 px-4">
-          <button onClick={() => setSidebarOpen(true)} className="p-2 text-gray-400 hover:text-white rounded-lg hover:bg-white/5">
+          <button onClick={() => setSidebarOpen(true)} className="p-2 text-brand-grey hover:text-white rounded-lg hover:bg-white/5">
             <Menu className="h-6 w-6" />
           </button>
           <Link href="/demo/admin" className="flex items-center gap-2">
@@ -207,7 +207,7 @@ export default function AdminDashboardPage() {
             </div>
             <span className="text-lg font-bold bg-gradient-to-r from-clarity-400 to-teal-400 bg-clip-text text-transparent">Admin</span>
           </Link>
-          <button className="p-2 text-gray-400 hover:text-white rounded-lg hover:bg-white/5">
+          <button className="p-2 text-brand-grey hover:text-white rounded-lg hover:bg-white/5">
             <Bell className="h-5 w-5" />
           </button>
         </div>
@@ -219,13 +219,13 @@ export default function AdminDashboardPage() {
         <div className="hidden lg:block border-b border-white/[0.06] bg-white/[0.01]">
           <div className="px-8 py-4 flex items-center justify-between">
             <div className="flex items-center gap-2 text-sm">
-              <Link href="/demo/admin" className="text-clarity-400 font-medium">Admin</Link>
+              <Link href="/demo/admin" className="text-brand-green font-medium">Admin</Link>
               <ChevronRight className="w-4 h-4 text-gray-600" />
-              <span className="text-gray-400">Dashboard</span>
+              <span className="text-brand-grey">Dashboard</span>
             </div>
             <div className="flex items-center gap-3">
               <div className="relative">
-                <Search className="absolute left-3 top-1/2 -translate-y-1/2 w-4 h-4 text-gray-500" />
+                <Search className="absolute left-3 top-1/2 -translate-y-1/2 w-4 h-4 text-brand-grey" />
                 <Input placeholder="Search..." className="pl-9 w-64 bg-white/5 border-white/10" />
               </div>
               <Button variant="outline" size="sm">
@@ -240,7 +240,7 @@ export default function AdminDashboardPage() {
           <div className="flex items-center justify-between mb-8">
             <div>
               <h1 className="text-2xl font-bold">Dashboard</h1>
-              <p className="text-gray-400 text-sm mt-1">Overview of ELVAIT platform activity</p>
+              <p className="text-brand-grey text-sm mt-1">Overview of ELVAIT platform activity</p>
             </div>
             <Button>
               <Plus className="w-4 h-4 mr-2" />
@@ -264,7 +264,7 @@ export default function AdminDashboardPage() {
               </div>
               <div>
                 <p className="text-2xl font-bold text-green-400">{STATS.goDecisions}</p>
-                <p className="text-sm text-gray-400">GO Decisions</p>
+                <p className="text-sm text-brand-grey">GO Decisions</p>
               </div>
             </div>
             <div className="bg-amber-500/10 border border-amber-500/20 rounded-xl p-4 flex items-center gap-4">
@@ -273,7 +273,7 @@ export default function AdminDashboardPage() {
               </div>
               <div>
                 <p className="text-2xl font-bold text-amber-400">{STATS.clarifyDecisions}</p>
-                <p className="text-sm text-gray-400">CLARIFY</p>
+                <p className="text-sm text-brand-grey">CLARIFY</p>
               </div>
             </div>
             <div className="bg-red-500/10 border border-red-500/20 rounded-xl p-4 flex items-center gap-4">
@@ -282,7 +282,7 @@ export default function AdminDashboardPage() {
               </div>
               <div>
                 <p className="text-2xl font-bold text-red-400">{STATS.nogoDecisions}</p>
-                <p className="text-sm text-gray-400">NO-GO</p>
+                <p className="text-sm text-brand-grey">NO-GO</p>
               </div>
             </div>
           </div>
@@ -292,60 +292,60 @@ export default function AdminDashboardPage() {
             <h2 className="text-lg font-semibold mb-4">Admin Sections</h2>
             <div className="grid grid-cols-2 lg:grid-cols-4 gap-4">
               <Link href="/demo/admin/users" className="bg-white/[0.02] hover:bg-white/[0.05] border border-white/[0.06] rounded-xl p-4 transition-all group">
-                <div className="w-10 h-10 rounded-lg bg-blue-500/20 flex items-center justify-center mb-3 group-hover:scale-110 transition-transform">
-                  <Users className="w-5 h-5 text-blue-400" />
+                <div className="w-10 h-10 rounded-lg bg-brand-green/10 flex items-center justify-center mb-3 group-hover:scale-110 transition-transform">
+                  <Users className="w-5 h-5 text-brand-green" />
                 </div>
                 <h3 className="font-medium text-white">Users</h3>
-                <p className="text-xs text-gray-500 mt-1">Manage platform users</p>
+                <p className="text-xs text-brand-grey mt-1">Manage platform users</p>
               </Link>
               <Link href="/demo/admin/organizations" className="bg-white/[0.02] hover:bg-white/[0.05] border border-white/[0.06] rounded-xl p-4 transition-all group">
                 <div className="w-10 h-10 rounded-lg bg-purple-500/20 flex items-center justify-center mb-3 group-hover:scale-110 transition-transform">
                   <Building2 className="w-5 h-5 text-purple-400" />
                 </div>
                 <h3 className="font-medium text-white">Organizations</h3>
-                <p className="text-xs text-gray-500 mt-1">Company accounts</p>
+                <p className="text-xs text-brand-grey mt-1">Company accounts</p>
               </Link>
               <Link href="/demo/admin/assessments" className="bg-white/[0.02] hover:bg-white/[0.05] border border-white/[0.06] rounded-xl p-4 transition-all group">
                 <div className="w-10 h-10 rounded-lg bg-teal-500/20 flex items-center justify-center mb-3 group-hover:scale-110 transition-transform">
                   <ClipboardList className="w-5 h-5 text-teal-400" />
                 </div>
                 <h3 className="font-medium text-white">Assessments</h3>
-                <p className="text-xs text-gray-500 mt-1">All decision cases</p>
+                <p className="text-xs text-brand-grey mt-1">All decision cases</p>
               </Link>
               <Link href="/demo/admin/industries" className="bg-white/[0.02] hover:bg-white/[0.05] border border-white/[0.06] rounded-xl p-4 transition-all group">
                 <div className="w-10 h-10 rounded-lg bg-amber-500/20 flex items-center justify-center mb-3 group-hover:scale-110 transition-transform">
                   <Factory className="w-5 h-5 text-amber-400" />
                 </div>
                 <h3 className="font-medium text-white">Industries</h3>
-                <p className="text-xs text-gray-500 mt-1">Industry categories</p>
+                <p className="text-xs text-brand-grey mt-1">Industry categories</p>
               </Link>
               <Link href="/demo/admin/process-types" className="bg-white/[0.02] hover:bg-white/[0.05] border border-white/[0.06] rounded-xl p-4 transition-all group">
                 <div className="w-10 h-10 rounded-lg bg-pink-500/20 flex items-center justify-center mb-3 group-hover:scale-110 transition-transform">
                   <Workflow className="w-5 h-5 text-pink-400" />
                 </div>
                 <h3 className="font-medium text-white">Process Types</h3>
-                <p className="text-xs text-gray-500 mt-1">Process classifications</p>
+                <p className="text-xs text-brand-grey mt-1">Process classifications</p>
               </Link>
               <Link href="/demo/admin/roles" className="bg-white/[0.02] hover:bg-white/[0.05] border border-white/[0.06] rounded-xl p-4 transition-all group">
                 <div className="w-10 h-10 rounded-lg bg-green-500/20 flex items-center justify-center mb-3 group-hover:scale-110 transition-transform">
                   <Shield className="w-5 h-5 text-green-400" />
                 </div>
                 <h3 className="font-medium text-white">Roles</h3>
-                <p className="text-xs text-gray-500 mt-1">Participant roles</p>
+                <p className="text-xs text-brand-grey mt-1">Participant roles</p>
               </Link>
               <Link href="/demo/admin/questions" className="bg-white/[0.02] hover:bg-white/[0.05] border border-white/[0.06] rounded-xl p-4 transition-all group">
                 <div className="w-10 h-10 rounded-lg bg-cyan-500/20 flex items-center justify-center mb-3 group-hover:scale-110 transition-transform">
                   <HelpCircle className="w-5 h-5 text-cyan-400" />
                 </div>
                 <h3 className="font-medium text-white">Questions</h3>
-                <p className="text-xs text-gray-500 mt-1">Survey question bank</p>
+                <p className="text-xs text-brand-grey mt-1">Survey question bank</p>
               </Link>
               <Link href="/demo/dashboard" className="bg-white/[0.02] hover:bg-white/[0.05] border border-white/[0.06] rounded-xl p-4 transition-all group border-dashed">
                 <div className="w-10 h-10 rounded-lg bg-gray-500/20 flex items-center justify-center mb-3 group-hover:scale-110 transition-transform">
-                  <Eye className="w-5 h-5 text-gray-400" />
+                  <Eye className="w-5 h-5 text-brand-grey" />
                 </div>
                 <h3 className="font-medium text-white">Executive View</h3>
-                <p className="text-xs text-gray-500 mt-1">Switch to dashboard</p>
+                <p className="text-xs text-brand-grey mt-1">Switch to dashboard</p>
               </Link>
             </div>
           </div>
@@ -355,7 +355,7 @@ export default function AdminDashboardPage() {
             <div className="bg-white/[0.02] backdrop-blur-sm rounded-xl border border-white/[0.06]">
               <div className="flex items-center justify-between p-4 border-b border-white/[0.06]">
                 <h2 className="font-semibold">Recent Users</h2>
-                <Link href="/demo/admin/users" className="text-sm text-clarity-400 hover:text-clarity-300">
+                <Link href="/demo/admin/users" className="text-sm text-brand-green hover:text-brand-green/80">
                   View all →
                 </Link>
               </div>
@@ -368,18 +368,18 @@ export default function AdminDashboardPage() {
                       </div>
                       <div>
                         <p className="font-medium">{user.name}</p>
-                        <p className="text-xs text-gray-500">{user.organization} • {user.role}</p>
+                        <p className="text-xs text-brand-grey">{user.organization} • {user.role}</p>
                       </div>
                     </div>
                     <div className="text-right">
                       <span className={`inline-block px-2 py-0.5 rounded text-xs ${
                         user.status === 'active' ? 'bg-green-500/20 text-green-400' :
                         user.status === 'pending' ? 'bg-amber-500/20 text-amber-400' :
-                        'bg-gray-500/20 text-gray-400'
+                        'bg-gray-500/20 text-brand-grey'
                       }`}>
                         {user.status}
                       </span>
-                      <p className="text-xs text-gray-500 mt-1">{user.joinedAt}</p>
+                      <p className="text-xs text-brand-grey mt-1">{user.joinedAt}</p>
                     </div>
                   </div>
                 ))}
@@ -390,7 +390,7 @@ export default function AdminDashboardPage() {
             <div className="bg-white/[0.02] backdrop-blur-sm rounded-xl border border-white/[0.06]">
               <div className="flex items-center justify-between p-4 border-b border-white/[0.06]">
                 <h2 className="font-semibold">Recent Assessments</h2>
-                <Link href="/demo/admin/assessments" className="text-sm text-clarity-400 hover:text-clarity-300">
+                <Link href="/demo/admin/assessments" className="text-sm text-brand-green hover:text-brand-green/80">
                   View all →
                 </Link>
               </div>
@@ -408,12 +408,12 @@ export default function AdminDashboardPage() {
                           assessment.recommendation === 'GO' ? 'text-green-400' :
                           assessment.recommendation === 'CLARIFY' ? 'text-amber-400' :
                           assessment.recommendation === 'NO_GO' ? 'text-red-400' :
-                          'text-gray-400'
+                          'text-brand-grey'
                         }`} />
                       </div>
                       <div>
                         <p className="font-medium">{assessment.title}</p>
-                        <p className="text-xs text-gray-500">{assessment.organization} • {assessment.variant}</p>
+                        <p className="text-xs text-brand-grey">{assessment.organization} • {assessment.variant}</p>
                       </div>
                     </div>
                     <div className="text-right flex items-center gap-3">
@@ -441,7 +441,7 @@ export default function AdminDashboardPage() {
 
           {/* Back to demo */}
           <div className="mt-8 text-center">
-            <Link href="/demo/login" className="text-clarity-400 hover:text-clarity-300 text-sm">
+            <Link href="/demo/login" className="text-brand-green hover:text-brand-green/80 text-sm">
               ← Switch demo user
             </Link>
           </div>

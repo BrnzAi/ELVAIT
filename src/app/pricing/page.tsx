@@ -107,11 +107,11 @@ export default function PricingPage() {
   return (
     <div className="min-h-screen bg-gray-950 text-white">
       {/* Header */}
-      <div className="border-b border-gray-800">
+      <div className="border-b border-[#333]">
         <div className="max-w-7xl mx-auto px-4 py-4">
           <Link 
             href="/"
-            className="inline-flex items-center gap-2 text-gray-400 hover:text-white transition-colors"
+            className="inline-flex items-center gap-2 text-brand-grey hover:text-brand-green transition-colors"
           >
             <ArrowLeft className="w-4 h-4" />
             <span>Back to ELVAIT</span>
@@ -126,7 +126,7 @@ export default function PricingPage() {
           <h1 className="text-4xl font-bold mb-4">
             Simple, transparent pricing
           </h1>
-          <p className="text-xl text-gray-400 max-w-2xl mx-auto">
+          <p className="text-xl text-brand-grey max-w-2xl mx-auto">
             Full assessments start at €199. Choose the plan that fits your needs.
           </p>
         </div>
@@ -138,14 +138,14 @@ export default function PricingPage() {
               key={plan.name}
               className={`rounded-2xl p-5 ${
                 plan.highlight
-                  ? 'bg-blue-600 ring-2 ring-blue-400'
-                  : 'bg-gray-900 border border-gray-800'
+                  ? 'bg-brand-green/20 ring-2 ring-brand-green'
+                  : 'bg-[#111] border border-[#333]'
               }`}
             >
               {/* Plan Header */}
               <div className="mb-4">
                 <h2 className="text-lg font-semibold mb-1">{plan.name}</h2>
-                <p className={`text-xs ${plan.highlight ? 'text-blue-200' : 'text-gray-400'}`}>
+                <p className={`text-xs ${plan.highlight ? 'text-brand-green' : 'text-brand-grey'}`}>
                   {plan.description}
                 </p>
               </div>
@@ -153,7 +153,7 @@ export default function PricingPage() {
               {/* Price */}
               <div className="mb-4">
                 <span className="text-3xl font-bold">{plan.price}</span>
-                <span className={`text-xs ml-1 ${plan.highlight ? 'text-blue-200' : 'text-gray-400'}`}>
+                <span className={`text-xs ml-1 ${plan.highlight ? 'text-brand-green' : 'text-brand-grey'}`}>
                   {plan.priceDetail}
                 </span>
               </div>
@@ -163,8 +163,8 @@ export default function PricingPage() {
                 href={plan.ctaLink}
                 className={`block w-full py-2.5 px-4 rounded-lg text-center font-medium transition-colors mb-4 text-sm ${
                   plan.highlight
-                    ? 'bg-white text-blue-600 hover:bg-gray-100'
-                    : 'bg-gray-800 text-white hover:bg-gray-700'
+                    ? 'bg-brand-green text-black hover:bg-brand-green/80'
+                    : 'bg-[#222] text-white hover:bg-[#333]'
                 }`}
               >
                 {plan.cta}
@@ -172,7 +172,7 @@ export default function PricingPage() {
 
               {/* Note */}
               {plan.note && (
-                <p className={`text-xs mb-4 ${plan.highlight ? 'text-blue-200' : 'text-gray-500'}`}>
+                <p className={`text-xs mb-4 ${plan.highlight ? 'text-brand-green' : 'text-brand-grey'}`}>
                   {plan.note}
                 </p>
               )}
@@ -183,22 +183,22 @@ export default function PricingPage() {
                   <li
                     key={feature.name}
                     className={`flex items-start gap-2 text-xs ${
-                      !feature.included && !plan.highlight ? 'text-gray-500' : ''
+                      !feature.included && !plan.highlight ? 'text-brand-grey' : ''
                     }`}
                   >
                     {feature.included ? (
                       <Check className={`w-3.5 h-3.5 mt-0.5 flex-shrink-0 ${
-                        plan.highlight ? 'text-blue-200' : 'text-green-400'
+                        plan.highlight ? 'text-brand-green' : 'text-green-400'
                       }`} />
                     ) : (
                       <X className={`w-3.5 h-3.5 mt-0.5 flex-shrink-0 ${
-                        plan.highlight ? 'text-blue-300' : 'text-gray-600'
+                        plan.highlight ? 'text-brand-green' : 'text-brand-grey'
                       }`} />
                     )}
                     <span>
                       {feature.name}
                       {typeof feature.value === 'string' && feature.included && (
-                        <span className={`ml-1 ${plan.highlight ? 'text-blue-200' : 'text-gray-400'}`}>
+                        <span className={`ml-1 ${plan.highlight ? 'text-brand-green' : 'text-brand-grey'}`}>
                           ({feature.value})
                         </span>
                       )}
@@ -216,8 +216,8 @@ export default function PricingPage() {
           <div className="overflow-x-auto">
             <table className="w-full text-sm">
               <thead>
-                <tr className="border-b border-gray-800">
-                  <th className="text-left py-4 px-4 font-medium text-gray-400">Feature</th>
+                <tr className="border-b border-[#333]">
+                  <th className="text-left py-4 px-4 font-medium text-brand-grey">Feature</th>
                   {plans.map(plan => (
                     <th key={plan.name} className="text-center py-4 px-2 font-semibold">
                       {plan.name}
@@ -225,72 +225,72 @@ export default function PricingPage() {
                   ))}
                 </tr>
               </thead>
-              <tbody className="divide-y divide-gray-800">
+              <tbody className="divide-y divide-[#333]">
                 <tr>
-                  <td className="py-3 px-4 text-gray-400">Assessments</td>
+                  <td className="py-3 px-4 text-brand-grey">Assessments</td>
                   <td className="py-3 px-2 text-center">1</td>
                   <td className="py-3 px-2 text-center">Up to 10</td>
                   <td className="py-3 px-2 text-center">Up to 20</td>
                   <td className="py-3 px-2 text-center">Unlimited</td>
                 </tr>
                 <tr>
-                  <td className="py-3 px-4 text-gray-400">Tier</td>
+                  <td className="py-3 px-4 text-brand-grey">Tier</td>
                   <td className="py-3 px-2 text-center">Full Standard</td>
                   <td className="py-3 px-2 text-center">Core</td>
                   <td className="py-3 px-2 text-center">Advanced</td>
                   <td className="py-3 px-2 text-center">Custom</td>
                 </tr>
                 <tr>
-                  <td className="py-3 px-4 text-gray-400">Respondents</td>
+                  <td className="py-3 px-4 text-brand-grey">Respondents</td>
                   <td className="py-3 px-2 text-center">50</td>
                   <td className="py-3 px-2 text-center">150</td>
                   <td className="py-3 px-2 text-center">250</td>
                   <td className="py-3 px-2 text-center">Unlimited</td>
                 </tr>
                 <tr>
-                  <td className="py-3 px-4 text-gray-400">Full results & insights</td>
+                  <td className="py-3 px-4 text-brand-grey">Full results & insights</td>
                   <td className="py-3 px-2 text-center"><Check className="w-4 h-4 mx-auto text-green-400" /></td>
                   <td className="py-3 px-2 text-center"><Check className="w-4 h-4 mx-auto text-green-400" /></td>
                   <td className="py-3 px-2 text-center"><Check className="w-4 h-4 mx-auto text-green-400" /></td>
                   <td className="py-3 px-2 text-center"><Check className="w-4 h-4 mx-auto text-green-400" /></td>
                 </tr>
                 <tr>
-                  <td className="py-3 px-4 text-gray-400">PDF Reports</td>
+                  <td className="py-3 px-4 text-brand-grey">PDF Reports</td>
                   <td className="py-3 px-2 text-center"><Check className="w-4 h-4 mx-auto text-green-400" /></td>
                   <td className="py-3 px-2 text-center"><Check className="w-4 h-4 mx-auto text-green-400" /></td>
                   <td className="py-3 px-2 text-center"><Check className="w-4 h-4 mx-auto text-green-400" /></td>
                   <td className="py-3 px-2 text-center"><Check className="w-4 h-4 mx-auto text-green-400" /></td>
                 </tr>
                 <tr>
-                  <td className="py-3 px-4 text-gray-400">Custom roles</td>
-                  <td className="py-3 px-2 text-center"><X className="w-4 h-4 mx-auto text-gray-600" /></td>
-                  <td className="py-3 px-2 text-center"><X className="w-4 h-4 mx-auto text-gray-600" /></td>
+                  <td className="py-3 px-4 text-brand-grey">Custom roles</td>
+                  <td className="py-3 px-2 text-center"><X className="w-4 h-4 mx-auto text-brand-grey" /></td>
+                  <td className="py-3 px-2 text-center"><X className="w-4 h-4 mx-auto text-brand-grey" /></td>
                   <td className="py-3 px-2 text-center">Limited</td>
                   <td className="py-3 px-2 text-center">Full</td>
                 </tr>
                 <tr>
-                  <td className="py-3 px-4 text-gray-400">Custom questions</td>
-                  <td className="py-3 px-2 text-center"><X className="w-4 h-4 mx-auto text-gray-600" /></td>
-                  <td className="py-3 px-2 text-center"><X className="w-4 h-4 mx-auto text-gray-600" /></td>
+                  <td className="py-3 px-4 text-brand-grey">Custom questions</td>
+                  <td className="py-3 px-2 text-center"><X className="w-4 h-4 mx-auto text-brand-grey" /></td>
+                  <td className="py-3 px-2 text-center"><X className="w-4 h-4 mx-auto text-brand-grey" /></td>
                   <td className="py-3 px-2 text-center">Limited</td>
                   <td className="py-3 px-2 text-center">Full</td>
                 </tr>
                 <tr>
-                  <td className="py-3 px-4 text-gray-400">AI clarity narrative</td>
-                  <td className="py-3 px-2 text-center"><X className="w-4 h-4 mx-auto text-gray-600" /></td>
-                  <td className="py-3 px-2 text-center"><X className="w-4 h-4 mx-auto text-gray-600" /></td>
+                  <td className="py-3 px-4 text-brand-grey">AI clarity narrative</td>
+                  <td className="py-3 px-2 text-center"><X className="w-4 h-4 mx-auto text-brand-grey" /></td>
+                  <td className="py-3 px-2 text-center"><X className="w-4 h-4 mx-auto text-brand-grey" /></td>
                   <td className="py-3 px-2 text-center"><Check className="w-4 h-4 mx-auto text-green-400" /></td>
                   <td className="py-3 px-2 text-center"><Check className="w-4 h-4 mx-auto text-green-400" /></td>
                 </tr>
                 <tr>
-                  <td className="py-3 px-4 text-gray-400">API access</td>
-                  <td className="py-3 px-2 text-center"><X className="w-4 h-4 mx-auto text-gray-600" /></td>
-                  <td className="py-3 px-2 text-center"><X className="w-4 h-4 mx-auto text-gray-600" /></td>
-                  <td className="py-3 px-2 text-center"><X className="w-4 h-4 mx-auto text-gray-600" /></td>
+                  <td className="py-3 px-4 text-brand-grey">API access</td>
+                  <td className="py-3 px-2 text-center"><X className="w-4 h-4 mx-auto text-brand-grey" /></td>
+                  <td className="py-3 px-2 text-center"><X className="w-4 h-4 mx-auto text-brand-grey" /></td>
+                  <td className="py-3 px-2 text-center"><X className="w-4 h-4 mx-auto text-brand-grey" /></td>
                   <td className="py-3 px-2 text-center"><Check className="w-4 h-4 mx-auto text-green-400" /></td>
                 </tr>
                 <tr>
-                  <td className="py-3 px-4 text-gray-400">Price</td>
+                  <td className="py-3 px-4 text-brand-grey">Price</td>
                   <td className="py-3 px-2 text-center font-semibold">€199/3mo</td>
                   <td className="py-3 px-2 text-center font-semibold">€1,900/yr</td>
                   <td className="py-3 px-2 text-center font-semibold">€3,500/yr</td>
@@ -304,12 +304,12 @@ export default function PricingPage() {
         {/* FAQ / Contact Section */}
         <div className="mt-20 text-center">
           <h2 className="text-2xl font-bold mb-4">Questions?</h2>
-          <p className="text-gray-400 mb-6">
+          <p className="text-brand-grey mb-6">
             We'd love to help you find the right plan for your needs.
           </p>
           <Link
             href="/contact"
-            className="inline-flex items-center gap-2 px-6 py-3 bg-gray-800 hover:bg-gray-700 rounded-lg transition-colors"
+            className="inline-flex items-center gap-2 px-6 py-3 bg-[#222] hover:bg-[#333] rounded-lg transition-colors"
           >
             Contact us
           </Link>

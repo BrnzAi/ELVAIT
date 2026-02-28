@@ -20,7 +20,7 @@ html {
 
 body {
   min-height: 100vh;
-  font-family: 'Inter', system-ui, sans-serif;
+  font-family: 'DM Sans', system-ui, sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
 }
@@ -62,7 +62,7 @@ body {
 
 /* Glass effect */
 .glass {
-  @apply bg-white/80 dark:bg-gray-900/80 backdrop-blur-xl;
+  @apply bg-black/80 backdrop-blur-xl;
 }
 
 /* Outcome badges */
@@ -90,23 +90,23 @@ body {
 /* Survey form styles */
 .survey-option {
   @apply p-4 border-2 border-gray-200 dark:border-gray-700 rounded-lg cursor-pointer
-         transition-all duration-200 hover:border-clarity-400 hover:bg-clarity-50/50
-         dark:hover:bg-clarity-900/30;
+         transition-all duration-200 hover:border-brand-green hover:bg-brand-green/10
+         dark:hover:bg-brand-green/10;
 }
 
 .survey-option.selected {
-  @apply border-clarity-500 bg-clarity-50 dark:bg-clarity-900/50;
+  @apply border-brand-green bg-brand-green/10 dark:bg-brand-green/20;
 }
 
 /* Scale selector */
 .scale-option {
   @apply w-12 h-12 rounded-full border-2 border-gray-300 dark:border-gray-600
          flex items-center justify-center cursor-pointer transition-all duration-200
-         hover:border-clarity-400 hover:bg-clarity-50/50;
+         hover:border-brand-green hover:bg-brand-green/10;
 }
 
 .scale-option.selected {
-  @apply border-clarity-500 bg-clarity-500 text-white;
+  @apply border-brand-green bg-brand-green text-black;
 }
 
 /* Animations */

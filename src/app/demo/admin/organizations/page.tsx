@@ -58,20 +58,20 @@ function Sidebar({ isOpen, onClose }: { isOpen: boolean; onClose: () => void }) 
             </div>
             <div className="flex flex-col">
               <span className="text-lg font-bold bg-gradient-to-r from-clarity-400 to-teal-400 bg-clip-text text-transparent">Admin Panel</span>
-              <span className="text-[10px] text-gray-500 font-medium tracking-wider uppercase">ELVAIT</span>
+              <span className="text-[10px] text-brand-grey font-medium tracking-wider uppercase">ELVAIT</span>
             </div>
           </Link>
-          <button onClick={onClose} className="lg:hidden p-2 text-gray-400 hover:text-white rounded-lg hover:bg-white/5">
+          <button onClick={onClose} className="lg:hidden p-2 text-brand-grey hover:text-white rounded-lg hover:bg-white/5">
             <X className="h-5 w-5" />
           </button>
         </div>
         <nav className="flex-1 p-4 space-y-1 overflow-y-auto">
-          <p className="px-3 text-[10px] font-semibold text-gray-500 uppercase tracking-wider mb-2">Management</p>
+          <p className="px-3 text-[10px] font-semibold text-brand-grey uppercase tracking-wider mb-2">Management</p>
           {NAV_ITEMS.map(item => (
-            <Link key={item.label} href={item.href} className={`group flex items-center gap-3 px-4 py-3 rounded-xl text-sm font-medium transition-all duration-200 ${item.active ? 'bg-white/[0.08] text-white shadow-sm' : 'text-gray-400 hover:bg-white/[0.04] hover:text-white'}`}>
-              <item.icon className={`h-5 w-5 transition-colors ${item.active ? 'text-clarity-400' : 'text-gray-500 group-hover:text-clarity-400'}`} />
+            <Link key={item.label} href={item.href} className={`group flex items-center gap-3 px-4 py-3 rounded-xl text-sm font-medium transition-all duration-200 ${item.active ? 'bg-white/[0.08] text-white shadow-sm' : 'text-brand-grey hover:bg-white/[0.04] hover:text-white'}`}>
+              <item.icon className={`h-5 w-5 transition-colors ${item.active ? 'text-brand-green' : 'text-brand-grey group-hover:text-brand-green'}`} />
               {item.label}
-              {item.active && <ChevronRight className="ml-auto h-4 w-4 text-clarity-400" />}
+              {item.active && <ChevronRight className="ml-auto h-4 w-4 text-brand-green" />}
             </Link>
           ))}
         </nav>
@@ -80,7 +80,7 @@ function Sidebar({ isOpen, onClose }: { isOpen: boolean; onClose: () => void }) 
             <div className="p-2 rounded-lg bg-teal-500/20"><LogOut className="h-4 w-4 text-teal-400" /></div>
             <div className="flex-1">
               <p className="text-sm font-medium text-white">Switch User</p>
-              <p className="text-xs text-gray-500">Back to role selection</p>
+              <p className="text-xs text-brand-grey">Back to role selection</p>
             </div>
           </Link>
         </div>
@@ -99,16 +99,16 @@ export default function AdminOrganizationsPage() {
   );
 
   return (
-    <div className="min-h-screen bg-gray-950 text-white">
+    <div className="min-h-screen bg-black text-white">
       <div className="fixed inset-0 bg-[radial-gradient(ellipse_at_top,rgba(20,184,166,0.1),transparent_50%)]" />
       <div className="fixed inset-0 bg-[radial-gradient(ellipse_at_bottom_right,rgba(13,148,136,0.08),transparent_50%)]" />
       <Sidebar isOpen={sidebarOpen} onClose={() => setSidebarOpen(false)} />
 
       <div className="fixed top-0 left-0 right-0 z-30 lg:hidden bg-white/[0.02] backdrop-blur-xl border-b border-white/[0.06]">
         <div className="flex items-center justify-between h-16 px-4">
-          <button onClick={() => setSidebarOpen(true)} className="p-2 text-gray-400 hover:text-white rounded-lg hover:bg-white/5"><Menu className="h-6 w-6" /></button>
+          <button onClick={() => setSidebarOpen(true)} className="p-2 text-brand-grey hover:text-white rounded-lg hover:bg-white/5"><Menu className="h-6 w-6" /></button>
           <span className="text-lg font-semibold">Organizations</span>
-          <button className="p-2 text-gray-400 hover:text-white rounded-lg hover:bg-white/5"><Bell className="h-5 w-5" /></button>
+          <button className="p-2 text-brand-grey hover:text-white rounded-lg hover:bg-white/5"><Bell className="h-5 w-5" /></button>
         </div>
       </div>
 
@@ -116,7 +116,7 @@ export default function AdminOrganizationsPage() {
         <div className="hidden lg:block border-b border-white/[0.06] bg-white/[0.01]">
           <div className="px-8 py-4 flex items-center justify-between">
             <div className="flex items-center gap-2 text-sm">
-              <Link href="/demo/admin" className="text-clarity-400 hover:text-clarity-300 font-medium">Admin</Link>
+              <Link href="/demo/admin" className="text-brand-green hover:text-brand-green/80 font-medium">Admin</Link>
               <ChevronRight className="w-4 h-4 text-gray-600" />
               <span className="text-white">Organizations</span>
             </div>
@@ -127,21 +127,21 @@ export default function AdminOrganizationsPage() {
           <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4 mb-6">
             <div>
               <h1 className="text-2xl font-bold">Organizations</h1>
-              <p className="text-gray-400 text-sm mt-1">Manage organizations and their subscriptions</p>
+              <p className="text-brand-grey text-sm mt-1">Manage organizations and their subscriptions</p>
             </div>
             <Button><Plus className="w-4 h-4 mr-2" />Add Organization</Button>
           </div>
 
           <div className="flex gap-4 mb-6">
             <div className="relative flex-1">
-              <Search className="absolute left-3 top-1/2 -translate-y-1/2 w-4 h-4 text-gray-500" />
+              <Search className="absolute left-3 top-1/2 -translate-y-1/2 w-4 h-4 text-brand-grey" />
               <Input placeholder="Search organizations..." className="pl-9 bg-white/5 border-white/10" value={searchQuery} onChange={(e) => setSearchQuery(e.target.value)} />
             </div>
           </div>
 
           <div className="grid gap-4 md:grid-cols-2 lg:grid-cols-3">
             {filteredOrgs.map(org => (
-              <div key={org.id} className="bg-white/[0.02] backdrop-blur-sm rounded-xl border border-white/[0.06] p-5 hover:border-clarity-500/30 transition-colors">
+              <div key={org.id} className="bg-white/[0.02] backdrop-blur-sm rounded-xl border border-white/[0.06] p-5 hover:border-brand-green/30 transition-colors">
                 <div className="flex items-start justify-between mb-4">
                   <div className="w-12 h-12 rounded-xl bg-gradient-to-br from-clarity-500 to-teal-500 flex items-center justify-center text-white font-bold text-lg">
                     {org.name.charAt(0)}
@@ -153,18 +153,18 @@ export default function AdminOrganizationsPage() {
                   }`}>{org.status}</span>
                 </div>
                 <h3 className="font-semibold text-lg mb-1">{org.name}</h3>
-                <p className="text-sm text-gray-400 mb-4">{org.industry} • {org.size}</p>
+                <p className="text-sm text-brand-grey mb-4">{org.industry} • {org.size}</p>
                 <div className="space-y-2 text-sm">
-                  <div className="flex items-center gap-2 text-gray-400">
+                  <div className="flex items-center gap-2 text-brand-grey">
                     <MapPin className="w-4 h-4" />{org.location}
                   </div>
-                  <div className="flex items-center gap-2 text-gray-400">
+                  <div className="flex items-center gap-2 text-brand-grey">
                     <Users className="w-4 h-4" />{org.users} users
                   </div>
-                  <div className="flex items-center gap-2 text-gray-400">
+                  <div className="flex items-center gap-2 text-brand-grey">
                     <ClipboardList className="w-4 h-4" />{org.assessments} assessments
                   </div>
-                  <div className="flex items-center gap-2 text-gray-400">
+                  <div className="flex items-center gap-2 text-brand-grey">
                     <Calendar className="w-4 h-4" />Joined {org.joinedAt}
                   </div>
                 </div>
@@ -177,7 +177,7 @@ export default function AdminOrganizationsPage() {
           </div>
 
           {filteredOrgs.length === 0 && (
-            <div className="p-12 text-center text-gray-500">
+            <div className="p-12 text-center text-brand-grey">
               <Building2 className="w-12 h-12 mx-auto mb-3 opacity-50" />
               <p>No organizations found</p>
             </div>

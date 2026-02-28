@@ -160,7 +160,7 @@ function ScoreRing({ score, size = 120 }: { score: number; size?: number }) {
       </svg>
       <div className="absolute inset-0 flex flex-col items-center justify-center">
         <span className="text-3xl font-bold" style={{ color }}>{score}</span>
-        <span className="text-xs text-gray-400">ICS</span>
+        <span className="text-xs text-brand-grey">ICS</span>
       </div>
     </div>
   );
@@ -171,28 +171,28 @@ function DimensionBar({ dimension }: { dimension: Assessment['dimensions'][0] })
   const color = dimension.score >= 75 ? 'bg-green-500' : dimension.score >= 50 ? 'bg-amber-500' : 'bg-red-500';
   
   return (
-    <div className="bg-gray-900 rounded-lg border border-gray-800 overflow-hidden">
-      <button onClick={() => setExpanded(!expanded)} className="w-full p-4 flex items-center justify-between hover:bg-gray-800/50 transition-colors">
+    <div className="bg-[#111] rounded-lg border border-[#333] overflow-hidden">
+      <button onClick={() => setExpanded(!expanded)} className="w-full p-4 flex items-center justify-between hover:bg-[#222]/50 transition-colors">
         <div className="flex items-center gap-4 flex-1">
-          <span className="text-sm font-mono text-gray-500 w-8">{dimension.code}</span>
+          <span className="text-sm font-mono text-brand-grey w-8">{dimension.code}</span>
           <div className="flex-1">
             <div className="flex items-center justify-between mb-1">
               <span className="font-medium">{dimension.name}</span>
               <span className={`font-bold ${dimension.score >= 75 ? 'text-green-400' : dimension.score >= 50 ? 'text-amber-400' : 'text-red-400'}`}>{dimension.score}</span>
             </div>
-            <div className="h-2 bg-gray-800 rounded-full overflow-hidden">
+            <div className="h-2 bg-[#222] rounded-full overflow-hidden">
               <div className={`h-full ${color} transition-all duration-500`} style={{ width: `${dimension.score}%` }} />
             </div>
           </div>
         </div>
-        <ChevronDown className={`w-5 h-5 text-gray-400 ml-4 transition-transform ${expanded ? 'rotate-180' : ''}`} />
+        <ChevronDown className={`w-5 h-5 text-brand-grey ml-4 transition-transform ${expanded ? 'rotate-180' : ''}`} />
       </button>
       {expanded && (
-        <div className="px-4 pb-4 border-t border-gray-800">
+        <div className="px-4 pb-4 border-t border-[#333]">
           <ul className="space-y-1 mt-3">
             {dimension.insights.map((insight, i) => (
               <li key={i} className="flex items-start gap-2 text-sm text-gray-300">
-                <Lightbulb className="w-4 h-4 text-clarity-400 mt-0.5 flex-shrink-0" />
+                <Lightbulb className="w-4 h-4 text-brand-green mt-0.5 flex-shrink-0" />
                 {insight}
               </li>
             ))}
@@ -213,13 +213,13 @@ export default function DemoResultsByIdPage() {
   const assessment = DEMO_ASSESSMENTS[id] || DEFAULT_ASSESSMENT;
 
   return (
-    <div className="min-h-screen bg-gray-950 text-white">
+    <div className="min-h-screen bg-black text-white">
       <div className="fixed inset-0 bg-[radial-gradient(ellipse_at_top,rgba(20,184,166,0.1),transparent_50%)]" />
       
-      <header className="border-b border-gray-800 sticky top-0 bg-gray-950/80 backdrop-blur-xl z-10">
+      <header className="border-b border-[#333] sticky top-0 bg-black/80 backdrop-blur-xl z-10">
         <div className="max-w-5xl mx-auto px-6 py-4 flex items-center justify-between">
           <div className="flex items-center gap-3">
-            <Brain className="w-6 h-6 text-clarity-500" />
+            <Brain className="w-6 h-6 text-brand-green" />
             <span className="font-semibold">Assessment Results</span>
           </div>
           <div className="flex items-center gap-4">
@@ -249,7 +249,7 @@ export default function DemoResultsByIdPage() {
               <Download className="w-4 h-4 mr-2" />
               Export PDF
             </Button>
-            <Link href="/demo/dashboard" className="text-sm text-gray-400 hover:text-white flex items-center gap-1">
+            <Link href="/demo/dashboard" className="text-sm text-brand-grey hover:text-white flex items-center gap-1">
               <ArrowLeft className="w-4 h-4" />
               Back to Dashboard
             </Link>
@@ -259,12 +259,12 @@ export default function DemoResultsByIdPage() {
 
       <main className="max-w-5xl mx-auto px-6 py-8 relative z-10">
         {/* Assessment Header */}
-        <div className="bg-gray-900 rounded-xl border border-gray-800 p-6 mb-6">
+        <div className="bg-[#111] rounded-xl border border-[#333] p-6 mb-6">
           <div className="flex flex-col md:flex-row md:items-center justify-between gap-6">
             <div>
-              <p className="text-sm text-gray-400 mb-1">Assessment Results</p>
+              <p className="text-sm text-brand-grey mb-1">Assessment Results</p>
               <h1 className="text-2xl font-bold mb-2">{assessment.title}</h1>
-              <p className="text-gray-400">Investment Clarity Score Analysis</p>
+              <p className="text-brand-grey">Investment Clarity Score Analysis</p>
             </div>
             <ScoreRing score={assessment.ics} />
           </div>
@@ -307,7 +307,7 @@ export default function DemoResultsByIdPage() {
             {/* Dimension Scores */}
             <section>
               <h2 className="text-lg font-semibold mb-4 flex items-center gap-2">
-                <TrendingUp className="w-5 h-5 text-clarity-400" />
+                <TrendingUp className="w-5 h-5 text-brand-green" />
                 Dimension Scores
               </h2>
               <div className="space-y-3">
@@ -321,7 +321,7 @@ export default function DemoResultsByIdPage() {
             {assessment.blindSpots.length > 0 && (
               <section>
                 <h2 className="text-lg font-semibold mb-4 flex items-center gap-2">
-                  <Target className="w-5 h-5 text-clarity-400" />
+                  <Target className="w-5 h-5 text-brand-green" />
                   Blind Spots Detected
                 </h2>
                 <div className="space-y-3">
@@ -339,31 +339,31 @@ export default function DemoResultsByIdPage() {
           {/* Sidebar */}
           <div className="space-y-6">
             {/* Triggered Flags */}
-            <section className="bg-gray-900 rounded-xl border border-gray-800 p-5">
+            <section className="bg-[#111] rounded-xl border border-[#333] p-5">
               <h2 className="text-lg font-semibold mb-4 flex items-center gap-2">
-                <Shield className="w-5 h-5 text-clarity-400" />
+                <Shield className="w-5 h-5 text-brand-green" />
                 Flags ({assessment.flags.length})
               </h2>
               {assessment.flags.length === 0 ? (
-                <p className="text-sm text-gray-500">No flags triggered ✓</p>
+                <p className="text-sm text-brand-grey">No flags triggered ✓</p>
               ) : (
                 <div className="space-y-3">
                   {assessment.flags.map(flag => (
                     <div key={flag.code} className={`p-3 rounded-lg ${
                       flag.severity === 'critical' ? 'bg-red-500/10 border border-red-500/30' :
                       flag.severity === 'warning' ? 'bg-amber-500/10 border border-amber-500/30' :
-                      'bg-blue-500/10 border border-blue-500/30'
+                      'bg-brand-green/10 border border-brand-green/20'
                     }`}>
                       <div className="flex items-center gap-2 mb-1">
-                        <span className="text-xs font-mono text-gray-500">{flag.code}</span>
+                        <span className="text-xs font-mono text-brand-grey">{flag.code}</span>
                         <span className={`text-xs px-1.5 py-0.5 rounded ${
                           flag.severity === 'critical' ? 'bg-red-500/20 text-red-400' :
                           flag.severity === 'warning' ? 'bg-amber-500/20 text-amber-400' :
-                          'bg-blue-500/20 text-blue-400'
+                          'bg-brand-green/10 text-brand-green'
                         }`}>{flag.severity}</span>
                       </div>
                       <p className="font-medium text-sm">{flag.name}</p>
-                      <p className="text-xs text-gray-400 mt-1">{flag.description}</p>
+                      <p className="text-xs text-brand-grey mt-1">{flag.description}</p>
                     </div>
                   ))}
                 </div>
@@ -371,14 +371,14 @@ export default function DemoResultsByIdPage() {
             </section>
 
             {/* Participants */}
-            <section className="bg-gray-900 rounded-xl border border-gray-800 p-5">
+            <section className="bg-[#111] rounded-xl border border-[#333] p-5">
               <h2 className="text-lg font-semibold mb-4 flex items-center gap-2">
-                <Users className="w-5 h-5 text-clarity-400" />
+                <Users className="w-5 h-5 text-brand-green" />
                 Participants
               </h2>
               <div className="space-y-2 text-sm">
                 <div className="flex justify-between">
-                  <span className="text-gray-400">Completed</span>
+                  <span className="text-brand-grey">Completed</span>
                   <span className="text-green-400">3/3</span>
                 </div>
               </div>

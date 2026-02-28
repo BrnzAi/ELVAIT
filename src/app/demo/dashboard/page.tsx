@@ -100,10 +100,10 @@ function StatCard({ icon: Icon, label, value, trend }: {
   trend?: { value: number; positive: boolean };
 }) {
   return (
-    <div className="bg-gray-900 rounded-xl p-5 border border-gray-800">
+    <div className="bg-[#111] rounded-xl p-5 border border-[#333]">
       <div className="flex items-start justify-between mb-3">
-        <div className="p-2 bg-gray-800 rounded-lg">
-          <Icon className="w-5 h-5 text-clarity-400" />
+        <div className="p-2 bg-[#222] rounded-lg">
+          <Icon className="w-5 h-5 text-brand-green" />
         </div>
         {trend && (
           <span className={`text-xs font-medium ${trend.positive ? 'text-green-400' : 'text-red-400'}`}>
@@ -112,7 +112,7 @@ function StatCard({ icon: Icon, label, value, trend }: {
         )}
       </div>
       <p className="text-2xl font-bold">{value}</p>
-      <p className="text-sm text-gray-400">{label}</p>
+      <p className="text-sm text-brand-grey">{label}</p>
     </div>
   );
 }
@@ -123,9 +123,9 @@ function AssessmentRow({ assessment }: { assessment: DemoAssessment }) {
       case 'COMPLETED':
         return <span className="px-2 py-0.5 bg-green-500/20 text-green-400 rounded text-xs">Completed</span>;
       case 'ACTIVE':
-        return <span className="px-2 py-0.5 bg-blue-500/20 text-blue-400 rounded text-xs">Active</span>;
+        return <span className="px-2 py-0.5 bg-brand-green/10 text-brand-green rounded text-xs">Active</span>;
       default:
-        return <span className="px-2 py-0.5 bg-gray-500/20 text-gray-400 rounded text-xs">Draft</span>;
+        return <span className="px-2 py-0.5 bg-gray-500/20 text-brand-grey rounded text-xs">Draft</span>;
     }
   };
 
@@ -154,27 +154,27 @@ function AssessmentRow({ assessment }: { assessment: DemoAssessment }) {
   };
 
   return (
-    <div className="flex items-center justify-between p-4 bg-gray-900/50 hover:bg-gray-900 rounded-xl border border-gray-800 transition-colors">
+    <div className="flex items-center justify-between p-4 bg-[#111]/50 hover:bg-[#111] rounded-xl border border-[#333] transition-colors">
       <div className="flex items-center gap-4">
         <div className={`w-10 h-10 rounded-lg flex items-center justify-center ${
           assessment.recommendation === 'GO' ? 'bg-green-500/20' :
           assessment.recommendation === 'CLARIFY' ? 'bg-amber-500/20' :
           assessment.recommendation === 'NO_GO' ? 'bg-red-500/20' :
-          'bg-gray-800'
+          'bg-[#222]'
         }`}>
           <FileText className={`w-5 h-5 ${
             assessment.recommendation === 'GO' ? 'text-green-400' :
             assessment.recommendation === 'CLARIFY' ? 'text-amber-400' :
             assessment.recommendation === 'NO_GO' ? 'text-red-400' :
-            'text-gray-400'
+            'text-brand-grey'
           }`} />
         </div>
         <div>
           <h3 className="font-medium">{assessment.title}</h3>
           <div className="flex items-center gap-3 mt-1">
             {getStatusBadge()}
-            <span className="text-xs text-gray-500">{assessment.variant}</span>
-            <span className="text-xs text-gray-500">
+            <span className="text-xs text-brand-grey">{assessment.variant}</span>
+            <span className="text-xs text-brand-grey">
               {assessment.participantsCompleted}/{assessment.participantsTotal} participants
             </span>
           </div>
@@ -184,7 +184,7 @@ function AssessmentRow({ assessment }: { assessment: DemoAssessment }) {
         {assessment.ics !== null && (
           <div className="text-right">
             <p className="font-bold">{assessment.ics}</p>
-            <p className="text-xs text-gray-500">ICS Score</p>
+            <p className="text-xs text-brand-grey">ICS Score</p>
           </div>
         )}
         {getRecommendationBadge()}
@@ -219,13 +219,13 @@ export default function DemoDashboardPage() {
   const nogoCount = DEMO_ASSESSMENTS.filter(a => a.recommendation === 'NO_GO').length;
 
   return (
-    <div className="min-h-screen bg-gray-950 text-white">
+    <div className="min-h-screen bg-black text-white">
       {/* Header */}
-      <header className="border-b border-gray-800 sticky top-0 bg-gray-950 z-10">
+      <header className="border-b border-[#333] sticky top-0 bg-black z-10">
         <div className="max-w-7xl mx-auto px-6 py-4 flex items-center justify-between">
           <Link href="/" className="flex items-center gap-2">
-            <Brain className="w-8 h-8 text-clarity-500" />
-            <span className="font-bold text-lg text-clarity-400">ELVAIT</span>
+            <Brain className="w-8 h-8 text-brand-green" />
+            <span className="font-bold text-lg text-brand-green">ELVAIT</span>
           </Link>
           <div className="flex items-center gap-4">
             <Link href="/demo/login">
@@ -233,11 +233,11 @@ export default function DemoDashboardPage() {
                 Switch User
               </Button>
             </Link>
-            <div className="flex items-center gap-2 px-3 py-1.5 bg-gray-800 rounded-lg">
+            <div className="flex items-center gap-2 px-3 py-1.5 bg-[#222] rounded-lg">
               <span className="text-2xl">👔</span>
               <div>
                 <p className="text-sm font-medium">{userName}</p>
-                <p className="text-xs text-gray-400">Executive Sponsor</p>
+                <p className="text-xs text-brand-grey">Executive Sponsor</p>
               </div>
             </div>
           </div>
@@ -248,7 +248,7 @@ export default function DemoDashboardPage() {
         {/* Welcome */}
         <div className="mb-8">
           <h1 className="text-3xl font-bold mb-2">Welcome back, {userName.split(' ')[0]} 👋</h1>
-          <p className="text-gray-400">Here's an overview of your clarity assessments</p>
+          <p className="text-brand-grey">Here's an overview of your clarity assessments</p>
         </div>
 
         {/* Stats */}
@@ -297,23 +297,23 @@ export default function DemoDashboardPage() {
         {/* Recent Activity */}
         <div className="mt-12">
           <h2 className="text-xl font-semibold mb-4">Recent Activity</h2>
-          <div className="bg-gray-900 rounded-xl border border-gray-800 divide-y divide-gray-800">
+          <div className="bg-[#111] rounded-xl border border-[#333] divide-y divide-gray-800">
             <div className="p-4 flex items-center gap-4">
               <div className="w-8 h-8 rounded-full bg-green-500/20 flex items-center justify-center">
                 <CheckCircle className="w-4 h-4 text-green-400" />
               </div>
               <div className="flex-1">
                 <p className="text-sm"><strong>Customer Service AI</strong> assessment completed with GO recommendation</p>
-                <p className="text-xs text-gray-500">2 hours ago</p>
+                <p className="text-xs text-brand-grey">2 hours ago</p>
               </div>
             </div>
             <div className="p-4 flex items-center gap-4">
-              <div className="w-8 h-8 rounded-full bg-blue-500/20 flex items-center justify-center">
-                <Users className="w-4 h-4 text-blue-400" />
+              <div className="w-8 h-8 rounded-full bg-brand-green/10 flex items-center justify-center">
+                <Users className="w-4 h-4 text-brand-green" />
               </div>
               <div className="flex-1">
                 <p className="text-sm"><strong>Brian Business</strong> completed their survey for Marketing Automation</p>
-                <p className="text-xs text-gray-500">4 hours ago</p>
+                <p className="text-xs text-brand-grey">4 hours ago</p>
               </div>
             </div>
             <div className="p-4 flex items-center gap-4">
@@ -322,7 +322,7 @@ export default function DemoDashboardPage() {
               </div>
               <div className="flex-1">
                 <p className="text-sm"><strong>Data Lake</strong> assessment flagged for ownership diffusion</p>
-                <p className="text-xs text-gray-500">Yesterday</p>
+                <p className="text-xs text-brand-grey">Yesterday</p>
               </div>
             </div>
           </div>
@@ -330,7 +330,7 @@ export default function DemoDashboardPage() {
 
         {/* Back to demo */}
         <div className="mt-8 text-center">
-          <Link href="/demo/login" className="text-clarity-400 hover:text-clarity-300 text-sm">
+          <Link href="/demo/login" className="text-brand-green hover:text-brand-green/80 text-sm">
             ← Switch demo user
           </Link>
         </div>

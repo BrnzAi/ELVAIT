@@ -1,5 +1,5 @@
 import Link from 'next/link';
-import { Brain } from 'lucide-react';
+import { ElvaitLogo } from '@/components/survey/ElvaitLogo';
 
 export default function AuthLayout({
   children,
@@ -7,13 +7,12 @@ export default function AuthLayout({
   children: React.ReactNode;
 }) {
   return (
-    <div className="min-h-screen bg-gray-950 text-white flex flex-col">
+    <div className="min-h-screen bg-black text-white flex flex-col">
       {/* Header */}
-      <header className="border-b border-gray-800">
+      <header className="border-b border-[#333]">
         <div className="max-w-6xl mx-auto px-6 py-4">
-          <Link href="/" className="flex items-center gap-2 w-fit">
-            <Brain className="w-8 h-8 text-clarity-500" />
-            <span className="font-bold text-lg text-clarity-400">ELVAIT</span>
+          <Link href="/" className="w-fit">
+            <ElvaitLogo className="h-8" />
           </Link>
         </div>
       </header>
@@ -26,8 +25,8 @@ export default function AuthLayout({
       </main>
 
       {/* Footer */}
-      <footer className="border-t border-gray-800 py-4">
-        <div className="max-w-6xl mx-auto px-6 text-center text-sm text-gray-500">
+      <footer className="border-t border-[#333] py-4">
+        <div className="max-w-6xl mx-auto px-6 text-center text-sm text-brand-grey">
           © {new Date().getFullYear()} ELVAIT. All rights reserved.
         </div>
       </footer>
