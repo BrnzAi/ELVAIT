@@ -213,10 +213,10 @@ export default function DemoResultsByIdPage() {
   const assessment = DEMO_ASSESSMENTS[id] || DEFAULT_ASSESSMENT;
 
   return (
-    <div className="min-h-screen bg-black text-white">
+    <div className="min-h-screen bg-brand-darkgrey text-white">
       <div className="fixed inset-0 bg-[radial-gradient(ellipse_at_top,rgba(20,184,166,0.1),transparent_50%)]" />
       
-      <header className="border-b border-brand-grey-medium sticky top-0 bg-black/80 backdrop-blur-xl z-10">
+      <header className="border-b border-brand-grey-medium sticky top-0 bg-brand-darkgrey/80 backdrop-blur-xl z-10">
         <div className="max-w-5xl mx-auto px-6 py-4 flex items-center justify-between">
           <div className="flex items-center gap-3">
             <Brain className="w-6 h-6 text-brand-green" />

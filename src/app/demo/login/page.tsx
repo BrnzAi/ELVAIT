@@ -214,7 +214,7 @@ export default function DemoLoginPage() {
   const currentUser = DEMO_USERS.find(u => u.id === activeUser);
 
   return (
-    <div className="min-h-screen bg-black text-white">
+    <div className="min-h-screen bg-brand-darkgrey text-white">
       {/* Header */}
       <header className="border-b border-brand-grey-medium">
         <div className="max-w-6xl mx-auto px-6 py-4 flex items-center justify-between">

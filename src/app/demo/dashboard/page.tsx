@@ -219,9 +219,9 @@ export default function DemoDashboardPage() {
   const nogoCount = DEMO_ASSESSMENTS.filter(a => a.recommendation === 'NO_GO').length;
 
   return (
-    <div className="min-h-screen bg-black text-white">
+    <div className="min-h-screen bg-brand-darkgrey text-white">
       {/* Header */}
-      <header className="border-b border-brand-grey-medium sticky top-0 bg-black z-10">
+      <header className="border-b border-brand-grey-medium sticky top-0 bg-brand-darkgrey z-10">
         <div className="max-w-7xl mx-auto px-6 py-4 flex items-center justify-between">
           <Link href="/" className="flex items-center gap-2">
             <Brain className="w-8 h-8 text-brand-green" />

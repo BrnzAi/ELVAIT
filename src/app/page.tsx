@@ -174,7 +174,7 @@ export default function LandingPage() {
     <div className="min-h-screen">
       {/* Hero Section */}
       <header className="relative overflow-hidden">
-        <div className="absolute inset-0 bg-black" />
+        <div className="absolute inset-0 bg-brand-darkgrey" />
         <div className="absolute inset-0 hidden" />
         
         {/* Nav: only Demo, Pricing, Sign In (#10) */}
@@ -305,7 +305,7 @@ export default function LandingPage() {
       </section>
 
       {/* Outcomes Section — updated colors (#4, #5) */}
-      <section className="py-24 bg-black text-white">
+      <section className="py-24 bg-brand-darkgrey text-white">
         <div className="max-w-7xl mx-auto px-6">
           <div className="text-center mb-16">
             <h2 className="text-4xl font-bold mb-4">Clear Outcomes</h2>
@@ -674,7 +674,7 @@ export default function LandingPage() {
       </section>
 
       {/* CTA Section — "Try Out" green button (#13) */}
-      <section className="py-24 bg-black text-white">
+      <section className="py-24 bg-brand-darkgrey text-white">
         <div className="max-w-4xl mx-auto px-6 text-center">
           <h2 className="text-4xl font-bold text-white mb-6">
             Ready to make confident automation decisions?
@@ -702,7 +702,7 @@ export default function LandingPage() {
       </section>
 
       {/* Footer — use full logo image (#1) */}
-      <footer className="py-12 bg-black text-brand-grey">
+      <footer className="py-12 bg-brand-darkgrey text-brand-grey">
         <div className="max-w-7xl mx-auto px-6">
           <div className="flex flex-col md:flex-row items-center justify-between gap-4">
             <Image src="/logo-full.jpg" alt="ELVAIT" width={120} height={34} className="h-6 w-auto" />
