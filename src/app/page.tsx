@@ -317,11 +317,11 @@ export default function LandingPage() {
               <div className="w-14 h-14 bg-brand-green rounded-full flex items-center justify-center mb-6">
                 <CheckCircle className="w-8 h-8 text-black" />
               </div>
-              <h3 className="text-2xl font-bold text-brand-green mb-3">🟢 GO</h3>
-              <p className="text-brand-grey mb-4">
+              <h3 className="text-2xl font-bold text-black mb-3">🟢 GO</h3>
+              <p className="text-black/70 mb-4">
                 High clarity exists. Proceed with automation — you have alignment, clear processes, and realistic expectations.
               </p>
-              <ul className="text-sm text-brand-grey space-y-2">
+              <ul className="text-sm text-black/70 space-y-2">
                 <li>• Recommended automation approach</li>
                 <li>• Success metrics defined</li>
                 <li>• Implementation roadmap</li>
@@ -332,11 +332,11 @@ export default function LandingPage() {
               <div className="w-14 h-14 bg-brand-red rounded-full flex items-center justify-center mb-6">
                 <AlertTriangle className="w-8 h-8 text-white" />
               </div>
-              <h3 className="text-2xl font-bold text-brand-red mb-3">🟡 FIX FIRST</h3>
-              <p className="text-brand-grey mb-4">
+              <h3 className="text-2xl font-bold text-black mb-3">🔴 FIX FIRST</h3>
+              <p className="text-black/70 mb-4">
                 Gaps identified. Address specific issues before proceeding — contradictions, unclear processes, or misaligned goals.
               </p>
-              <ul className="text-sm text-brand-grey space-y-2">
+              <ul className="text-sm text-black/70 space-y-2">
                 <li>• Specific gaps to address</li>
                 <li>• Resolution actions</li>
                 <li>• Re-assessment criteria</li>
@@ -347,11 +347,11 @@ export default function LandingPage() {
               <div className="w-14 h-14 bg-brand-red rounded-full flex items-center justify-center mb-6">
                 <XCircle className="w-8 h-8 text-white" />
               </div>
-              <h3 className="text-2xl font-bold text-brand-red mb-3">🔴 NO-GO</h3>
-              <p className="text-brand-grey mb-4">
+              <h3 className="text-2xl font-bold text-black mb-3">🔴 NO-GO</h3>
+              <p className="text-black/70 mb-4">
                 Fundamental issues exist. Automation would fail — revisit process design or strategic objectives first.
               </p>
-              <ul className="text-sm text-brand-grey space-y-2">
+              <ul className="text-sm text-black/70 space-y-2">
                 <li>• Root cause analysis</li>
                 <li>• Prerequisites for success</li>
                 <li>• Alternative approaches</li>
@@ -589,61 +589,6 @@ export default function LandingPage() {
                 Collect perspectives from executives, tech leads, and end users.
               </p>
             </div>
-          </div>
-        </div>
-      </section>
-
-      {/* Pricing Section (#9 — single pricing overview with link) */}
-      <section id="pricing" className="py-24 bg-brand-grey-light">
-        <div className="max-w-7xl mx-auto px-6">
-          <div className="text-center mb-16">
-            <h2 className="text-4xl font-bold mb-4">Simple, Transparent Pricing</h2>
-            <p className="text-xl text-brand-grey">Start free. Upgrade when you need more.</p>
-          </div>
-
-          <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-4">
-            {pricingPlans.map((plan, i) => (
-              <div 
-                key={i} 
-                className="bg-white rounded-2xl p-6 border-2 border-brand-grey-medium"
-              >
-                <h3 className="text-xl font-bold mb-1">{plan.name}</h3>
-                <p className="text-sm text-brand-grey mb-4">{plan.description}</p>
-                <div className="mb-6">
-                  <span className="text-3xl font-bold">{plan.price}</span>
-                  <span className="text-brand-grey text-sm ml-1">{plan.period}</span>
-                </div>
-                <Link
-                  href={plan.href}
-                  className="block w-full py-2.5 px-4 rounded-lg font-medium text-center transition mb-6 bg-brand-grey-medium text-black hover:bg-brand-grey"
-                >
-                  {plan.cta}
-                </Link>
-                <ul className="space-y-3 text-sm">
-                  {plan.features.map((feature, j) => (
-                    <li key={j} className="flex items-center gap-2">
-                      {feature.included ? (
-                        <Check className="w-4 h-4 text-black flex-shrink-0" />
-                      ) : (
-                        <X className="w-4 h-4 text-brand-grey flex-shrink-0" />
-                      )}
-                      <span className={feature.included ? '' : 'text-brand-grey text-gray-500'}>
-                        {feature.name}
-                        {typeof feature.value === 'string' && feature.value !== 'true' && (
-                          <span className="text-brand-grey ml-1">({feature.value})</span>
-                        )}
-                      </span>
-                    </li>
-                  ))}
-                </ul>
-              </div>
-            ))}
-          </div>
-
-          <div className="text-center mt-10">
-            <Link href="/pricing" className="text-black font-medium hover:underline">
-              View full pricing comparison →
-            </Link>
           </div>
         </div>
       </section>
