@@ -125,7 +125,7 @@ export default function SurveyPage() {
 
   if (loading) {
     return (
-      <div className="min-h-screen flex items-center justify-center bg-gray-50">
+      <div className="min-h-screen flex items-center justify-center bg-[#F0F0F0]">
         <Loader2 className="w-8 h-8 animate-spin text-brand-green" />
       </div>
     );
@@ -133,11 +133,11 @@ export default function SurveyPage() {
 
   if (error) {
     return (
-      <div className="min-h-screen flex items-center justify-center bg-gray-50">
+      <div className="min-h-screen flex items-center justify-center bg-[#F0F0F0]">
         <div className="text-center max-w-md px-6">
           <AlertCircle className="w-16 h-16 text-red-500 mx-auto mb-4" />
           <h1 className="text-xl font-bold mb-2">Unable to Load Survey</h1>
-          <p className="text-gray-600">{error}</p>
+          <p className="text-[#777777]">{error}</p>
         </div>
       </div>
     );
@@ -145,11 +145,11 @@ export default function SurveyPage() {
 
   if (completed || surveyData?.participant.status === 'COMPLETED') {
     return (
-      <div className="min-h-screen flex items-center justify-center bg-gray-50">
+      <div className="min-h-screen flex items-center justify-center bg-[#F0F0F0]">
         <div className="text-center max-w-md px-6">
           <CheckCircle className="w-16 h-16 text-green-500 mx-auto mb-4" />
           <h1 className="text-2xl font-bold mb-2">Thank You!</h1>
-          <p className="text-gray-600">
+          <p className="text-[#777777]">
             Your responses have been recorded. The assessment initiator will be notified when all participants have completed their surveys.
           </p>
         </div>
@@ -191,8 +191,8 @@ export default function SurveyPage() {
   // Context View
   if (showContext) {
     return (
-      <div className="min-h-screen bg-gray-50">
-        <header className="bg-white border-b border-gray-200">
+      <div className="min-h-screen bg-[#F0F0F0]">
+        <header className="bg-white border-b border-[#B4B4B4]">
           <div className="max-w-3xl mx-auto px-6 py-4 flex items-center justify-between">
             <div className="flex items-center gap-2">
               <Brain className="w-6 h-6 text-brand-green" />
@@ -206,25 +206,25 @@ export default function SurveyPage() {
         </header>
 
         <main className="max-w-3xl mx-auto px-6 py-12">
-          <div className="bg-white rounded-xl border border-gray-200 p-8">
+          <div className="bg-white rounded-xl border border-[#B4B4B4] p-8">
             <h1 className="text-2xl font-bold mb-2">{surveyData.context.title}</h1>
-            <p className="text-gray-600 mb-6">{surveyData.context.description}</p>
+            <p className="text-[#777777] mb-6">{surveyData.context.description}</p>
             
             <div className="space-y-4 mb-8">
-              <div className="p-4 bg-gray-50 rounded-lg">
-                <p className="text-sm text-gray-500 mb-1">What decision are we actually trying to make?</p>
+              <div className="p-4 bg-[#F0F0F0] rounded-lg">
+                <p className="text-sm text-[#777777] mb-1">What decision are we actually trying to make?</p>
                 <p className="font-medium">{surveyData.context.dCtx1}</p>
               </div>
-              <div className="p-4 bg-gray-50 rounded-lg">
-                <p className="text-sm text-gray-500 mb-1">What will be different if this decision succeeds?</p>
+              <div className="p-4 bg-[#F0F0F0] rounded-lg">
+                <p className="text-sm text-[#777777] mb-1">What will be different if this decision succeeds?</p>
                 <p className="font-medium">{surveyData.context.dCtx2}</p>
               </div>
-              <div className="p-4 bg-gray-50 rounded-lg">
-                <p className="text-sm text-gray-500 mb-1">What happens if we do nothing?</p>
+              <div className="p-4 bg-[#F0F0F0] rounded-lg">
+                <p className="text-sm text-[#777777] mb-1">What happens if we do nothing?</p>
                 <p className="font-medium">{surveyData.context.dCtx3}</p>
               </div>
-              <div className="p-4 bg-gray-50 rounded-lg">
-                <p className="text-sm text-gray-500 mb-1">What would make this decision a mistake in hindsight?</p>
+              <div className="p-4 bg-[#F0F0F0] rounded-lg">
+                <p className="text-sm text-[#777777] mb-1">What would make this decision a mistake in hindsight?</p>
                 <p className="font-medium">{surveyData.context.dCtx4}</p>
               </div>
             </div>
@@ -235,9 +235,9 @@ export default function SurveyPage() {
               </p>
             </div>
 
-            <div className="p-4 bg-gray-50 rounded-lg mb-6 border border-gray-200">
+            <div className="p-4 bg-[#F0F0F0] rounded-lg mb-6 border border-[#B4B4B4]">
               <h3 className="text-sm font-semibold mb-2 text-gray-900">🔒 Data Privacy &amp; GDPR Consent</h3>
-              <p className="text-xs text-gray-600 leading-relaxed mb-3">
+              <p className="text-xs text-[#777777] leading-relaxed mb-3">
                 By participating in this survey, you consent to the processing of your responses for the purpose of organizational decision assessment. Your data is stored on EU servers (Google Cloud, Frankfurt, europe-west1), encrypted in transit and at rest, and processed in accordance with GDPR. Only your name, email, and survey responses are collected — no IP addresses or tracking data. Your responses are pseudonymised and analysed in aggregate across roles. You may request access to, correction, or deletion of your data at any time by contacting <a href="mailto:system@elvait.ai" className="text-brand-green underline">system@elvait.ai</a>.
               </p>
               <label className="flex items-start gap-2 cursor-pointer">
@@ -245,7 +245,7 @@ export default function SurveyPage() {
                   type="checkbox"
                   checked={consentGiven}
                   onChange={(e) => setConsentGiven(e.target.checked)}
-                  className="mt-0.5 w-4 h-4 rounded border-gray-300 text-brand-green focus:ring-brand-green"
+                  className="mt-0.5 w-4 h-4 rounded border-[#B4B4B4] text-brand-green focus:ring-brand-green"
                 />
                 <span className="text-sm text-gray-700">
                   I have read and agree to the processing of my data as described above.
@@ -265,8 +265,8 @@ export default function SurveyPage() {
 
   // Survey Questions View
   return (
-    <div className="min-h-screen bg-gray-50">
-      <header className="bg-white border-b border-gray-200 sticky top-0 z-10">
+    <div className="min-h-screen bg-[#F0F0F0]">
+      <header className="bg-white border-b border-[#B4B4B4] sticky top-0 z-10">
         <div className="max-w-3xl mx-auto px-6 py-4">
           <div className="flex items-center justify-between mb-2">
             <div className="flex items-center gap-2">
@@ -274,13 +274,13 @@ export default function SurveyPage() {
               <span className="text-sm font-medium">{surveyData.context.title}</span>
             </div>
             <div className="flex items-center gap-3">
-              <span className="text-sm text-gray-500">
+              <span className="text-sm text-[#777777]">
                 {currentIndex + 1} of {totalQuestions}
               </span>
               <ThemeToggle />
             </div>
           </div>
-          <div className="h-1 bg-gray-200 rounded-full overflow-hidden">
+          <div className="h-1 bg-[#B4B4B4] rounded-full overflow-hidden">
             <div 
               className="h-full bg-brand-green transition-all duration-300"
               style={{ width: `${progress}%` }}
@@ -290,7 +290,7 @@ export default function SurveyPage() {
       </header>
 
       <main className="max-w-3xl mx-auto px-6 py-12">
-        <div className="bg-white rounded-xl border border-gray-200 p-8">
+        <div className="bg-white rounded-xl border border-[#B4B4B4] p-8">
           {/* Process Header */}
           {currentProcess && (
             <div className="mb-6 p-4 bg-brand-green/10 rounded-lg">
@@ -327,7 +327,7 @@ export default function SurveyPage() {
                         : currentQuestion.question_id;
                       return responses[responseKey] === option.value
                         ? 'border-brand-green bg-brand-green/10'
-                        : 'border-gray-200 hover:border-gray-300';
+                        : 'border-[#B4B4B4] hover:border-[#B4B4B4]';
                     })()
                   }`}
                 >
@@ -338,7 +338,7 @@ export default function SurveyPage() {
                         : currentQuestion.question_id;
                       return responses[responseKey] === option.value
                         ? 'border-brand-green bg-brand-green'
-                        : 'border-gray-300';
+                        : 'border-[#B4B4B4]';
                     })()
                   }`}>
                     {(() => {
@@ -352,7 +352,7 @@ export default function SurveyPage() {
                   </div>
                   <div>
                     <span className="font-medium">{option.value}</span>
-                    <span className="text-gray-500 ml-2">— {option.label}</span>
+                    <span className="text-[#777777] ml-2">— {option.label}</span>
                   </div>
                 </button>
               ))}
@@ -373,7 +373,7 @@ export default function SurveyPage() {
                         : currentQuestion.question_id;
                       return responses[responseKey] === option
                         ? 'border-brand-green bg-brand-green/10'
-                        : 'border-gray-200 hover:border-gray-300';
+                        : 'border-[#B4B4B4] hover:border-[#B4B4B4]';
                     })()
                   }`}
                 >
@@ -411,14 +411,14 @@ export default function SurveyPage() {
                 placeholder="Enter your response..."
                 className="text-base"
               />
-              <p className="text-sm text-gray-500 mt-2">
+              <p className="text-sm text-[#777777] mt-2">
                 Your response will be classified into themes — it will not be shown to other participants.
               </p>
             </div>
           )}
 
           {/* Navigation */}
-          <div className="flex items-center justify-between mt-8 pt-6 border-t border-gray-200">
+          <div className="flex items-center justify-between mt-8 pt-6 border-t border-[#B4B4B4]">
             <Button
               variant="outline"
               onClick={() => setCurrentIndex(i => i - 1)}
@@ -476,7 +476,7 @@ export default function SurveyPage() {
                   ? 'w-6 bg-brand-green'
                   : responses[q.question_id]
                     ? 'bg-brand-green'
-                    : 'bg-gray-300'
+                    : 'bg-[#B4B4B4]'
               }`}
             />
           ))}
