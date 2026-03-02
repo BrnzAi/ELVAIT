@@ -455,7 +455,7 @@ export default function LandingPage() {
                   <Check className="w-5 h-5 text-black flex-shrink-0" />
                   <span>PDF reports</span>
                 </li>
-                <li className="flex items-center gap-2 text-brand-grey font-medium">
+                <li className="flex items-center gap-2 text-black font-medium">
                   <Check className="w-5 h-5 text-black flex-shrink-0" />
                   <span>€199 credited to Core</span>
                 </li>
