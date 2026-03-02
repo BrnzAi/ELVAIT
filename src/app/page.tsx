@@ -410,7 +410,7 @@ export default function LandingPage() {
               </ul>
               <Link
                 href="/create"
-                className="mt-6 block w-full py-3 px-4 bg-brand-green text-black rounded-lg font-medium text-center hover:bg-brand-green/80 transition"
+                className="mt-6 block w-full py-3 px-4 bg-brand-grey-light text-black rounded-lg font-medium text-center hover:bg-brand-grey-medium transition"
               >
                 Get Started
               </Link>
