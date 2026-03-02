@@ -77,7 +77,7 @@ export default function DashboardPage() {
     }
     if (hasResponses) {
       return (
-        <span className="inline-flex items-center gap-1 px-2 py-1 bg-brand-green/10 text-brand-green rounded-full text-sm">
+        <span className="inline-flex items-center gap-1 px-2 py-1 bg-brand-green/10 text-black rounded-full text-sm">
           <Clock className="w-4 h-4" />
           In Progress
         </span>
@@ -205,8 +205,8 @@ export default function DashboardPage() {
         
         {/* Help Section */}
         <div className="mt-12 bg-brand-green/10 bg-brand-green/10 rounded-xl p-6 border border-brand-green/30 border-brand-green/30">
-          <h3 className="font-semibold text-brand-green text-brand-green mb-2">How it works</h3>
-          <ol className="text-sm text-brand-green text-brand-green/70 space-y-2">
+          <h3 className="font-semibold text-black mb-2">How it works</h3>
+          <ol className="text-sm text-black/70 space-y-2">
             <li><strong>1. Create</strong> — Set up your assessment with decision context</li>
             <li><strong>2. Invite</strong> — Add participants and share their unique survey links</li>
             <li><strong>3. Collect</strong> — Wait for participants to complete their surveys</li>

@@ -31,13 +31,14 @@ interface FormData {
 const VARIANTS = [
   {
     id: 'QUICK_CHECK' as KitVariant,
-    name: 'Quick Check',
+    name: 'Free Assessment',
     description: 'Rapid executive clarity signal focused on strategic intent. Tests whether the initiative is conceptually sound before involving the wider organization.',
     time: '15 min',
     roles: ['Decision Owners'],
     lenses: ['Strategy'],
     icon: Zap,
-    color: 'blue'
+    color: 'blue',
+    free: true
   },
   {
     id: 'CORE' as KitVariant,
@@ -47,7 +48,8 @@ const VARIANTS = [
     roles: ['Decision Owners', 'Business Owners', 'Technical Owners'],
     lenses: ['Strategy', 'Business Value', 'Technical Feasibility'],
     icon: Brain,
-    color: 'purple'
+    color: 'purple',
+    free: false
   },
   {
     id: 'FULL' as KitVariant,
@@ -57,7 +59,8 @@ const VARIANTS = [
     roles: ['Decision Owners', 'Business Owners', 'Technical Owners', 'Process Owners', 'User Representatives'],
     lenses: ['Strategy', 'Business Value', 'Technical Feasibility', 'Process Readiness', 'Operational Reality'],
     icon: FileText,
-    color: 'green'
+    color: 'green',
+    free: false
   },
   {
     id: 'PROCESS_STANDALONE' as KitVariant,
@@ -67,7 +70,8 @@ const VARIANTS = [
     roles: ['Process Owners'],
     lenses: ['Process Readiness'],
     icon: Users,
-    color: 'amber'
+    color: 'amber',
+    free: false
   }
 ];
 
@@ -360,12 +364,18 @@ export default function CreateCasePage() {
             </p>
             
             <div className="grid md:grid-cols-2 gap-4">
-              {VARIANTS.map(variant => (
+              {VARIANTS.map(variant => {
+                const isFree = userTier === 'free' || sessionStatus === 'unauthenticated';
+                const isLocked = isFree && !variant.free;
+                return (
                 <button
                   key={variant.id}
-                  onClick={() => updateField('variant', variant.id)}
+                  onClick={() => !isLocked && updateField('variant', variant.id)}
+                  disabled={isLocked}
                   className={`p-6 rounded-xl border-2 text-left transition-all ${
-                    formData.variant === variant.id
+                    isLocked
+                      ? 'border-gray-200 opacity-60 cursor-not-allowed'
+                      : formData.variant === variant.id
                       ? 'border-brand-green bg-brand-green/10'
                       : 'border-gray-200 hover:border-gray-300'
                   }`}
@@ -374,14 +384,24 @@ export default function CreateCasePage() {
                     <div className={`w-12 h-12 rounded-xl bg-${variant.color}-100 flex items-center justify-center`}>
                       <variant.icon className={`w-6 h-6 text-${variant.color}-600`} />
                     </div>
-                    {formData.variant === variant.id && (
-                      <div className="w-6 h-6 rounded-full bg-brand-green flex items-center justify-center">
-                        <Check className="w-4 h-4 text-white" />
+                    {isLocked ? (
+                      <div className="flex items-center gap-1 text-xs text-brand-grey">
+                        <Lock className="w-4 h-4" />
+                        <span>Requires package</span>
                       </div>
-                    )}
+                    ) : formData.variant === variant.id ? (
+                      <div className="w-6 h-6 rounded-full bg-brand-green flex items-center justify-center">
+                        <Check className="w-4 h-4 text-black" />
+                      </div>
+                    ) : null}
                   </div>
                   <h3 className="text-lg font-semibold mb-1">{variant.name}</h3>
                   <p className="text-sm text-gray-600 mb-3">{variant.description}</p>
+                  {isLocked && (
+                    <p className="text-xs text-brand-red mb-3 font-medium">
+                      <Link href="/pricing" className="underline hover:no-underline">Purchase a package</Link> to unlock this assessment type.
+                    </p>
+                  )}
                   <div className="flex items-center gap-4 text-sm">
                     <span className="text-gray-500">⏱️ {variant.time}</span>
                     <span className="text-gray-500">👥 {variant.roles.length} role(s)</span>
@@ -401,7 +421,8 @@ export default function CreateCasePage() {
                     ))}
                   </div>
                 </button>
-              ))}
+                );
+              })}
             </div>
           </div>
         )}

@@ -17,19 +17,19 @@ module.exports = {
           white: '#FFFFFF',
         },
         go: {
-          light: '#22c55e',
-          DEFAULT: '#16a34a',
-          dark: '#15803d',
+          light: '#D2FFB8',
+          DEFAULT: '#D2FFB8',
+          dark: '#b8e6a0',
         },
         fixfirst: {
-          light: '#f59e0b',
-          DEFAULT: '#d97706',
-          dark: '#b45309',
+          light: '#FF6B6B',
+          DEFAULT: '#FF4C4C',
+          dark: '#E04343',
         },
         nogo: {
-          light: '#ef4444',
-          DEFAULT: '#dc2626',
-          dark: '#b91c1c',
+          light: '#FF4C4C',
+          DEFAULT: '#FF4C4C',
+          dark: '#E04343',
         },
       },
       fontFamily: {

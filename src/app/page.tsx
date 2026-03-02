@@ -1,6 +1,7 @@
 'use client';
 
 import { useState } from 'react';
+import Image from 'next/image';
 import Link from 'next/link';
 import { ArrowRight, CheckCircle, AlertTriangle, XCircle, Users, FileText, Zap, ChevronDown, Check, X, Lock, Eye, Download, Shield, Sparkles, BarChart3 } from 'lucide-react';
 import { UserMenu } from '@/components/auth';
@@ -14,11 +15,11 @@ const faqData = [
   },
   {
     question: "Can I try it without signing up?",
-    answer: "Yes! You can create and run a full assessment without an account. You'll see the verdict, Investment Clarity Score, top 2 flags, and summary immediately. Create a free account to unlock role breakdowns, all flags, and the contradiction map."
+    answer: "Yes! You can run a free Quick Check assessment without an account. You'll see the verdict, Investment Clarity Score, top 2 flags, and summary immediately. Create a free account to unlock role breakdowns, all flags, and the contradiction map."
   },
   {
     question: "What do I get with a free account?",
-    answer: "Free accounts include 1 Quick Check assessment with up to 10 respondents. You get the basic GO/FIX FIRST/NO-GO verdict. Full results (role breakdown, all flags, contradiction map) and PDF reports require a paid plan starting at €199."
+    answer: "Free accounts include 1 Quick Check assessment with up to 10 respondents. You get the basic GO/FIX/NO-GO verdict. Full results (role breakdown, all flags, contradiction map) and PDF reports require a paid plan starting at €199."
   },
   {
     question: "How much does it cost?",
@@ -88,7 +89,7 @@ const pricingPlans = [
     ],
     cta: 'Contact Us',
     href: '/contact?plan=tryout',
-    highlighted: true,
+    highlighted: false,
   },
   {
     name: 'Core',
@@ -154,7 +155,7 @@ function FAQItem({ question, answer, isOpen, onClick }: {
     <div className="border-b border-brand-grey-medium">
       <button
         onClick={onClick}
-        className="w-full py-5 flex items-center justify-between text-left hover:text-brand-green transition"
+        className="w-full py-5 flex items-center justify-between text-left hover:text-brand-red transition"
       >
         <span className="font-medium text-lg pr-4">{question}</span>
         <ChevronDown className={`w-5 h-5 flex-shrink-0 transition-transform ${isOpen ? 'rotate-180' : ''}`} />
@@ -176,23 +177,15 @@ export default function LandingPage() {
         <div className="absolute inset-0 bg-black" />
         <div className="absolute inset-0 hidden" />
         
+        {/* Nav: only Demo, Pricing, Sign In (#10) */}
         <nav className="relative z-10 max-w-7xl mx-auto px-6 py-6 flex items-center justify-between">
-          <ElvaitLogo className="h-8" />
+          <Image src="/logo-full.jpg" alt="ELVAIT" width={140} height={40} className="h-8 w-auto" />
           <div className="flex items-center gap-4">
             <Link href="/demo" className="text-white/80 hover:text-white transition">
               Demo
             </Link>
             <Link href="/pricing" className="text-white/80 hover:text-white transition">
               Pricing
-            </Link>
-            <Link href="/dashboard" className="text-white/80 hover:text-white transition">
-              My Assessments
-            </Link>
-            <Link 
-              href="/create"
-              className="px-4 py-2 bg-brand-red text-white rounded-lg font-medium hover:bg-brand-red/80 transition"
-            >
-              Try Free
             </Link>
             <UserMenu />
           </div>
@@ -201,7 +194,7 @@ export default function LandingPage() {
         <div className="relative z-10 max-w-7xl mx-auto px-6 py-24 text-center">
           <div className="inline-flex items-center gap-2 px-4 py-2 bg-white/10 rounded-full text-white/90 text-sm mb-8">
             <Sparkles className="w-4 h-4" />
-            <span>Try free — no signup required</span>
+            <span>Free Quick Check — no signup required</span>
           </div>
           
           <p className="text-lg md:text-xl text-white/50 mb-4 italic tracking-wide">
@@ -217,12 +210,13 @@ export default function LandingPage() {
             Get clear <span className="text-white font-semibold">Go / Fix / No-Go</span> recommendations for your AI &amp; IT investments — exposing hidden contradictions, structural blind spots, and false confidence.
           </p>
 
+          {/* CTA: "Try Out" green button linking to pricing (#13) */}
           <div className="flex flex-col sm:flex-row items-center justify-center gap-4">
             <Link 
-              href="/create"
-              className="w-full sm:w-auto px-8 py-4 bg-brand-red text-white rounded-xl font-semibold text-lg hover:bg-brand-red/80 transition flex items-center justify-center gap-2"
+              href="/pricing"
+              className="w-full sm:w-auto px-8 py-4 bg-brand-green text-black rounded-xl font-semibold text-lg hover:bg-brand-green/80 transition flex items-center justify-center gap-2"
             >
-              Start Free Assessment
+              Try Out
               <ArrowRight className="w-5 h-5" />
             </Link>
             <Link 
@@ -239,7 +233,7 @@ export default function LandingPage() {
         </div>
       </header>
 
-      {/* Stats Section */}
+      {/* Stats Section — fix green text on light bg (#3): use black */}
       <section className="py-16 bg-white border-b border-brand-grey-medium">
         <div className="max-w-7xl mx-auto px-6">
           <div className="grid grid-cols-2 md:grid-cols-4 gap-8">
@@ -250,7 +244,7 @@ export default function LandingPage() {
               { value: '15min', label: 'to gain clarity' },
             ].map((stat, i) => (
               <div key={i} className="text-center">
-                <div className="text-4xl font-bold text-brand-green">{stat.value}</div>
+                <div className="text-4xl font-bold text-black">{stat.value}</div>
                 <div className="text-sm text-brand-grey mt-2">{stat.label}</div>
               </div>
             ))}
@@ -258,204 +252,7 @@ export default function LandingPage() {
         </div>
       </section>
 
-      {/* Results Gate Preview Section */}
-      <section className="py-24 bg-brand-grey-light">
-        <div className="max-w-7xl mx-auto px-6">
-          <div className="text-center mb-16">
-            <h2 className="text-4xl font-bold text-black mb-4">See Results Instantly</h2>
-            <p className="text-xl text-brand-grey">
-              Try before you sign up. Get more with a free account.
-            </p>
-          </div>
-
-          <div className="grid md:grid-cols-3 gap-8">
-            {/* Tier 0 - Free (Quick Check) */}
-            <div className="relative bg-white rounded-2xl p-8 shadow-lg border border-brand-grey-medium">
-              <div className="absolute -top-3 left-6 px-3 py-1 bg-brand-grey text-white text-xs font-semibold rounded-full">
-                QUICK CHECK
-              </div>
-              <div className="flex items-center gap-3 mb-6">
-                <div className="w-12 h-12 bg-brand-grey-light rounded-xl flex items-center justify-center">
-                  <Eye className="w-6 h-6 text-brand-grey" />
-                </div>
-                <div>
-                  <h3 className="text-xl font-bold">Quick Check</h3>
-                  <p className="text-sm text-brand-grey">Basic verdict</p>
-                </div>
-              </div>
-              <ul className="space-y-3">
-                <li className="flex items-center gap-2 text-brand-grey">
-                  <Check className="w-5 h-5 text-green-500 flex-shrink-0" />
-                  <span>1 Quick Check assessment</span>
-                </li>
-                <li className="flex items-center gap-2 text-brand-grey">
-                  <Check className="w-5 h-5 text-green-500 flex-shrink-0" />
-                  <span>1 Role</span>
-                </li>
-                <li className="flex items-center gap-2 text-brand-grey">
-                  <Check className="w-5 h-5 text-green-500 flex-shrink-0" />
-                  <span>Up to 10 respondents</span>
-                </li>
-                <li className="flex items-center gap-2 text-brand-grey">
-                  <Check className="w-5 h-5 text-green-500 flex-shrink-0" />
-                  <span>Basic GO/FIX/NO-GO verdict</span>
-                </li>
-                <li className="flex items-center gap-2 text-brand-grey">
-                  <Check className="w-5 h-5 text-green-500 flex-shrink-0" />
-                  <span>Investment Clarity Score</span>
-                </li>
-              </ul>
-              <Link
-                href="/signup"
-                className="mt-6 block w-full py-3 px-4 bg-brand-grey-light text-black rounded-lg font-medium text-center hover:bg-brand-grey-medium transition"
-              >
-                Get Started
-              </Link>
-            </div>
-
-            {/* Try Out - €199 */}
-            <div className="relative bg-white rounded-2xl p-8 shadow-xl border-2 border-brand-green transform scale-105">
-              <div className="absolute -top-3 left-6 px-3 py-1 bg-brand-green text-white text-xs font-semibold rounded-full">
-                TRY OUT · €199
-              </div>
-              <div className="flex items-center gap-3 mb-6">
-                <div className="w-12 h-12 bg-brand-green/10 rounded-xl flex items-center justify-center">
-                  <BarChart3 className="w-6 h-6 text-brand-green" />
-                </div>
-                <div>
-                  <h3 className="text-xl font-bold">Try Out</h3>
-                  <p className="text-sm text-brand-grey">Full assessment trial</p>
-                </div>
-              </div>
-              <ul className="space-y-3">
-                <li className="flex items-center gap-2 text-brand-grey">
-                  <Check className="w-5 h-5 text-green-500 flex-shrink-0" />
-                  <span>1 Full assessment</span>
-                </li>
-                <li className="flex items-center gap-2 text-brand-grey">
-                  <Check className="w-5 h-5 text-green-500 flex-shrink-0" />
-                  <span>All 5 roles</span>
-                </li>
-                <li className="flex items-center gap-2 text-brand-grey">
-                  <Check className="w-5 h-5 text-green-500 flex-shrink-0" />
-                  <span>Up to 50 respondents</span>
-                </li>
-                <li className="flex items-center gap-2 text-brand-grey">
-                  <Check className="w-5 h-5 text-green-500 flex-shrink-0" />
-                  <span>Full results & insights</span>
-                </li>
-                <li className="flex items-center gap-2 text-brand-grey">
-                  <Check className="w-5 h-5 text-green-500 flex-shrink-0" />
-                  <span>Executive summary</span>
-                </li>
-                <li className="flex items-center gap-2 text-brand-grey">
-                  <Check className="w-5 h-5 text-green-500 flex-shrink-0" />
-                  <span>PDF reports</span>
-                </li>
-                <li className="flex items-center gap-2 text-brand-grey font-medium">
-                  <Check className="w-5 h-5 text-brand-green flex-shrink-0" />
-                  <span>€199 credited to Core</span>
-                </li>
-              </ul>
-              <Link
-                href="/contact?plan=tryout"
-                className="mt-6 block w-full py-3 px-4 bg-brand-green text-white rounded-lg font-medium text-center hover:bg-brand-green transition"
-              >
-                Contact Us
-              </Link>
-            </div>
-
-            {/* All Plans from €199 */}
-            <div className="relative bg-white rounded-2xl p-8 shadow-lg border border-brand-grey-medium">
-              <div className="absolute -top-3 left-6 px-3 py-1 bg-amber-500 text-white text-xs font-semibold rounded-full">
-                ALL PLANS FROM €199
-              </div>
-              <div className="flex items-center gap-3 mb-6">
-                <div className="w-12 h-12 bg-amber-900/30 rounded-xl flex items-center justify-center">
-                  <Download className="w-6 h-6 text-amber-600" />
-                </div>
-                <div>
-                  <h3 className="text-xl font-bold">All Decision Clarity Plans</h3>
-                  <p className="text-sm text-brand-grey">Core to Enterprise</p>
-                </div>
-              </div>
-              <ul className="space-y-4">
-                <li className="text-brand-grey">
-                  <div className="flex items-start gap-2">
-                    <Check className="w-5 h-5 text-amber-500 flex-shrink-0 mt-0.5" />
-                    <div>
-                      <span className="font-medium">Run 10 Assessments — or Scale Without Limits</span>
-                      <p className="text-sm text-brand-grey">Built for growing decision complexity</p>
-                    </div>
-                  </div>
-                </li>
-                <li className="text-brand-grey">
-                  <div className="flex items-start gap-2">
-                    <Check className="w-5 h-5 text-amber-500 flex-shrink-0 mt-0.5" />
-                    <div>
-                      <span className="font-medium">5 Built-In Stakeholder Roles &amp; Lenses — Expand &amp; Customize Anytime</span>
-                      <p className="text-sm text-brand-grey">Because misalignment lives between functions</p>
-                    </div>
-                  </div>
-                </li>
-                <li className="text-brand-grey">
-                  <div className="flex items-start gap-2">
-                    <Check className="w-5 h-5 text-amber-500 flex-shrink-0 mt-0.5" />
-                    <div>
-                      <span className="font-medium">50 to Unlimited Respondents</span>
-                      <p className="text-sm text-brand-grey">Capture the full structural picture</p>
-                    </div>
-                  </div>
-                </li>
-                <li className="text-brand-grey">
-                  <div className="flex items-start gap-2">
-                    <Check className="w-5 h-5 text-amber-500 flex-shrink-0 mt-0.5" />
-                    <div>
-                      <span className="font-medium">AI Detects Contradictions, Blind Spots &amp; False Confidence</span>
-                      <p className="text-sm text-brand-grey">We surface risk before it scales</p>
-                    </div>
-                  </div>
-                </li>
-                <li className="text-brand-grey">
-                  <div className="flex items-start gap-2">
-                    <Check className="w-5 h-5 text-amber-500 flex-shrink-0 mt-0.5" />
-                    <div>
-                      <span className="font-medium">Clear Go / Fix / No-Go Signal</span>
-                      <p className="text-sm text-brand-grey">Confidence you can defend</p>
-                    </div>
-                  </div>
-                </li>
-                <li className="text-brand-grey">
-                  <div className="flex items-start gap-2">
-                    <Check className="w-5 h-5 text-amber-500 flex-shrink-0 mt-0.5" />
-                    <div>
-                      <span className="font-medium">Executive Summary &amp; Decision-Grade Reports</span>
-                      <p className="text-sm text-brand-grey">Board-ready clarity</p>
-                    </div>
-                  </div>
-                </li>
-                <li className="text-brand-grey">
-                  <div className="flex items-start gap-2">
-                    <Check className="w-5 h-5 text-amber-500 flex-shrink-0 mt-0.5" />
-                    <div>
-                      <span className="font-medium">API Access</span>
-                      <p className="text-sm text-brand-grey">Integrate clarity into your governance</p>
-                    </div>
-                  </div>
-                </li>
-              </ul>
-              <Link
-                href="/pricing"
-                className="mt-6 block w-full py-3 px-4 bg-brand-grey-light text-black rounded-lg font-medium text-center hover:bg-brand-grey-medium transition"
-              >
-                View Plans
-              </Link>
-            </div>
-          </div>
-        </div>
-      </section>
-
-      {/* How It Works */}
+      {/* How It Works — Collect=red (#7), Decide=green (#6) */}
       <section className="py-24 bg-white">
         <div className="max-w-7xl mx-auto px-6">
           <div className="text-center mb-16">
@@ -470,7 +267,7 @@ export default function LandingPage() {
                 title: 'Collect',
                 description: 'Gather structured input from all stakeholders — executives, business owners, technical teams, and end users.',
                 icon: Users,
-                color: 'bg-brand-green/100',
+                color: 'bg-brand-red',
               },
               {
                 step: '2',
@@ -484,13 +281,13 @@ export default function LandingPage() {
                 title: 'Decide',
                 description: 'Get a clear GO, FIX FIRST, or NO-GO recommendation with specific action items.',
                 icon: FileText,
-                color: 'bg-green-500',
+                color: 'bg-brand-green',
               },
             ].map((phase, i) => (
               <div key={i} className="relative">
                 <div className="bg-white rounded-2xl p-8 shadow-lg border border-brand-grey-medium h-full">
                   <div className={`w-14 h-14 ${phase.color} rounded-xl flex items-center justify-center mb-6`}>
-                    <phase.icon className="w-7 h-7 text-white" />
+                    <phase.icon className={`w-7 h-7 ${phase.color === 'bg-brand-green' ? 'text-black' : 'text-white'}`} />
                   </div>
                   <div className="text-sm font-medium text-brand-grey mb-2">Phase {phase.step}</div>
                   <h3 className="text-2xl font-bold text-black mb-3">{phase.title}</h3>
@@ -507,7 +304,7 @@ export default function LandingPage() {
         </div>
       </section>
 
-      {/* Outcomes Section */}
+      {/* Outcomes Section — updated colors (#4, #5) */}
       <section className="py-24 bg-black text-white">
         <div className="max-w-7xl mx-auto px-6">
           <div className="text-center mb-16">
@@ -516,11 +313,11 @@ export default function LandingPage() {
           </div>
 
           <div className="grid md:grid-cols-3 gap-8">
-            <div className="bg-green-900/20 rounded-2xl p-8 border-2 border-green-800">
-              <div className="w-14 h-14 bg-go rounded-full flex items-center justify-center mb-6">
-                <CheckCircle className="w-8 h-8 text-white" />
+            <div className="rounded-2xl p-8 border-2 border-brand-green/40 bg-brand-green/10">
+              <div className="w-14 h-14 bg-brand-green rounded-full flex items-center justify-center mb-6">
+                <CheckCircle className="w-8 h-8 text-black" />
               </div>
-              <h3 className="text-2xl font-bold text-go-light mb-3">🟢 GO</h3>
+              <h3 className="text-2xl font-bold text-brand-green mb-3">🟢 GO</h3>
               <p className="text-brand-grey mb-4">
                 High clarity exists. Proceed with automation — you have alignment, clear processes, and realistic expectations.
               </p>
@@ -531,11 +328,11 @@ export default function LandingPage() {
               </ul>
             </div>
 
-            <div className="bg-amber-900/20 rounded-2xl p-8 border-2 border-amber-800">
-              <div className="w-14 h-14 bg-fixfirst rounded-full flex items-center justify-center mb-6">
+            <div className="rounded-2xl p-8 border-2 border-brand-red/40 bg-brand-red/10">
+              <div className="w-14 h-14 bg-brand-red rounded-full flex items-center justify-center mb-6">
                 <AlertTriangle className="w-8 h-8 text-white" />
               </div>
-              <h3 className="text-2xl font-bold text-fixfirst-light mb-3">🟡 FIX FIRST</h3>
+              <h3 className="text-2xl font-bold text-brand-red mb-3">🟡 FIX FIRST</h3>
               <p className="text-brand-grey mb-4">
                 Gaps identified. Address specific issues before proceeding — contradictions, unclear processes, or misaligned goals.
               </p>
@@ -546,11 +343,11 @@ export default function LandingPage() {
               </ul>
             </div>
 
-            <div className="bg-red-900/20 rounded-2xl p-8 border-2 border-red-800">
-              <div className="w-14 h-14 bg-nogo rounded-full flex items-center justify-center mb-6">
+            <div className="rounded-2xl p-8 border-2 border-brand-red/60 bg-brand-red/20">
+              <div className="w-14 h-14 bg-brand-red rounded-full flex items-center justify-center mb-6">
                 <XCircle className="w-8 h-8 text-white" />
               </div>
-              <h3 className="text-2xl font-bold text-nogo-light mb-3">🔴 NO-GO</h3>
+              <h3 className="text-2xl font-bold text-brand-red mb-3">🔴 NO-GO</h3>
               <p className="text-brand-grey mb-4">
                 Fundamental issues exist. Automation would fail — revisit process design or strategic objectives first.
               </p>
@@ -564,13 +361,210 @@ export default function LandingPage() {
         </div>
       </section>
 
-      {/* Trust Section */}
+      {/* "Try before you sign up" section moved here after How It Works + Clear Outcomes (#14, #15) */}
+      <section className="py-24 bg-brand-grey-light">
+        <div className="max-w-7xl mx-auto px-6">
+          <div className="text-center mb-16">
+            <h2 className="text-4xl font-bold text-black mb-4">Try before you sign up</h2>
+            <p className="text-xl text-brand-grey">
+              Scale to your exact needs.
+            </p>
+          </div>
+
+          <div className="grid md:grid-cols-3 gap-8">
+            {/* Tier 0 - Free (Quick Check) — renamed badge to FREE ASSESSMENT (#12) */}
+            <div className="relative bg-white rounded-2xl p-8 shadow-lg border border-brand-grey-medium">
+              <div className="absolute -top-3 left-6 px-3 py-1 bg-gray-600 text-white text-xs font-semibold rounded-full">
+                FREE ASSESSMENT
+              </div>
+              <div className="flex items-center gap-3 mb-6">
+                <div className="w-12 h-12 bg-brand-grey-light rounded-xl flex items-center justify-center">
+                  <Eye className="w-6 h-6 text-brand-grey" />
+                </div>
+                <div>
+                  <h3 className="text-xl font-bold">Free Assessment</h3>
+                  <p className="text-sm text-brand-grey">Basic verdict</p>
+                </div>
+              </div>
+              <ul className="space-y-3">
+                <li className="flex items-center gap-2 text-brand-grey">
+                  <Check className="w-5 h-5 text-black flex-shrink-0" />
+                  <span>1 Quick Check assessment</span>
+                </li>
+                <li className="flex items-center gap-2 text-brand-grey">
+                  <Check className="w-5 h-5 text-black flex-shrink-0" />
+                  <span>1 Role</span>
+                </li>
+                <li className="flex items-center gap-2 text-brand-grey">
+                  <Check className="w-5 h-5 text-black flex-shrink-0" />
+                  <span>Up to 10 respondents</span>
+                </li>
+                <li className="flex items-center gap-2 text-brand-grey">
+                  <Check className="w-5 h-5 text-black flex-shrink-0" />
+                  <span>Basic GO/FIX/NO-GO verdict</span>
+                </li>
+                <li className="flex items-center gap-2 text-brand-grey">
+                  <Check className="w-5 h-5 text-black flex-shrink-0" />
+                  <span>Investment Clarity Score</span>
+                </li>
+              </ul>
+              <Link
+                href="/create"
+                className="mt-6 block w-full py-3 px-4 bg-brand-grey-light text-black rounded-lg font-medium text-center hover:bg-brand-grey-medium transition"
+              >
+                Get Started
+              </Link>
+            </div>
+
+            {/* Try Out - €199 — no "Most Popular", badge text on green = black (#2, #8) */}
+            <div className="relative bg-white rounded-2xl p-8 shadow-xl border-2 border-brand-green transform scale-105">
+              <div className="absolute -top-3 left-6 px-3 py-1 bg-brand-green text-black text-xs font-semibold rounded-full">
+                TRY OUT · €199
+              </div>
+              <div className="flex items-center gap-3 mb-6">
+                <div className="w-12 h-12 bg-brand-green/10 rounded-xl flex items-center justify-center">
+                  <BarChart3 className="w-6 h-6 text-black" />
+                </div>
+                <div>
+                  <h3 className="text-xl font-bold">Try Out</h3>
+                  <p className="text-sm text-brand-grey">Full assessment trial</p>
+                </div>
+              </div>
+              <ul className="space-y-3">
+                <li className="flex items-center gap-2 text-brand-grey">
+                  <Check className="w-5 h-5 text-black flex-shrink-0" />
+                  <span>1 Full assessment</span>
+                </li>
+                <li className="flex items-center gap-2 text-brand-grey">
+                  <Check className="w-5 h-5 text-black flex-shrink-0" />
+                  <span>All 5 roles</span>
+                </li>
+                <li className="flex items-center gap-2 text-brand-grey">
+                  <Check className="w-5 h-5 text-black flex-shrink-0" />
+                  <span>Up to 50 respondents</span>
+                </li>
+                <li className="flex items-center gap-2 text-brand-grey">
+                  <Check className="w-5 h-5 text-black flex-shrink-0" />
+                  <span>Full results & insights</span>
+                </li>
+                <li className="flex items-center gap-2 text-brand-grey">
+                  <Check className="w-5 h-5 text-black flex-shrink-0" />
+                  <span>Executive summary</span>
+                </li>
+                <li className="flex items-center gap-2 text-brand-grey">
+                  <Check className="w-5 h-5 text-black flex-shrink-0" />
+                  <span>PDF reports</span>
+                </li>
+                <li className="flex items-center gap-2 text-brand-grey font-medium">
+                  <Check className="w-5 h-5 text-black flex-shrink-0" />
+                  <span>€199 credited to Core</span>
+                </li>
+              </ul>
+              <Link
+                href="/contact?plan=tryout"
+                className="mt-6 block w-full py-3 px-4 bg-brand-green text-black rounded-lg font-medium text-center hover:bg-brand-green/80 transition"
+              >
+                Contact Us
+              </Link>
+            </div>
+
+            {/* All Plans from €199 */}
+            <div className="relative bg-white rounded-2xl p-8 shadow-lg border border-brand-grey-medium">
+              <div className="absolute -top-3 left-6 px-3 py-1 bg-brand-red text-white text-xs font-semibold rounded-full">
+                ALL PLANS FROM €199
+              </div>
+              <div className="flex items-center gap-3 mb-6">
+                <div className="w-12 h-12 bg-brand-red/10 rounded-xl flex items-center justify-center">
+                  <Download className="w-6 h-6 text-brand-red" />
+                </div>
+                <div>
+                  <h3 className="text-xl font-bold">All Decision Clarity Plans</h3>
+                  <p className="text-sm text-brand-grey">Core to Enterprise</p>
+                </div>
+              </div>
+              <ul className="space-y-4">
+                <li className="text-brand-grey">
+                  <div className="flex items-start gap-2">
+                    <Check className="w-5 h-5 text-brand-red flex-shrink-0 mt-0.5" />
+                    <div>
+                      <span className="font-medium text-black">Run 10 Assessments — or Scale Without Limits</span>
+                      <p className="text-sm text-brand-grey">Built for growing decision complexity</p>
+                    </div>
+                  </div>
+                </li>
+                <li className="text-brand-grey">
+                  <div className="flex items-start gap-2">
+                    <Check className="w-5 h-5 text-brand-red flex-shrink-0 mt-0.5" />
+                    <div>
+                      <span className="font-medium text-black">5 Built-In Stakeholder Roles &amp; Lenses — Expand &amp; Customize Anytime</span>
+                      <p className="text-sm text-brand-grey">Because misalignment lives between functions</p>
+                    </div>
+                  </div>
+                </li>
+                <li className="text-brand-grey">
+                  <div className="flex items-start gap-2">
+                    <Check className="w-5 h-5 text-brand-red flex-shrink-0 mt-0.5" />
+                    <div>
+                      <span className="font-medium text-black">50 to Unlimited Respondents</span>
+                      <p className="text-sm text-brand-grey">Capture the full structural picture</p>
+                    </div>
+                  </div>
+                </li>
+                <li className="text-brand-grey">
+                  <div className="flex items-start gap-2">
+                    <Check className="w-5 h-5 text-brand-red flex-shrink-0 mt-0.5" />
+                    <div>
+                      <span className="font-medium text-black">AI Detects Contradictions, Blind Spots &amp; False Confidence</span>
+                      <p className="text-sm text-brand-grey">We surface risk before it scales</p>
+                    </div>
+                  </div>
+                </li>
+                <li className="text-brand-grey">
+                  <div className="flex items-start gap-2">
+                    <Check className="w-5 h-5 text-brand-red flex-shrink-0 mt-0.5" />
+                    <div>
+                      <span className="font-medium text-black">Clear Go / Fix / No-Go Signal</span>
+                      <p className="text-sm text-brand-grey">Confidence you can defend</p>
+                    </div>
+                  </div>
+                </li>
+                <li className="text-brand-grey">
+                  <div className="flex items-start gap-2">
+                    <Check className="w-5 h-5 text-brand-red flex-shrink-0 mt-0.5" />
+                    <div>
+                      <span className="font-medium text-black">Executive Summary &amp; Decision-Grade Reports</span>
+                      <p className="text-sm text-brand-grey">Board-ready clarity</p>
+                    </div>
+                  </div>
+                </li>
+                <li className="text-brand-grey">
+                  <div className="flex items-start gap-2">
+                    <Check className="w-5 h-5 text-brand-red flex-shrink-0 mt-0.5" />
+                    <div>
+                      <span className="font-medium text-black">API Access</span>
+                      <p className="text-sm text-brand-grey">Integrate clarity into your governance</p>
+                    </div>
+                  </div>
+                </li>
+              </ul>
+              <Link
+                href="/pricing"
+                className="mt-6 block w-full py-3 px-4 bg-brand-grey-light text-black rounded-lg font-medium text-center hover:bg-brand-grey-medium transition"
+              >
+                View Plans
+              </Link>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      {/* Trust Section — fix green icon on light bg (#3) */}
       <section className="py-16 bg-white border-y border-brand-grey-medium">
         <div className="max-w-7xl mx-auto px-6">
           <div className="grid md:grid-cols-3 gap-8 text-center">
             <div className="flex flex-col items-center">
               <div className="w-12 h-12 bg-brand-green/10 rounded-full flex items-center justify-center mb-4">
-                <Shield className="w-6 h-6 text-brand-green" />
+                <Shield className="w-6 h-6 text-black" />
               </div>
               <h3 className="font-semibold mb-2">Private & Secure</h3>
               <p className="text-sm text-brand-grey">
@@ -579,7 +573,7 @@ export default function LandingPage() {
             </div>
             <div className="flex flex-col items-center">
               <div className="w-12 h-12 bg-brand-green/10 rounded-full flex items-center justify-center mb-4">
-                <Zap className="w-6 h-6 text-brand-green" />
+                <Zap className="w-6 h-6 text-black" />
               </div>
               <h3 className="font-semibold mb-2">Instant Results</h3>
               <p className="text-sm text-brand-grey">
@@ -588,7 +582,7 @@ export default function LandingPage() {
             </div>
             <div className="flex flex-col items-center">
               <div className="w-12 h-12 bg-brand-green/10 rounded-full flex items-center justify-center mb-4">
-                <Users className="w-6 h-6 text-brand-green" />
+                <Users className="w-6 h-6 text-black" />
               </div>
               <h3 className="font-semibold mb-2">Multi-Stakeholder</h3>
               <p className="text-sm text-brand-grey">
@@ -599,7 +593,7 @@ export default function LandingPage() {
         </div>
       </section>
 
-      {/* Pricing Section */}
+      {/* Pricing Section (#9 — single pricing overview with link) */}
       <section id="pricing" className="py-24 bg-brand-grey-light">
         <div className="max-w-7xl mx-auto px-6">
           <div className="text-center mb-16">
@@ -611,17 +605,8 @@ export default function LandingPage() {
             {pricingPlans.map((plan, i) => (
               <div 
                 key={i} 
-                className={`bg-white rounded-2xl p-6 border-2 ${
-                  plan.highlighted 
-                    ? 'border-brand-green shadow-lg shadow-brand-green/20' 
-                    : 'border-brand-grey-medium'
-                }`}
+                className="bg-white rounded-2xl p-6 border-2 border-brand-grey-medium"
               >
-                {plan.highlighted && (
-                  <div className="text-xs font-semibold text-brand-green mb-2">
-                    MOST POPULAR
-                  </div>
-                )}
                 <h3 className="text-xl font-bold mb-1">{plan.name}</h3>
                 <p className="text-sm text-brand-grey mb-4">{plan.description}</p>
                 <div className="mb-6">
@@ -630,11 +615,7 @@ export default function LandingPage() {
                 </div>
                 <Link
                   href={plan.href}
-                  className={`block w-full py-2.5 px-4 rounded-lg font-medium text-center transition mb-6 ${
-                    plan.highlighted
-                      ? 'bg-brand-green text-black hover:bg-brand-green/80'
-                      : 'bg-brand-grey-medium text-black hover:bg-brand-grey'
-                  }`}
+                  className="block w-full py-2.5 px-4 rounded-lg font-medium text-center transition mb-6 bg-brand-grey-medium text-black hover:bg-brand-grey"
                 >
                   {plan.cta}
                 </Link>
@@ -642,7 +623,7 @@ export default function LandingPage() {
                   {plan.features.map((feature, j) => (
                     <li key={j} className="flex items-center gap-2">
                       {feature.included ? (
-                        <Check className="w-4 h-4 text-green-500 flex-shrink-0" />
+                        <Check className="w-4 h-4 text-black flex-shrink-0" />
                       ) : (
                         <X className="w-4 h-4 text-brand-grey flex-shrink-0" />
                       )}
@@ -660,7 +641,7 @@ export default function LandingPage() {
           </div>
 
           <div className="text-center mt-10">
-            <Link href="/pricing" className="text-brand-green hover:underline font-medium">
+            <Link href="/pricing" className="text-black font-medium hover:underline">
               View full pricing comparison →
             </Link>
           </div>
@@ -692,7 +673,7 @@ export default function LandingPage() {
         </div>
       </section>
 
-      {/* CTA Section */}
+      {/* CTA Section — "Try Out" green button (#13) */}
       <section className="py-24 bg-black text-white">
         <div className="max-w-4xl mx-auto px-6 text-center">
           <h2 className="text-4xl font-bold text-white mb-6">
@@ -704,10 +685,10 @@ export default function LandingPage() {
           </p>
           <div className="flex flex-col sm:flex-row items-center justify-center gap-4">
             <Link 
-              href="/create"
-              className="inline-flex items-center gap-2 px-8 py-4 bg-brand-red text-white rounded-xl font-semibold text-lg hover:bg-brand-red/80 transition"
+              href="/pricing"
+              className="inline-flex items-center gap-2 px-8 py-4 bg-brand-green text-black rounded-xl font-semibold text-lg hover:bg-brand-green/80 transition"
             >
-              Start Free Assessment
+              Try Out
               <ArrowRight className="w-5 h-5" />
             </Link>
             <Link 
@@ -720,11 +701,11 @@ export default function LandingPage() {
         </div>
       </section>
 
-      {/* Footer */}
+      {/* Footer — use full logo image (#1) */}
       <footer className="py-12 bg-black text-brand-grey">
         <div className="max-w-7xl mx-auto px-6">
           <div className="flex flex-col md:flex-row items-center justify-between gap-4">
-            <ElvaitLogo className="h-6" />
+            <Image src="/logo-full.jpg" alt="ELVAIT" width={120} height={34} className="h-6 w-auto" />
             <div className="flex flex-wrap items-center justify-center gap-x-6 gap-y-2 text-sm">
               <Link href="/pricing" className="hover:text-white transition">Pricing</Link>
               <Link href="/demo" className="hover:text-white transition">Demo</Link>
