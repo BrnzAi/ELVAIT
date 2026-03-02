@@ -194,7 +194,7 @@ export default function LandingPage() {
         <div className="relative z-10 max-w-7xl mx-auto px-6 py-24 text-center">
           <div className="inline-flex items-center gap-2 px-4 py-2 bg-white/10 rounded-full text-white/90 text-sm mb-8">
             <Sparkles className="w-4 h-4" />
-            <span>Free Quick Check — no signup required</span>
+            <span>Free Quick Check — start in minutes</span>
           </div>
           
           <p className="text-lg md:text-xl text-white/50 mb-4 italic tracking-wide">
@@ -228,7 +228,7 @@ export default function LandingPage() {
           </div>
 
           <p className="mt-8 text-white/60 text-sm">
-            No credit card • No signup required • See results instantly
+            No credit card • See results instantly
           </p>
         </div>
       </header>
@@ -409,7 +409,7 @@ export default function LandingPage() {
                 </li>
               </ul>
               <Link
-                href="/create"
+                href="/signup"
                 className="mt-6 block w-full py-3 px-4 bg-brand-grey-light text-black rounded-lg font-medium text-center hover:bg-brand-grey-medium transition"
               >
                 Get Started
@@ -625,7 +625,7 @@ export default function LandingPage() {
             Ready to make confident automation decisions?
           </h2>
           <p className="text-xl text-white/80 mb-10">
-            Try your first assessment free — no signup required.<br />
+            Try your first assessment free.<br />
             Create an account to unlock full results.
           </p>
           <div className="flex flex-col sm:flex-row items-center justify-center gap-4">

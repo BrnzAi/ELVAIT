@@ -31,20 +31,12 @@ export function UserMenu() {
 
   if (!session?.user) {
     return (
-      <div className="flex items-center gap-2">
-        <Link
-          href="/signin"
-          className="px-3 py-1.5 text-sm text-white/80 hover:text-white transition-colors"
-        >
-          Sign in
-        </Link>
-        <Link
-          href="/signup"
-          className="px-3 py-1.5 text-sm bg-brand-green hover:bg-brand-green text-black rounded-lg transition-colors"
-        >
-          Sign up
-        </Link>
-      </div>
+      <Link
+        href="/signin"
+        className="px-3 py-1.5 text-sm bg-brand-green hover:bg-brand-green/80 text-black rounded-lg transition-colors"
+      >
+        Sign in
+      </Link>
     );
   }
 
