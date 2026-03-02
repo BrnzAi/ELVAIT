@@ -317,11 +317,11 @@ export default function LandingPage() {
               <div className="w-14 h-14 bg-brand-green rounded-full flex items-center justify-center mb-6">
                 <CheckCircle className="w-8 h-8 text-black" />
               </div>
-              <h3 className="text-2xl font-bold text-black mb-3">🟢 GO</h3>
-              <p className="text-black/70 mb-4">
+              <h3 className="text-2xl font-bold text-white mb-3">🟢 GO</h3>
+              <p className="text-white/70 mb-4">
                 High clarity exists. Proceed with automation — you have alignment, clear processes, and realistic expectations.
               </p>
-              <ul className="text-sm text-black/70 space-y-2">
+              <ul className="text-sm text-white/70 space-y-2">
                 <li>• Recommended automation approach</li>
                 <li>• Success metrics defined</li>
                 <li>• Implementation roadmap</li>
@@ -332,11 +332,11 @@ export default function LandingPage() {
               <div className="w-14 h-14 bg-brand-red rounded-full flex items-center justify-center mb-6">
                 <AlertTriangle className="w-8 h-8 text-white" />
               </div>
-              <h3 className="text-2xl font-bold text-black mb-3">🔴 FIX FIRST</h3>
-              <p className="text-black/70 mb-4">
+              <h3 className="text-2xl font-bold text-white mb-3">🔴 FIX FIRST</h3>
+              <p className="text-white/70 mb-4">
                 Gaps identified. Address specific issues before proceeding — contradictions, unclear processes, or misaligned goals.
               </p>
-              <ul className="text-sm text-black/70 space-y-2">
+              <ul className="text-sm text-white/70 space-y-2">
                 <li>• Specific gaps to address</li>
                 <li>• Resolution actions</li>
                 <li>• Re-assessment criteria</li>
@@ -347,11 +347,11 @@ export default function LandingPage() {
               <div className="w-14 h-14 bg-brand-red rounded-full flex items-center justify-center mb-6">
                 <XCircle className="w-8 h-8 text-white" />
               </div>
-              <h3 className="text-2xl font-bold text-black mb-3">🔴 NO-GO</h3>
-              <p className="text-black/70 mb-4">
+              <h3 className="text-2xl font-bold text-white mb-3">🔴 NO-GO</h3>
+              <p className="text-white/70 mb-4">
                 Fundamental issues exist. Automation would fail — revisit process design or strategic objectives first.
               </p>
-              <ul className="text-sm text-black/70 space-y-2">
+              <ul className="text-sm text-white/70 space-y-2">
                 <li>• Root cause analysis</li>
                 <li>• Prerequisites for success</li>
                 <li>• Alternative approaches</li>
