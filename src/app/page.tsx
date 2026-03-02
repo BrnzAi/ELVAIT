@@ -383,34 +383,34 @@ export default function LandingPage() {
                 </div>
                 <div>
                   <h3 className="text-xl font-bold">Free Assessment</h3>
-                  <p className="text-sm text-brand-grey">Basic verdict</p>
+                  <p className="text-sm text-black">Basic verdict</p>
                 </div>
               </div>
               <ul className="space-y-3">
-                <li className="flex items-center gap-2 text-brand-grey">
+                <li className="flex items-center gap-2 text-black">
                   <Check className="w-5 h-5 text-black flex-shrink-0" />
                   <span>1 Quick Check assessment</span>
                 </li>
-                <li className="flex items-center gap-2 text-brand-grey">
+                <li className="flex items-center gap-2 text-black">
                   <Check className="w-5 h-5 text-black flex-shrink-0" />
                   <span>1 Role</span>
                 </li>
-                <li className="flex items-center gap-2 text-brand-grey">
+                <li className="flex items-center gap-2 text-black">
                   <Check className="w-5 h-5 text-black flex-shrink-0" />
                   <span>Up to 10 respondents</span>
                 </li>
-                <li className="flex items-center gap-2 text-brand-grey">
+                <li className="flex items-center gap-2 text-black">
                   <Check className="w-5 h-5 text-black flex-shrink-0" />
                   <span>Basic GO/FIX/NO-GO verdict</span>
                 </li>
-                <li className="flex items-center gap-2 text-brand-grey">
+                <li className="flex items-center gap-2 text-black">
                   <Check className="w-5 h-5 text-black flex-shrink-0" />
                   <span>Investment Clarity Score</span>
                 </li>
               </ul>
               <Link
                 href="/create"
-                className="mt-6 block w-full py-3 px-4 bg-brand-grey-light text-black rounded-lg font-medium text-center hover:bg-brand-grey-medium transition"
+                className="mt-6 block w-full py-3 px-4 bg-brand-green text-black rounded-lg font-medium text-center hover:bg-brand-green/80 transition"
               >
                 Get Started
               </Link>
@@ -427,31 +427,31 @@ export default function LandingPage() {
                 </div>
                 <div>
                   <h3 className="text-xl font-bold">Try Out</h3>
-                  <p className="text-sm text-brand-grey">Full assessment trial</p>
+                  <p className="text-sm text-black">Full assessment trial</p>
                 </div>
               </div>
               <ul className="space-y-3">
-                <li className="flex items-center gap-2 text-brand-grey">
+                <li className="flex items-center gap-2 text-black">
                   <Check className="w-5 h-5 text-black flex-shrink-0" />
                   <span>1 Full assessment</span>
                 </li>
-                <li className="flex items-center gap-2 text-brand-grey">
+                <li className="flex items-center gap-2 text-black">
                   <Check className="w-5 h-5 text-black flex-shrink-0" />
                   <span>All 5 roles</span>
                 </li>
-                <li className="flex items-center gap-2 text-brand-grey">
+                <li className="flex items-center gap-2 text-black">
                   <Check className="w-5 h-5 text-black flex-shrink-0" />
                   <span>Up to 50 respondents</span>
                 </li>
-                <li className="flex items-center gap-2 text-brand-grey">
+                <li className="flex items-center gap-2 text-black">
                   <Check className="w-5 h-5 text-black flex-shrink-0" />
                   <span>Full results & insights</span>
                 </li>
-                <li className="flex items-center gap-2 text-brand-grey">
+                <li className="flex items-center gap-2 text-black">
                   <Check className="w-5 h-5 text-black flex-shrink-0" />
                   <span>Executive summary</span>
                 </li>
-                <li className="flex items-center gap-2 text-brand-grey">
+                <li className="flex items-center gap-2 text-black">
                   <Check className="w-5 h-5 text-black flex-shrink-0" />
                   <span>PDF reports</span>
                 </li>

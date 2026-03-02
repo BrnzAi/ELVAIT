@@ -164,7 +164,7 @@ export default function PricingPage() {
                 className={`block w-full py-2.5 px-4 rounded-lg text-center font-medium transition-colors mb-4 text-sm ${
                   plan.highlight
                     ? 'bg-brand-green text-black hover:bg-brand-green/80'
-                    : 'bg-brand-grey-light text-black hover:bg-brand-grey-medium'
+                    : 'bg-brand-green text-black hover:bg-brand-green/80'
                 }`}
               >
                 {plan.cta}
