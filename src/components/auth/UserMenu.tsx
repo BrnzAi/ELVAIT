@@ -40,7 +40,7 @@ export function UserMenu() {
         </Link>
         <Link
           href="/signup"
-          className="px-3 py-1.5 text-sm bg-brand-green hover:bg-brand-green text-white rounded-lg transition-colors"
+          className="px-3 py-1.5 text-sm bg-brand-green hover:bg-brand-green text-black rounded-lg transition-colors"
         >
           Sign up
         </Link>

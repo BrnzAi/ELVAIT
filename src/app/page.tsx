@@ -179,7 +179,7 @@ export default function LandingPage() {
         
         {/* Nav: only Demo, Pricing, Sign In (#10) */}
         <nav className="relative z-10 max-w-7xl mx-auto px-6 py-6 flex items-center justify-between">
-          <Image src="/logo-full.jpg" alt="ELVAIT" width={140} height={40} className="h-8 w-auto" />
+          <Image src="/logo-full.png" alt="ELVAIT" width={140} height={40} className="h-8 w-auto" />
           <div className="flex items-center gap-4">
             <Link href="/demo" className="text-white/80 hover:text-white transition">
               Demo
@@ -650,7 +650,7 @@ export default function LandingPage() {
       <footer className="py-12 bg-brand-darkgrey text-brand-grey">
         <div className="max-w-7xl mx-auto px-6">
           <div className="flex flex-col md:flex-row items-center justify-between gap-4">
-            <Image src="/logo-full.jpg" alt="ELVAIT" width={120} height={34} className="h-6 w-auto" />
+            <Image src="/logo-full.png" alt="ELVAIT" width={120} height={34} className="h-6 w-auto" />
             <div className="flex flex-wrap items-center justify-center gap-x-6 gap-y-2 text-sm">
               <Link href="/pricing" className="hover:text-white transition">Pricing</Link>
               <Link href="/demo" className="hover:text-white transition">Demo</Link>
