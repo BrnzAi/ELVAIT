@@ -383,7 +383,7 @@ export default function LandingPage() {
                 </div>
                 <div>
                   <h3 className="text-xl font-bold">Free Assessment</h3>
-                  <p className="text-sm text-black">Basic verdict</p>
+                  <p className="text-sm text-brand-grey">Basic verdict</p>
                 </div>
               </div>
               <ul className="space-y-3">
@@ -427,7 +427,7 @@ export default function LandingPage() {
                 </div>
                 <div>
                   <h3 className="text-xl font-bold">Try Out</h3>
-                  <p className="text-sm text-black">Full assessment trial</p>
+                  <p className="text-sm text-brand-grey">Full assessment trial</p>
                 </div>
               </div>
               <ul className="space-y-3">
