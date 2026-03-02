@@ -229,8 +229,8 @@ export default function SurveyPage() {
               </div>
             </div>
 
-            <div className="p-4 bg-brand-green/10 rounded-lg mb-8">
-              <p className="text-sm text-brand-green">
+            <div className="p-4 bg-[#F0F0F0] rounded-lg mb-8 border border-[#B4B4B4]">
+              <p className="text-sm text-black">
                 <strong>How your answers will be used:</strong> Your responses will be compared across roles to identify alignment, contradictions, and blind spots. This is not a performance evaluation — differences in perspective are signals, not errors.
               </p>
             </div>
@@ -293,23 +293,23 @@ export default function SurveyPage() {
         <div className="bg-white rounded-xl border border-[#B4B4B4] p-8">
           {/* Process Header */}
           {currentProcess && (
-            <div className="mb-6 p-4 bg-brand-green/10 rounded-lg">
+            <div className="mb-6 p-4 bg-[#F0F0F0] rounded-lg border border-[#B4B4B4]">
               <div className="flex items-center justify-between mb-2">
-                <h3 className="text-lg font-semibold text-brand-green">
+                <h3 className="text-lg font-semibold text-black">
                   Regarding: <strong>{currentProcess.processName}</strong>
                 </h3>
-                <span className="text-sm text-brand-green">
+                <span className="text-sm text-[#777777]">
                   Process {Math.floor((currentIndex - surveyData.questions.length) / currentProcess.questions.length) + 1} of {surveyData.processGroups!.length}
                 </span>
               </div>
               {currentProcess.processDescription && (
-                <p className="text-sm text-brand-green">{currentProcess.processDescription}</p>
+                <p className="text-sm text-[#777777]">{currentProcess.processDescription}</p>
               )}
             </div>
           )}
           
           <div className="mb-8">
-            <span className="text-sm text-brand-green font-medium">Question {currentIndex + 1}</span>
+            <span className="text-sm text-[#777777] font-medium">Question {currentIndex + 1}</span>
             <h2 className="text-xl font-semibold mt-2">{currentQuestion.text}</h2>
           </div>
 
