@@ -210,6 +210,10 @@ export default function LandingPage() {
             Get clear <span className="text-white font-semibold">Go / Fix / No-Go</span> recommendations for your AI &amp; IT investments — exposing hidden contradictions, structural blind spots, and false confidence.
           </p>
 
+          <p className="text-lg md:text-xl text-white font-bold max-w-2xl mx-auto mb-10">
+            Make ELVAIT the mandatory clarity gate before every AI &amp; IT initiative.
+          </p>
+
           {/* CTA: "Try Out" green button linking to pricing (#13) */}
           <div className="flex flex-col sm:flex-row items-center justify-center gap-4">
             <Link 

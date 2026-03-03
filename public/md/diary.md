@@ -4,6 +4,18 @@ A daily log of development progress, test results, and deployments.
 
 ---
 
+## 2026-03-03 — Tue
+
+### Tests (Automated Daily Run)
+```
+15 test files | 678 tests | 677 passed | 1 failed
+Duration: 543ms
+```
+❌ 1 failure:
+- **tests/ui-components.test.ts** — `should show sign in/up links when not authenticated`: expects `href="/signup"` but UserMenu component no longer contains a signup link (component was refactored to show authenticated user menu instead).
+
+---
+
 ## 2026-03-02 — Mon
 
 ### Tests (Automated Daily Run)
