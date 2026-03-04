@@ -197,17 +197,14 @@ export default function LandingPage() {
             <span>Free Quick Check — start in minutes</span>
           </div>
           
-          <p className="text-lg md:text-xl text-white/50 mb-4 italic tracking-wide">
-            Don&apos;t automate confusion.
-          </p>
-
-          <h1 className="text-5xl md:text-7xl font-extrabold text-white mb-8 leading-tight">
-            Clarity Before<br />
-            <span className="text-brand-green">Automation</span>
+          <h1 className="text-4xl md:text-5xl lg:text-6xl font-extrabold text-white mb-8 leading-tight max-w-4xl mx-auto">
+            <span className="font-extrabold">Reduce failed AI and IT investments.</span>{' '}
+            <span className="font-extrabold">Achieve real productivity impact from technology.</span>
           </h1>
           
-          <p className="text-lg md:text-xl text-white/70 max-w-2xl mx-auto mb-10 leading-relaxed">
-            Get clear <span className="text-white font-semibold">Go / Fix / No-Go</span> recommendations for your AI &amp; IT investments — exposing hidden contradictions, structural blind spots, and false confidence.
+          <p className="text-lg md:text-xl text-white/70 max-w-2xl mx-auto mb-6 leading-relaxed">
+            Expose hidden misalignments and structural blind spots before development begins — providing{' '}
+            <span className="text-white font-bold">decision clarity for business leaders, without technical complexity.</span>
           </p>
 
           <p className="text-lg md:text-xl text-white font-bold max-w-2xl mx-auto mb-10">
@@ -313,7 +310,7 @@ export default function LandingPage() {
         <div className="max-w-7xl mx-auto px-6">
           <div className="text-center mb-16">
             <h2 className="text-4xl font-bold mb-4">Clear Outcomes</h2>
-            <p className="text-xl text-brand-grey">No ambiguity — just actionable recommendations</p>
+            <p className="text-xl text-brand-grey">Get clear Go / Fix / No-Go recommendations for your AI &amp; IT investments — exposing hidden contradictions, structural blind spots, and false confidence.</p>
           </div>
 
           <div className="grid md:grid-cols-3 gap-8">
