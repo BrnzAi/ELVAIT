@@ -192,10 +192,10 @@ export default function LandingPage() {
         </nav>
 
         <div className="relative z-10 max-w-7xl mx-auto px-6 py-24 text-center">
-          <div className="inline-flex items-center gap-2 px-4 py-2 bg-white/10 rounded-full text-white/90 text-sm mb-8">
+          <Link href="/start" className="inline-flex items-center gap-2 px-4 py-2 bg-white/10 hover:bg-white/20 transition rounded-full text-white/90 text-sm mb-8">
             <Sparkles className="w-4 h-4" />
             <span>Free Quick Check — start in minutes</span>
-          </div>
+          </Link>
           
           <p className="text-lg md:text-xl text-white/50 mb-4 italic tracking-wide">
             Clarity Before <span className="text-brand-green">Automation</span>
