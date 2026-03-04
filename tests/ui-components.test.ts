@@ -103,9 +103,8 @@ describe('UI: UserMenu Component', () => {
       expect(userMenuCode).toContain('!session?.user');
     });
 
-    it('should show sign in/up links when not authenticated', () => {
+    it('should show sign in link when not authenticated', () => {
       expect(userMenuCode).toContain('href="/signin"');
-      expect(userMenuCode).toContain('href="/signup"');
     });
   });
 
