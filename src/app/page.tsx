@@ -262,7 +262,7 @@ export default function LandingPage() {
         <div className="max-w-7xl mx-auto px-6">
           <div className="text-center mb-16">
             <h2 className="text-4xl font-bold mb-4">How It Works</h2>
-            <p className="text-xl text-brand-grey">Three phases to automation clarity</p>
+            <p className="text-xl text-brand-grey">Capture the real picture across your organization</p>
           </div>
 
           <div className="grid md:grid-cols-3 gap-8">
@@ -270,21 +270,21 @@ export default function LandingPage() {
               {
                 step: '1',
                 title: 'Collect',
-                description: 'Gather structured input from all stakeholders — executives, business owners, technical teams, and end users.',
+                description: 'Gather structured input from all key stakeholders involved in the initiative — decision owners, business leaders, technical experts, process owners, and users. Instead of assumptions, you get a 360° view of goals, constraints, risks, and expectations.',
                 icon: Users,
                 color: 'bg-brand-red',
               },
               {
                 step: '2',
                 title: 'Analyze',
-                description: 'AI agents process responses, detect contradictions, score readiness, and identify blind spots.',
+                description: 'Reveal contradictions, blind spots, and structural risk. Analyze stakeholder input using AI-powered decision models. The system identifies misalignments, unrealistic assumptions, hidden risks, and readiness gaps that typically cause AI and IT initiatives to fail.',
                 icon: Zap,
                 color: 'bg-brand-grey',
               },
               {
                 step: '3',
                 title: 'Decide',
-                description: 'Get a clear GO, FIX FIRST, or NO-GO recommendation with specific action items.',
+                description: 'Turn complexity into a clear investment decision. Get clear Go / Fix / No-Go recommendations. Receive an executive summary, key risks, and prioritized actions — enabling confident decisions without technical complexity.',
                 icon: FileText,
                 color: 'bg-brand-green',
               },
