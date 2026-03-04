@@ -197,8 +197,8 @@ export default function LandingPage() {
             <span>Free Quick Check — start in minutes</span>
           </Link>
           
-          <p className="text-lg md:text-xl text-white/50 mb-4 italic tracking-wide">
-            Clarity Before <span className="text-brand-green">Automation</span>
+          <p className="text-4xl md:text-5xl lg:text-6xl font-extrabold text-brand-green mb-6 leading-tight">
+            Clarity Before Automation
           </p>
 
           <h1 className="text-4xl md:text-5xl lg:text-6xl font-extrabold text-white mb-8 leading-tight max-w-4xl mx-auto">
