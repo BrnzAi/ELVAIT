@@ -197,6 +197,10 @@ export default function LandingPage() {
             <span>Free Quick Check — start in minutes</span>
           </div>
           
+          <p className="text-lg md:text-xl text-white/50 mb-4 italic tracking-wide">
+            Clarity Before <span className="text-brand-green">Automation</span>
+          </p>
+
           <h1 className="text-4xl md:text-5xl lg:text-6xl font-extrabold text-white mb-8 leading-tight max-w-4xl mx-auto">
             <span className="font-extrabold">Reduce failed AI and IT investments.</span>{' '}
             <span className="font-extrabold">Achieve real productivity impact from technology.</span>
