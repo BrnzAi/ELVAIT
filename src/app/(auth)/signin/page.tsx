@@ -56,10 +56,10 @@ function SignInForm() {
       {returnTo?.includes('/results') && (
         <div className="mb-6 p-4 bg-brand-green/10 border border-brand-green/20 rounded-lg">
           <div className="flex items-start gap-3">
-            <Sparkles className="w-5 h-5 text-brand-green flex-shrink-0 mt-0.5" />
+            <Sparkles className="w-5 h-5 text-black flex-shrink-0 mt-0.5" />
             <div>
-              <p className="text-brand-green font-medium">Sign in to see your full results</p>
-              <p className="text-brand-green/70 text-sm mt-1">
+              <p className="text-black font-medium">Sign in to see your full results</p>
+              <p className="text-brand-grey text-sm mt-1">
                 Your assessment is waiting with all the details unlocked.
               </p>
             </div>
@@ -106,7 +106,7 @@ function SignInForm() {
             </label>
             <Link 
               href="/forgot-password" 
-              className="text-sm text-brand-green hover:text-brand-green"
+              className="text-sm text-brand-darkgrey hover:text-black"
             >
               Forgot password?
             </Link>
@@ -147,7 +147,7 @@ function SignInForm() {
         Don't have an account?{' '}
         <Link 
           href={returnTo ? `/signup?returnTo=${encodeURIComponent(returnTo)}` : '/signup'} 
-          className="text-brand-green hover:text-brand-green"
+          className="text-brand-darkgrey hover:text-black"
         >
           Sign up
         </Link>

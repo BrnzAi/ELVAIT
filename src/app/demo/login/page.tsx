@@ -165,7 +165,7 @@ function UserCard({ user, isActive, onSelect }: { user: DemoUser; isActive: bool
         <p className="text-brand-grey font-medium">{user.organization}</p>
       </div>
       {isActive ? (
-        <div className="flex items-center justify-center gap-2 py-2 bg-brand-green text-white rounded-lg font-medium">
+        <div className="flex items-center justify-center gap-2 py-2 bg-brand-green text-black rounded-lg font-medium">
           <CheckCircle className="w-4 h-4" />
           Currently Active
         </div>

@@ -85,10 +85,10 @@ function SignUpForm() {
       {returnTo?.includes('/results') && (
         <div className="mb-6 p-4 bg-brand-green/10 border border-brand-green/20 rounded-lg">
           <div className="flex items-start gap-3">
-            <Sparkles className="w-5 h-5 text-brand-green flex-shrink-0 mt-0.5" />
+            <Sparkles className="w-5 h-5 text-black flex-shrink-0 mt-0.5" />
             <div>
-              <p className="text-brand-green font-medium">Unlock your full results</p>
-              <p className="text-brand-green/70 text-sm mt-1">
+              <p className="text-black font-medium">Unlock your full results</p>
+              <p className="text-brand-grey text-sm mt-1">
                 Create a free account to see role breakdowns, all flags, and save your assessment.
               </p>
             </div>
@@ -214,7 +214,7 @@ function SignUpForm() {
         Already have an account?{' '}
         <Link 
           href={returnTo ? `/signin?returnTo=${encodeURIComponent(returnTo)}` : '/signin'} 
-          className="text-brand-green hover:text-brand-green"
+          className="text-brand-darkgrey hover:text-black"
         >
           Sign in
         </Link>

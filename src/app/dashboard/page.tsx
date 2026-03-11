@@ -105,7 +105,7 @@ export default function DashboardPage() {
             </div>
             <Link
               href="/create"
-              className="inline-flex items-center gap-2 px-4 py-2 bg-brand-green text-white rounded-lg hover:bg-brand-green transition"
+              className="inline-flex items-center gap-2 px-4 py-2 bg-brand-green text-black rounded-lg hover:bg-brand-green transition"
             >
               <Plus className="w-5 h-5" />
               New Assessment
@@ -132,7 +132,7 @@ export default function DashboardPage() {
             <p className="text-gray-500 mb-6">Create your first assessment to get started</p>
             <Link
               href="/create"
-              className="inline-flex items-center gap-2 px-6 py-3 bg-brand-green text-white rounded-lg hover:bg-brand-green transition"
+              className="inline-flex items-center gap-2 px-6 py-3 bg-brand-green text-black rounded-lg hover:bg-brand-green transition"
             >
               <Plus className="w-5 h-5" />
               Create Assessment
@@ -190,7 +190,7 @@ export default function DashboardPage() {
                     {assessment._count.responses > 0 && (
                       <Link
                         href={`/cases/${assessment.id}/results`}
-                        className="inline-flex items-center gap-2 px-4 py-2 bg-brand-green text-white rounded-lg hover:bg-brand-green transition font-medium"
+                        className="inline-flex items-center gap-2 px-4 py-2 bg-brand-green text-black rounded-lg hover:bg-brand-green transition font-medium"
                       >
                         <Eye className="w-4 h-4" />
                         View Results

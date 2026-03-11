@@ -15,7 +15,7 @@ const buttonVariants = cva(
         outline: 'border border-brand-grey-medium bg-white text-black hover:bg-brand-grey-light',
         secondary: 'bg-brand-grey-light text-black hover:bg-brand-grey-medium',
         ghost: 'hover:bg-brand-grey-light',
-        link: 'text-brand-green underline-offset-4 hover:underline',
+        link: 'text-brand-darkgrey underline-offset-4 hover:underline hover:text-black',
         go: 'bg-green-600 text-white hover:bg-green-700',
         clarify: 'bg-amber-500 text-white hover:bg-amber-600',
         nogo: 'bg-red-600 text-white hover:bg-red-700',

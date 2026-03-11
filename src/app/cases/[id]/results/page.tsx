@@ -777,7 +777,7 @@ export default function ResultsPage() {
                   </Link>
                   <Link
                     href="/pricing"
-                    className="inline-flex items-center gap-2 px-5 py-2.5 bg-brand-green/100/30 text-white font-medium rounded-lg hover:bg-brand-green/100/40 transition-colors"
+                    className="inline-flex items-center gap-2 px-5 py-2.5 bg-brand-green/100/30 text-black font-medium rounded-lg hover:bg-brand-green/100/40 transition-colors"
                   >
                     See what's included →
                   </Link>
