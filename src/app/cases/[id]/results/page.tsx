@@ -159,9 +159,10 @@ export default function ResultsPage() {
 
   // Fetch user tier when authenticated
   useEffect(() => {
-    if (isAuthenticated && session?.user?.email) {
-      // For now, default to 'free' tier - in production this would come from the session/API
-      setUserTier('free');
+    if (isAuthenticated && session?.user) {
+      setUserTier(((session.user as any).tier ?? 'free') as Tier);
+    } else {
+      setUserTier(null);
     }
   }, [isAuthenticated, session]);
 

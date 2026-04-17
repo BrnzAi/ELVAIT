@@ -41,6 +41,7 @@ export const authConfig: NextAuthConfig = {
           id: user.id,
           email: user.email,
           name: user.name,
+          tier: user.tier,
         };
       },
     }),
@@ -53,12 +54,14 @@ export const authConfig: NextAuthConfig = {
     async jwt({ token, user }) {
       if (user) {
         token.id = user.id;
+        token.tier = (user as any).tier;
       }
       return token;
     },
     async session({ session, token }) {
       if (token && session.user) {
         session.user.id = token.id as string;
+        (session.user as any).tier = token.tier as string | undefined;
       }
       return session;
     },
