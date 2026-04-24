@@ -2,13 +2,11 @@
 
 import { useState, useRef, useEffect } from 'react';
 import Link from 'next/link';
-import { useRouter } from 'next/navigation';
 import { signOut, useSession } from 'next-auth/react';
-import { User, LogOut, LayoutDashboard, ChevronDown } from 'lucide-react';
+import { LogOut, LayoutDashboard, ChevronDown } from 'lucide-react';
 
 export function UserMenu() {
   const { data: session, status } = useSession();
-  const router = useRouter();
   const [isOpen, setIsOpen] = useState(false);
   const menuRef = useRef<HTMLDivElement>(null);
 
@@ -80,18 +78,14 @@ export function UserMenu() {
           </div>
           
           <div className="p-1">
-            <button
-              onClick={(e) => {
-                e.preventDefault();
-                e.stopPropagation();
-                setIsOpen(false);
-                router.push('/dashboard');
-              }}
+            <Link
+              href="/dashboard"
+              onClick={() => setIsOpen(false)}
               className="w-full flex items-center gap-2 px-3 py-2 text-sm text-gray-600 hover:text-black hover:bg-brand-grey-light rounded-md transition-colors text-left"
             >
               <LayoutDashboard className="w-4 h-4" />
               My Assessments
-            </button>
+            </Link>
             <button
               onClick={handleSignOut}
               className="w-full flex items-center gap-2 px-3 py-2 text-sm text-gray-600 hover:text-black hover:bg-brand-grey-light rounded-md transition-colors text-left"
