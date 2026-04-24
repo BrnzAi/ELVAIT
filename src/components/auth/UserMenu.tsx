@@ -1,25 +1,11 @@
 'use client';
 
-import { useState, useRef, useEffect } from 'react';
 import Link from 'next/link';
 import { signOut, useSession } from 'next-auth/react';
-import { LogOut, LayoutDashboard, ChevronDown } from 'lucide-react';
+import { LogOut, LayoutDashboard } from 'lucide-react';
 
 export function UserMenu() {
   const { data: session, status } = useSession();
-  const [isOpen, setIsOpen] = useState(false);
-  const menuRef = useRef<HTMLDivElement>(null);
-
-  useEffect(() => {
-    function handleClickOutside(event: MouseEvent) {
-      if (menuRef.current && !menuRef.current.contains(event.target as Node)) {
-        setIsOpen(false);
-      }
-    }
-    // Use click instead of mousedown to allow menu items to handle their clicks first
-    document.addEventListener('click', handleClickOutside);
-    return () => document.removeEventListener('click', handleClickOutside);
-  }, []);
 
   if (status === 'loading') {
     return (
@@ -41,7 +27,6 @@ export function UserMenu() {
   const handleSignOut = async (e: React.MouseEvent) => {
     e.preventDefault();
     e.stopPropagation();
-    setIsOpen(false);
     try {
       await signOut({ callbackUrl: '/', redirect: true });
     } catch (error) {
@@ -52,50 +37,21 @@ export function UserMenu() {
   };
 
   return (
-    <div className="relative" ref={menuRef}>
-      <button
-        onClick={() => setIsOpen(!isOpen)}
-        className="flex items-center gap-2 px-3 py-1.5 bg-white/10 hover:bg-white/20 rounded-lg transition-colors"
+    <div className="flex items-center gap-2">
+      <Link
+        href="/dashboard"
+        className="inline-flex items-center gap-2 px-3 py-1.5 text-sm bg-white/10 hover:bg-white/20 text-white rounded-lg transition-colors"
       >
-        <div className="w-6 h-6 rounded-full bg-brand-green flex items-center justify-center text-xs font-medium">
-          {session.user.name?.[0]?.toUpperCase() || session.user.email?.[0]?.toUpperCase() || 'U'}
-        </div>
-        <span className="text-sm text-white/80 max-w-[120px] truncate">
-          {session.user.name || session.user.email}
-        </span>
-        <ChevronDown className={`w-4 h-4 text-brand-grey transition-transform ${isOpen ? 'rotate-180' : ''}`} />
+        <LayoutDashboard className="w-4 h-4" />
+        <span className="hidden sm:inline">My Assessments</span>
+      </Link>
+      <button
+        onClick={handleSignOut}
+        className="inline-flex items-center gap-2 px-3 py-1.5 text-sm bg-white/10 hover:bg-white/20 text-white rounded-lg transition-colors"
+      >
+        <LogOut className="w-4 h-4" />
+        <span className="hidden sm:inline">Sign out</span>
       </button>
-
-      {isOpen && (
-        <div className="absolute right-0 mt-2 w-56 bg-white border border-brand-grey-medium rounded-lg shadow-xl z-50">
-          <div className="p-3 border-b border-brand-grey-medium">
-            <p className="text-sm font-medium text-black truncate">
-              {session.user.name || 'User'}
-            </p>
-            <p className="text-xs text-brand-grey truncate">
-              {session.user.email}
-            </p>
-          </div>
-          
-          <div className="p-1">
-            <Link
-              href="/dashboard"
-              onClick={() => setIsOpen(false)}
-              className="w-full flex items-center gap-2 px-3 py-2 text-sm text-gray-600 hover:text-black hover:bg-brand-grey-light rounded-md transition-colors text-left"
-            >
-              <LayoutDashboard className="w-4 h-4" />
-              My Assessments
-            </Link>
-            <button
-              onClick={handleSignOut}
-              className="w-full flex items-center gap-2 px-3 py-2 text-sm text-gray-600 hover:text-black hover:bg-brand-grey-light rounded-md transition-colors text-left"
-            >
-              <LogOut className="w-4 h-4" />
-              Sign out
-            </button>
-          </div>
-        </div>
-      )}
     </div>
   );
 }
