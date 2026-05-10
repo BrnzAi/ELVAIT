@@ -1,6 +1,6 @@
 # ELVAIT Test Results
 
-**Generated:** 2026-05-09 09:00 CEST
+**Generated:** 2026-05-10 09:00 CEST
 **Test Runner:** Vitest 4.0.18
 **Total Tests:** 678 automated
 **Status:** ✅ ALL PASSING
@@ -15,7 +15,7 @@
 | Total Tests | 678 |
 | Passed | 678 ✅ |
 | Failed | 0 |
-| Duration | 902ms |
+| Duration | 1.16s |
 
 ---
 
@@ -72,4 +72,4 @@
 
 ---
 
-*Last updated: 2026-05-09*
+*Last updated: 2026-05-10*
