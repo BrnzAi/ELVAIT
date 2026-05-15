@@ -1,674 +1,306 @@
 'use client';
 
-import { useState } from 'react';
 import Image from 'next/image';
 import Link from 'next/link';
-import { ArrowRight, CheckCircle, AlertTriangle, XCircle, Users, FileText, Zap, ChevronDown, Check, X, Lock, Eye, Download, Shield, Sparkles, BarChart3 } from 'lucide-react';
+import {
+  AlertTriangle,
+  ArrowRight,
+  BarChart3,
+  CheckCircle,
+  FileText,
+  Search,
+  Shield,
+  Target,
+  Users,
+  XCircle,
+} from 'lucide-react';
 import { UserMenu } from '@/components/auth';
-import { ElvaitLogo } from '@/components/survey/ElvaitLogo';
 
-// FAQ Data
-const faqData = [
+const demoCases = [
   {
-    question: "What is ELVAIT?",
-    answer: "ELVAIT is a decision-support platform that helps organizations evaluate AI and automation investments before committing resources. It collects structured input from multiple stakeholders and produces objective, rule-based GO/CLARIFY/NO-GO recommendations."
+    title: 'Customer Service AI Automation',
+    context: 'Should the team invest €200k in a tier-1 support chatbot?',
+    result: 'GO',
+    score: 87,
+    tone: 'green',
+    finding: 'Clear ownership, validated business value, realistic implementation risk.',
+    action: 'Proceed with defined success metrics and implementation roadmap.',
   },
   {
-    question: "Can I try it without signing up?",
-    answer: "Yes! You can run a free Quick Check assessment without an account. You'll see the verdict, Investment Clarity Score, top 2 flags, and summary immediately. Create a free account to unlock role breakdowns, all flags, and the contradiction map."
+    title: 'Marketing Automation Platform',
+    context: 'Should marketing move to an enterprise automation platform?',
+    result: 'FIX FIRST',
+    score: 68,
+    tone: 'amber',
+    finding: 'ROI assumptions exist, but baseline metrics and stakeholder alignment are incomplete.',
+    action: 'Run a pilot, document conversion baselines, and align KPIs before commitment.',
   },
   {
-    question: "What do I get with a free account?",
-    answer: "Free accounts include 1 Quick Check assessment with up to 10 respondents. You get the basic GO/FIX/NO-GO verdict. Full results (role breakdown, all flags, contradiction map) and PDF reports require a paid plan starting at €199."
+    title: 'ERP System Modernization',
+    context: 'Should finance replace legacy SAP with S/4HANA Cloud?',
+    result: 'NO-GO',
+    score: 72,
+    tone: 'red',
+    finding: 'High apparent clarity is overridden by an ownership crisis across roles.',
+    action: 'Define one accountable owner and decision rights before the project moves forward.',
   },
   {
-    question: "How much does it cost?",
-    answer: "Start free with Quick Check (1 assessment, basic verdict). Try Out is €199 for 3 months (full assessment, credited toward Core). Core is €1,900/year (up to 10 assessments). Advanced is €3,500/year (up to 20 assessments, AI insights). Enterprise pricing is custom."
-  },
-  {
-    question: "How does the scoring work?",
-    answer: "The Investment Clarity Score (ICS) is calculated from 5 dimensions: Strategic Alignment (20%), Business Value (25%), Technical Feasibility (20%), Organizational Readiness (20%), and Risk Awareness (15%). Scores 75+ = GO, 50-74 = CLARIFY, below 50 = NO-GO."
-  },
-  {
-    question: "How long does an assessment take?",
-    answer: "5-15 minutes per participant depending on role. Quick Check (Executive only) takes 15 min total, Core assessment takes 45 min across 3 roles, Full assessment takes 60+ min across 4 roles."
-  },
-  {
-    question: "Can participants see each other's answers?",
-    answer: "No. Each participant only sees the decision context and their own questions. They cannot see other answers, scores, flags, or recommendations. Only the assessment creator can view full results."
-  },
-  {
-    question: "What are flags?",
-    answer: "Flags detect thinking maturity issues — patterns indicating unclear thinking or misalignment. Examples: Overconfidence, Cross-Role Mismatch, Ownership Diffusion. Critical flags can override recommendations to NO-GO."
-  },
-  {
-    question: "Do I need to verify my email?",
-    answer: "Yes. After signing up, you'll receive a verification email. Click the link to activate your account and unlock full access to your assessment results."
-  },
-  {
-    question: "Can I upgrade my plan later?",
-    answer: "Yes. You can upgrade anytime by contacting us. Moving from Free to Try Out, Core, Advanced, or Enterprise preserves all your existing assessments and data. The €199 Try Out fee is credited toward a Core subscription."
-  },
-  {
-    question: "What happens to my data?",
-    answer: "All traffic uses HTTPS. Survey links use unique, unguessable tokens. Data is processed securely and only visible to the assessment creator. We don't sell or share your data."
-  },
-  {
-    question: "Why should Elvait be mandatory before IT and AI investments?",
-    answer: "Elvait prevents capital lock-in by exposing structural misalignment, unrealistic ROI, and process gaps before budgets are committed. It introduces measurable stop-criteria and creates a standardized clarity gate for governance. Read more: https://elvait.ai/insights/2026-02-26-mandatory-gate.html"
-  },
-  {
-    question: "What value does Elvait provide for executives?",
-    answer: "For CEOs: strategic alignment and execution confidence. For CFOs: capital allocation discipline and ROI credibility. For Owners and Boards: structurally defensible investments with audit-ready clarity. Read more: https://elvait.ai/insights/2026-02-26-executive-summary.html"
-  },
-  {
-    question: "How does Elvait solve the AI productivity paradox?",
-    answer: "Elvait addresses the seven root causes of failed AI productivity — from structural misalignment and poor process readiness to governance gaps — by evaluating the clarity of the decision behind the technology, not the technology itself. Read more: https://elvait.ai/insights/2026-02-26-ai-productivity-paradox.html"
-  },
-  {
-    question: "Why don't AI investments automatically lead to productivity gains?",
-    answer: "Massive AI spending fails to deliver when organizations lack structural alignment, process readiness, data quality, adoption strategies, and governance frameworks. The gap is not technological — it is structural. Read more: https://elvait.ai/insights/2026-02-26-ai-investment-productivity.html"
-  }
-];
-
-// Pricing Data
-const pricingPlans = [
-  {
-    name: 'Try Out',
-    price: '€199',
-    period: 'for 3 months',
-    description: 'Full assessment trial',
-    features: [
-      { name: 'Assessments', value: '1', included: true },
-      { name: 'All 5 roles', value: true, included: true },
-      { name: 'Up to 50 respondents', value: true, included: true },
-      { name: 'Full results & insights', value: true, included: true },
-      { name: 'Executive summary', value: true, included: true },
-      { name: 'PDF Reports', value: true, included: true },
-      { name: '€199 credited toward Core', value: true, included: true },
-    ],
-    cta: 'Contact Us',
-    href: '/contact?plan=tryout',
-    highlighted: false,
-  },
-  {
-    name: 'Core',
-    price: '€1,900',
-    period: 'per year',
-    description: 'For teams running multiple assessments',
-    features: [
-      { name: 'Assessments', value: 'Up to 10', included: true },
-      { name: '5 predefined roles', value: true, included: true },
-      { name: 'Contradiction detection', value: true, included: true },
-      { name: 'Up to 150 respondents', value: true, included: true },
-      { name: 'Executive summary', value: true, included: true },
-      { name: 'PDF Reports', value: true, included: true },
-    ],
-    cta: 'Contact Us',
-    href: '/contact?plan=core',
-    highlighted: false,
-  },
-  {
-    name: 'Advanced',
-    price: '€3,500',
-    period: 'per year',
-    description: 'Flexible questions & AI insights',
-    features: [
-      { name: 'Assessments', value: 'Up to 20', included: true },
-      { name: 'Everything in Core', value: true, included: true },
-      { name: 'Custom roles', value: 'Limited', included: true },
-      { name: 'Custom questions', value: 'Limited', included: true },
-      { name: 'AI clarity narrative', value: true, included: true },
-      { name: 'Up to 250 respondents', value: true, included: true },
-    ],
-    cta: 'Contact Us',
-    href: '/contact?plan=advanced',
-    highlighted: false,
-  },
-  {
-    name: 'Enterprise',
-    price: 'Custom',
-    period: 'upon request',
-    description: 'Full customization & API',
-    features: [
-      { name: 'Assessments', value: 'Unlimited', included: true },
-      { name: 'Custom roles', value: 'Full', included: true },
-      { name: 'Custom questions', value: 'Full', included: true },
-      { name: 'Org-wide dashboard', value: true, included: true },
-      { name: 'API integration', value: true, included: true },
-      { name: 'Dedicated onboarding', value: true, included: true },
-    ],
-    cta: 'Contact Us',
-    href: '/contact?plan=enterprise',
-    highlighted: false,
+    title: 'Digital Twin Factory',
+    context: 'Should operations build a digital twin for manufacturing optimization?',
+    result: 'NO-GO',
+    score: 76,
+    tone: 'red',
+    finding: 'Both business and technical teams deny trade-offs, revealing capacity illusion.',
+    action: 'Reassess capacity, decide what will be deprioritized, and secure explicit resources.',
   },
 ];
 
-// FAQ Item Component
-function FAQItem({ question, answer, isOpen, onClick }: { 
-  question: string; 
-  answer: string; 
-  isOpen: boolean; 
-  onClick: () => void;
-}) {
-  return (
-    <div className="border-b border-brand-grey-medium">
-      <button
-        onClick={onClick}
-        className="w-full py-5 flex items-center justify-between text-left hover:text-brand-red transition"
-      >
-        <span className="font-medium text-lg pr-4">{question}</span>
-        <ChevronDown className={`w-5 h-5 flex-shrink-0 transition-transform ${isOpen ? 'rotate-180' : ''}`} />
-      </button>
-      <div className={`overflow-hidden transition-all duration-300 ${isOpen ? 'max-h-96 pb-5' : 'max-h-0'}`}>
-        <p className="text-brand-grey">{answer}</p>
-      </div>
-    </div>
-  );
-}
+const resultCards = [
+  {
+    title: 'GO',
+    icon: CheckCircle,
+    className: 'border-brand-green/50 bg-brand-green/10',
+    iconClass: 'bg-brand-green text-black',
+    text: 'The project is structurally clear enough to proceed: goals, value, ownership, risks, and readiness are aligned.',
+  },
+  {
+    title: 'FIX FIRST',
+    icon: AlertTriangle,
+    className: 'border-amber-400/60 bg-amber-400/10',
+    iconClass: 'bg-amber-400 text-black',
+    text: 'The idea may be valid, but concrete gaps must be closed before budget, people, or delivery work are committed.',
+  },
+  {
+    title: 'NO-GO',
+    icon: XCircle,
+    className: 'border-brand-red/60 bg-brand-red/15',
+    iconClass: 'bg-brand-red text-white',
+    text: 'The project has structural risks that would likely cause failure, waste, or escalation if launched now.',
+  },
+];
+
+const signalCards = [
+  {
+    icon: Users,
+    title: 'Stakeholder misalignment',
+    text: 'Compare executive, business, technical, and process-owner perspectives before they collide in delivery.',
+  },
+  {
+    icon: Target,
+    title: 'Unclear value logic',
+    text: 'Separate documented business value from assumptions, wishes, and narrative confidence.',
+  },
+  {
+    icon: Shield,
+    title: 'Ownership & governance gaps',
+    text: 'Expose who owns the outcome, the process, the decision, and the consequences if it fails.',
+  },
+  {
+    icon: BarChart3,
+    title: 'Readiness and capacity risk',
+    text: 'Detect whether the organization is actually ready to absorb the project work and change.',
+  },
+];
+
+const toneStyles: Record<string, string> = {
+  green: 'border-brand-green bg-brand-green/10 text-brand-green',
+  amber: 'border-amber-400 bg-amber-400/10 text-amber-300',
+  red: 'border-brand-red bg-brand-red/10 text-brand-red',
+};
 
 export default function LandingPage() {
-  const [openFAQ, setOpenFAQ] = useState<number | null>(null);
-
   return (
-    <div className="min-h-screen">
-      {/* Hero Section */}
-      <header className="relative overflow-hidden">
-        <div className="absolute inset-0 bg-brand-darkgrey" />
-        <div className="absolute inset-0 hidden" />
-        
-        {/* Nav: only Demo, Pricing, Sign In (#10) */}
+    <div className="min-h-screen bg-white">
+      <header className="relative overflow-hidden bg-brand-darkgrey text-white">
+        <div className="absolute inset-0 bg-[radial-gradient(circle_at_top,rgba(178,220,39,0.16),transparent_35%)]" />
+
         <nav className="relative z-10 max-w-7xl mx-auto px-6 py-6 flex items-center justify-between">
-          <Image src="/logo-full.png" alt="ELVAIT" width={140} height={40} className="h-8 w-auto" />
-          <div className="flex items-center gap-4">
-            <Link href="/demo" className="text-white/80 hover:text-white transition">
-              Demo
+          <Image src="/logo-full.png" alt="ELVAIT" width={140} height={40} className="h-8 w-auto" priority />
+          <div className="flex items-center gap-5 text-sm md:text-base">
+            <Link href="#demo-cases" className="text-white/80 hover:text-white transition">
+              Demo cases
             </Link>
-            <Link href="/pricing" className="text-white/80 hover:text-white transition">
-              Pricing
+            <Link href="https://elvait.ai/demo" className="text-white/80 hover:text-white transition">
+              Product demo
             </Link>
             <UserMenu />
           </div>
         </nav>
 
-        <div className="relative z-10 max-w-7xl mx-auto px-6 py-24 text-center">
-          <Link href="/start" className="inline-flex items-center gap-2 px-4 py-2 bg-white/10 hover:bg-white/20 transition rounded-full text-white/90 text-sm mb-8">
-            <Sparkles className="w-4 h-4" />
-            <span>Free Quick Check — start in minutes</span>
-          </Link>
-          
-          <p className="text-4xl md:text-5xl lg:text-6xl font-extrabold text-brand-green mb-6 leading-tight">
-            Clarity Before Automation
+        <div className="relative z-10 max-w-7xl mx-auto px-6 py-24 md:py-32 text-center">
+          <p className="inline-flex items-center gap-2 px-4 py-2 bg-white/10 rounded-full text-white/85 text-sm mb-8">
+            <Search className="w-4 h-4 text-brand-green" />
+            First step in project management &amp; preparation
           </p>
 
-          <h1 className="text-4xl md:text-5xl lg:text-6xl font-extrabold text-white mb-8 leading-tight max-w-4xl mx-auto">
-            <span className="font-extrabold">Reduce failed AI and IT investments.</span>{' '}
-            <span className="font-extrabold">Achieve real productivity impact from technology.</span>
+          <p className="text-4xl md:text-6xl font-extrabold text-brand-green mb-6 leading-tight">
+            Clarity Before Projects
+          </p>
+
+          <h1 className="text-4xl md:text-6xl lg:text-7xl font-extrabold max-w-5xl mx-auto leading-tight mb-8">
+            Know if a project is ready before you commit budget, people, or delivery time.
           </h1>
-          
-          <p className="text-lg md:text-xl text-white/70 max-w-2xl mx-auto mb-6 leading-relaxed">
-            Expose hidden misalignments and structural blind spots before development begins — providing{' '}
-            <span className="text-white font-bold">decision clarity for business leaders, without technical complexity.</span>
+
+          <p className="text-lg md:text-xl text-white/75 max-w-3xl mx-auto mb-6 leading-relaxed">
+            ELVAIT Clarity Engine turns early project ideas into a structured readiness signal — exposing unclear goals,
+            hidden assumptions, stakeholder misalignment, ownership gaps, and delivery risks before the demo session or kickoff.
           </p>
 
-          <p className="text-lg md:text-xl text-white font-bold max-w-2xl mx-auto mb-10">
-            Make ELVAIT the mandatory clarity gate before every AI &amp; IT initiative.
+          <p className="text-lg md:text-xl text-white font-semibold max-w-3xl mx-auto mb-10">
+            Not only for IT: use it as the first preparation step for automation, AI, transformation, operations, process, and strategic initiatives.
           </p>
 
-          {/* CTA: "Try Out" green button linking to pricing (#13) */}
           <div className="flex flex-col sm:flex-row items-center justify-center gap-4">
-            <Link 
-              href="/pricing"
+            <Link
+              href="#demo-cases"
               className="w-full sm:w-auto px-8 py-4 bg-brand-green text-black rounded-xl font-semibold text-lg hover:bg-brand-green/80 transition flex items-center justify-center gap-2"
             >
-              Try Out
+              View demo cases &amp; results
               <ArrowRight className="w-5 h-5" />
             </Link>
-            <Link 
-              href="/demo"
+            <Link
+              href="https://elvait.ai/demo"
               className="w-full sm:w-auto px-8 py-4 bg-white/10 text-white rounded-xl font-semibold text-lg hover:bg-white/20 transition"
             >
-              View Demo Results
+              Open product demo
             </Link>
           </div>
-
-          <p className="mt-8 text-white/60 text-sm">
-            No credit card • See results instantly
-          </p>
         </div>
       </header>
 
-      {/* Stats Section — fix green text on light bg (#3): use black */}
-      <section className="py-16 bg-white border-b border-brand-grey-medium">
-        <div className="max-w-7xl mx-auto px-6">
-          <div className="grid grid-cols-2 md:grid-cols-4 gap-8">
-            {[
-              { value: '70%', label: 'of automation projects fail' },
-              { value: '$1.2M', label: 'average wasted on failed initiatives' },
-              { value: '287', label: 'days to detect misalignment' },
-              { value: '15min', label: 'to gain clarity' },
-            ].map((stat, i) => (
-              <div key={i} className="text-center">
-                <div className="text-4xl font-bold text-black">{stat.value}</div>
-                <div className="text-sm text-brand-grey mt-2">{stat.label}</div>
-              </div>
-            ))}
-          </div>
-        </div>
-      </section>
-
-      {/* How It Works — Collect=red (#7), Decide=green (#6) */}
-      <section className="py-24 bg-white">
-        <div className="max-w-7xl mx-auto px-6">
-          <div className="text-center mb-16">
-            <h2 className="text-4xl font-bold mb-4">How It Works</h2>
-            <p className="text-xl text-brand-grey">Capture the real picture across your organization</p>
-          </div>
-
-          <div className="grid md:grid-cols-3 gap-8">
-            {[
-              {
-                step: '1',
-                title: 'Collect',
-                description: 'Gather structured input from all key stakeholders involved in the initiative — decision owners, business leaders, technical experts, process owners, and users. Instead of assumptions, you get a 360° view of goals, constraints, risks, and expectations.',
-                icon: Users,
-                color: 'bg-brand-red',
-              },
-              {
-                step: '2',
-                title: 'Analyze',
-                description: 'Reveal contradictions, blind spots, and structural risk. Analyze stakeholder input using AI-powered decision models. The system identifies misalignments, unrealistic assumptions, hidden risks, and readiness gaps that typically cause AI and IT initiatives to fail.',
-                icon: Zap,
-                color: 'bg-brand-grey',
-              },
-              {
-                step: '3',
-                title: 'Decide',
-                description: 'Turn complexity into a clear investment decision. Get clear Go / Fix / No-Go recommendations. Receive an executive summary, key risks, and prioritized actions — enabling confident decisions without technical complexity.',
-                icon: FileText,
-                color: 'bg-brand-green',
-              },
-            ].map((phase, i) => (
-              <div key={i} className="relative">
-                <div className="bg-white rounded-2xl p-8 shadow-lg border border-brand-grey-medium h-full">
-                  <div className={`w-14 h-14 ${phase.color} rounded-xl flex items-center justify-center mb-6`}>
-                    <phase.icon className={`w-7 h-7 ${phase.color === 'bg-brand-green' ? 'text-black' : 'text-white'}`} />
+      <main>
+        <section className="py-20 bg-white border-b border-brand-grey-medium">
+          <div className="max-w-7xl mx-auto px-6">
+            <div className="grid md:grid-cols-4 gap-6">
+              {signalCards.map((item) => (
+                <div key={item.title} className="rounded-2xl border border-brand-grey-medium bg-white p-6 shadow-sm">
+                  <div className="w-12 h-12 rounded-xl bg-brand-grey-light flex items-center justify-center mb-5">
+                    <item.icon className="w-6 h-6 text-black" />
                   </div>
-                  <div className="text-sm font-medium text-brand-grey mb-2">Phase {phase.step}</div>
-                  <h3 className="text-2xl font-bold text-black mb-3">{phase.title}</h3>
-                  <p className="text-brand-grey">{phase.description}</p>
+                  <h2 className="text-xl font-bold mb-3">{item.title}</h2>
+                  <p className="text-brand-grey leading-relaxed">{item.text}</p>
                 </div>
-                {i < 2 && (
-                  <div className="hidden md:block absolute top-1/2 -right-4 transform -translate-y-1/2">
-                    <ArrowRight className="w-8 h-8 text-brand-grey-medium" />
-                  </div>
-                )}
-              </div>
-            ))}
-          </div>
-        </div>
-      </section>
-
-      {/* Outcomes Section — updated colors (#4, #5) */}
-      <section className="py-24 bg-brand-darkgrey text-white">
-        <div className="max-w-7xl mx-auto px-6">
-          <div className="text-center mb-16">
-            <h2 className="text-4xl font-bold mb-4">Clear Outcomes</h2>
-            <p className="text-xl text-brand-grey">Get clear Go / Fix / No-Go recommendations for your AI &amp; IT investments — exposing hidden contradictions, structural blind spots, and false confidence.</p>
-          </div>
-
-          <div className="grid md:grid-cols-3 gap-8">
-            <div className="rounded-2xl p-8 border-2 border-brand-green/40 bg-brand-green/10">
-              <div className="w-14 h-14 bg-brand-green rounded-full flex items-center justify-center mb-6">
-                <CheckCircle className="w-8 h-8 text-black" />
-              </div>
-              <h3 className="text-2xl font-bold text-white mb-3">🟢 GO</h3>
-              <p className="text-white/70 mb-4">
-                High clarity exists. Proceed with automation — you have alignment, clear processes, and realistic expectations.
-              </p>
-              <ul className="text-sm text-white/70 space-y-2">
-                <li>• Recommended automation approach</li>
-                <li>• Success metrics defined</li>
-                <li>• Implementation roadmap</li>
-              </ul>
-            </div>
-
-            <div className="rounded-2xl p-8 border-2 border-brand-red/40 bg-brand-red/10">
-              <div className="w-14 h-14 bg-brand-red rounded-full flex items-center justify-center mb-6">
-                <AlertTriangle className="w-8 h-8 text-white" />
-              </div>
-              <h3 className="text-2xl font-bold text-white mb-3">🔴 FIX FIRST</h3>
-              <p className="text-white/70 mb-4">
-                Gaps identified. Address specific issues before proceeding — contradictions, unclear processes, or misaligned goals.
-              </p>
-              <ul className="text-sm text-white/70 space-y-2">
-                <li>• Specific gaps to address</li>
-                <li>• Resolution actions</li>
-                <li>• Re-assessment criteria</li>
-              </ul>
-            </div>
-
-            <div className="rounded-2xl p-8 border-2 border-brand-red/60 bg-brand-red/20">
-              <div className="w-14 h-14 bg-brand-red rounded-full flex items-center justify-center mb-6">
-                <XCircle className="w-8 h-8 text-white" />
-              </div>
-              <h3 className="text-2xl font-bold text-white mb-3">🔴 NO-GO</h3>
-              <p className="text-white/70 mb-4">
-                Fundamental issues exist. Automation would fail — revisit process design or strategic objectives first.
-              </p>
-              <ul className="text-sm text-white/70 space-y-2">
-                <li>• Root cause analysis</li>
-                <li>• Prerequisites for success</li>
-                <li>• Alternative approaches</li>
-              </ul>
-            </div>
-          </div>
-        </div>
-      </section>
-
-      {/* "Try before you sign up" section moved here after How It Works + Clear Outcomes (#14, #15) */}
-      <section className="py-24 bg-brand-grey-light">
-        <div className="max-w-7xl mx-auto px-6">
-          <div className="text-center mb-16">
-            <h2 className="text-4xl font-bold text-black mb-4">Try before you sign up</h2>
-            <p className="text-xl text-brand-grey">
-              Scale to your exact needs.
-            </p>
-          </div>
-
-          <div className="grid md:grid-cols-3 gap-8">
-            {/* Tier 0 - Free (Quick Check) — renamed badge to FREE ASSESSMENT (#12) */}
-            <div className="relative bg-white rounded-2xl p-8 shadow-lg border border-brand-grey-medium">
-              <div className="absolute -top-3 left-6 px-3 py-1 bg-gray-600 text-white text-xs font-semibold rounded-full">
-                FREE ASSESSMENT
-              </div>
-              <div className="flex items-center gap-3 mb-6">
-                <div className="w-12 h-12 bg-brand-grey-light rounded-xl flex items-center justify-center">
-                  <Eye className="w-6 h-6 text-brand-grey" />
-                </div>
-                <div>
-                  <h3 className="text-xl font-bold">Free Assessment</h3>
-                  <p className="text-sm text-brand-grey">Basic verdict</p>
-                </div>
-              </div>
-              <ul className="space-y-3">
-                <li className="flex items-center gap-2 text-black">
-                  <Check className="w-5 h-5 text-black flex-shrink-0" />
-                  <span>1 Quick Check assessment</span>
-                </li>
-                <li className="flex items-center gap-2 text-black">
-                  <Check className="w-5 h-5 text-black flex-shrink-0" />
-                  <span>1 Role</span>
-                </li>
-                <li className="flex items-center gap-2 text-black">
-                  <Check className="w-5 h-5 text-black flex-shrink-0" />
-                  <span>Up to 10 respondents</span>
-                </li>
-                <li className="flex items-center gap-2 text-black">
-                  <Check className="w-5 h-5 text-black flex-shrink-0" />
-                  <span>Basic GO/FIX/NO-GO verdict</span>
-                </li>
-                <li className="flex items-center gap-2 text-black">
-                  <Check className="w-5 h-5 text-black flex-shrink-0" />
-                  <span>Investment Clarity Score</span>
-                </li>
-              </ul>
-              <Link
-                href="/signup"
-                className="mt-6 block w-full py-3 px-4 bg-brand-grey-light text-black rounded-lg font-medium text-center hover:bg-brand-grey-medium transition"
-              >
-                Get Started
-              </Link>
-            </div>
-
-            {/* Try Out - €199 — no "Most Popular", badge text on green = black (#2, #8) */}
-            <div className="relative bg-white rounded-2xl p-8 shadow-xl border-2 border-brand-green transform scale-105">
-              <div className="absolute -top-3 left-6 px-3 py-1 bg-brand-green text-black text-xs font-semibold rounded-full">
-                TRY OUT · €199
-              </div>
-              <div className="flex items-center gap-3 mb-6">
-                <div className="w-12 h-12 bg-brand-green/10 rounded-xl flex items-center justify-center">
-                  <BarChart3 className="w-6 h-6 text-black" />
-                </div>
-                <div>
-                  <h3 className="text-xl font-bold">Try Out</h3>
-                  <p className="text-sm text-brand-grey">Full assessment trial</p>
-                </div>
-              </div>
-              <ul className="space-y-3">
-                <li className="flex items-center gap-2 text-black">
-                  <Check className="w-5 h-5 text-black flex-shrink-0" />
-                  <span>1 Full assessment</span>
-                </li>
-                <li className="flex items-center gap-2 text-black">
-                  <Check className="w-5 h-5 text-black flex-shrink-0" />
-                  <span>All 5 roles</span>
-                </li>
-                <li className="flex items-center gap-2 text-black">
-                  <Check className="w-5 h-5 text-black flex-shrink-0" />
-                  <span>Up to 50 respondents</span>
-                </li>
-                <li className="flex items-center gap-2 text-black">
-                  <Check className="w-5 h-5 text-black flex-shrink-0" />
-                  <span>Full results & insights</span>
-                </li>
-                <li className="flex items-center gap-2 text-black">
-                  <Check className="w-5 h-5 text-black flex-shrink-0" />
-                  <span>Executive summary</span>
-                </li>
-                <li className="flex items-center gap-2 text-black">
-                  <Check className="w-5 h-5 text-black flex-shrink-0" />
-                  <span>PDF reports</span>
-                </li>
-                <li className="flex items-center gap-2 text-black font-medium">
-                  <Check className="w-5 h-5 text-black flex-shrink-0" />
-                  <span>€199 credited to Core</span>
-                </li>
-              </ul>
-              <Link
-                href="/contact?plan=tryout"
-                className="mt-6 block w-full py-3 px-4 bg-brand-green text-black rounded-lg font-medium text-center hover:bg-brand-green/80 transition"
-              >
-                Contact Us
-              </Link>
-            </div>
-
-            {/* All Plans from €199 */}
-            <div className="relative bg-white rounded-2xl p-8 shadow-lg border border-brand-grey-medium">
-              <div className="absolute -top-3 left-6 px-3 py-1 bg-brand-red text-white text-xs font-semibold rounded-full">
-                ALL PLANS FROM €199
-              </div>
-              <div className="flex items-center gap-3 mb-6">
-                <div className="w-12 h-12 bg-brand-red/10 rounded-xl flex items-center justify-center">
-                  <Download className="w-6 h-6 text-brand-red" />
-                </div>
-                <div>
-                  <h3 className="text-xl font-bold">All Decision Clarity Plans</h3>
-                  <p className="text-sm text-brand-grey">Core to Enterprise</p>
-                </div>
-              </div>
-              <ul className="space-y-4">
-                <li className="text-brand-grey">
-                  <div className="flex items-start gap-2">
-                    <Check className="w-5 h-5 text-brand-red flex-shrink-0 mt-0.5" />
-                    <div>
-                      <span className="font-medium text-black">Run 10 Assessments — or Scale Without Limits</span>
-                      <p className="text-sm text-brand-grey">Built for growing decision complexity</p>
-                    </div>
-                  </div>
-                </li>
-                <li className="text-brand-grey">
-                  <div className="flex items-start gap-2">
-                    <Check className="w-5 h-5 text-brand-red flex-shrink-0 mt-0.5" />
-                    <div>
-                      <span className="font-medium text-black">5 Built-In Stakeholder Roles &amp; Lenses — Expand &amp; Customize Anytime</span>
-                      <p className="text-sm text-brand-grey">Because misalignment lives between functions</p>
-                    </div>
-                  </div>
-                </li>
-                <li className="text-brand-grey">
-                  <div className="flex items-start gap-2">
-                    <Check className="w-5 h-5 text-brand-red flex-shrink-0 mt-0.5" />
-                    <div>
-                      <span className="font-medium text-black">50 to Unlimited Respondents</span>
-                      <p className="text-sm text-brand-grey">Capture the full structural picture</p>
-                    </div>
-                  </div>
-                </li>
-                <li className="text-brand-grey">
-                  <div className="flex items-start gap-2">
-                    <Check className="w-5 h-5 text-brand-red flex-shrink-0 mt-0.5" />
-                    <div>
-                      <span className="font-medium text-black">AI Detects Contradictions, Blind Spots &amp; False Confidence</span>
-                      <p className="text-sm text-brand-grey">We surface risk before it scales</p>
-                    </div>
-                  </div>
-                </li>
-                <li className="text-brand-grey">
-                  <div className="flex items-start gap-2">
-                    <Check className="w-5 h-5 text-brand-red flex-shrink-0 mt-0.5" />
-                    <div>
-                      <span className="font-medium text-black">Clear Go / Fix / No-Go Signal</span>
-                      <p className="text-sm text-brand-grey">Confidence you can defend</p>
-                    </div>
-                  </div>
-                </li>
-                <li className="text-brand-grey">
-                  <div className="flex items-start gap-2">
-                    <Check className="w-5 h-5 text-brand-red flex-shrink-0 mt-0.5" />
-                    <div>
-                      <span className="font-medium text-black">Executive Summary &amp; Decision-Grade Reports</span>
-                      <p className="text-sm text-brand-grey">Board-ready clarity</p>
-                    </div>
-                  </div>
-                </li>
-                <li className="text-brand-grey">
-                  <div className="flex items-start gap-2">
-                    <Check className="w-5 h-5 text-brand-red flex-shrink-0 mt-0.5" />
-                    <div>
-                      <span className="font-medium text-black">API Access</span>
-                      <p className="text-sm text-brand-grey">Integrate clarity into your governance</p>
-                    </div>
-                  </div>
-                </li>
-              </ul>
-              <Link
-                href="/pricing"
-                className="mt-6 block w-full py-3 px-4 bg-brand-grey-light text-black rounded-lg font-medium text-center hover:bg-brand-grey-medium transition"
-              >
-                View Plans
-              </Link>
-            </div>
-          </div>
-        </div>
-      </section>
-
-      {/* Trust Section — fix green icon on light bg (#3) */}
-      <section className="py-16 bg-white border-y border-brand-grey-medium">
-        <div className="max-w-7xl mx-auto px-6">
-          <div className="grid md:grid-cols-3 gap-8 text-center">
-            <div className="flex flex-col items-center">
-              <div className="w-12 h-12 bg-brand-green/10 rounded-full flex items-center justify-center mb-4">
-                <Shield className="w-6 h-6 text-black" />
-              </div>
-              <h3 className="font-semibold mb-2">Private & Secure</h3>
-              <p className="text-sm text-brand-grey">
-                HTTPS everywhere. Unique survey tokens. Only you see full results.
-              </p>
-            </div>
-            <div className="flex flex-col items-center">
-              <div className="w-12 h-12 bg-brand-green/10 rounded-full flex items-center justify-center mb-4">
-                <Zap className="w-6 h-6 text-black" />
-              </div>
-              <h3 className="font-semibold mb-2">Instant Results</h3>
-              <p className="text-sm text-brand-grey">
-                AI analysis runs in seconds. No waiting for consultants.
-              </p>
-            </div>
-            <div className="flex flex-col items-center">
-              <div className="w-12 h-12 bg-brand-green/10 rounded-full flex items-center justify-center mb-4">
-                <Users className="w-6 h-6 text-black" />
-              </div>
-              <h3 className="font-semibold mb-2">Multi-Stakeholder</h3>
-              <p className="text-sm text-brand-grey">
-                Collect perspectives from executives, tech leads, and end users.
-              </p>
-            </div>
-          </div>
-        </div>
-      </section>
-
-      {/* FAQ Section */}
-      <section className="py-24 bg-white">
-        <div className="max-w-3xl mx-auto px-6">
-          <div className="text-center mb-12">
-            <h2 className="text-4xl font-bold mb-4">Frequently Asked Questions</h2>
-            <p className="text-xl text-brand-grey">Everything you need to know about ELVAIT</p>
-          </div>
-
-          <div className="bg-white rounded-2xl shadow-lg border border-brand-grey-medium overflow-hidden">
-            <div className="px-6">
-              {faqData.map((faq, index) => (
-                <FAQItem
-                  key={index}
-                  question={faq.question}
-                  answer={faq.answer}
-                  isOpen={openFAQ === index}
-                  onClick={() => setOpenFAQ(openFAQ === index ? null : index)}
-                />
               ))}
             </div>
           </div>
+        </section>
 
-        </div>
-      </section>
-
-      {/* CTA Section — "Try Out" green button (#13) */}
-      <section className="py-24 bg-brand-darkgrey text-white">
-        <div className="max-w-4xl mx-auto px-6 text-center">
-          <h2 className="text-4xl font-bold text-white mb-6">
-            Ready to make confident automation decisions?
-          </h2>
-          <p className="text-xl text-white/80 mb-10">
-            Try your first assessment free.<br />
-            Create an account to unlock full results.
-          </p>
-          <div className="flex flex-col sm:flex-row items-center justify-center gap-4">
-            <Link 
-              href="/pricing"
-              className="inline-flex items-center gap-2 px-8 py-4 bg-brand-green text-black rounded-xl font-semibold text-lg hover:bg-brand-green/80 transition"
-            >
-              Try Out
-              <ArrowRight className="w-5 h-5" />
-            </Link>
-            <Link 
-              href="/demo"
-              className="inline-flex items-center gap-2 px-8 py-4 bg-white/10 text-white rounded-xl font-semibold text-lg hover:bg-white/20 transition"
-            >
-              View Demo First
-            </Link>
-          </div>
-        </div>
-      </section>
-
-      {/* Footer — use full logo image (#1) */}
-      <footer className="py-12 bg-brand-darkgrey text-brand-grey">
-        <div className="max-w-7xl mx-auto px-6">
-          <div className="flex flex-col md:flex-row items-center justify-between gap-4">
-            <Image src="/logo-full.png" alt="ELVAIT" width={120} height={34} className="h-6 w-auto" />
-            <div className="flex flex-wrap items-center justify-center gap-x-6 gap-y-2 text-sm">
-              <Link href="/pricing" className="hover:text-white transition">Pricing</Link>
-              <Link href="/demo" className="hover:text-white transition">Demo</Link>
-              <Link href="/contact" className="hover:text-white transition">Contact</Link>
-              <Link href="/insights/2026-02-26-mandatory-gate.html" className="hover:text-white transition">Mandatory Gate</Link>
-              <Link href="/insights/2026-02-26-executive-summary.html" className="hover:text-white transition">Executive Summary</Link>
-              <Link href="/insights/2026-02-26-ai-productivity-paradox.html" className="hover:text-white transition">AI Paradox</Link>
-              <Link href="/insights/2026-02-26-ai-investment-productivity.html" className="hover:text-white transition">AI &amp; Productivity</Link>
+        <section id="demo-cases" className="py-24 bg-brand-grey-light">
+          <div className="max-w-7xl mx-auto px-6">
+            <div className="text-center max-w-3xl mx-auto mb-16">
+              <p className="text-sm font-bold uppercase tracking-[0.25em] text-brand-red mb-4">Demo cases &amp; results</p>
+              <h2 className="text-4xl md:text-5xl font-extrabold mb-5">See what the product reveals before your demo session.</h2>
+              <p className="text-xl text-brand-grey">
+                Each case shows how the Clarity Engine converts stakeholder input into a concrete project-readiness result,
+                with score, risk pattern, and next action.
+              </p>
             </div>
-            <div className="text-sm">
-              © 2026 ELVAIT. All rights reserved.
+
+            <div className="grid lg:grid-cols-2 gap-8">
+              {demoCases.map((item) => (
+                <article key={item.title} className="bg-white rounded-3xl border border-brand-grey-medium shadow-lg p-8">
+                  <div className="flex flex-col sm:flex-row sm:items-start sm:justify-between gap-4 mb-6">
+                    <div>
+                      <h3 className="text-2xl font-bold mb-2">{item.title}</h3>
+                      <p className="text-brand-grey">{item.context}</p>
+                    </div>
+                    <div className={`shrink-0 rounded-2xl border px-4 py-3 text-center ${toneStyles[item.tone]}`}>
+                      <div className="text-xs uppercase tracking-wider font-bold">Result</div>
+                      <div className="text-xl font-extrabold text-current">{item.result}</div>
+                    </div>
+                  </div>
+
+                  <div className="grid sm:grid-cols-[120px_1fr] gap-6 items-center">
+                    <div className="rounded-2xl bg-brand-darkgrey text-white p-5 text-center">
+                      <div className="text-4xl font-extrabold">{item.score}</div>
+                      <div className="text-xs text-white/60 uppercase tracking-wider">Clarity score</div>
+                    </div>
+                    <div className="space-y-4">
+                      <div>
+                        <p className="text-sm font-semibold text-black mb-1">What ELVAIT found</p>
+                        <p className="text-brand-grey">{item.finding}</p>
+                      </div>
+                      <div>
+                        <p className="text-sm font-semibold text-black mb-1">Recommended next step</p>
+                        <p className="text-brand-grey">{item.action}</p>
+                      </div>
+                    </div>
+                  </div>
+                </article>
+              ))}
+            </div>
+
+            <div className="text-center mt-12">
+              <Link
+                href="https://elvait.ai/demo"
+                className="inline-flex items-center gap-2 px-7 py-4 bg-black text-white rounded-xl font-semibold hover:bg-black/80 transition"
+              >
+                Open full product demo
+                <ArrowRight className="w-5 h-5" />
+              </Link>
             </div>
           </div>
+        </section>
+
+        <section className="py-24 bg-brand-darkgrey text-white">
+          <div className="max-w-7xl mx-auto px-6">
+            <div className="text-center max-w-3xl mx-auto mb-14">
+              <p className="text-sm font-bold uppercase tracking-[0.25em] text-brand-green mb-4">Outcome model</p>
+              <h2 className="text-4xl md:text-5xl font-extrabold mb-5">One clear readiness signal after structured input.</h2>
+              <p className="text-xl text-white/70">
+                Results are designed for project preparation: what is ready, what must be clarified, and what should not proceed yet.
+              </p>
+            </div>
+
+            <div className="grid md:grid-cols-3 gap-8">
+              {resultCards.map((item) => (
+                <div key={item.title} className={`rounded-3xl p-8 border-2 ${item.className}`}>
+                  <div className={`w-14 h-14 rounded-full flex items-center justify-center mb-6 ${item.iconClass}`}>
+                    <item.icon className="w-8 h-8" />
+                  </div>
+                  <h3 className="text-2xl font-bold mb-3">{item.title}</h3>
+                  <p className="text-white/70 leading-relaxed">{item.text}</p>
+                </div>
+              ))}
+            </div>
+          </div>
+        </section>
+
+        <section className="py-24 bg-white">
+          <div className="max-w-5xl mx-auto px-6 text-center">
+            <FileText className="w-12 h-12 mx-auto text-brand-red mb-6" />
+            <h2 className="text-4xl md:text-5xl font-extrabold mb-6">Use ELVAIT before the project becomes expensive.</h2>
+            <p className="text-xl text-brand-grey max-w-3xl mx-auto mb-10">
+              Prepare the demo conversation with concrete examples, visible risk patterns, and a shared language for project readiness.
+            </p>
+            <div className="flex flex-col sm:flex-row items-center justify-center gap-4">
+              <Link
+                href="#demo-cases"
+                className="w-full sm:w-auto inline-flex items-center justify-center gap-2 px-8 py-4 bg-brand-green text-black rounded-xl font-semibold text-lg hover:bg-brand-green/80 transition"
+              >
+                Explore demo cases
+                <ArrowRight className="w-5 h-5" />
+              </Link>
+              <Link
+                href="/contact"
+                className="w-full sm:w-auto inline-flex items-center justify-center px-8 py-4 bg-brand-grey-light text-black rounded-xl font-semibold text-lg hover:bg-brand-grey-medium transition"
+              >
+                Book a demo session
+              </Link>
+            </div>
+          </div>
+        </section>
+      </main>
+
+      <footer className="py-10 bg-brand-darkgrey text-brand-grey">
+        <div className="max-w-7xl mx-auto px-6 flex flex-col md:flex-row items-center justify-between gap-4">
+          <Image src="/logo-full.png" alt="ELVAIT" width={120} height={34} className="h-6 w-auto" />
+          <div className="flex flex-wrap items-center justify-center gap-x-6 gap-y-2 text-sm">
+            <Link href="#demo-cases" className="hover:text-white transition">Demo cases</Link>
+            <Link href="https://elvait.ai/demo" className="hover:text-white transition">Product demo</Link>
+            <Link href="/contact" className="hover:text-white transition">Contact</Link>
+          </div>
+          <div className="text-sm">© 2026 ELVAIT. All rights reserved.</div>
         </div>
       </footer>
     </div>

@@ -3,8 +3,8 @@ import { SessionProvider } from '@/components/auth';
 import './globals.css';
 
 export const metadata: Metadata = {
-  title: 'Clarity Before Automation Kit | ELVAIT',
-  description: 'Get clarity on what, whether, and how to automate — before you invest.',
+  title: 'ELVAIT Clarity Engine | Project Preparation Before Commitment',
+  description: 'Evaluate project readiness before you commit budget, people, or delivery time. Demo cases show GO / FIX FIRST / NO-GO results.',
   icons: {
     icon: [
       { url: '/favicon.svg', type: 'image/svg+xml' },
@@ -12,8 +12,8 @@ export const metadata: Metadata = {
     apple: '/icon.svg',
   },
   openGraph: {
-    title: 'Clarity Before Automation Kit',
-    description: 'Stop automating chaos. Get clarity first.',
+    title: 'ELVAIT Clarity Engine',
+    description: 'Project preparation and readiness clarity before budget, people, or delivery time are committed.',
     type: 'website',
   },
 };
