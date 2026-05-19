@@ -20,6 +20,7 @@ const demoCases = [
   {
     title: 'Customer Service AI Automation',
     context: 'Should the team invest €200k in a tier-1 support chatbot?',
+    timeline: { intake: '06 May 2026', survey: '07–09 May 2026', decision: '12 May 2026' },
     result: 'GO',
     score: 87,
     tone: 'green',
@@ -29,6 +30,7 @@ const demoCases = [
   {
     title: 'Marketing Automation Platform',
     context: 'Should marketing move to an enterprise automation platform?',
+    timeline: { intake: '13 May 2026', survey: '14–18 May 2026', decision: '21 May 2026' },
     result: 'FIX FIRST',
     score: 68,
     tone: 'amber',
@@ -38,6 +40,7 @@ const demoCases = [
   {
     title: 'ERP System Modernization',
     context: 'Should finance replace legacy SAP with S/4HANA Cloud?',
+    timeline: { intake: '28 Apr 2026', survey: '29 Apr–03 May 2026', decision: '07 May 2026' },
     result: 'NO-GO',
     score: 72,
     tone: 'red',
@@ -47,6 +50,7 @@ const demoCases = [
   {
     title: 'Digital Twin Factory',
     context: 'Should operations build a digital twin for manufacturing optimization?',
+    timeline: { intake: '18 May 2026', survey: '19–22 May 2026', decision: '26 May 2026' },
     result: 'NO-GO',
     score: 76,
     tone: 'red',
@@ -216,6 +220,20 @@ export default function LandingPage() {
                       <div className="text-xs text-white/60 uppercase tracking-wider">Clarity score</div>
                     </div>
                     <div className="space-y-4">
+                      <div className="grid sm:grid-cols-3 gap-3">
+                        <div className="rounded-xl bg-brand-grey-light px-3 py-2">
+                          <p className="text-[11px] uppercase tracking-wider text-brand-grey font-bold">Intake</p>
+                          <p className="text-sm font-semibold text-black">{item.timeline.intake}</p>
+                        </div>
+                        <div className="rounded-xl bg-brand-grey-light px-3 py-2">
+                          <p className="text-[11px] uppercase tracking-wider text-brand-grey font-bold">Survey window</p>
+                          <p className="text-sm font-semibold text-black">{item.timeline.survey}</p>
+                        </div>
+                        <div className="rounded-xl bg-brand-grey-light px-3 py-2">
+                          <p className="text-[11px] uppercase tracking-wider text-brand-grey font-bold">Decision review</p>
+                          <p className="text-sm font-semibold text-black">{item.timeline.decision}</p>
+                        </div>
+                      </div>
                       <div>
                         <p className="text-sm font-semibold text-black mb-1">What ELVAIT found</p>
                         <p className="text-brand-grey">{item.finding}</p>

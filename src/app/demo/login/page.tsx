@@ -5,7 +5,7 @@ import { useRouter } from 'next/navigation';
 import Link from 'next/link';
 import { 
   Brain, Shield, Briefcase, Users, Code, UserCircle, 
-  CheckCircle, ArrowRight, Info, Settings
+  CheckCircle, ArrowRight, Info, Settings, Calendar
 } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 
@@ -99,6 +99,13 @@ const DEMO_USERS: DemoUser[] = [
     color: 'orange',
     permissions: ['Complete process surveys', 'Document workflows', 'Assess readiness']
   },
+];
+
+
+const DEMO_CASE_TIMELINE = [
+  { label: 'Intake', value: '13 May 2026' },
+  { label: 'Survey window', value: '14–18 May 2026' },
+  { label: 'Decision review', value: '21 May 2026' },
 ];
 
 const ROLE_GROUPS = [
@@ -247,6 +254,27 @@ export default function DemoLoginPage() {
             Select a role to explore ELVAIT from different perspectives. Each role has different permissions and views.
           </p>
         </div>
+
+        <section className="bg-white/[0.03] border border-white/[0.08] rounded-2xl p-6 mb-12">
+          <div className="flex flex-col lg:flex-row lg:items-center lg:justify-between gap-5">
+            <div>
+              <div className="flex items-center gap-2 text-brand-green mb-2">
+                <Calendar className="w-4 h-4" />
+                <span className="text-xs uppercase tracking-[0.2em] font-bold">Demo case with filled dates</span>
+              </div>
+              <h2 className="text-2xl font-bold">Marketing Automation Platform</h2>
+              <p className="text-brand-grey mt-1">Implement marketing automation for lead nurturing and campaign management.</p>
+            </div>
+            <div className="grid sm:grid-cols-3 gap-3 lg:min-w-[520px]">
+              {DEMO_CASE_TIMELINE.map(item => (
+                <div key={item.label} className="rounded-xl bg-brand-darkgrey/80 border border-white/[0.08] px-4 py-3">
+                  <p className="text-[11px] uppercase tracking-wider text-brand-grey font-semibold">{item.label}</p>
+                  <p className="text-sm font-semibold text-white mt-1">{item.value}</p>
+                </div>
+              ))}
+            </div>
+          </div>
+        </section>
 
         {/* User Groups */}
         <div className="space-y-12">
