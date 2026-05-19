@@ -1,7 +1,7 @@
 'use client';
 
-import { useState, useEffect } from 'react';
-import { useRouter } from 'next/navigation';
+import { Suspense, useState, useEffect } from 'react';
+import { useRouter, useSearchParams } from 'next/navigation';
 import Link from 'next/link';
 import { useSession } from 'next-auth/react';
 import { ArrowLeft, ArrowRight, Brain, Check, Users, Zap, FileText, AlertCircle, Lock, Sparkles } from 'lucide-react';
@@ -97,8 +97,36 @@ const IMPACTED_AREAS = [
   'Executive / Strategy'
 ];
 
-export default function CreateCasePage() {
+
+const DEMO_FORM_DATA: FormData = {
+  variant: 'FULL',
+  decisionTitle: 'Marketing Automation Platform',
+  investmentType: 'Software / digital tool',
+  decisionDescription: 'Implement HubSpot Marketing Hub Enterprise for lead nurturing, campaign management, attribution, and automated follow-up across marketing and sales.',
+  impactedAreas: ['Sales', 'Marketing', 'IT / Technology', 'Executive / Strategy'],
+  timeHorizon: '3-6 months',
+  estimatedInvestment: '€100k-€500k',
+  processes: [
+    { name: 'Lead Capture & Qualification', description: 'Capture inbound leads, enrich profiles, qualify interest, and route opportunities to sales.', weight: 35 },
+    { name: 'Campaign Nurturing', description: 'Automated multi-step campaigns for segmented audiences and lifecycle stages.', weight: 35 },
+    { name: 'CRM Handoff & Attribution', description: 'Synchronize campaign engagement with CRM ownership, pipeline stages, and reporting.', weight: 30 }
+  ],
+  dCtx1: 'Whether to invest in HubSpot Marketing Hub Enterprise as the central platform for lead nurturing, campaign automation, and marketing-to-sales handoff.',
+  dCtx2: '30% increase in qualified leads, faster follow-up, clearer attribution, and less manual campaign coordination between marketing and sales.',
+  dCtx3: 'Manual email campaigns continue, follow-up remains inconsistent, attribution stays weak, and sales receives uneven lead context.',
+  dCtx4: 'This would be a mistake if CRM integration is poor, marketing adoption is low, baseline conversion metrics are not validated, or automation amplifies bad lead data.'
+};
+
+const DEMO_DATES = [
+  { label: 'Intake date', value: '13 May 2026' },
+  { label: 'Survey window', value: '14–18 May 2026' },
+  { label: 'Decision review', value: '21 May 2026' }
+];
+
+function CreateCaseContent() {
   const router = useRouter();
+  const searchParams = useSearchParams();
+  const isDemoMode = searchParams.get('demo') === 'marketing';
   const { data: session, status: sessionStatus } = useSession();
   
   const [step, setStep] = useState(1);
@@ -111,7 +139,7 @@ export default function CreateCasePage() {
   const [caseCount, setCaseCount] = useState(0);
   const [userTier, setUserTier] = useState<Tier>('free');
   
-  const [formData, setFormData] = useState<FormData>({
+  const [formData, setFormData] = useState<FormData>(() => isDemoMode ? DEMO_FORM_DATA : {
     variant: 'CORE',
     decisionTitle: '',
     investmentType: '',
@@ -129,6 +157,11 @@ export default function CreateCasePage() {
   // Check case limit for authenticated users
   useEffect(() => {
     const checkCaseLimit = async () => {
+      if (isDemoMode) {
+        setCheckingLimit(false);
+        return;
+      }
+
       if (sessionStatus === 'loading') return;
       
       if (sessionStatus === 'authenticated') {
@@ -155,13 +188,18 @@ export default function CreateCasePage() {
     };
     
     checkCaseLimit();
-  }, [sessionStatus]);
+  }, [sessionStatus, isDemoMode]);
 
   const updateField = (field: keyof FormData, value: string | string[] | ProcessEntry[]) => {
     setFormData(prev => ({ ...prev, [field]: value }));
   };
 
   const handleSubmit = async () => {
+    if (isDemoMode) {
+      router.push('/demo/survey');
+      return;
+    }
+
     setLoading(true);
     setError(null);
     
@@ -322,7 +360,7 @@ export default function CreateCasePage() {
       {/* Header */}
       <header className="bg-white border-b border-gray-200">
         <div className="max-w-4xl mx-auto px-6 py-4 flex items-center justify-between">
-          <Link href="/" className="flex items-center gap-2 text-gray-600 hover:text-gray-900">
+          <Link href={isDemoMode ? '/demo/dashboard' : '/'} className="flex items-center gap-2 text-gray-600 hover:text-gray-900">
             <ArrowLeft className="w-5 h-5" />
             <span>Back</span>
           </Link>
@@ -348,6 +386,12 @@ export default function CreateCasePage() {
 
       {/* Content */}
       <main className="max-w-4xl mx-auto px-6 py-12">
+        {isDemoMode && (
+          <div className="mb-6 p-4 bg-brand-green/10 border border-brand-green/30 rounded-lg text-gray-800">
+            <strong>Demo mode:</strong> this is the real New Assessment flow with the Marketing Automation Platform case pre-filled, including dates and Full Assessment process data.
+          </div>
+        )}
+
         {error && (
           <div className="mb-6 p-4 bg-red-50 border border-red-200 rounded-lg flex items-center gap-3 text-red-700">
             <AlertCircle className="w-5 h-5" />
@@ -366,7 +410,7 @@ export default function CreateCasePage() {
             <div className="grid md:grid-cols-2 gap-4">
               {VARIANTS.map(variant => {
                 const isFree = userTier === 'free' || sessionStatus === 'unauthenticated';
-                const isLocked = isFree && !variant.free;
+                const isLocked = !isDemoMode && isFree && !variant.free;
                 return (
                 <button
                   key={variant.id}
@@ -434,6 +478,17 @@ export default function CreateCasePage() {
             <p className="text-gray-600 mb-8">
               Describe the decision you're evaluating. This context will be shown to all participants.
             </p>
+
+            {isDemoMode && (
+              <div className="grid md:grid-cols-3 gap-3 mb-8">
+                {DEMO_DATES.map(item => (
+                  <div key={item.label} className="rounded-xl bg-white border border-gray-200 p-4">
+                    <p className="text-xs uppercase tracking-wider text-gray-500 font-semibold">{item.label}</p>
+                    <p className="font-bold text-gray-900 mt-1">{item.value}</p>
+                  </div>
+                ))}
+              </div>
+            )}
             
             <div className="space-y-6">
               <div>
@@ -652,12 +707,21 @@ export default function CreateCasePage() {
               onClick={handleSubmit}
               disabled={!canProceed() || loading}
             >
-              {loading ? 'Creating...' : 'Create Assessment'}
+              {loading ? 'Creating...' : isDemoMode ? 'Continue to demo survey' : 'Create Assessment'}
               {!loading && <ArrowRight className="w-4 h-4 ml-2" />}
             </Button>
           )}
         </div>
       </main>
     </div>
+  );
+}
+
+
+export default function CreateCasePage() {
+  return (
+    <Suspense fallback={<div className="min-h-screen bg-gray-50 flex items-center justify-center text-gray-600">Loading...</div>}>
+      <CreateCaseContent />
+    </Suspense>
   );
 }

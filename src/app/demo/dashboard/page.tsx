@@ -279,7 +279,7 @@ export default function DemoDashboardPage() {
         {/* Quick Actions */}
         <div className="flex items-center justify-between mb-6">
           <h2 className="text-xl font-semibold">Your Assessments</h2>
-          <Link href="/demo/new-assessment">
+          <Link href="/create?demo=marketing">
             <Button>
               <Plus className="w-4 h-4 mr-2" />
               New Assessment

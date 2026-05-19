@@ -123,7 +123,7 @@ export default function AdminAssessmentsPage() {
               <h1 className="text-2xl font-bold">Assessments</h1>
               <p className="text-brand-grey text-sm mt-1">View and manage all assessments across organizations</p>
             </div>
-            <Link href="/demo/new-assessment">
+            <Link href="/create?demo=marketing">
               <Button><Plus className="w-4 h-4 mr-2" />New Assessment</Button>
             </Link>
           </div>
