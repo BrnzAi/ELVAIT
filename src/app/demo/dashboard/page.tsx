@@ -100,13 +100,13 @@ function StatCard({ icon: Icon, label, value, trend }: {
   trend?: { value: number; positive: boolean };
 }) {
   return (
-    <div className="bg-white rounded-xl p-5 border border-brand-grey-medium">
+    <div className="bg-white rounded-xl p-5 border border-brand-grey-medium text-gray-900">
       <div className="flex items-start justify-between mb-3">
         <div className="p-2 bg-brand-grey-light rounded-lg">
           <Icon className="w-5 h-5 text-brand-green" />
         </div>
         {trend && (
-          <span className={`text-xs font-medium ${trend.positive ? 'text-green-400' : 'text-red-400'}`}>
+          <span className={`text-xs font-semibold ${trend.positive ? 'text-green-700' : 'text-red-700'}`}>
             {trend.positive ? '+' : ''}{trend.value}%
           </span>
         )}
@@ -121,11 +121,11 @@ function AssessmentRow({ assessment }: { assessment: DemoAssessment }) {
   const getStatusBadge = () => {
     switch (assessment.status) {
       case 'COMPLETED':
-        return <span className="px-2 py-0.5 bg-green-500/20 text-green-400 rounded text-xs">Completed</span>;
+        return <span className="px-2 py-0.5 bg-green-100 text-green-800 rounded text-xs font-medium">Completed</span>;
       case 'ACTIVE':
-        return <span className="px-2 py-0.5 bg-brand-green/20 text-gray-900 rounded text-xs">Active</span>;
+        return <span className="px-2 py-0.5 bg-brand-green/30 text-gray-900 rounded text-xs font-medium">Active</span>;
       default:
-        return <span className="px-2 py-0.5 bg-gray-500/20 text-brand-grey rounded text-xs">Draft</span>;
+        return <span className="px-2 py-0.5 bg-gray-200 text-gray-700 rounded text-xs font-medium">Draft</span>;
     }
   };
 
@@ -134,19 +134,19 @@ function AssessmentRow({ assessment }: { assessment: DemoAssessment }) {
     switch (assessment.recommendation) {
       case 'GO':
         return (
-          <span className="flex items-center gap-1 px-2 py-0.5 bg-green-500/20 text-green-400 rounded text-xs">
+          <span className="flex items-center gap-1 px-2 py-0.5 bg-green-100 text-green-800 rounded text-xs font-semibold">
             <CheckCircle className="w-3 h-3" /> GO
           </span>
         );
       case 'CLARIFY':
         return (
-          <span className="flex items-center gap-1 px-2 py-0.5 bg-amber-500/20 text-amber-400 rounded text-xs">
+          <span className="flex items-center gap-1 px-2 py-0.5 bg-amber-100 text-amber-800 rounded text-xs font-semibold">
             <AlertTriangle className="w-3 h-3" /> CLARIFY
           </span>
         );
       case 'NO_GO':
         return (
-          <span className="flex items-center gap-1 px-2 py-0.5 bg-red-500/20 text-red-400 rounded text-xs">
+          <span className="flex items-center gap-1 px-2 py-0.5 bg-red-100 text-red-800 rounded text-xs font-semibold">
             <XCircle className="w-3 h-3" /> NO-GO
           </span>
         );
@@ -154,7 +154,7 @@ function AssessmentRow({ assessment }: { assessment: DemoAssessment }) {
   };
 
   return (
-    <div className="flex items-center justify-between p-4 bg-white/50 hover:bg-white rounded-xl border border-brand-grey-medium transition-colors">
+    <div className="flex items-center justify-between p-4 bg-white hover:bg-brand-grey-light rounded-xl border border-brand-grey-medium transition-colors text-gray-900">
       <div className="flex items-center gap-4">
         <div className={`w-10 h-10 rounded-lg flex items-center justify-center ${
           assessment.recommendation === 'GO' ? 'bg-green-500/20' :
@@ -163,9 +163,9 @@ function AssessmentRow({ assessment }: { assessment: DemoAssessment }) {
           'bg-brand-grey-light'
         }`}>
           <FileText className={`w-5 h-5 ${
-            assessment.recommendation === 'GO' ? 'text-green-400' :
-            assessment.recommendation === 'CLARIFY' ? 'text-amber-400' :
-            assessment.recommendation === 'NO_GO' ? 'text-red-400' :
+            assessment.recommendation === 'GO' ? 'text-green-700' :
+            assessment.recommendation === 'CLARIFY' ? 'text-amber-700' :
+            assessment.recommendation === 'NO_GO' ? 'text-red-700' :
             'text-brand-grey'
           }`} />
         </div>
@@ -233,10 +233,10 @@ export default function DemoDashboardPage() {
                 Switch User
               </Button>
             </Link>
-            <div className="flex items-center gap-2 px-3 py-1.5 bg-brand-grey-light rounded-lg">
+            <div className="flex items-center gap-2 px-3 py-1.5 bg-white rounded-lg text-gray-900">
               <span className="text-2xl">👔</span>
               <div>
-                <p className="text-sm font-medium">{userName}</p>
+                <p className="text-sm font-medium text-gray-900">{userName}</p>
                 <p className="text-xs text-brand-grey">Executive Sponsor</p>
               </div>
             </div>
@@ -297,10 +297,10 @@ export default function DemoDashboardPage() {
         {/* Recent Activity */}
         <div className="mt-12">
           <h2 className="text-xl font-semibold mb-4">Recent Activity</h2>
-          <div className="bg-white rounded-xl border border-brand-grey-medium divide-y divide-gray-800">
+          <div className="bg-white rounded-xl border border-brand-grey-medium divide-y divide-gray-200 text-gray-900">
             <div className="p-4 flex items-center gap-4">
               <div className="w-8 h-8 rounded-full bg-green-500/20 flex items-center justify-center">
-                <CheckCircle className="w-4 h-4 text-green-400" />
+                <CheckCircle className="w-4 h-4 text-green-700" />
               </div>
               <div className="flex-1">
                 <p className="text-sm"><strong>Customer Service AI</strong> assessment completed with GO recommendation</p>
@@ -318,7 +318,7 @@ export default function DemoDashboardPage() {
             </div>
             <div className="p-4 flex items-center gap-4">
               <div className="w-8 h-8 rounded-full bg-amber-500/20 flex items-center justify-center">
-                <AlertTriangle className="w-4 h-4 text-amber-400" />
+                <AlertTriangle className="w-4 h-4 text-amber-700" />
               </div>
               <div className="flex-1">
                 <p className="text-sm"><strong>Data Lake</strong> assessment flagged for ownership diffusion</p>
@@ -330,7 +330,7 @@ export default function DemoDashboardPage() {
 
         {/* Back to demo */}
         <div className="mt-8 text-center">
-          <Link href="/demo/login" className="text-gray-900 hover:text-black underline text-sm">
+          <Link href="/demo/login" className="text-brand-green hover:text-white underline text-sm">
             ← Switch demo user
           </Link>
         </div>
