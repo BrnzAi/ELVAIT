@@ -375,7 +375,7 @@ export default function DemoPage() {
 
         <main className="max-w-4xl mx-auto px-6 py-16">
           <div className="text-center mb-12">
-            <div className="inline-flex items-center gap-2 px-4 py-2 bg-brand-green/10 rounded-full text-black text-brand-green/80 mb-6">
+            <div className="inline-flex items-center gap-2 px-4 py-2 bg-brand-green/10 rounded-full text-gray-900 mb-6">
               <Play className="w-4 h-4" />
               Demo Mode
             </div>
@@ -490,7 +490,7 @@ export default function DemoPage() {
                     <span className="text-red-600">{scenario.flags.length} flag(s)</span>
                   )}
                 </div>
-                <div className="mt-3 text-sm font-medium text-brand-green flex items-center gap-1">
+                <div className="mt-3 text-sm font-medium text-gray-900 flex items-center gap-1">
                   View results <ChevronRight className="w-4 h-4" />
                 </div>
               </button>

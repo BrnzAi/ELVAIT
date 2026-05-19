@@ -200,7 +200,7 @@ export default function DemoSurveyPage() {
             </div>
 
             <div className="p-4 bg-brand-green/10 border border-brand-green/20 border-brand-green/30 rounded-lg mb-8">
-              <p className="text-sm text-brand-green text-brand-green/80">
+              <p className="text-sm text-gray-800">
                 <strong>How your answers will be used:</strong> Your responses will be compared across roles to identify alignment, contradictions, and blind spots. This is not a performance evaluation — differences in perspective are signals, not errors.
               </p>
             </div>
@@ -212,7 +212,7 @@ export default function DemoSurveyPage() {
           </div>
 
           <div className="mt-4 text-center">
-            <Link href="/demo/login" className="text-brand-green hover:text-brand-green text-brand-green text-sm">
+            <Link href="/demo/login" className="text-gray-900 hover:text-black underline text-sm">
               ← Switch demo user
             </Link>
           </div>
@@ -274,7 +274,7 @@ export default function DemoSurveyPage() {
       <main className="max-w-3xl mx-auto px-6 py-12">
         <div className="bg-white rounded-xl border border-gray-200 p-8">
           <div className="mb-8">
-            <span className="text-sm text-brand-green text-brand-green font-medium">Question {currentIndex + 1}</span>
+            <span className="text-sm text-gray-900 font-medium">Question {currentIndex + 1}</span>
             <h2 className="text-xl font-semibold mt-2">{currentQuestion.text}</h2>
           </div>
 

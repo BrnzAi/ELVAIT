@@ -409,3 +409,29 @@ body {
     font-weight: 600 !important;
   }
 }
+
+/* Accessibility: the brand lime is excellent as an accent/background, but too pale as text on light UI. */
+.bg-white .text-brand-green,
+.bg-gray-50 .text-brand-green,
+.text-gray-900 .text-brand-green,
+.text-black .text-brand-green {
+  color: #4f7f1f !important;
+}
+
+.bg-white .border-brand-green,
+.bg-gray-50 .border-brand-green,
+.text-gray-900 .border-brand-green {
+  border-color: #6b9f2a !important;
+}
+
+.bg-white .hover\:text-brand-green\/80:hover,
+.bg-gray-50 .hover\:text-brand-green\/80:hover,
+.bg-white .hover\:text-brand-green:hover,
+.bg-gray-50 .hover\:text-brand-green:hover {
+  color: #365f13 !important;
+}
+
+.bg-white .bg-brand-green.text-white,
+.bg-gray-50 .bg-brand-green.text-white {
+  color: #000000 !important;
+}

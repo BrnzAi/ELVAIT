@@ -123,7 +123,7 @@ function AssessmentRow({ assessment }: { assessment: DemoAssessment }) {
       case 'COMPLETED':
         return <span className="px-2 py-0.5 bg-green-500/20 text-green-400 rounded text-xs">Completed</span>;
       case 'ACTIVE':
-        return <span className="px-2 py-0.5 bg-brand-green/10 text-brand-green rounded text-xs">Active</span>;
+        return <span className="px-2 py-0.5 bg-brand-green/20 text-gray-900 rounded text-xs">Active</span>;
       default:
         return <span className="px-2 py-0.5 bg-gray-500/20 text-brand-grey rounded text-xs">Draft</span>;
     }
@@ -330,7 +330,7 @@ export default function DemoDashboardPage() {
 
         {/* Back to demo */}
         <div className="mt-8 text-center">
-          <Link href="/demo/login" className="text-brand-green hover:text-brand-green/80 text-sm">
+          <Link href="/demo/login" className="text-gray-900 hover:text-black underline text-sm">
             ← Switch demo user
           </Link>
         </div>
