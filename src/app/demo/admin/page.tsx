@@ -242,10 +242,12 @@ export default function AdminDashboardPage() {
               <h1 className="text-2xl font-bold">Dashboard</h1>
               <p className="text-brand-grey text-sm mt-1">Overview of ELVAIT platform activity</p>
             </div>
-            <Button>
-              <Plus className="w-4 h-4 mr-2" />
-              New Assessment
-            </Button>
+            <Link href="/demo">
+              <Button>
+                <Plus className="w-4 h-4 mr-2" />
+                New Assessment
+              </Button>
+            </Link>
           </div>
 
           {/* Stats Grid */}
