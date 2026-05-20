@@ -189,9 +189,9 @@ function AssessmentRow({ assessment }: { assessment: DemoAssessment }) {
         )}
         {getRecommendationBadge()}
         <Link href={`/demo/results/${assessment.id}`}>
-          <Button variant="ghost" size="sm">
+          <Button variant="ghost" size="sm" title={`View results for ${assessment.title}`}>
             <Eye className="w-4 h-4 mr-1" />
-            View
+            View Results
           </Button>
         </Link>
       </div>

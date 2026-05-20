@@ -13,6 +13,13 @@ import ProcessEditor, { ProcessEntry } from '@/components/cases/ProcessEditor';
 
 type KitVariant = 'QUICK_CHECK' | 'CORE' | 'FULL' | 'PROCESS_STANDALONE';
 
+interface ParticipantSelection {
+  role: string;
+  selected: boolean;
+  name: string;
+  email: string;
+}
+
 interface FormData {
   variant: KitVariant;
   decisionTitle: string;
@@ -22,6 +29,7 @@ interface FormData {
   timeHorizon: string;
   estimatedInvestment: string;
   processes: ProcessEntry[];
+  participants: ParticipantSelection[];
   dCtx1: string;
   dCtx2: string;
   dCtx3: string;
@@ -75,6 +83,32 @@ const VARIANTS = [
   }
 ];
 
+
+const ROLE_LABELS: Record<string, string> = {
+  EXEC: 'Executive Sponsor',
+  BUSINESS_OWNER: 'Business Owner',
+  TECH_OWNER: 'Technical Owner',
+  PROCESS_OWNER: 'Process Owner',
+  USER: 'User Representative'
+};
+
+const VARIANT_PARTICIPANT_ROLES: Record<KitVariant, string[]> = {
+  QUICK_CHECK: ['EXEC'],
+  CORE: ['EXEC', 'BUSINESS_OWNER', 'TECH_OWNER'],
+  FULL: ['EXEC', 'BUSINESS_OWNER', 'TECH_OWNER', 'PROCESS_OWNER', 'USER'],
+  PROCESS_STANDALONE: ['PROCESS_OWNER']
+};
+
+const createParticipantSelections = (variant: KitVariant, existing: ParticipantSelection[] = []): ParticipantSelection[] => {
+  const existingByRole = new Map(existing.map(participant => [participant.role, participant]));
+  return VARIANT_PARTICIPANT_ROLES[variant].map(role => existingByRole.get(role) ?? {
+    role,
+    selected: true,
+    name: '',
+    email: ''
+  });
+};
+
 const INVESTMENT_TYPES = [
   'AI solution / automation',
   'Software / digital tool',
@@ -110,6 +144,13 @@ const DEMO_FORM_DATA: FormData = {
     { name: 'Lead Capture & Qualification', description: 'Capture inbound leads, enrich profiles, qualify interest, and route opportunities to sales.', weight: 35 },
     { name: 'Campaign Nurturing', description: 'Automated multi-step campaigns for segmented audiences and lifecycle stages.', weight: 35 },
     { name: 'CRM Handoff & Attribution', description: 'Synchronize campaign engagement with CRM ownership, pipeline stages, and reporting.', weight: 30 }
+  ],
+  participants: [
+    { role: 'EXEC', selected: true, name: 'Emma Executive', email: '' },
+    { role: 'BUSINESS_OWNER', selected: true, name: 'Brian Business', email: '' },
+    { role: 'TECH_OWNER', selected: true, name: 'Tina Tech', email: '' },
+    { role: 'PROCESS_OWNER', selected: true, name: 'Paula Process', email: '' },
+    { role: 'USER', selected: true, name: 'Uma User', email: '' }
   ],
   dCtx1: 'Whether to invest in HubSpot Marketing Hub Enterprise as the central platform for lead nurturing, campaign automation, and marketing-to-sales handoff.',
   dCtx2: '30% increase in qualified leads, faster follow-up, clearer attribution, and less manual campaign coordination between marketing and sales.',
@@ -148,6 +189,7 @@ function CreateCaseContent() {
     timeHorizon: '',
     estimatedInvestment: '',
     processes: [{ name: 'Main Process', description: '', weight: 100 }],
+    participants: createParticipantSelections('CORE'),
     dCtx1: '',
     dCtx2: '',
     dCtx3: '',
@@ -190,8 +232,25 @@ function CreateCaseContent() {
     checkCaseLimit();
   }, [sessionStatus, isDemoMode]);
 
-  const updateField = (field: keyof FormData, value: string | string[] | ProcessEntry[]) => {
+  const updateField = (field: keyof FormData, value: string | string[] | ProcessEntry[] | ParticipantSelection[]) => {
     setFormData(prev => ({ ...prev, [field]: value }));
+  };
+
+  const selectVariant = (variant: KitVariant) => {
+    setFormData(prev => ({
+      ...prev,
+      variant,
+      participants: createParticipantSelections(variant, prev.participants)
+    }));
+  };
+
+  const updateParticipant = (role: string, updates: Partial<ParticipantSelection>) => {
+    setFormData(prev => ({
+      ...prev,
+      participants: prev.participants.map(participant =>
+        participant.role === role ? { ...participant, ...updates } : participant
+      )
+    }));
   };
 
   const handleSubmit = async () => {
@@ -220,6 +279,27 @@ function CreateCaseContent() {
       }
       
       const newCase = await response.json();
+
+      const selectedParticipants = formData.participants.filter(participant => participant.selected);
+      if (selectedParticipants.length > 0) {
+        await Promise.all(selectedParticipants.map(participant =>
+          fetch(`/api/cases/${newCase.id}/participants`, {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify({
+              role: participant.role,
+              name: participant.name.trim() || null,
+              email: participant.email.trim() || null
+            })
+          }).then(async participantResponse => {
+            if (!participantResponse.ok) {
+              const data = await participantResponse.json().catch(() => ({}));
+              throw new Error(data.error || `Failed to add ${ROLE_LABELS[participant.role] || participant.role}`);
+            }
+          })
+        ));
+      }
+
       router.push(`/cases/${newCase.id}`);
     } catch (err) {
       setError(err instanceof Error ? err.message : 'Something went wrong. Please check all fields and try again.');
@@ -260,6 +340,7 @@ function CreateCaseContent() {
                      formData.dCtx2.length > 0 && 
                      formData.dCtx3.length > 0 && 
                      formData.dCtx4.length > 0;
+      case 4: return formData.participants.some(participant => participant.selected);
       default: return true;
     }
   };
@@ -368,7 +449,7 @@ function CreateCaseContent() {
             <Brain className="w-6 h-6 text-brand-green" />
             <span className="font-semibold">New Assessment</span>
           </div>
-          <div className="text-sm text-gray-500">Step {step} of 3</div>
+          <div className="text-sm text-gray-500">Step {step} of 4</div>
         </div>
       </header>
 
@@ -378,7 +459,7 @@ function CreateCaseContent() {
           <div className="h-1 bg-gray-200 rounded-full overflow-hidden">
             <div 
               className="h-full bg-brand-green transition-all duration-300"
-              style={{ width: `${(step / 3) * 100}%` }}
+              style={{ width: `${(step / 4) * 100}%` }}
             />
           </div>
         </div>
@@ -414,7 +495,7 @@ function CreateCaseContent() {
                 return (
                 <button
                   key={variant.id}
-                  onClick={() => !isLocked && updateField('variant', variant.id)}
+                  onClick={() => !isLocked && selectVariant(variant.id)}
                   disabled={isLocked}
                   className={`p-6 rounded-xl border-2 text-left transition-all ${
                     isLocked
@@ -683,6 +764,64 @@ function CreateCaseContent() {
           </div>
         )}
 
+        {/* Step 4: Survey Participants */}
+        {step === 4 && (
+          <div>
+            <h1 className="text-3xl font-bold mb-2">Select Survey Participants</h1>
+            <p className="text-gray-600 mb-8">
+              Choose who should answer the assessment survey. You can add names and emails now, or leave them blank and copy survey links later.
+            </p>
+
+            <div className="space-y-4">
+              {formData.participants.map(participant => (
+                <div key={participant.role} className={`p-5 rounded-xl border-2 transition-all ${
+                  participant.selected ? 'border-brand-green bg-brand-green/10' : 'border-gray-200 bg-white'
+                }`}>
+                  <div className="flex items-start gap-3">
+                    <input
+                      type="checkbox"
+                      checked={participant.selected}
+                      onChange={e => updateParticipant(participant.role, { selected: e.target.checked })}
+                      className="mt-1 w-4 h-4 accent-brand-green"
+                    />
+                    <div className="flex-1">
+                      <div className="flex items-center justify-between gap-3 mb-3">
+                        <div>
+                          <h3 className="font-semibold">{ROLE_LABELS[participant.role] || participant.role}</h3>
+                          <p className="text-sm text-gray-500">{participant.role.replace('_', ' ')}</p>
+                        </div>
+                        {participant.selected && (
+                          <span className="px-2 py-1 rounded-full bg-brand-green text-black text-xs font-medium">Included</span>
+                        )}
+                      </div>
+
+                      {participant.selected && (
+                        <div className="grid md:grid-cols-2 gap-3">
+                          <Input
+                            placeholder="Name (optional)"
+                            value={participant.name}
+                            onChange={e => updateParticipant(participant.role, { name: e.target.value })}
+                          />
+                          <Input
+                            placeholder="Email (optional)"
+                            type="email"
+                            value={participant.email}
+                            onChange={e => updateParticipant(participant.role, { email: e.target.value })}
+                          />
+                        </div>
+                      )}
+                    </div>
+                  </div>
+                </div>
+              ))}
+            </div>
+
+            <p className="mt-4 text-sm text-gray-500">
+              Selected participants will receive individual survey links after the assessment is created.
+            </p>
+          </div>
+        )}
+
         {/* Navigation */}
         <div className="flex items-center justify-between mt-12 pt-6 border-t border-gray-200">
           <Button
@@ -694,7 +833,7 @@ function CreateCaseContent() {
             Back
           </Button>
 
-          {step < 3 ? (
+          {step < 4 ? (
             <Button
               onClick={() => setStep(s => s + 1)}
               disabled={!canProceed()}
