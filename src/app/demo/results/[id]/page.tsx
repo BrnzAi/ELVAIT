@@ -173,19 +173,21 @@ function DimensionBar({ dimension }: { dimension: Assessment['dimensions'][0] })
   return (
     <div className="bg-white rounded-lg border border-brand-grey-medium overflow-hidden">
       <button onClick={() => setExpanded(!expanded)} className="w-full p-4 flex items-center justify-between hover:bg-brand-grey-light/50 transition-colors">
-        <div className="flex items-center gap-4 flex-1">
-          <span className="text-sm font-mono text-brand-grey w-8">{dimension.code}</span>
-          <div className="flex-1">
-            <div className="flex items-center justify-between mb-1">
-              <span className="font-medium">{dimension.name}</span>
-              <span className={`font-bold ${dimension.score >= 75 ? 'text-green-400' : dimension.score >= 50 ? 'text-amber-400' : 'text-red-400'}`}>{dimension.score}</span>
+        <div className="flex items-center gap-4 flex-1 min-w-0">
+          <div className="w-9 h-9 rounded-lg bg-brand-green/10 flex items-center justify-center flex-shrink-0">
+            <TrendingUp className="w-4 h-4 text-brand-green" />
+          </div>
+          <div className="flex-1 min-w-0">
+            <div className="flex items-center justify-between gap-3 mb-1">
+              <span className="font-medium text-left truncate">{dimension.name}</span>
+              <span className={`font-bold flex-shrink-0 ${dimension.score >= 75 ? 'text-green-400' : dimension.score >= 50 ? 'text-amber-400' : 'text-red-400'}`}>{dimension.score}</span>
             </div>
             <div className="h-2 bg-brand-grey-light rounded-full overflow-hidden">
               <div className={`h-full ${color} transition-all duration-500`} style={{ width: `${dimension.score}%` }} />
             </div>
           </div>
         </div>
-        <ChevronDown className={`w-5 h-5 text-brand-grey ml-4 transition-transform ${expanded ? 'rotate-180' : ''}`} />
+        <ChevronDown className={`w-5 h-5 text-brand-grey ml-4 flex-shrink-0 transition-transform ${expanded ? 'rotate-180' : ''}`} />
       </button>
       {expanded && (
         <div className="px-4 pb-4 border-t border-brand-grey-medium">
@@ -257,7 +259,7 @@ export default function DemoResultsByIdPage() {
         </div>
       </header>
 
-      <main className="max-w-5xl mx-auto px-6 py-8 relative z-10">
+      <main className="max-w-5xl mx-auto px-6 pt-8 pb-20 relative z-10">
         {/* Assessment Header */}
         <div className="bg-white rounded-xl border border-brand-grey-medium p-6 mb-6">
           <div className="flex flex-col md:flex-row md:items-center justify-between gap-6">

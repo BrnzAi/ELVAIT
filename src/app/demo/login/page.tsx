@@ -241,7 +241,7 @@ export default function DemoLoginPage() {
         </div>
       </header>
 
-      <main className="max-w-6xl mx-auto px-6 py-12">
+      <main className="max-w-6xl mx-auto px-6 pt-12 pb-20">
         {/* Demo Banner */}
         <div className="flex items-center justify-center gap-2 px-4 py-2 bg-amber-500/10 border border-amber-500/30 rounded-full w-fit mx-auto mb-8">
           <Info className="w-4 h-4 text-amber-500" />
@@ -302,23 +302,23 @@ export default function DemoLoginPage() {
         </div>
 
         {/* How it works */}
-        <div className="mt-16 p-6 bg-white rounded-2xl border border-brand-grey-medium">
+        <div className="mt-16 p-6 bg-white rounded-2xl border border-brand-grey-medium text-gray-900">
           <h3 className="font-semibold mb-4">How the demo works</h3>
-          <div className="space-y-3 text-sm text-brand-grey">
-            <div className="flex items-start gap-2">
-              <CheckCircle className="w-4 h-4 text-brand-green mt-0.5" />
-              <span><strong className="text-white">Admin</strong> can access the admin panel, manage users, and view all assessments</span>
+          <div className="space-y-3 text-sm text-gray-600">
+            <div className="flex items-start gap-3">
+              <CheckCircle className="w-4 h-4 text-brand-green mt-0.5 flex-shrink-0" />
+              <span><strong className="text-gray-900">Admin</strong> can access the admin panel, manage users, and view all assessments</span>
             </div>
-            <div className="flex items-start gap-2">
-              <CheckCircle className="w-4 h-4 text-brand-green mt-0.5" />
-              <span><strong className="text-white">Executive Sponsor</strong> can create new assessments and invite participants</span>
+            <div className="flex items-start gap-3">
+              <CheckCircle className="w-4 h-4 text-brand-green mt-0.5 flex-shrink-0" />
+              <span><strong className="text-gray-900">Executive Sponsor</strong> can create new assessments and invite participants</span>
             </div>
-            <div className="flex items-start gap-2">
-              <CheckCircle className="w-4 h-4 text-brand-green mt-0.5" />
-              <span><strong className="text-white">Other roles</strong> see their assigned surveys and can complete them</span>
+            <div className="flex items-start gap-3">
+              <CheckCircle className="w-4 h-4 text-brand-green mt-0.5 flex-shrink-0" />
+              <span><strong className="text-gray-900">Other roles</strong> see their assigned surveys and can complete them</span>
             </div>
-            <div className="flex items-start gap-2">
-              <CheckCircle className="w-4 h-4 text-brand-green mt-0.5" />
+            <div className="flex items-start gap-3">
+              <CheckCircle className="w-4 h-4 text-brand-green mt-0.5 flex-shrink-0" />
               <span>Switch between users anytime to see different perspectives</span>
             </div>
           </div>
