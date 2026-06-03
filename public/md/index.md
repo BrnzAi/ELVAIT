@@ -16,6 +16,7 @@ Protected documentation hub. All files require authentication.
 
 | Document | Date | Description |
 |----------|------|-------------|
+| Report 2026-06-03 | Jun 3 | Daily maintenance — docs refreshed, 678 tests passing |
 | [Report 2026-02-19](/md/report-2026-02-19.md) | Feb 19 | Authentication release |
 | [Report 2026-02-12](/md/2026-02-12-report.md) | Feb 12 | v1.0 Production ready |
 | [Report 2026-02-13](/md/report-2026-02-13.html) | Feb 13 | Dashboard & PDF export |
@@ -57,4 +58,4 @@ Protected documentation hub. All files require authentication.
 
 ---
 
-*ELVAIT v1.1 — Last updated: 2026-02-20*
+*ELVAIT v1.1 — Last updated: 2026-06-03*
