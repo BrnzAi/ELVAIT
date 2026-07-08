@@ -1,0 +1,118 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="UTF-8">
+  <title>ELVAIT - Dev Report 2026-07-08</title>
+  <style>
+    body {
+      font-family: 'Segoe UI', Arial, sans-serif;
+      max-width: 900px;
+      margin: 40px auto;
+      padding: 40px;
+      color: #1a1a1a;
+      line-height: 1.7;
+      background: #fafafa;
+    }
+    h1 {
+      color: #2563eb;
+      border-bottom: 3px solid #2563eb;
+      padding-bottom: 10px;
+      font-size: 28px;
+    }
+    h2 {
+      color: #1e40af;
+      margin-top: 32px;
+      font-size: 20px;
+      border-left: 4px solid #2563eb;
+      padding-left: 15px;
+    }
+    .meta, .footer {
+      color: #6b7280;
+      font-size: 14px;
+    }
+    .panel {
+      background: white;
+      border: 1px solid #e5e7eb;
+      border-radius: 8px;
+      padding: 20px;
+      margin: 20px 0;
+      box-shadow: 0 1px 3px rgba(0,0,0,0.08);
+    }
+    .success {
+      background: #dcfce7;
+      border-left: 4px solid #22c55e;
+      padding: 16px 20px;
+      border-radius: 0 8px 8px 0;
+      margin: 20px 0;
+    }
+    code {
+      background: #f3f4f6;
+      padding: 2px 6px;
+      border-radius: 4px;
+      font-family: 'Fira Code', monospace;
+      font-size: 13px;
+    }
+    a {
+      color: #2563eb;
+    }
+    li {
+      margin: 8px 0;
+    }
+    .footer {
+      margin-top: 48px;
+      padding-top: 20px;
+      border-top: 1px solid #e5e7eb;
+    }
+  </style>
+</head>
+<body>
+  <h1>ELVAIT - Dev Report</h1>
+
+  <div class="meta">
+    <strong>Date:</strong> 2026-07-08<br>
+    <strong>Type:</strong> Daily documentation and PRD maintenance<br>
+    <strong>Status:</strong> Complete
+  </div>
+
+  <div class="success">
+    <strong>Daily test run passed:</strong> 15 test files, 678 tests, 678 passed, 0 failed, 923ms.
+  </div>
+
+  <h2>Summary</h2>
+  <div class="panel">
+    <ul>
+      <li>Updated test result documentation for the 2026-07-08 Vitest run.</li>
+      <li>Documented PRD v2.4, synchronizing the internal requirements docs with the implemented product and deployment state.</li>
+      <li>Updated the diary and documentation index with today's maintenance summary.</li>
+      <li>No new test files were added, so the test case catalog remains unchanged.</li>
+    </ul>
+  </div>
+
+  <h2>PRD v2.4 Scope</h2>
+  <div class="panel">
+    <ul>
+      <li>Production architecture corrected to PostgreSQL, Prisma, GitHub Actions, Workload Identity Federation, and Google Cloud Run.</li>
+      <li>Authentication, email verification, password reset, admin tier management, and case claim flows reflected in the product requirements.</li>
+      <li>Results Gate, tier-based visibility, PDF export eligibility, and subscription tiers documented.</li>
+      <li>Process Naming requirements and implemented data model captured.</li>
+      <li>Roadmap and completed capabilities brought in line with current implementation.</li>
+    </ul>
+  </div>
+
+  <h2>Verification</h2>
+  <div class="panel">
+    <p><code>npm test</code></p>
+    <ul>
+      <li>Test files: 15 passed</li>
+      <li>Tests: 678 passed</li>
+      <li>Failures: 0</li>
+      <li>Duration: 923ms</li>
+    </ul>
+    <p>The suite still prints the known <code>ui-components.test.ts</code> button-handler false-positive note; it does not fail the run.</p>
+  </div>
+
+  <div class="footer">
+    <p><a href="/md/index.html">Back to Documentation</a></p>
+  </div>
+</body>
+</html>

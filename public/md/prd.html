@@ -176,8 +176,8 @@
   
   <div class="meta">
     <strong>Product:</strong> Clarity Before Automation Kit<br>
-    <strong>Version:</strong> 2.2<br>
-    <strong>Last Updated:</strong> 2026-02-24<br>
+    <strong>Version:</strong> 2.4<br>
+    <strong>Last Updated:</strong> 2026-07-07<br>
     <strong>Status:</strong> Production<br>
     <strong>URL:</strong> <a href="https://elvait.ai">https://elvait.ai</a>
   </div>
@@ -186,6 +186,7 @@
     <h3>📋 Version History</h3>
     <table>
       <tr><th>Version</th><th>Date</th><th>Changes</th></tr>
+      <tr><td>2.4</td><td>2026-07-07</td><td>Synchronized Markdown PRD with implemented v2.x product state; corrected PostgreSQL/Cloud Run deployment, auth, tiers, results gate, PDF export, case claim, and process naming details</td></tr>
       <tr><td>2.3</td><td>2026-02-24</td><td>Process Naming feature, updated assessment type descriptions &amp; roles, Process Check → Process Readiness Scan</td></tr>
       <tr><td>2.2</td><td>2026-02-24</td><td>Custom Roles feature, pricing updates (removed Free from /pricing), SMTP fix</td></tr>
       <tr><td>2.1</td><td>2026-02-23</td><td>New pricing structure, Results Gate tiers, email verification required</td></tr>
@@ -1031,7 +1032,7 @@ AdjustedValue = RawValue      if is_reverse = false</code></pre>
     </tr>
     <tr>
       <td>Hosting</td>
-      <td>Vercel</td>
+      <td>Google Cloud Run</td>
     </tr>
     <tr>
       <td>Domain</td>
@@ -1113,17 +1114,17 @@ DecisionCase (1) ──┬── Participants (N)
     </tr>
     <tr>
       <td>Preview</td>
-      <td>Vercel preview URLs</td>
-      <td>PR branches</td>
+      <td>GitHub Actions PR checks</td>
+      <td>pull_request to main</td>
     </tr>
   </table>
 
   <h3>15.2 CI/CD Pipeline</h3>
   <ol>
-    <li>Push to <code>main</code> triggers Vercel deployment</li>
-    <li>Build runs (<code>prisma generate && next build</code>)</li>
-    <li>678 automated tests run via Vitest</li>
-    <li>Zero-downtime deployment on success</li>
+    <li>Push to <code>main</code> triggers GitHub Actions</li>
+    <li>Test job installs Node 20, runs <code>prisma generate</code>, and runs Vitest</li>
+    <li>Deploy job uses Workload Identity Federation</li>
+    <li>Cloud Run deploys from source to <code>europe-west1</code> on port 3002</li>
   </ol>
 
   <h2 id="process-naming" class="section-new">16. Process Naming <span class="tag new">NEW in v2.3</span></h2>
@@ -1223,15 +1224,15 @@ model ParticipantProcess {
     <li>Pricing page with 5 plans and comparison table</li>
     <li>Contact form with email notification</li>
     <li>Landing page with Results Gate messaging</li>
+    <li>Case claim flow (link anonymous cases to account)</li>
+    <li>PDF export module</li>
   </ul>
 
   <h3>Phase 2 (Planned)</h3>
   <ul>
     <li>Email invitations for participants</li>
-    <li>PDF report generation</li>
-    <li>Google OAuth</li>
-    <li>Case claim flow (link anonymous cases to account)</li>
     <li>Stripe payment integration</li>
+    <li>Google OAuth</li>
   </ul>
 
   <h3>Phase 3 (Considered)</h3>
@@ -1244,10 +1245,10 @@ model ParticipantProcess {
   </ul>
 
   <div class="footer">
-    <p><strong>ELVAIT PRD v2.3</strong> — February 2026</p>
+    <p><strong>ELVAIT PRD v2.4</strong> — July 2026</p>
     <p>Document maintained by ELVAIT development team</p>
     <p><a href="/md/index.html">← Back to Documentation</a></p>
   </div>
 </body>
 </html>
-<!-- Updated: Sun Feb 23 07:45:00 PM CET 2026 -->
+<!-- Updated: Tue Jul 07 03:55:00 PM CEST 2026 -->

@@ -16,6 +16,7 @@ Protected documentation hub. All files require authentication.
 
 | Document | Date | Description |
 |----------|------|-------------|
+| [Report 2026-07-08](/md/2026-07-08-dev-report.html) | Jul 8 | PRD v2.4 documentation sync, daily docs refreshed, 678 tests passing |
 | Report 2026-06-04 | Jun 4 | Daily maintenance — docs refreshed, 678 tests passing |
 | Report 2026-06-03 | Jun 3 | Daily maintenance — docs refreshed, 678 tests passing |
 | [Report 2026-02-19](/md/report-2026-02-19.md) | Feb 19 | Authentication release |
@@ -59,4 +60,4 @@ Protected documentation hub. All files require authentication.
 
 ---
 
-*ELVAIT v1.1 — Last updated: 2026-06-04*
+*ELVAIT v2.4 — Last updated: 2026-07-08*
